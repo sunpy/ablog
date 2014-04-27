@@ -1,0 +1,48 @@
+{#
+    _template/archive.html
+    ~~~~~~~~~~~~~~~~~~~~~~~
+
+    Template for post lists.
+#}
+{%- extends "layout.html" %}
+{% block body %}
+
+  <style type="text/css">
+    ul.ablog-archive {list-style: none; overflow: auto; margin-left: 0px}
+    ul.ablog-archive li {float: left; margin-right: 5px; font-size: 80%}
+  </style>
+
+
+  {% set fa = ablog.fontawesome %}
+
+  {% for archive in catalog %}
+  <div class="section">
+
+    <h1>{{ title }}
+      {% if archive.href %}
+      <a href="{{ archive.href }}">{{ archive }}</a>
+      {% else %}
+      {{ archive }}
+      {% endif %}
+    </h1>
+    {% for post in archive %}
+    <div class="section">
+      <h2><a href="{{ pathto(post.docname) }}">{{ post.title }}</a></h2>
+
+      <ul class="ablog-archive">
+      <li>{% if post.published %}
+      {% if fa %}<i class="fa fa-calendar"></i>{% endif %}
+        {{ post.date.strftime("%b %d, %Y") }}
+      {% else %}
+        {% if fa %}<i class="fa fa-pencil"></i>{% endif %}
+        {% if post.date %}{{ post.date.strftime("%b %d, %Y") }}
+        {% else %} Draft {% endif %}
+      {% endif %}
+      </li>
+      {% include "postcard2.html" %}</ul>
+      <hr>
+    </div>
+    {% endfor %}
+  </div>
+  {% endfor %}
+{% endblock %}

@@ -1,0 +1,15 @@
+{#
+    template/layout.html
+    ~~~~~~~~~~~~~~~~~~
+
+    Template for posts.
+#}
+{%- extends "!layout.html" %}
+{%- block extrahead %}
+  {{ super() }}
+  <meta http-equiv="refresh" content="{{ ablog.redirect_wait }}; url={{ pathto(redirect) }}" />
+{% endblock %}
+
+{% block body %}
+  You are being redirected to <a href="{{ pathto(redirect) }}">{{ post.title }}</a> in {{ ablog.redirect_wait }} seconds;
+{% endblock %}

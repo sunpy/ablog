@@ -1,0 +1,9 @@
+{% if ablog %}
+  <h3>Recent Posts</h3>
+  <ul>
+    {% set pcount = 1 %}
+    {% for recent in ablog.recent(5, pagename) %}
+      <li><a href="{{ pathto(recent.docname) }}">{{ recent.title }}</a></li>
+    {% endfor %}
+  </ul>
+{% endif %}

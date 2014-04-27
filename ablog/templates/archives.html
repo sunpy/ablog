@@ -1,0 +1,10 @@
+{% if ablog.archive %}
+  <h3>Archives</h3>
+  <ul>
+  {% for coll in ablog.archive %}
+    {% if coll %}
+    <li><a href="{{ pathto(coll.docname) }}">{{ coll }} ({{ coll|length }})</a></li>
+    {% endif %}
+  {% endfor %}
+  </ul>
+{% endif %}
