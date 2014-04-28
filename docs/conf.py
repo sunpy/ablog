@@ -14,8 +14,8 @@ extensions = [
     'sphinx.ext.todo',
     'sphinx.ext.ifconfig',
     'sphinx.ext.extlinks',
-    'IPython.sphinxext.ipython_directive',
-    'IPython.sphinxext.ipython_console_highlighting',
+    #'IPython.sphinxext.ipython_directive',
+    #'IPython.sphinxext.ipython_console_highlighting',
     'alabaster',
     'ablog'
 ]
