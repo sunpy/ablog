@@ -10,17 +10,15 @@ with open('ablog/__init__.py') as inp:
 #    long_description = inp.read()
 
 
-PACKAGES = ['napi']
-
 setup(
-    name='napi',
+    name='ablog',
     version=__version__,
     author='Ahmet Bakan',
     author_email='lordnapi@gmail.com',
     description='ABlog for blogging with Sphinx',
     #long_description=long_description,
     url='http://github.com/abakan/ablog',
-    packages=PACKAGES,
+    packages=['ablog'],
     license='MIT License',
     #keywords=('abstract syntax tree transformer, IPython magic'),
     classifiers=[
@@ -34,5 +32,5 @@ setup(
                  'Programming Language :: Python :: 2',
                  'Programming Language :: Python :: 3',
                 ],
-    provides=['napi ({0:s})'.format(__version__)]
+    provides=['ablog ({0:s})'.format(__version__)]
 )
