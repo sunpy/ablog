@@ -1,0 +1,2 @@
+alabaster==0.6.0
+werkzeug=0.9.4
