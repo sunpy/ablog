@@ -23,7 +23,7 @@ extensions = [
 
 # PROJECT
 
-version = release = '0.1'
+version = release = ablog.__version__
 project = u'ABlog'
 copyright = u'2014, Ahmet Bakan'
 master_doc = 'index'
