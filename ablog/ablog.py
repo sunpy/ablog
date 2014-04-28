@@ -245,17 +245,6 @@ class Post(object):
 
         return (self.date or FUTURE) < (other.date or FUTURE)
 
-
-    def titles(self, pagename):
-        """Return title after resolving references with respect to
-        *pagename*."""
-
-        app = self.ablog.app
-        builder = app.builder
-        title = self._title.deepcopy()
-        app.env.resolve_references(title, pagename, builder)
-        return html_builder_write_doc(builder, pagename, title)
-
     def summary(self, pagename):
         """Return summary after resolving references with respect to
         *pagename*."""
