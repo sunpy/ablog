@@ -12,6 +12,8 @@ from sphinx.environment import dummy_reporter
 
 from .ablog import ABlog, CONFIG
 
+__version__ = '0.1'
+
 
 class PostNode(nodes.Element):
     """Represent ``post`` directive content and options in document tree."""
