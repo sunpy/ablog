@@ -350,6 +350,10 @@ def init_ablog(app):
 
 def register_posts(app):
 
+    for docname, postinfo in getattr(app.env, 'ablog_posts', {}).items():
+        app.ablog.register(docname, postinfo)
+
+    return
     from sphinx.util.console import bold, purple, darkgreen, term_width_line
     ablog_posts = getattr(app.env, 'ablog_posts', {})
     iterator = ablog_posts.keys()
