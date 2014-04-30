@@ -3,6 +3,7 @@
 import os
 import re
 
+import datetime as dtmod
 from datetime import datetime
 from unicodedata import normalize
 
@@ -45,8 +46,7 @@ CONFIG = [
 ]
 
 
-_ = datetime.today()
-TOMORROW = datetime(_.year, _.month, _.day + 1)
+TOMORROW = datetime.today() + dtmod.timedelta(1)
 FUTURE = datetime(9999, 12, 31)
 
 
