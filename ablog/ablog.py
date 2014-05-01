@@ -448,7 +448,7 @@ class Collection(object):
         """Relative size used in tag clouds."""
 
         min_, max_ = self.catalog.minmax()
-        size = int((len(self) - min_) / (max_ - min_) *
+        size = int((len(self) - min_) / max(max_ - min_, 1) *
                    (self.catalog.blog.cloud_size - 1)) + 1
         return size
 
