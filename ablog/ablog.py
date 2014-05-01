@@ -54,7 +54,15 @@ class ABlog(object):
 
     """Handle blog operations."""
 
-    def __init__(self, app):
+    _dict = {}
+
+    def __init__(self, app=None):
+
+        self.__dict__ = self._dict
+        if not self._dict:
+            self._init(app)
+
+    def _init(self, app):
 
         self.app = app
         self.std_domain = self.app.env.domains['std']

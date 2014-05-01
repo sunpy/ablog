@@ -117,7 +117,6 @@ def process_posts(app, doctree):
     env = app.builder.env
     if not hasattr(env, 'ablog_posts'):
         env.ablog_posts = {}
-    ablog = app.ablog
     post_nodes = list(doctree.traverse(PostNode))
     if not post_nodes:
         return
@@ -165,7 +164,7 @@ def process_posts(app, doctree):
     date = node['date']
     if date:
         try:
-            date = datetime.strptime(date, ablog.post_date_format)
+            date = datetime.strptime(date, app.config['post_date_format'])
         except ValueError:
             raise ValueError('invalid post published date in: ' + docname)
     else:
@@ -174,7 +173,7 @@ def process_posts(app, doctree):
     update = node['update']
     if update:
         try:
-            update = datetime.strptime(update, ablog.post_date_format)
+            update = datetime.strptime(update, app.config['post_date_format'])
         except ValueError:
             raise ValueError('invalid post update date in: ' + docname)
     else:
@@ -208,24 +207,25 @@ def process_posts(app, doctree):
     # instantiate catalogs and collections here
     #  so that references are created and no warnings are issued
 
+    ablog = ABlog(app)
     for key in ['tags', 'author', 'category', 'location']:
-        catalog = app.ablog.catalogs[key]
+        catalog = ablog.catalogs[key]
         for label in postinfo[key]:
             catalog[label]
     if postinfo['date']:
-        app.ablog.archive[postinfo['date'].year]
-
+        ablog.archive[postinfo['date'].year]
 
 
 def process_postlist(app, doctree, docname):
     """Replace `PostList` nodes with lists of posts. Also, register all posts
     if they have not been registered yet."""
 
-    if not app.ablog:
+    ablog = ABlog()
+    if not ablog:
         register_posts(app)
 
     for node in doctree.traverse(PostList):
-        posts = list(app.ablog.recent(node.attributes['length'], docname,
+        posts = list(ablog.recent(node.attributes['length'], docname,
                                       **node.attributes))
         if node.attributes['reverse']:
             posts.sort() # in reverse chronological order, so no reverse=True
@@ -237,7 +237,7 @@ def process_postlist(app, doctree, docname):
 
             if True:
                 par.append(nodes.Text(
-                    post.date.strftime(app.ablog.post_date_format) + ' - '))
+                    post.date.strftime(ablog.post_date_format) + ' - '))
 
             bli.append(par)
             ref = nodes.reference()
@@ -261,7 +261,7 @@ def generate_archive_pages(app):
     """Generate archive pages for all posts, categories, tags, authors, and
     drafts."""
 
-    ablog = app.ablog
+    ablog = ABlog(app)
     for post in ablog.posts:
         for redirect in post.redirect:
             yield (redirect, {'redirect': post.docname, 'post': post},
@@ -345,13 +345,14 @@ def init_ablog(app):
     register posts."""
 
     # include in html context so that it can be reached from templates
-    app.config.html_context['ablog'] = app.ablog = ABlog(app)
+    app.config.html_context['ablog'] = ABlog(app)
 
 
 def register_posts(app):
 
+    ablog = ABlog()
     for docname, postinfo in getattr(app.env, 'ablog_posts', {}).items():
-        app.ablog.register(docname, postinfo)
+        ablog.register(docname, postinfo)
 
     return
     from sphinx.util.console import bold, purple, darkgreen, term_width_line
@@ -359,7 +360,7 @@ def register_posts(app):
     iterator = ablog_posts.keys()
     for docname in app.builder.status_iterator(iterator,
         'registering posts... ', purple, 50):
-        app.ablog.register(docname, ablog_posts[docname])
+        ablog.register(docname, ablog_posts[docname])
 
 
 def setup(app):
