@@ -13,11 +13,25 @@ from docutils.io import StringOutput
 from sphinx.util.osutil import relative_uri
 from sphinx.environment import dummy_reporter
 
-def slugify(s):
+def slugify(string):
     """Slugify *s*."""
 
-    n = normalize('NFKD', unicode(s)).encode('ascii', 'ignore')
-    return re.sub(r'[-\s]+', '-', re.sub(r'[^\w\s-]', '', n).strip().lower())
+
+    try:
+        string = unicode(string)
+        py3 = False
+    except NameError:
+        string = str(str)
+        py3 = True
+
+    slug = str(normalize('NFKD', string).encode('ascii', 'ignore'))
+    if py3:
+        slug = re.sub(r'[^\w\s-]', '', slug).strip().lower()
+        slug = re.sub(r'[-\s]+', '-', slug)
+    else:
+        slug = re.sub(r'[^\w\s-]', '', slug).strip().lower()
+        slug = re.sub(r'[-\s]+', '-', slug)
+    return slug
 
 DEBUG = True
 CONFIG = [
@@ -63,6 +77,7 @@ class ABlog(object):
             self._init(app)
 
     def _init(self, app):
+        """Instantiate ABlog."""
 
         self.app = app
         self.std_domain = self.app.env.domains['std']

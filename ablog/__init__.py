@@ -150,7 +150,7 @@ def process_posts(app, doctree):
         for nod in doctree.traverse(nodes.paragraph):
             excerpt.append(nod.deepcopy())
             count += 1
-            if count >= node['excerpt']:
+            if count >= (node['excerpt'] or 0):
                 break
         node.replace_self([])
     if node['image']:
@@ -284,7 +284,7 @@ def generate_archive_pages(app):
             'catalog': catalog,
             'summary': True,
         }
-        yield (catalog.docname, context, 'catalog.html')
+        yield (catalog.docname, context, 'archive.html')
 
         for collection in catalog:
 
@@ -298,17 +298,15 @@ def generate_archive_pages(app):
                 'catalog': [collection],
                 'summary': True,
             }
-            yield (collection.docname, context, 'catalog.html')
+            yield (collection.docname, context, 'archive.html')
 
-    for title, collection in [('Posts', ablog.posts),
-                             ('Drafts', ablog.drafts)]:
-        context = {
-            'parents': [],
-            'title': '',
-            'archive': collection,
-            'summary': True,
-        }
-        yield (collection.docname, context, 'archive.html')
+    context = {
+        'parents': [],
+        'title': 'Drafts',
+        'archive': [ablog.drafts],
+        'summary': True,
+    }
+    yield (collection.docname, context, 'archive.html')
 
     d = ablog.std_domain.data#['labels']
     #l = d.keys()
