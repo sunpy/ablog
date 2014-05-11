@@ -4,6 +4,7 @@
 # You can set these variables from the command line.
 SPHINXOPTS    = -T -P
 SPHINXBUILD   = sphinx-build
+SPHINXBUILD3  = sphinx-build3
 PAPER         =
 BUILDDIR      = _build
 
@@ -56,8 +57,18 @@ html:
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
 
+html3:
+	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
+	@echo
+	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
+
 dirhtml:
 	$(SPHINXBUILD) -b dirhtml $(ALLSPHINXOPTS) $(BUILDDIR)/dirhtml
+	@echo
+	@echo "Build finished. The HTML pages are in $(BUILDDIR)/dirhtml."
+
+dirhtml3:
+	$(SPHINXBUILD3) -b dirhtml $(ALLSPHINXOPTS) $(BUILDDIR)/dirhtml
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/dirhtml."
 
