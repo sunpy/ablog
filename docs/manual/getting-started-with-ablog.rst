@@ -4,7 +4,7 @@ Getting Started with ABlog
 ==========================
 
 
-.. post:: Apr 8, 2014
+.. post:: May 14, 2014
    :tags: config
    :author: Ahmet
    :category: Manual

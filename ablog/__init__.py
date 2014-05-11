@@ -279,7 +279,8 @@ def generate_archive_pages(app):
 
         context = {
             'parents': [],
-            'title': title,
+            'title': '{} {}'.format(title, catalog),
+            'header': title,
             'catalog': catalog,
             'summary': True,
         }
@@ -292,11 +293,12 @@ def generate_archive_pages(app):
 
             context = {
                 'parents': [],
-                'title': title,
-                'archive': collection,
+                'title': '{} {}'.format(title, collection),
+                'header': title,
+                'catalog': [collection],
                 'summary': True,
             }
-            yield (collection.docname, context, 'archive.html')
+            yield (collection.docname, context, 'catalog.html')
 
     for title, collection in [('Posts', ablog.posts),
                              ('Drafts', ablog.drafts)]:

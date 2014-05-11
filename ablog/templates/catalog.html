@@ -16,9 +16,10 @@
   {% set fa = ablog.fontawesome %}
 
   {% for archive in catalog %}
+  {% if archive|length %}
   <div class="section">
 
-    <h1>{{ title }}
+    <h1>{{ header }}
       {% if archive.href %}
       <a href="{{ archive.href }}">{{ archive }}</a>
       {% else %}
@@ -40,9 +41,13 @@
       {% endif %}
       </li>
       {% include "postcard2.html" %}</ul>
+
+      {{ post.summary(archive.docname) }}
+      <p><a href="{{ pathto(post.docname) }}">Read more ...</a></p>
       <hr>
     </div>
     {% endfor %}
   </div>
+  {% endif %}
   {% endfor %}
 {% endblock %}

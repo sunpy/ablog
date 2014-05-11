@@ -409,7 +409,7 @@ class Collection(object):
 
     def __str__(self):
 
-        return self.name
+        return str(self.name)
 
     def __len__(self):
 
@@ -445,8 +445,10 @@ class Collection(object):
 
     @property
     def relsize(self):
-        """Relative size used in tag clouds."""
+        """Relative size used in tag clouds. Relat"""
 
+        if len(self.catalog) == 1:
+            return 3
         min_, max_ = self.catalog.minmax()
         size = int((len(self) - min_) / max(max_ - min_, 1) *
                    (self.catalog.blog.cloud_size - 1)) + 1

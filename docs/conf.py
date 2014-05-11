@@ -80,8 +80,8 @@ html_theme_options = {
 # SPHINX
 
 intersphinx_mapping = {
-#    'python': ('http://docs.python.org/', None),
-#    'sphinx': ('http://sphinx-doc.org/', None)
+    'python': ('http://docs.python.org/', None),
+    'sphinx': ('http://sphinx-doc.org/', None)
 }
 extlinks = {
     'wiki': ('http://en.wikipedia.org/wiki/%s', ''),
