@@ -14,7 +14,11 @@
 
 
   {% set fa = ablog.fontawesome %}
+
+  {% for archive in catalog %}
+  {% if archive|length %}
   <div class="section">
+
     <h1>{{ header }}
       {% if archive.href %}
       <a href="{{ archive.href }}">{{ archive }}</a>
@@ -26,7 +30,6 @@
     <div class="section">
       <h2><a href="{{ pathto(post.docname) }}">{{ post.title }}</a></h2>
 
-
       <ul class="ablog-archive">
       <li>{% if post.published %}
       {% if fa %}<i class="fa fa-calendar"></i>{% endif %}
@@ -37,7 +40,6 @@
         {% else %} Draft {% endif %}
       {% endif %}
       </li>
-
       {% include "postcard2.html" %}</ul>
 
       {{ post.summary(archive.docname) }}
@@ -46,4 +48,6 @@
     </div>
     {% endfor %}
   </div>
+  {% endif %}
+  {% endfor %}
 {% endblock %}
