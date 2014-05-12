@@ -49,7 +49,7 @@ Authors & Locations
 .. confval:: blog_locations
 
    A dictionary of location names mapping to full display names and
-   links of these locations. Similar to :confval:`ablog_authors`, dictionary
+   links of these locations. Similar to :confval:`blog_authors`, dictionary
    keys should be used in ``post`` directive to refer to the locations.
    Default is ``{}``.
 
