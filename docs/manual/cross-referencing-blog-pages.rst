@@ -23,7 +23,7 @@ Archive     Example                     reStructured Text
 ==========  ==========================  ===============================
 All posts   :ref:`blog-posts`           ``:ref:`blog-posts```
 All drafts  :ref:`blog-drafts`          ``:ref:`blog-drafts```
-Tag         :ref:`tag-ablog`            ``:ref:`tag-ablog```
+Tag         :ref:`tag-config`           ``:ref:`tag-ablog```
 Author      :ref:`author-ahmet`         ``:ref:`author-ahmet```
 Location    :ref:`location-pittsburgh`  ``:ref:`location-pittsburgh```
 Category    :ref:`category-manual`      ``:ref:`category-manual```

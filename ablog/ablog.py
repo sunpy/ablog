@@ -19,19 +19,14 @@ def slugify(string):
 
     try:
         string = unicode(string)
-        py3 = False
+        string = normalize('NFKD', string).encode('ascii', 'ignore')
     except NameError:
-        string = str(str)
-        py3 = True
+        string = str(string)
+        string = normalize('NFKD', string).encode('ascii', 'ignore').decode()
 
-    slug = str(normalize('NFKD', string).encode('ascii', 'ignore'))
-    if py3:
-        slug = re.sub(r'[^\w\s-]', '', slug).strip().lower()
-        slug = re.sub(r'[-\s]+', '-', slug)
-    else:
-        slug = re.sub(r'[^\w\s-]', '', slug).strip().lower()
-        slug = re.sub(r'[-\s]+', '-', slug)
-    return slug
+    string = re.sub(r'[^\w\s-]', '', string).strip().lower()
+    return re.sub(r'[-\s]+', '-', string)
+
 
 DEBUG = True
 CONFIG = [
