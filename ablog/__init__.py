@@ -319,7 +319,9 @@ def generate_archive_pages(app):
                     title_type='text',
                     url=url,
                     feed_url=os.path.join(url, ablog.blog_path, 'atom.xml'),
-                    subtitle=ablog.blog_feed_subtitle)
+                    subtitle=ablog.blog_feed_subtitle,
+                    generator=('ABlog', 'http://ablog.readthedocs.org',
+                               __version__))
     for post in ablog.posts:
         post_url = os.path.join(url, post.docname)
         feed.add(post.title,
