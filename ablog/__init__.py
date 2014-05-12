@@ -115,7 +115,7 @@ def process_posts(app, doctree):
     environment."""
 
     env = app.builder.env
-    env.topickle = lambda *args: env.warn('nodocname', 'No pickling.')
+    #env.topickle = lambda *args: env.warn('nodocname', 'No pickling.')
     if not hasattr(env, 'ablog_posts'):
         env.ablog_posts = {}
     post_nodes = list(doctree.traverse(PostNode))
