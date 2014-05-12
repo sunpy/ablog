@@ -94,6 +94,7 @@ rst_epilog = '''
 .. _pip: http://www.pip-installer.org/
 .. _Disqus: http://disqus.com/
 .. _Werkzeug: http://werkzeug.pocoo.org/
+.. _GitHib: https://github.com/abakan/ablog
 '''
 
 import re

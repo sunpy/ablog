@@ -11,11 +11,16 @@ Just browse this documentation ;)
 Installation
 ------------
 
-Install ABlog using pip_::
+ABlog is not released yet. It's being tested. If you are interested you can
+get if from GitHub_.
 
-  pip install -U ABlog
 
-If needed, this will install Sphinx_ and Werkzeug_ (for generating feeds).
+..
+  Install ABlog using pip_::
+
+    pip install -U ABlog
+
+In addition to Sphinx_, Werkzeug_ is required for generating feeds.
 
 
 Configuration
@@ -72,6 +77,6 @@ This converts to a list of links to the most recent posts in category
 Feedback
 --------
 
-ABlog has been used with the latest version of Sphinx_ and Python 2.7
+ABlog has been used with the Sphinx_ 1.2.2, Python 2.7 and 3.4
 to generate its documentation blog. If you try it with different
-Python and Sphinx versions, please give feedback on it and help us improve it.
+Python and Sphinx versions, please give feedback to help us improve it.
