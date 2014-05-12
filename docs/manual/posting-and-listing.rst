@@ -69,7 +69,11 @@ A list of posts can be displayed in any page using the following directive:
      .. postlist:: 5
 
 
-.. postlist:: 5
+   .. postlist:: 5
+
+
+   Note that if the current post is one of the most recent posts, it will
+   be omitted.
 
 ..
         :tags: tips
