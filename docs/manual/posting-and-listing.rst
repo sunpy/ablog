@@ -13,13 +13,13 @@ introduced by ABlog.
 Posting
 -------
 
-Any document in a Sphinx_ project can be converted to a post using the
+Any page in a Sphinx_ project can be converted to a post using the
 following directive:
 
 
 .. rst:directive:: post
 
-   Following example shows all possible directive options::
+   All possible directive options are shown below::
 
      .. post:: 15 Apr, 2013
         :tags: tips, ablog, directive
@@ -44,7 +44,17 @@ following directive:
 
    **Authors & Locations**
 
+   You can specify the author and location of a post using ``:author:``
+   and ``:location:`` options. Using :confval:`blog_authors` and
+   :confval:`blog_locations` configuration variables, you can also provide
+   a link to authors and locations, which will be displayed in
+   archive pages generated for all unique authors and locations.
+
    **Tags & Categories**
+
+   You can specify multiple tags and categories per post, and the post
+   will be listed in archive pages generated for each unique tag and
+   category.
 
    **Redirections**
 
@@ -55,6 +65,9 @@ following directive:
 
    **Excerpts & Images**
 
+   By default, ABlog uses the first paragraph of a page as post excerpt.
+   You can change this behavior and also add an image to the excerpt.
+   To find out how, see :ref:`post-excerpts-and-images`.
 
 
 Listing
