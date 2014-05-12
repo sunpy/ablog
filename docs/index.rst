@@ -12,7 +12,7 @@ Installation
 ------------
 
 ABlog is not released yet. It's being tested. If you are interested you can
-get if from GitHub_.
+get it from GitHub_.
 
 
 ..

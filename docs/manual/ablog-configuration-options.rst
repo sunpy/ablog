@@ -158,6 +158,6 @@ you see on the left are listed below in the same order:
 :file:`recentposts.html` lists most recent five posts.  Others provide a
 link to a archive pages generated for each tag, category, and year.
 In addition, there are ``authors.html`` and ``locations.html``
-sidebars that link to author and location archive pages..
+sidebars that link to author and location archive pages.
 
 
