@@ -75,7 +75,7 @@ class ABlog(object):
         """Instantiate ABlog."""
 
         self.app = app
-        self.std_domain = self.app.env.domains['std']
+        self.std_domain = domain = self.app.env.domains['std']
         self.config = {}
 
         for opt in CONFIG:
@@ -93,15 +93,28 @@ class ABlog(object):
 
         self.blog = Catalog(self, 'blog', 'blog', None)
         self.archive = Catalog(self, 'archive', 'archive', None)
+        domain.data['labels']['blog-archives'] = (
+            self.archive.docname, '', 'Archives')
 
         self.catalogs = cat = {}  # catalogs of users set labels
         self.tags = cat['tags'] = Catalog(self, 'tags', 'tag', 'tag')
+        domain.data['labels']['blog-tags'] = (
+            self.tags.docname, '', 'Tags')
+
         self.author = cat['author'] = Catalog(self, 'author',
             'author', 'author')
+        domain.data['labels']['blog-authors'] = (
+            self.author.docname, '', 'Authors')
+
         self.location = cat['location'] = Catalog(self, 'location',
             'location',  'location')
+        domain.data['labels']['blog-locations'] = (
+            self.location.docname, '', 'Locations')
+
         self.category = cat['category'] = Catalog(self, 'category',
             'category', 'category')
+        domain.data['labels']['blog-categories'] = (
+            self.category.docname, '', 'Categories')
 
         for catname in ['author', 'location']:
             catalog = self.catalogs[catname]
@@ -114,9 +127,9 @@ class ABlog(object):
             'Posts', path=self.blog_path)
         self.drafts = self.blog['draft'] = Collection(self.blog, 'draft',
             'Drafts', path=os.path.join(self.blog_path, 'drafts'))
+
         # add references to posts and drafts
         # e.g. :ref:`blog-posts`
-        domain = self.app.env.domains['std']
         domain.data['labels']['blog-posts'] = (
             os.path.join(self.config['blog_path'], 'index'), '', 'Posts')
         domain.data['labels']['blog-drafts'] = (
