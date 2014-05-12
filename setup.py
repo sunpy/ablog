@@ -19,6 +19,7 @@ setup(
     #long_description=long_description,
     url='http://github.com/abakan/ablog',
     packages=['ablog'],
+    package_data={'ablog': ['ablog/templates/*.html']},
     license='MIT License',
     #keywords=('abstract syntax tree transformer, IPython magic'),
     classifiers=[
