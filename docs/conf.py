@@ -43,6 +43,7 @@ html_favicon = '_static/ablog.ico'
 
 templates_path = [ablog.get_html_templates_path()]
 
+blog_title = 'ABlog'
 blog_baseurl = 'http://ablog.readthedocs.org'
 blog_locations = {
     'Pittsburgh': ('Pittsburgh, PA', None),
@@ -59,6 +60,7 @@ fontawesome_css_file = 'css/font-awesome.css'
 
 # THEME
 
+html_style = 'alabaster.css'
 html_theme = 'alabaster'
 html_sidebars = {
    '**': ['about.html',
