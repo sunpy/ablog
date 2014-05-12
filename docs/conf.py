@@ -17,7 +17,7 @@ extensions = [
     #'IPython.sphinxext.ipython_directive',
     #'IPython.sphinxext.ipython_console_highlighting',
     'alabaster',
-    'ablog'
+    #'ablog'
 ]
 
 
@@ -42,7 +42,7 @@ html_favicon = '_static/ablog.ico'
 
 # ABLOG
 
-templates_path = [ablog.get_html_templates_path()]
+#templates_path = [ablog.get_html_templates_path()]
 
 blog_baseurl = 'http://ablog.readthedocs.org'
 blog_locations = {
@@ -61,7 +61,8 @@ fontawesome_css_file = 'css/font-awesome.css'
 # THEME
 
 html_theme = 'alabaster'
-html_sidebars = {
+html_sidebars = {}
+{
    '**': ['about.html',
           'postcard.html', 'recentposts.html',
           'tagcloud.html', 'categories.html',
