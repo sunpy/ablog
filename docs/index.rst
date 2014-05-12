@@ -27,7 +27,7 @@ Configuration
 -------------
 
 To enable blogging in a Sphinx project, append ``ablog`` to the
-list of extensions and ABlog template path to :confval:`template_path`
+list of extensions and ABlog template path to :confval:`templates_path`
 in :file:`conf.py`:
 
 .. code-block:: python
