@@ -304,10 +304,10 @@ def generate_archive_pages(app):
     context = {
         'parents': [],
         'title': 'Drafts',
-        'archive': [ablog.drafts],
+        'catalog': [ablog.drafts],
         'summary': True,
     }
-    yield (collection.docname, context, 'archive.html')
+    yield (ablog.drafts.docname, context, 'archive.html')
 
     url = ablog.blog_baseurl
     if not url:
