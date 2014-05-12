@@ -23,9 +23,9 @@ following directive:
 
      .. post:: 15 Apr, 2013
         :tags: tips, ablog, directive
+        :category: Example, How To
         :author: Ahmet, Durden
         :location: Pittsburgh, SF
-        :category: Example, How To
         :redirect: blog/old-page-name-for-the-post
         :excerpt: 2
         :image: 1
@@ -42,19 +42,23 @@ following directive:
    Post date format must match the format specified with
    :confval:`post_date_format` configuration option.
 
-   **Authors & Locations**
-
-   You can specify the author and location of a post using ``:author:``
-   and ``:location:`` options. Using :confval:`blog_authors` and
-   :confval:`blog_locations` configuration variables, you can also provide
-   a link to authors and locations, which will be displayed in
-   archive pages generated for all unique authors and locations.
-
    **Tags & Categories**
 
-   You can specify multiple tags and categories per post, and the post
-   will be listed in archive pages generated for each unique tag and
-   category.
+   You can specify multiple tags and categories by separating them with
+   commas. Posts will be listed in archive pages generated for each unique
+   tag and category.
+
+   **Authors & Locations**
+
+   Likewise, you can specify authors and locations of a post using
+   ``:author:`` and ``:location:`` options.  Both option names are
+   in their singular form, but multiple values separated by commas
+   are accepted.
+
+   Using :confval:`blog_authors` and :confval:`blog_locations`
+   configuration variables, you can also provide links to authors
+   and locations, which will be displayed in archive pages generated
+   for all unique authors and locations.
 
    **Redirections**
 
