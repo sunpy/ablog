@@ -18,17 +18,29 @@ as ``:ref:`cross-referencing-blog-pages``` using :rst:role:`ref` role.
 Archive pages, on the other hand, can be cross-referenced by combining
 archive type and archive name as follows:
 
-==========  ==========================  ===============================
-Archive     Example                     reStructured Text
-==========  ==========================  ===============================
-All posts   :ref:`blog-posts`           ``:ref:`blog-posts```
-All drafts  :ref:`blog-drafts`          ``:ref:`blog-drafts```
-Tag         :ref:`tag-config`           ``:ref:`tag-ablog```
-Author      :ref:`author-ahmet`         ``:ref:`author-ahmet```
-Location    :ref:`location-pittsburgh`  ``:ref:`location-pittsburgh```
-Category    :ref:`category-manual`      ``:ref:`category-manual```
-Year        :ref:`archive-2014`         ``:ref:`archive-2014```
-==========  ==========================  ===============================
+==============  ==========================  ===============================
+Archive         Example                     reStructured Text
+==============  ==========================  ===============================
+Posts           :ref:`blog-posts`           ``:ref:`blog-posts```
+Drafts          :ref:`blog-drafts`          ``:ref:`blog-drafts```
+Tag             :ref:`tag-config`           ``:ref:`tag-config```
+Author          :ref:`author-ahmet`         ``:ref:`author-ahmet```
+Archive         :ref:`archive-2014`         ``:ref:`archive-2014```
+Location        :ref:`location-pittsburgh`  ``:ref:`location-pittsburgh```
+Category        :ref:`category-manual`      ``:ref:`category-manual```
+==============  ==========================  ===============================
+
+Following archive pages list all posts by grouping them:
+
+==============  ==========================  ===============================
+Archive         Example                     reStructured Text
+==============  ==========================  ===============================
+By tag          :ref:`blog-tags`            ``:ref:`blog-tags```
+By author       :ref:`blog-authors`         ``:ref:`blog-authors```
+By location     :ref:`blog-locations`       ``:ref:`blog-locations```
+By category     :ref:`blog-categories`      ``:ref:`blog-categories```
+By archive      :ref:`blog-archives`        ``:ref:`blog-archives```
+==============  ==========================  ===============================
 
 
 When posts have long file or folder names, it may be convenient to use
