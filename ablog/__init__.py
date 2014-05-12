@@ -309,31 +309,26 @@ def generate_archive_pages(app):
     }
     yield (collection.docname, context, 'archive.html')
 
-    d = ablog.std_domain.data#['labels']
-    #l = d.keys()
-    #l.sort()
-    #for k in l:
-    #    print k, d[k]if
     url = ablog.blog_baseurl
     if not url:
         return
 
     from werkzeug.contrib.atom import AtomFeed
-    feed_path  = os.path.join(app.builder.outdir, ablog.blog_path, 'atom.xml')
+    feed_path = os.path.join(app.builder.outdir, ablog.blog_path, 'atom.xml')
     feed = AtomFeed(ablog.blog_title,
                     title_type='text',
                     url=url,
-                    feed_url=os.path.join(url, feed_path),
+                    feed_url=os.path.join(url, ablog.blog_path, 'atom.xml'),
                     subtitle=ablog.blog_feed_subtitle)
-    from datetime import datetime
     for post in ablog.posts:
+        post_url = os.path.join(url, post.docname)
         feed.add(post.title,
                  content=post.summary(ablog.blog_path),
                  title_type='text',
                  content_type='html',
                  author=', '.join(a.name for a in post.author),
-                 url=os.path.join(url, post.docname),
-                 id='post.uid' + str(post),
+                 url=post_url,
+                 id=post_url,
                  updated=post.update, published=post.date)
 
     with open(feed_path, 'w') as out:
