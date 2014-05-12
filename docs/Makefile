@@ -47,27 +47,33 @@ help:
 	@echo "  linkcheck  to check all external links for integrity"
 	@echo "  doctest    to run all doctests embedded in the documentation (if enabled)"
 
+install:
+	cd ..; python setup.py install
+
+install3:
+	cd ..; python3 setup.py install
+
 clean:
 	rm -rf $(BUILDDIR)/html/*
 	rm -rf $(BUILDDIR)/dirhtml/*
 	rm -rf $(BUILDDIR)/doctrees/*
 
-html:
+html: install
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
 
-html3:
+html3: install3
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
 
-dirhtml:
+dirhtml: install
 	$(SPHINXBUILD) -b dirhtml $(ALLSPHINXOPTS) $(BUILDDIR)/dirhtml
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/dirhtml."
 
-dirhtml3:
+dirhtml3: install3
 	$(SPHINXBUILD3) -b dirhtml $(ALLSPHINXOPTS) $(BUILDDIR)/dirhtml
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/dirhtml."
