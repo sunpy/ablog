@@ -41,8 +41,8 @@ in :file:`conf.py`:
   # if `templates_path` is not defined before
   templates_path = [ablog.get_html_templates_path()]
 
-
-See more detailed instructions in :ref:`get-started` post.
+..
+  See more detailed instructions in :ref:`get-started` post.
 
 How it works
 ------------
@@ -68,8 +68,7 @@ directive:
 
   .. postlist:: 2
 
-This converts to a list of links to the most recent posts in category
-:ref:`category-release`:
+This converts to a list of links to the most recent two posts:
 
 .. postlist:: 2
 
