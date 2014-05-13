@@ -4,6 +4,7 @@ import os
 import re
 
 import datetime as dtmod
+from urlparse import urljoin
 from datetime import datetime
 from unicodedata import normalize
 
@@ -209,6 +210,24 @@ class ABlog(object):
             posts[i - 1].next = post
             post.prev = posts[i - 1]
 
+
+    def page_id(self, pagename):
+        """Page identifier for Disqus."""
+
+        if self.config['blog_baseurl']:
+            if pagename.endswith('index'):
+                pagename = pagename[:-5]
+            pagename = pagename.strip('/')
+            return '/' + pagename + ('/' if pagename else '')
+
+    def page_url(self, pagename):
+        """Page url for Disqus."""
+
+        if self.config['blog_baseurl']:
+            url = urljoin(self.config['blog_baseurl'], pagename)
+            if url.endswith('index') and False:
+                url = url[:-5]
+            return url
 
 def html_builder_write_doc(self, docname, doctree):
     """Part of :meth:`sphinx.builders.html.StandaloneHTMLBuilder.write_doc`
