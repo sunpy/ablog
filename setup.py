@@ -34,5 +34,6 @@ setup(
                  'Programming Language :: Python :: 2',
                  'Programming Language :: Python :: 3',
                 ],
-    provides=['ablog ({0:s})'.format(__version__)]
+    provides=['ablog ({0:s})'.format(__version__)],
+    requires=['Werkzeug', 'Sphinx'],
 )
