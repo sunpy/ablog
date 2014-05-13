@@ -53,6 +53,8 @@ CONFIG = [
     ('disqus_shortname', None, True),
     ('disqus_drafts', False, True),
     ('disqus_pages', False, True),
+
+    ('skip_pickling', False, True),
 ]
 
 
