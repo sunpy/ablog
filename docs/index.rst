@@ -5,20 +5,23 @@ It's a Blog... It's a Documentation... It's Sphinx with ABlog
 
 
 ABlog is a Sphinx extension that can convert any documentation or personal
-website project into a full-fledged blog with feeds. Looking for an example?
-Just browse this documentation ;)
+website project into a full-fledged blog with:
+
+* `Atom feeds <http://ablog.readthedocs.org/blog/atom.xml>`_
+* :ref:`archives`
+* :ref:`sidebars`
+* :ref:`disqus-integration`
+* :ref:`fa` integration
+
+Looking for an example? Just browse this documentation ;)
 
 Installation
 ------------
 
-ABlog is not released yet. It's being tested. If you are interested you can
-get it from GitHub_.
+ABlog is not yet released on PyPI. If you are interested you can
+get it from GitHub_, using pip_::
 
-
-..
-  Install ABlog using pip_::
-
-    pip install -U ABlog
+    pip install -U https://github.com/abakan/ablog/archive/master.zip
 
 In addition to Sphinx_, Werkzeug_ is required for generating feeds.
 
@@ -43,6 +46,17 @@ in :file:`conf.py`:
 
 ..
   See more detailed instructions in :ref:`get-started` post.
+
+**Read The Docs**
+
+On `Read The Docs`_, ABlog may cause an exception when Sphinx build environment
+is being pickled.  To circumvent this problem, include the following
+in :file:`conf.py`::
+
+  if os.environ.get('READTHEDOCS', None) == 'True':
+      skip_pickling = True
+
+This should not effect how the documentation is built.
 
 How it works
 ------------

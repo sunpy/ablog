@@ -87,10 +87,12 @@ Post Related
    Number of seconds (default is ``5``) that a redirect page waits before
    refreshing the page to redirect to the post.
 
+.. _fa:
+
 Font Awesome
 ------------
 
-ABlot templates will use of `Font Awesome`_ icons if one of the following
+ABlog templates will use of `Font Awesome`_ icons if one of the following
 is ``True``:
 
 .. _Font Awesome: http://fontawesome.io/
@@ -116,9 +118,10 @@ with the following configuration option:
    Path to `Font Awesome`_ :file:`.css` (default is ``None``) that will
    be linked to in HTML output by ABlog.
 
+.. _disqus-integration:
 
-Disqus Options
---------------
+Disqus Integration
+------------------
 
 Of course one cannot think of a blog that doesn't allow for visitors to
 comment.  You can enable Disqus_ by setting ``disqus_shortname`` variable.
@@ -136,6 +139,7 @@ comment.  You can enable Disqus_ by setting ``disqus_shortname`` variable.
    Choose to disqus posts that are drafts (without a published date),
    default is ``False``.
 
+.. _sidebars:
 
 HTML Sidebars
 -------------

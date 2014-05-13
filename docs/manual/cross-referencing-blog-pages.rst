@@ -14,6 +14,10 @@ cross-referenced using the name of the file, or when the file is named
 This page, :ref:`cross-referencing-blog-pages`, for example is referenced
 as ``:ref:`cross-referencing-blog-pages``` using :rst:role:`ref` role.
 
+.. _archives:
+
+Archive Pages
+-------------
 
 Archive pages, on the other hand, can be cross-referenced by combining
 archive type and archive name as follows:

@@ -43,6 +43,9 @@ html_favicon = '_static/ablog.ico'
 
 templates_path = [ablog.get_html_templates_path()]
 
+if os.environ.get('READTHEDOCS', None) == 'True':
+    skip_pickling = True
+
 blog_title = 'ABlog'
 blog_baseurl = 'http://ablog.readthedocs.org'
 blog_locations = {
@@ -95,6 +98,8 @@ rst_epilog = '''
 .. _Disqus: http://disqus.com/
 .. _Werkzeug: http://werkzeug.pocoo.org/
 .. _GitHub: https://github.com/abakan/ablog
+.. _PyPI: https://pypi.python.org/pypi/ablog
+.. _Read The Docs: https://readthedocs.org/
 '''
 
 import re
