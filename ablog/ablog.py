@@ -227,9 +227,10 @@ class ABlog(object):
 
         if self.config['blog_baseurl']:
             url = urljoin(self.config['blog_baseurl'], pagename)
-            if url.endswith('index') and False:
+            if url.endswith('index'):
                 url = url[:-5]
             return url
+
 
 def html_builder_write_doc(self, docname, doctree):
     """Part of :meth:`sphinx.builders.html.StandaloneHTMLBuilder.write_doc`
