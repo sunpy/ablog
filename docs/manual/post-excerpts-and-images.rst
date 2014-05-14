@@ -16,9 +16,9 @@ Post Excerpts and Images
 Excerpts
 --------
 
-ABlog, by default, uses first two paragraphs of the document to generate an
-excerpt for a post.  Default number of paragraphs to use in excerpts is
-controlled via :confval:`post_auto_excerpt` configuration variable. This option
+ABlog, by default, uses first paragraph of the document as post excerpt.
+Default number of paragraphs to use in excerpts is controlled via
+:confval:`post_auto_excerpt` configuration variable. This option
 can be overwritten using ``:excerpt:`` option in :rst:dir:`post` directive.
 
 Alternatively, you can provide some content in a post directive as follows::
