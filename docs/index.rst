@@ -18,10 +18,9 @@ Looking for an example? Just browse this documentation ;)
 Installation
 ------------
 
-ABlog is not yet released on PyPI. If you are interested you can
-get it from GitHub_, using pip_::
+You can install ABlog using pip_::
 
-    pip install -U https://github.com/abakan/ablog/archive/master.zip
+    pip install -U ablog
 
 In addition to Sphinx_, Werkzeug_ is required for generating feeds.
 
@@ -80,11 +79,11 @@ directive:
 
 .. code-block:: rst
 
-  .. postlist:: 2
+  .. postlist:: 10
 
-This converts to a list of links to the most recent two posts:
+This converts to a list of links to the most recent ten posts:
 
-.. postlist:: 2
+.. postlist:: 10
 
 
 Feedback
