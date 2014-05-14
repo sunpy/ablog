@@ -7,11 +7,11 @@ It's a Blog... It's a Documentation... It's Sphinx with ABlog
 ABlog is a Sphinx extension that can convert any documentation or personal
 website project into a full-fledged blog with:
 
-* `Atom feeds <http://ablog.readthedocs.org/blog/atom.xml>`_
-* :ref:`archives`
-* :ref:`sidebars`
-* :ref:`disqus-integration`
-* :ref:`fa` integration
+  * `Atom feeds <http://ablog.readthedocs.org/blog/atom.xml>`_
+  * :ref:`archives`
+  * :ref:`sidebars`
+  * :ref:`disqus-integration`
+  * :ref:`fa` integration
 
 Looking for an example? Just browse this documentation ;)
 
