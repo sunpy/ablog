@@ -1,0 +1,5 @@
+include README.rst
+include LICENSE.txt
+include setup.py
+include ablog/*.py
+include ablog/templates/*.html
