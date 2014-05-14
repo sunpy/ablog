@@ -16,7 +16,7 @@ as ``:ref:`cross-referencing-blog-pages``` using :rst:role:`ref` role.
 
 .. _archives:
 
-Archive Pages
+Archive pages
 -------------
 
 Archive pages, on the other hand, can be cross-referenced by combining

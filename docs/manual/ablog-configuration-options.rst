@@ -13,7 +13,7 @@ ABlog Configuration Options
 This post describes ABlog configuration options that goes in
 :ref:`Sphinx build configuration file <sphinx:build-config>`.
 
-General Options
+General options
 ---------------
 
 .. confval:: blog_path
@@ -31,7 +31,7 @@ General Options
    Base URL for the website, required for generating feeds.
 
 
-Authors & Locations
+Authors & locations
 -------------------
 
 .. confval:: blog_authors
@@ -65,7 +65,7 @@ Authors & Locations
    Default is ``None``.
 
 
-Post Related
+Post related
 ------------
 
 .. confval:: post_date_format
@@ -89,7 +89,7 @@ Post Related
 
 .. _fa:
 
-Font Awesome
+Font awesome
 ------------
 
 ABlog templates will use of `Font Awesome`_ icons if one of the following
@@ -120,7 +120,7 @@ with the following configuration option:
 
 .. _disqus-integration:
 
-Disqus Integration
+Disqus integration
 ------------------
 
 Of course one cannot think of a blog that doesn't allow for visitors to
@@ -141,7 +141,7 @@ comment.  You can enable Disqus_ by setting ``disqus_shortname`` variable.
 
 .. _sidebars:
 
-HTML Sidebars
+Blog sidebars
 -------------
 
 Finally, there are seven sidebars you can include in your HTML output
