@@ -38,6 +38,7 @@ in :file:`conf.py`:
       '...',
       'ablog'
   ]
+  import ablog
   templates_path.append(ablog.get_html_templates_path())
 
   # if `templates_path` is not defined before
