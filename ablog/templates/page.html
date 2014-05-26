@@ -10,7 +10,7 @@
   {{ super() }}
   <link rel="alternate" type="application/atom+xml"  href="{{ pathto(ablog.blog_path, 1) }}/atom.xml" title="{{ ablog.blog_title }}">
   {% if ablog.fontawesome_link_cdn%}
-  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+  <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
   {% elif ablog.fontawesome_css_file %}
   <link rel="stylesheet" href="{{ pathto('_static/' + ablog.fontawesome_css_file, 1) }}" type="text/css" />
   {% endif %}
