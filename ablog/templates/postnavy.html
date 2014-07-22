@@ -4,7 +4,7 @@
 <div class="section">
   <span style="float: left;">
   {% if post.prev %}
-  {% if not ablog.fontawesome %}Previous: {% endif %}
+  {% if not ablog.fontawesome %}{{ gettext('Previous') }}: {% endif %}
   <a href="{{ pathto(post.prev.docname) }}">
     {% if ablog.fontawesome %}<i class="fa fa-arrow-circle-left"></i>{% endif %}
     {{ post.prev.title }}
@@ -14,7 +14,7 @@
   <span>&nbsp;</span>
   <span style="float: right;">
   {% if post.next %}
-  {% if not ablog.fontawesome %}Next: {% endif %}
+  {% if not ablog.fontawesome %}{{ gettext('Next') }}: {% endif %}
   <a href="{{ pathto(post.next.docname) }}">
     {{ post.next.title }}
     {% if ablog.fontawesome %}<i class="fa fa-arrow-circle-right"></i>{% endif %}

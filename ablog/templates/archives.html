@@ -1,5 +1,5 @@
 {% if ablog.archive %}
-  <h3>Archives</h3>
+  <h3>{{ gettext('Archives') }}</h3>
   <ul>
   {% for coll in ablog.archive %}
     {% if coll %}

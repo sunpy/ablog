@@ -1,5 +1,5 @@
 {% if ablog.author %}
-  <h3>Authors</h3>
+  <h3>{{ gettext('Authors') }}</h3>
   <ul>
   {% for coll in ablog.author %}
     {% if coll %}

@@ -1,5 +1,5 @@
 {% if ablog %}
-  <h3>Recent Posts</h3>
+  <h3>{{ gettext('Recent Posts') }}</h3>
   <ul>
     {% set pcount = 1 %}
     {% for recent in ablog.recent(5, pagename) %}
