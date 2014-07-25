@@ -336,7 +336,7 @@ def generate_archive_pages(app):
                  updated=post.update, published=post.date)
 
     with open(feed_path, 'w') as out:
-        out.write(feed.to_string())
+        out.write(feed.to_string().encode('utf-8'))
 
 
 
