@@ -43,7 +43,7 @@
       {% include "postcard2.html" %}</ul>
 
       {{ post.summary(archive.docname) }}
-      <p><a href="{{ pathto(post.docname) }}">Read more ...</a></p>
+      <p><a href="{{ pathto(post.docname) }}">{{ _("Read more ...") }}</a></p>
       <hr>
     </div>
     {% endfor %}

@@ -9,6 +9,7 @@ from docutils.parsers.rst import directives
 from sphinx.util.nodes import set_source_info
 from sphinx.util.compat import Directive
 from sphinx.environment import dummy_reporter
+from sphinx.locale import _
 
 from .ablog import ABlog, CONFIG
 
@@ -269,20 +270,19 @@ def generate_archive_pages(app):
         for redirect in post.redirect:
             yield (redirect, {'redirect': post.docname, 'post': post},
                    'redirect.html')
-
     for title, header, catalog in [
-        (None, 'Posts by', ablog.author),
-        (None, 'Posts from', ablog.location),
-        (None, 'Posts in', ablog.category),
-        ('All posts', 'Posted in', ablog.archive),
-        (None, 'Posts tagged', ablog.tags),]:
+        (None, _('Posts by'), ablog.author),
+        (None, _('Posts from'), ablog.location),
+        (None, _('Posts in'), ablog.category),
+        (_('All posts'), _('Posted in'), ablog.archive),
+        (None, _('Posts tagged'), ablog.tags),]:
 
         if not len(catalog):
             continue
 
         context = {
             'parents': [],
-            'title': title or '{} {}'.format(header, catalog),
+            'title': title or u'{} {}'.format(header, catalog),
             'header': header,
             'catalog': catalog,
             'summary': True,
@@ -296,7 +296,7 @@ def generate_archive_pages(app):
 
             context = {
                 'parents': [],
-                'title': '{} {}'.format(header, collection),
+                'title': u'{} {}'.format(header, collection),
                 'header': header,
                 'catalog': [collection],
                 'summary': True,
@@ -376,6 +376,9 @@ def setup(app):
     app.connect('env-purge-doc', purge_posts)
     app.connect('doctree-resolved', process_postlist)
     app.connect('html-collect-pages', generate_archive_pages)
+
+    ld = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'locale')
+    app.config.locale_dirs.append(ld)
 
 
 def get_html_templates_path():

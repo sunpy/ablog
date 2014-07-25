@@ -1,4 +1,4 @@
-from distutils.core import setup
+from setuptools import setup
 
 __version__ = ''
 with open('ablog/__init__.py') as inp:
@@ -36,4 +36,10 @@ setup(
                 ],
     provides=['ablog ({0:s})'.format(__version__)],
     requires=['Werkzeug', 'Sphinx'],
+    message_extractors={
+        'ablog': [
+            ('**.html', 'jinja2', None),
+            ('**.py',   'python', None),
+        ]
+    },
 )
