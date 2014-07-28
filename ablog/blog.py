@@ -65,6 +65,7 @@ class Blog(object):
 
     """Handle blog operations."""
 
+    # using a shared state
     _dict = {}
 
     def __init__(self, app=None):
@@ -77,12 +78,14 @@ class Blog(object):
         """Instantiate Blog."""
 
         self.app = app
-        self.std_domain = domain = self.app.env.domains['std']
         self.config = {}
 
+        # std domain of for creating references to posts and archives
+        self.std_domain = domain = self.app.env.domains['std']
+
+        # get configuration from Sphinx app
         for opt in CONFIG:
             self.config[opt[0]] = getattr(app.config, opt[0])
-
 
 
         opt = self.config['blog_default_author']
@@ -93,12 +96,15 @@ class Blog(object):
         if opt is not None and not isinstance(opt, list):
             self.config['blog_default_location'] = [opt]
 
+        # blog catalog contains all posts
         self.blog = Catalog(self, 'blog', 'blog', None)
+
+        # contains post collections by year
         self.archive = Catalog(self, 'archive', 'archive', None)
         domain.data['labels']['blog-archives'] = (
             self.archive.docname, '', 'Archives')
 
-        self.catalogs = cat = {}  # catalogs of users set labels
+        self.catalogs = cat = {}  # catalogs of user set labels
         self.tags = cat['tags'] = Catalog(self, 'tags', 'tag', 'tag')
         domain.data['labels']['blog-tags'] = (
             self.tags.docname, '', 'Tags')
@@ -124,7 +130,6 @@ class Blog(object):
             for label, (name, link) in items:
                 catalog[label] = Collection(catalog, label, name, link)
 
-
         self.posts = self.blog['post'] = Collection(self.blog, 'post',
             'Posts', path=self.blog_path)
         self.drafts = self.blog['draft'] = Collection(self.blog, 'draft',
@@ -141,6 +146,7 @@ class Blog(object):
             os.path.join(self.config['blog_path'], 'atom.xml'), '',
             self.blog_title + ' Feed')
 
+        # set some internal configuration options
         self.config['cloud_size'] = 5
         self.config['fontawesome'] = (self.config['fontawesome_included'] or
                                       self.config['fontawesome_link_cdn'] or
@@ -307,32 +313,6 @@ class Post(object):
         app = self.ablog.app
         app.env.resolve_references(doctree, pagename, app.builder)
         return html_builder_write_doc(app.builder, pagename, doctree)
-
-    def _summarize(self, doctree, npars, image):
-        """Create a summary of the post."""
-
-        p_count = 0
-        i = 0
-        title_visited = False
-        doctree = doctree.deepcopy()
-        remove = []
-        for node in doctree.traverse():
-            if isinstance(node, nodes.title) and not title_visited:
-                title_visited = True
-                remove.append(node)
-                continue
-            if isinstance(node, nodes.paragraph):
-                p_count += 1
-            if isinstance(node, (nodes.image, nodes.figure)):
-                i += 1
-                if i != image:
-                    remove.append(node)
-            elif p_count >= npars:
-                remove.append(node)
-        for node in remove:
-            node.parent.remove(node)
-
-        self._summary = doctree
 
     @property
     def next(self):

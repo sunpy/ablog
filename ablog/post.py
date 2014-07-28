@@ -118,15 +118,24 @@ def process_posts(app, doctree):
             'Environment is not being pickled.')
     if not hasattr(env, 'ablog_posts'):
         env.ablog_posts = {}
+
     post_nodes = list(doctree.traverse(PostNode))
     if not post_nodes:
         return
+
     docname = env.docname
+
+    # mark the post as 'orphan' so that
+    #   "document isn't included in any toctree" warning is not issued
+    app.env.metadata[docname]['orphan'] = True
+
+
     node = post_nodes[0]
+
     if len(post_nodes) > 1:
         env.warn(docname, 'multiple post directives found, '
                  'first one is considered')
-
+        #from code import interact; interact(local=locals())
     # Making sure that post has a title because all post titles
     # are needed when resolving post lists in documents
     title = node['title']
@@ -201,9 +210,6 @@ def process_posts(app, doctree):
         folder, label = os.path.split(folder)
     app.env.domains['std'].data['labels'][label] = (docname, label, title)
 
-    # mark the post as 'orphan' so that
-    #   "document isn't included in any toctree" warning is not issued
-    app.env.metadata[docname]['orphan'] = True
 
     # instantiate catalogs and collections here
     #  so that references are created and no warnings are issued
@@ -320,7 +326,7 @@ def generate_archive_pages(app):
                     feed_url=os.path.join(url, blog.blog_path, 'atom.xml'),
                     subtitle=blog.blog_feed_subtitle,
                     generator=('ABlog', 'http://blog.readthedocs.org',
-                               'ablog.__version__'))
+                               ablog.__version__))
     for post in blog.posts:
         post_url = os.path.join(url, post.docname)
         feed.add(post.title,
@@ -337,15 +343,8 @@ def generate_archive_pages(app):
 
 
 def register_posts(app):
+    """Register posts found in the Sphinx build environment."""
 
     blog = Blog()
     for docname, postinfo in getattr(app.env, 'ablog_posts', {}).items():
         blog.register(docname, postinfo)
-
-    return
-    from sphinx.util.console import bold, purple, darkgreen, term_width_line
-    ablog_posts = getattr(app.env, 'ablog_posts', {})
-    iterator = ablog_posts.keys()
-    for docname in app.builder.status_iterator(iterator,
-        'registering posts... ', purple, 50):
-        blog.register(docname, ablog_posts[docname])
