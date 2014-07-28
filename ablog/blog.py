@@ -1,4 +1,4 @@
-"""ABlog classes for handling posts and archives."""
+"""Classes for handling posts and archives."""
 
 import os
 import re
@@ -16,7 +16,6 @@ from sphinx.environment import dummy_reporter
 
 def slugify(string):
     """Slugify *s*."""
-
 
     try:
         string = unicode(string)
@@ -62,7 +61,7 @@ TOMORROW = datetime.today() + dtmod.timedelta(1)
 FUTURE = datetime(9999, 12, 31)
 
 
-class ABlog(object):
+class Blog(object):
 
     """Handle blog operations."""
 
@@ -75,7 +74,7 @@ class ABlog(object):
             self._init(app)
 
     def _init(self, app):
-        """Instantiate ABlog."""
+        """Instantiate Blog."""
 
         self.app = app
         self.std_domain = domain = self.app.env.domains['std']
