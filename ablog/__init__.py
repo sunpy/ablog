@@ -12,10 +12,9 @@ __version__ = '0.1'
 
 
 def init_ablog(app):
-    """Instantiate ABlog, link from Sphinx app and `html_context`, and
-    register posts."""
+    """Instantiate ABlog and link from `html_context` so that it can be
+    reached from templates."""
 
-    # include in html context so that it can be reached from templates
     app.config.html_context['ablog'] = Blog(app)
 
 def setup(app):

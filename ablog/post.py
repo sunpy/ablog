@@ -274,18 +274,18 @@ def generate_archive_pages(app):
             yield (redirect, {'redirect': post.docname, 'post': post},
                    'redirect.html')
     for title, header, catalog in [
-        (None, _('Posts by'), blog.author),
-        (None, _('Posts from'), blog.location),
-        (None, _('Posts in'), blog.category),
+        (_('Authors'), _('Posts by'), blog.author),
+        (_('Locations'), _('Posts from'), blog.location),
+        (_('Categories'), _('Posts in'), blog.category),
         (_('All posts'), _('Posted in'), blog.archive),
-        (None, _('Posts tagged'), blog.tags),]:
+        (_('Tags'), _('Posts tagged'), blog.tags),]:
 
         if not len(catalog):
             continue
 
         context = {
             'parents': [],
-            'title': title or u'{} {}'.format(header, catalog),
+            'title': title,
             'header': header,
             'catalog': catalog,
             'summary': True,
@@ -308,7 +308,7 @@ def generate_archive_pages(app):
 
     context = {
         'parents': [],
-        'title': 'Drafts',
+        'title': _('Drafts'),
         'catalog': [blog.drafts],
         'summary': True,
     }
