@@ -1,21 +1,27 @@
-Add i18n to ablog
-=================
-    
-ABlog automatically generates certain strings like "Recent posts",
-"Categories".  If these strings appear in English on your blog although you specified another language, then this page is for you.
-    
-These strings need to be translated. Ablog needs your help.
-   
-    
+ABlog Internationalization
+==========================
+
+.. post:: Jun 10, 2014
+   :tags: i18n
+   :category: Manual
+   :author: Luc
+
+ABlog automatically generates certain labels like :ref:`blog-posts` and
+:ref:`blog-categories`.  If these labels appear in English on your blog
+although you specified another language, then this page is for you.
+
+These labels need to be translated. ABlog needs your help.
+
+
 .. _extract_messages: http://babel.edgewall.org/wiki/Documentation/setup.html#extract-messages
 
 .. _init_catalog: http://babel.edgewall.org/wiki/Documentation/setup.html#init-catalog
 
 .. _update_catalog: http://babel.edgewall.org/wiki/Documentation/setup.html#update-catalog
-    
+
 - extract_messages_ must run each time you changed some translatable
   message texts::
-    
+
     $ python setup.py extract_messages -o ablog/locale/sphinx.pot
     ...
 

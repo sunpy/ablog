@@ -54,7 +54,8 @@ blog_locations = {
 }
 blog_authors = {
     'Ahmet': ('Ahmet Bakan', 'http://ahmetbakan.com'),
-    'Napi': ('Lord Napi', 'http://ahmetbakan.com'),
+    'Luc': ('Luc Saffre', 'http://saffre-rumma.net/luc/'),
+
 }
 disqus_shortname = 'ablogforsphinx'
 disqus_pages = True
