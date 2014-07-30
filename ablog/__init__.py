@@ -10,12 +10,20 @@ from .post import (PostDirective, PostListDirective,
 
 __version__ = '0.1'
 
+def anchor(post):
+
+
+    if post.section:
+        return '#' + post.section
+    else:
+        return ''
 
 def init_ablog(app):
     """Instantiate ABlog and link from `html_context` so that it can be
     reached from templates."""
 
     app.config.html_context['ablog'] = Blog(app)
+    app.config.html_context['anchor'] = anchor
 
 def setup(app):
     """Setup ABlog extension."""

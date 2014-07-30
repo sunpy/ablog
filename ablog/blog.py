@@ -209,7 +209,7 @@ class Blog(object):
     def link_posts(self):
         """Link posts after sorting them post by published date."""
 
-        posts = list(self.posts)
+        posts = [post for post in self.posts if post.order == 1]
         posts.sort()
         posts[0].prev = posts[-1].next = None
         for i in range(1, len(posts)):
@@ -262,6 +262,8 @@ class Post(object):
 
         self.ablog = ablog
         self.docname = docname
+        self.section = info['section']
+        self.order = info['order']
         self.date = date = info['date']
         self.update = info['update']
         self.published = date and date < TOMORROW
@@ -465,7 +467,10 @@ class Collection(object):
     def add(self, post):
         """Add post to the collection."""
 
-        self._posts[post.docname] = post
+        post_name = post.docname
+        if post.section:
+            post_name += '#' + post.section
+        self._posts[post_name] = post
 
     @property
     def relsize(self):

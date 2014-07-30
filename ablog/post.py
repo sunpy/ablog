@@ -11,7 +11,7 @@ from sphinx.util.compat import Directive
 from docutils.parsers.rst import directives
 
 import ablog
-from .blog import Blog
+from .blog import Blog, slugify
 
 class PostNode(nodes.Element):
     """Represent ``post`` directive content and options in document tree."""
@@ -129,98 +129,126 @@ def process_posts(app, doctree):
     #   "document isn't included in any toctree" warning is not issued
     app.env.metadata[docname]['orphan'] = True
 
-
-    node = post_nodes[0]
-
-    if len(post_nodes) > 1:
-        env.warn(docname, 'multiple post directives found, '
-                 'first one is considered')
-        #from code import interact; interact(local=locals())
-    # Making sure that post has a title because all post titles
-    # are needed when resolving post lists in documents
-    title = node['title']
-    if not title:
-        for title in doctree.traverse(nodes.title):
-            break
-        # A problem with the following is that title may contain pending
-        # references, e.g. :ref:`tag-tips`
-        title = title.astext()
-
-    # creating a summary here, before references are resolved
-    excerpt = []
-    if node.children:
-        if node['exclude']:
-            node.replace_self([])
-        else:
-            node.replace_self(node.children)
-        for child in node.children:
-            excerpt.append(child.deepcopy())
-    else:
-        count = 0
-        for nod in doctree.traverse(nodes.paragraph):
-            excerpt.append(nod.deepcopy())
-            count += 1
-            if count >= (node['excerpt'] or 0):
-                break
-        node.replace_self([])
-    if node['image']:
-        count = 0
-        for nod in doctree.traverse(nodes.image):
-            count += 1
-            if count == node['image']:
-                excerpt.append(nod.deepcopy())
-                break
-
-    date = node['date']
-    if date:
-        try:
-            date = datetime.strptime(date, app.config['post_date_format'])
-        except ValueError:
-            raise ValueError('invalid post published date in: ' + docname)
-    else:
-        date = None
-
-    update = node['update']
-    if update:
-        try:
-            update = datetime.strptime(update, app.config['post_date_format'])
-        except ValueError:
-            raise ValueError('invalid post update date in: ' + docname)
-    else:
-        update = date
-
-    env.ablog_posts[docname] = postinfo = {
-        'date': date,
-        'update': update,
-        'title': title,
-        'excerpt': excerpt,
-        'tags': node['tags'],
-        'author': node['author'],
-        'category': node['category'],
-        'location': node['location'],
-        'redirect': node['redirect'],
-        'image': node['image'],
-        'exclude': node['exclude']}
-
-    # if docname ends with `index` use folder name to reference the document
-    # a potential problem here is that there may be files/folders with the
-    #   same name, so issuing a warning when that's the case may be a good idea
-    folder, label = os.path.split(docname)
-    if label == 'index':
-        folder, label = os.path.split(folder)
-    app.env.domains['std'].data['labels'][label] = (docname, label, title)
-
-
-    # instantiate catalogs and collections here
-    #  so that references are created and no warnings are issued
-
     blog = Blog(app)
-    for key in ['tags', 'author', 'category', 'location']:
-        catalog = blog.catalogs[key]
-        for label in postinfo[key]:
-            catalog[label]
-    if postinfo['date']:
-        blog.archive[postinfo['date'].year]
+    multi_post = len(post_nodes) > 1
+    for order, node in enumerate(post_nodes, start=1):
+
+        if multi_post:
+            # section title, and first few paragraphs of the section of post
+            # are used when there are more than 1 posts
+            section = node
+            while True:
+                if isinstance(section, nodes.section):
+                    break
+                section = node.parent
+        else:
+            section = doctree
+
+        # Making sure that post has a title because all post titles
+        # are needed when resolving post lists in documents
+        title = node['title']
+        if not title:
+            for title in section.traverse(nodes.title):
+                break
+            # A problem with the following is that title may contain pending
+            # references, e.g. :ref:`tag-tips`
+            title = title.astext()
+
+        # creating a summary here, before references are resolved
+        excerpt = []
+        if node.children:
+            if node['exclude']:
+                node.replace_self([])
+            else:
+                node.replace_self(node.children)
+            for child in node.children:
+                excerpt.append(child.deepcopy())
+        else:
+            count = 0
+            for nod in section.traverse(nodes.paragraph):
+                excerpt.append(nod.deepcopy())
+                count += 1
+                if count >= (node['excerpt'] or 0):
+                    break
+            node.replace_self([])
+        if node['image']:
+            count = 0
+            for nod in section.traverse(nodes.image):
+                count += 1
+                if count == node['image']:
+                    excerpt.append(nod.deepcopy())
+                    break
+
+        date = node['date']
+        if date:
+            try:
+                date = datetime.strptime(date, app.config['post_date_format'])
+            except ValueError:
+                raise ValueError('invalid post published date in: ' + docname)
+        else:
+            date = None
+
+        update = node['update']
+        if update:
+            try:
+                update = datetime.strptime(update, app.config['post_date_format'])
+            except ValueError:
+                raise ValueError('invalid post update date in: ' + docname)
+        else:
+            update = date
+
+        # if docname ends with `index` use folder name to reference the document
+        # a potential problem here is that there may be files/folders with the
+        #   same name, so issuing a warning when that's the case may be a good idea
+        folder, label = os.path.split(docname)
+        if label == 'index':
+            folder, label = os.path.split(folder)
+        if not label:
+            label = slugify(title)
+
+
+        post_name = docname
+        section_name = ''
+
+        if multi_post and section.parent is not doctree:
+                section_name = section.attributes['ids'][0]
+                post_name = docname + '#' + section_name
+                label += '-' + section_name
+
+        # create a reference for the post
+        app.env.domains['std'].data['labels'][label] = (docname, label, title)
+
+
+        postinfo = {
+            'docname': docname,
+            'section': section_name,
+            'order': order,
+            'date': date,
+            'update': update,
+            'title': title,
+            'excerpt': excerpt,
+            'tags': node['tags'],
+            'author': node['author'],
+            'category': node['category'],
+            'location': node['location'],
+            'redirect': node['redirect'],
+            'image': node['image'],
+            'exclude': node['exclude']}
+
+        if docname not in env.ablog_posts:
+            env.ablog_posts[docname] = []
+        env.ablog_posts[docname].append(postinfo)
+
+
+        # instantiate catalogs and collections here
+        #  so that references are created and no warnings are issued
+
+        for key in ['tags', 'author', 'category', 'location']:
+            catalog = blog.catalogs[key]
+            for label in postinfo[key]:
+                catalog[label]
+        if postinfo['date']:
+            blog.archive[postinfo['date'].year]
 
 
 def process_postlist(app, doctree, docname):
@@ -346,5 +374,6 @@ def register_posts(app):
     """Register posts found in the Sphinx build environment."""
 
     blog = Blog()
-    for docname, postinfo in getattr(app.env, 'ablog_posts', {}).items():
-        blog.register(docname, postinfo)
+    for docname, posts in getattr(app.env, 'ablog_posts', {}).items():
+        for postinfo in posts:
+            blog.register(docname, postinfo)
