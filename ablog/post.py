@@ -130,7 +130,7 @@ def process_posts(app, doctree):
     app.env.metadata[docname]['orphan'] = True
 
     blog = Blog(app)
-    multi_post = len(post_nodes) > 1
+    multi_post = len(post_nodes) > 1 or blog.post_always_section
     for order, node in enumerate(post_nodes, start=1):
 
         if multi_post:

@@ -48,6 +48,7 @@ CONFIG = [
     ('post_auto_image', 0, True),
     ('post_auto_excerpt', 1, True),
     ('post_redirect_refresh', 5, True),
+    ('post_always_section', False, True),
 
     ('disqus_shortname', None, True),
     ('disqus_drafts', False, True),
