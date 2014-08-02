@@ -20,7 +20,9 @@ setup(
     url='http://github.com/abakan/ablog',
     packages=['ablog'],
     package_dir={'ablog': 'ablog'},
-    package_data={'ablog': ['templates/*.html']},
+    package_data={'ablog': ['templates/*.html',
+                            'locale/sphinx.pot',
+                            'locale/*/LC_MESSAGES/sphinx.*o']},
     license='MIT License',
     keywords=('Sphinx, extension, blogging, atom feeds'),
     classifiers=[

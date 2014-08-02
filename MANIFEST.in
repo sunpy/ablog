@@ -4,5 +4,4 @@ include setup.py
 include ablog/*.py
 include ablog/templates/*.html
 include ablog/locale/sphinx.pot
-include ablog/locale/*/*/*.mo
-include ablog/locale/*/*/*.po
+include ablog/locale/*/LC_MESSAGES/sphinx.*o
