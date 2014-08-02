@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ablog 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-07-25 20:45+0300\n"
+"POT-Creation-Date: 2014-08-01 21:43-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,28 +17,49 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: ablog/__init__.py:274
+#: ablog/post.py:305 ablog/templates/authors.html:2
+msgid "Authors"
+msgstr ""
+
+#: ablog/post.py:305
 msgid "Posts by"
 msgstr ""
 
-#: ablog/__init__.py:275
+#: ablog/post.py:306 ablog/templates/locations.html:2
+msgid "Locations"
+msgstr ""
+
+#: ablog/post.py:306
 msgid "Posts from"
 msgstr ""
 
-#: ablog/__init__.py:276
+#: ablog/post.py:307 ablog/templates/categories.html:2
+msgid "Categories"
+msgstr ""
+
+#: ablog/post.py:307
 msgid "Posts in"
 msgstr ""
 
-#: ablog/__init__.py:277
+#: ablog/post.py:308
 msgid "All posts"
 msgstr ""
 
-#: ablog/__init__.py:277
+#: ablog/post.py:308
 msgid "Posted in"
 msgstr ""
 
-#: ablog/__init__.py:278
+#: ablog/post.py:309 ablog/templates/postcard2.html:31
+#: ablog/templates/tagcloud.html:2
+msgid "Tags"
+msgstr ""
+
+#: ablog/post.py:309
 msgid "Posts tagged"
+msgstr ""
+
+#: ablog/post.py:339
+msgid "Drafts"
 msgstr ""
 
 #: ablog/templates/archive.html:46
@@ -47,18 +68,6 @@ msgstr ""
 
 #: ablog/templates/archives.html:2
 msgid "Archives"
-msgstr ""
-
-#: ablog/templates/authors.html:2
-msgid "Authors"
-msgstr ""
-
-#: ablog/templates/categories.html:2
-msgid "Categories"
-msgstr ""
-
-#: ablog/templates/locations.html:2
-msgid "Locations"
 msgstr ""
 
 #: ablog/templates/postcard2.html:2
@@ -71,10 +80,6 @@ msgstr ""
 
 #: ablog/templates/postcard2.html:22
 msgid "Category"
-msgstr ""
-
-#: ablog/templates/postcard2.html:31 ablog/templates/tagcloud.html:2
-msgid "Tags"
 msgstr ""
 
 #: ablog/templates/postcard2.html:32
