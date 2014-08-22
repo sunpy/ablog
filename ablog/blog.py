@@ -35,6 +35,7 @@ CONFIG = [
     ('blog_baseurl', None, True),
 
     ('blog_feed_subtitle', None, True),
+    ('blog_feed_fulltext', False, True),
     ('blog_authors', {}, True),
     ('blog_default_author', None, True),
     ('blog_locations', {}, True),
@@ -271,6 +272,7 @@ class Post(object):
         self.draft = not self.published
         self.title = info['title']
         self.excerpt = info['excerpt']
+        self.doctree = info['doctree']
         self._next = self._prev = -1
 
         #self.language = info.get('language')
@@ -306,13 +308,17 @@ class Post(object):
 
         return (self.date or FUTURE) < (other.date or FUTURE)
 
-    def summary(self, pagename):
-        """Return summary after resolving references with respect to
+    def to_html(self, pagename, fulltext=False):
+        """Return excerpt as HTML after resolving references with respect to
         *pagename*."""
 
-        doctree = nodes.document({}, dummy_reporter)
-        for node in self.excerpt:
-            doctree.append(node.deepcopy())
+        if fulltext:
+            doctree = nodes.document({}, dummy_reporter)
+            doctree.append(self.doctree.deepcopy())
+        else:
+            doctree = nodes.document({}, dummy_reporter)
+            for node in self.excerpt:
+                doctree.append(node.deepcopy())
         app = self.ablog.app
         app.env.resolve_references(doctree, pagename, app.builder)
         return html_builder_write_doc(app.builder, pagename, doctree)

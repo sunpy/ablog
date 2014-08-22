@@ -7,7 +7,7 @@ from datetime import datetime
 from docutils import nodes
 from sphinx.locale import _
 from sphinx.util.nodes import set_source_info
-from sphinx.util.compat import Directive
+from sphinx.util.compat import Directive, make_admonition
 from docutils.parsers.rst import directives
 
 import ablog
@@ -25,6 +25,13 @@ class PostList(nodes.General, nodes.Element):
     pass
 
 
+class UpdateNode(nodes.Admonition, nodes.Element):
+
+
+    pass
+
+
+
 class PostDirective(Directive):
     """Handle ``post`` directives."""
 
@@ -39,7 +46,7 @@ class PostDirective(Directive):
         'location': lambda a: [s.strip() for s in a.split(',')],
         'redirect': lambda a: [s.strip() for s in a.split(',')],
         'title': lambda a: a.strip(),
-        'update': lambda a: a.strip(),
+        #'update': lambda a: a.strip(),
         'image': int,
         'excerpt': int,
         'exclude': directives.flag,
@@ -54,7 +61,7 @@ class PostDirective(Directive):
                                 node, match_titles=1)
 
         node['date'] = self.arguments[0] if self.arguments else None
-        node['update'] = self.options.get('update', None)
+        #node['update'] = self.options.get('update', None)
         node['tags'] = self.options.get('tags', [])
         node['author'] = self.options.get('author', [])
         node['category'] = self.options.get('category', [])
@@ -65,6 +72,28 @@ class PostDirective(Directive):
         node['excerpt'] = self.options.get('excerpt', None)
         node['exclude'] = 'exclude' in self.options
         return [node]
+
+
+class UpdateDirective(Directive):
+
+    has_content = True
+    required_arguments = 1
+    optional_arguments = 0#1
+    final_argument_whitespace = True
+    option_spec = {}
+
+    def run(self):
+
+        ad = make_admonition(UpdateNode, self.name, [_('Updated on')],
+                             self.options,
+                             self.content, self.lineno, self.content_offset,
+                             self.block_text, self.state, self.state_machine)
+            #date = datetime.strptime(date, app.config['post_date_format'])
+        ad[0]['date'] = self.arguments[0] if self.arguments else ''
+
+        set_source_info(self, ad[0])
+        return ad
+
 
 
 class PostListDirective(Directive):
@@ -108,6 +137,7 @@ def purge_posts(app, env, docname):
     env.domains['std'].data['labels'].pop(os.path.split(docname)[1], None)
 
 
+
 def process_posts(app, doctree):
     """Process posts and map posted document names to post details in the
     environment."""
@@ -119,10 +149,11 @@ def process_posts(app, doctree):
     if not hasattr(env, 'ablog_posts'):
         env.ablog_posts = {}
 
+
     post_nodes = list(doctree.traverse(PostNode))
     if not post_nodes:
         return
-
+    pdf = app.config['post_date_format']
     docname = env.docname
 
     # mark the post as 'orphan' so that
@@ -143,6 +174,24 @@ def process_posts(app, doctree):
                 section = node.parent
         else:
             section = doctree
+
+        # get updates here, in the section that post belongs to
+        # Might there be orphan updates?
+        update_nodes = list(section.traverse(UpdateNode))
+        update_dates = []
+        for un in update_nodes:
+            try:
+                update = datetime.strptime(un['date'], pdf)
+            except ValueError:
+                raise ValueError('invalid post update date in: ' + docname)
+
+            un[0].replace_self(nodes.title('', str(un[0][0]) + ' ' +
+                                               update.strftime(pdf)))
+            # for now, let updates look like note
+            un['classes'] = ['note', 'update']
+
+            update_dates.append(update)
+
 
         # Making sure that post has a title because all post titles
         # are needed when resolving post lists in documents
@@ -178,24 +227,23 @@ def process_posts(app, doctree):
                 if count == node['image']:
                     excerpt.append(nod.deepcopy())
                     break
-
         date = node['date']
         if date:
             try:
-                date = datetime.strptime(date, app.config['post_date_format'])
+                date = datetime.strptime(date, pdf)
             except ValueError:
                 raise ValueError('invalid post published date in: ' + docname)
         else:
             date = None
 
-        update = node['update']
-        if update:
-            try:
-                update = datetime.strptime(update, app.config['post_date_format'])
-            except ValueError:
-                raise ValueError('invalid post update date in: ' + docname)
-        else:
-            update = date
+        #update = node['update']
+        #if update:
+        #    try:
+        #        update = datetime.strptime(update, app.config['post_date_format'])
+        #    except ValueError:
+        #        raise ValueError('invalid post update date in: ' + docname)
+        #else:
+        #    update = date
 
         # if docname ends with `index` use folder name to reference the document
         # a potential problem here is that there may be files/folders with the
@@ -218,13 +266,21 @@ def process_posts(app, doctree):
         # create a reference for the post
         app.env.domains['std'].data['labels'][label] = (docname, label, title)
 
+        section_copy = section.deepcopy()
+        # multiple posting may result having post nodes
+        for nn in section_copy.traverse(PostNode):
+            if nn['exclude']:
+                nn.replace_self([])
+            else:
+                nn.replace_self(node.children)
+
 
         postinfo = {
             'docname': docname,
             'section': section_name,
             'order': order,
             'date': date,
-            'update': update,
+            'update': max(update_dates + [date]),
             'title': title,
             'excerpt': excerpt,
             'tags': node['tags'],
@@ -233,7 +289,9 @@ def process_posts(app, doctree):
             'location': node['location'],
             'redirect': node['redirect'],
             'image': node['image'],
-            'exclude': node['exclude']}
+            'exclude': node['exclude'],
+            'doctree': section_copy
+        }
 
         if docname not in env.ablog_posts:
             env.ablog_posts[docname] = []
@@ -358,7 +416,8 @@ def generate_archive_pages(app):
     for post in blog.posts:
         post_url = os.path.join(url, post.docname)
         feed.add(post.title,
-                 content=post.summary(blog.blog_path),
+                 content=post.to_html(blog.blog_path,
+                                      fulltext=blog.blog_feed_fulltext),
                  title_type='text',
                  content_type='html',
                  author=', '.join(a.name for a in post.author),
