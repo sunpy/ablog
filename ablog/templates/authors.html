@@ -1,5 +1,5 @@
 {% if ablog.author %}
-  <h3>{{ gettext('Authors') }}</h3>
+  <h3><a href="{{ pathto(ablog.author.path) }}">{{ gettext('Authors') }}</a></h3>
   <ul>
   {% for coll in ablog.author %}
     {% if coll %}

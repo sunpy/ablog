@@ -1,5 +1,5 @@
 {% if ablog.category %}
-  <h3>{{ gettext('Categories') }}</h3>
+  <h3><a href="{{ pathto(ablog.category.path) }}">{{ gettext('Categories') }}</a></h3>
   <ul>
   {% for coll in ablog.category %}
     {% if coll %}
