@@ -34,8 +34,10 @@ CONFIG = [
     ('blog_title', 'Blog', True),
     ('blog_baseurl', None, True),
 
-    ('blog_feed_subtitle', None, True),
+    ('blog_feed_archives', False, True),
     ('blog_feed_fulltext', False, True),
+    ('blog_feed_subtitle', None, True),
+
     ('blog_authors', {}, True),
     ('blog_default_author', None, True),
     ('blog_locations', {}, True),
@@ -497,3 +499,5 @@ class Collection(object):
         if self._path is None:
             self._path = os.path.join(self.catalog.path, slugify(self.name))
         return self._path
+
+    path = docname

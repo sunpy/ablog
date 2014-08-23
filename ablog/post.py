@@ -375,6 +375,7 @@ def generate_archive_pages(app):
             'header': header,
             'catalog': catalog,
             'summary': True,
+            'subscribe': False,
         }
         yield (catalog.docname, context, 'archive.html')
 
@@ -389,6 +390,7 @@ def generate_archive_pages(app):
                 'header': header,
                 'catalog': [collection],
                 'summary': True,
+                'subscribe': blog.blog_feed_archives,
             }
             yield (collection.docname, context, 'archive.html')
 
@@ -404,29 +406,58 @@ def generate_archive_pages(app):
     if not url:
         return
 
+
     from werkzeug.contrib.atom import AtomFeed
     feed_path = os.path.join(app.builder.outdir, blog.blog_path, 'atom.xml')
-    feed = AtomFeed(blog.blog_title,
-                    title_type='text',
-                    url=url,
-                    feed_url=os.path.join(url, blog.blog_path, 'atom.xml'),
-                    subtitle=blog.blog_feed_subtitle,
-                    generator=('ABlog', 'http://blog.readthedocs.org',
-                               ablog.__version__))
-    for post in blog.posts:
-        post_url = os.path.join(url, post.docname)
-        feed.add(post.title,
-                 content=post.to_html(blog.blog_path,
-                                      fulltext=blog.blog_feed_fulltext),
-                 title_type='text',
-                 content_type='html',
-                 author=', '.join(a.name for a in post.author),
-                 url=post_url,
-                 id=post_url,
-                 updated=post.update, published=post.date)
 
-    with open(feed_path, 'w') as out:
-        out.write(feed.to_string().encode('utf-8'))
+    feeds = [(blog.posts,
+             feed_path,
+             blog.blog_title,
+             os.path.join(url, blog.blog_path, 'atom.xml'))]
+
+    if blog.blog_feed_archives:
+
+        for header, catalog in [
+            (_('Posts by'), blog.author),
+            (_('Posts from'), blog.location),
+            (_('Posts in'), blog.category),
+            (_('Posted in'), blog.archive),
+            (_('Posts tagged'), blog.tags),]:
+
+            for coll in catalog:
+                # skip collections containing only drafts
+                if not len(coll):
+                    continue
+                feeds.append((coll,
+                              os.path.join(app.builder.outdir,
+                                           coll.path, 'atom.xml'),
+                              blog.blog_title + ' - ' + header + ' ' + str(coll),
+                              os.path.join(url, coll.path, 'atom.xml')))
+
+
+    for feed_posts, feed_path, feed_title, feed_url in feeds:
+
+        feed = AtomFeed(feed_title,
+                        title_type='text',
+                        url=url,
+                        feed_url=feed_url,
+                        subtitle=blog.blog_feed_subtitle,
+                        generator=('ABlog', 'http://blog.readthedocs.org',
+                                   ablog.__version__))
+        for post in feed_posts:
+            post_url = os.path.join(url, post.docname)
+            feed.add(post.title,
+                     content=post.to_html(blog.blog_path,
+                                          fulltext=blog.blog_feed_fulltext),
+                     title_type='text',
+                     content_type='html',
+                     author=', '.join(a.name for a in post.author),
+                     url=post_url,
+                     id=post_url,
+                     updated=post.update, published=post.date)
+
+        with open(feed_path, 'w') as out:
+            out.write(feed.to_string().encode('utf-8'))
 
 
 def register_posts(app):
