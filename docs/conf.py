@@ -57,6 +57,8 @@ blog_authors = {
     'Luc': ('Luc Saffre', 'http://saffre-rumma.net/luc/'),
 
 }
+blog_feed_archives = True
+blog_feed_fulltext = False
 disqus_shortname = 'ablogforsphinx'
 disqus_pages = True
 fontawesome_css_file = 'css/font-awesome.css'
