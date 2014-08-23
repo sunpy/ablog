@@ -1,3 +1,8 @@
+  {% if post.published and post.date != post.update %}
+  <li>{% if fa %}<i class="fa fa-pencil-square-o"></i>{% else %}{{ gettext('Update') }}:{% endif %}
+    {{ post.update.strftime("%b %d, %Y") }}</li>
+  {% endif %}
+
   {% if post.author %}
   <li>{% if fa %}<i class="fa-fw fa fa-user"></i>{% else %}{{ gettext('Author') }}:{% endif %}
     {% for coll in post.author %}
