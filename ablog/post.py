@@ -359,6 +359,8 @@ def generate_archive_pages(app):
         for redirect in post.redirect:
             yield (redirect, {'redirect': post.docname, 'post': post},
                    'redirect.html')
+
+    atom_feed = bool(blog.blog_baseurl)
     for title, header, catalog in [
         (_('Authors'), _('Posts by'), blog.author),
         (_('Locations'), _('Posts from'), blog.location),
@@ -375,7 +377,8 @@ def generate_archive_pages(app):
             'header': header,
             'catalog': catalog,
             'summary': True,
-            'subscribe': False,
+            'atom_feed': atom_feed,
+            'feed_path': blog.blog_path
         }
         yield (catalog.docname, context, 'archive.html')
 
@@ -390,7 +393,8 @@ def generate_archive_pages(app):
                 'header': header,
                 'catalog': [collection],
                 'summary': True,
-                'subscribe': blog.blog_feed_archives,
+                'atom_feed': atom_feed,
+                'feed_path': collection.path
             }
             yield (collection.docname, context, 'archive.html')
 

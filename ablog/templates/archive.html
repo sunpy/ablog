@@ -20,7 +20,8 @@
   <div class="section">
 
     <h1>
-      {% if subscribe and fa %}<i class="fa fa-rss fa-rotate-270"></i>{% endif %}
+      {% if atom_feed and fa %}
+      <a href="{{ pathto(archive.path, 1) }}/atom.xml"><i class="fa fa-rss fa-rotate-270"></i></a>{% endif %}
       {{ header }}
       {% if archive.href %}
       <a href="{{ archive.href }}">{{ archive }}</a>

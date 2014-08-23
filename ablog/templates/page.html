@@ -8,7 +8,9 @@
 
 {%- block extrahead %}
   {{ super() }}
-  <link rel="alternate" type="application/atom+xml"  href="{{ pathto(ablog.blog_path, 1) }}/atom.xml" title="{{ ablog.blog_title }}">
+  {% if atom_feed %}
+  <link rel="alternate" type="application/atom+xml"  href="{{ pathto(feed_path, 1) }}/atom.xml" title="{{ ablog.blog_title }}">
+  {% endif %}
   {% if ablog.fontawesome_link_cdn%}
   <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
   {% elif ablog.fontawesome_css_file %}
