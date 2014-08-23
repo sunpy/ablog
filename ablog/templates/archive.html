@@ -19,7 +19,9 @@
   {% if archive|length %}
   <div class="section">
 
-    <h1>{{ header }}
+    <h1>
+      {% if subscribe and fa %}<i class="fa fa-rss fa-rotate-270"></i>{% endif %}
+      {{ header }}
       {% if archive.href %}
       <a href="{{ archive.href }}">{{ archive }}</a>
       {% else %}
