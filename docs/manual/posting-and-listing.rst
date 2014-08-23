@@ -7,8 +7,8 @@ Posting and Listing
    :location: Pittsburgh
    :author: Ahmet
 
-This post describes :rst:dir:`post` and :rst:dir:`postlist` directives
-introduced by ABlog.
+This post describes :rst:dir:`post`, :rst:dir:`update`, and :rst:dir:`postlist`
+directives.
 
 Posting
 -------
@@ -34,12 +34,12 @@ following directive:
    **Drafts & Posts**
 
    Posts without dates or with future dates are considered as drafts and
-   are published only in :ref:`blog-drafts` page.
+   are published only in :ref:`blog-drafts` archive page.
 
    Posts with dates that are older than the day Sphinx project is built are
    published in :ref:`blog-posts` page.
 
-   Post date format must match the format specified with
+   Post date format must follow the format specified with
    :confval:`post_date_format` configuration option.
 
    **Tags & Categories**
@@ -56,9 +56,9 @@ following directive:
    are accepted.
 
    Using :confval:`blog_authors` and :confval:`blog_locations`
-   configuration variables, you can also provide links to authors
-   and locations, which will be displayed in archive pages generated
-   for all unique authors and locations.
+   configuration variables, you can also provide home pages and
+   full names of authors and locations, which will be displayed
+   in archive pages generated for all unique authors and locations.
 
    **Redirections**
 
@@ -72,6 +72,51 @@ following directive:
    By default, ABlog uses the first paragraph of a page as post excerpt.
    You can change this behavior and also add an image to the excerpt.
    To find out how, see :ref:`post-excerpts-and-images`.
+
+   **Update Notes**
+
+   .. rst:directive:: update
+
+      Update in a post can be noted anywhere in the post as follows::
+
+        .. update:: 20 Apr, 2014
+
+           Added :rst:dir:`update` directive and
+           :ref:`posting-and-listing-posting-sections` section.
+
+      Update date format must follow the format specified with
+      :confval:`post_date_format` configuration option.
+
+      Updates content render like the update at the end of this post.
+
+
+Posting Sections
+----------------
+
+.. post:: Aug 20, 2014
+   :tags: directive
+   :category: Manual
+   :location: SF
+   :author: Ahmet
+
+:rst:dir:`post` directive can be used multiple times in a single page
+to create multiple posts of different sections of the document.
+
+Second time a document is posted, post title and excerpt will be extracted
+from the section in which the :rst:dir:`post` directive resides and
+will be used in archive pages and post lists.
+
+Some caveats and differences from a document posts are:
+
+  * Next and previous links at the bottom will only regard the first post
+    in the document.
+  * Information displayed on the sidebar will belong to the first post.
+  * Section posts can be referred using page name and section title,
+    e.g. ``:ref:`posting-and-listing-posting-sections```.
+
+Multiple use of :rst:dir:`post` may be suitable for major additions
+to a previous post. For minor changes, :rst:dir:`update` directive
+may be more suitable.
 
 
 Listing
@@ -104,3 +149,9 @@ A list of posts can be displayed in any page using the following directive:
    in :ref:`category-manual` and tagged with :ref:`tag-tips`.  Posts
    will be in reverse chronological order.
 
+
+.. update:: Aug 20, 2014
+
+   Added :rst:dir:`update` directive and
+   :ref:`posting-and-listing-posting-sections` section.
+   Also revised the text here and there.

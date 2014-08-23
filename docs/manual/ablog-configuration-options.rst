@@ -87,6 +87,33 @@ Post related
    Number of seconds (default is ``5``) that a redirect page waits before
    refreshing the page to redirect to the post.
 
+
+Blog feeds
+----------
+
+Turn feeds by setting :confval:`blog_baseurl` configuration variable.
+
+.. confval:: blog_feed_archives
+
+   Choose to create per author, location, tag, category, and year
+   feeds, default is ``False``.
+
+.. confval:: blog_feed_fulltext
+
+   Choose to display full text in blog feeds, default is ``False``.
+
+.. confval:: blog_feed_subtitle
+
+   Blog feed subtitle, default is ``None``.
+
+
+.. update:: Aug 24, 2014
+
+   Added :confval:`blog_feed_archives`,  :confval:`blog_feed_fulltext`, and
+   :confval:`blog_feed_subtitle` options.
+
+
+
 .. _fa:
 
 Font awesome

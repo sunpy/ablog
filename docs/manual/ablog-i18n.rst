@@ -25,7 +25,7 @@ These labels need to be translated. ABlog needs your help.
     $ python setup.py extract_messages -o ablog/locale/sphinx.pot
     ...
 
-  This will create a file :xfile:`ablog/locale/sphinx.pot`, the
+  This will create a file :file:`ablog/locale/sphinx.pot`, the
   central messages catalog used by the different translations.
 
 - init_catalog_ must run after extract_messages_ once for each *new* language::
