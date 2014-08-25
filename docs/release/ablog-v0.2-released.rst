@@ -1,7 +1,7 @@
 ABlog v0.2 released
 ===================
 
-.. post:: Aug 22, 2014
+.. post::
    :tags: tips
    :author: Ahmet
    :category: Release

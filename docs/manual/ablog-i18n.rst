@@ -1,7 +1,7 @@
 ABlog Internationalization
 ==========================
 
-.. post:: Jun 10, 2014
+.. post::
    :tags: i18n
    :category: Manual
    :author: Luc
