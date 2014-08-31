@@ -7,43 +7,66 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ablog 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-07-25 20:45+0300\n"
+"POT-Creation-Date: 2014-08-31 15:14-0700\n"
 "PO-Revision-Date: 2014-07-25 20:46+0300\n"
 "Last-Translator: Luc Saffre <luc.saffre@gmx.net>\n"
 "Language-Team: de <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
-"X-Generator: Poedit 1.5.4\n"
-"Language: de\n"
 
-#: ablog/__init__.py:274
+#: ablog/post.py:87
+msgid "Updated on"
+msgstr "Aktualisiert am"
+
+#: ablog/post.py:368 ablog/templates/authors.html:2
+msgid "Authors"
+msgstr "Autoren"
+
+#: ablog/post.py:368 ablog/post.py:428
 msgid "Posts by"
 msgstr "Einträge von"
 
-#: ablog/__init__.py:275
+#: ablog/post.py:369 ablog/templates/locations.html:2
+msgid "Locations"
+msgstr "Orte"
+
+#: ablog/post.py:369 ablog/post.py:429
 msgid "Posts from"
 msgstr "Einträge aus"
 
-#: ablog/__init__.py:276
+#: ablog/post.py:370 ablog/templates/categories.html:2
+msgid "Categories"
+msgstr "Kategorien"
+
+#: ablog/post.py:370 ablog/post.py:430
 msgid "Posts in"
 msgstr "Einträge in"
 
-#: ablog/__init__.py:277
+#: ablog/post.py:371
 msgid "All posts"
 msgstr "Alle Einträge"
 
-#: ablog/__init__.py:277
+#: ablog/post.py:371 ablog/post.py:431
 msgid "Posted in"
 msgstr "Einträge in"
 
-#: ablog/__init__.py:278
+#: ablog/post.py:372 ablog/templates/postcard2.html:36
+#: ablog/templates/tagcloud.html:2
+msgid "Tags"
+msgstr "Schlagworte"
+
+#: ablog/post.py:372 ablog/post.py:432
 msgid "Posts tagged"
 msgstr "Einträge mit Schlagwort"
 
-#: ablog/templates/archive.html:46
+#: ablog/post.py:406
+msgid "Drafts"
+msgstr "Entwurf"
+
+#: ablog/templates/archive.html:49
 msgid "Read more ..."
 msgstr "Weiter..."
 
@@ -51,35 +74,23 @@ msgstr "Weiter..."
 msgid "Archives"
 msgstr "Archive"
 
-#: ablog/templates/authors.html:2
-msgid "Authors"
-msgstr "Autoren"
-
-#: ablog/templates/categories.html:2
-msgid "Categories"
-msgstr "Kategorien"
-
-#: ablog/templates/locations.html:2
-msgid "Locations"
-msgstr "Orte"
-
 #: ablog/templates/postcard2.html:2
+msgid "Update"
+msgstr "Aktualisierung"
+
+#: ablog/templates/postcard2.html:7
 msgid "Author"
 msgstr "Autor"
 
-#: ablog/templates/postcard2.html:12
+#: ablog/templates/postcard2.html:17
 msgid "Location"
 msgstr "Ort"
 
-#: ablog/templates/postcard2.html:22
+#: ablog/templates/postcard2.html:27
 msgid "Category"
 msgstr "Kategorie"
 
-#: ablog/templates/postcard2.html:31 ablog/templates/tagcloud.html:2
-msgid "Tags"
-msgstr "Schlagworte"
-
-#: ablog/templates/postcard2.html:32
+#: ablog/templates/postcard2.html:37
 msgid "Tag"
 msgstr "Schlagwort"
 
@@ -94,3 +105,4 @@ msgstr "Nächste"
 #: ablog/templates/recentposts.html:2
 msgid "Recent Posts"
 msgstr "Neue Einträge"
+

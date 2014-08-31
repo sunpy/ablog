@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ablog 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-08-01 21:43-0700\n"
+"POT-Creation-Date: 2014-08-31 15:14-0700\n"
 "PO-Revision-Date: 2014-08-01 21:43-0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: tr <LL@li.org>\n"
@@ -17,52 +17,56 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: ablog/post.py:305 ablog/templates/authors.html:2
+#: ablog/post.py:87
+msgid "Updated on"
+msgstr "Güncelleme"
+
+#: ablog/post.py:368 ablog/templates/authors.html:2
 msgid "Authors"
 msgstr "Yazarlar"
 
-#: ablog/post.py:305
+#: ablog/post.py:368 ablog/post.py:428
 msgid "Posts by"
 msgstr "Yazar"
 
-#: ablog/post.py:306 ablog/templates/locations.html:2
+#: ablog/post.py:369 ablog/templates/locations.html:2
 msgid "Locations"
 msgstr "Mevkiler"
 
-#: ablog/post.py:306
+#: ablog/post.py:369 ablog/post.py:429
 msgid "Posts from"
 msgstr "Mevki"
 
-#: ablog/post.py:307 ablog/templates/categories.html:2
+#: ablog/post.py:370 ablog/templates/categories.html:2
 msgid "Categories"
 msgstr "Kategoriler"
 
-#: ablog/post.py:307
+#: ablog/post.py:370 ablog/post.py:430
 msgid "Posts in"
 msgstr "Kategori"
 
-#: ablog/post.py:308
+#: ablog/post.py:371
 msgid "All posts"
 msgstr "Bütün yazılar"
 
-#: ablog/post.py:308
+#: ablog/post.py:371 ablog/post.py:431
 msgid "Posted in"
 msgstr "Sene"
 
-#: ablog/post.py:309 ablog/templates/postcard2.html:31
+#: ablog/post.py:372 ablog/templates/postcard2.html:36
 #: ablog/templates/tagcloud.html:2
 msgid "Tags"
 msgstr "Etiketler"
 
-#: ablog/post.py:309
+#: ablog/post.py:372 ablog/post.py:432
 msgid "Posts tagged"
 msgstr "Etiket"
 
-#: ablog/post.py:339
+#: ablog/post.py:406
 msgid "Drafts"
 msgstr "Taslaklar"
 
-#: ablog/templates/archive.html:46
+#: ablog/templates/archive.html:49
 msgid "Read more ..."
 msgstr "Okumaya devam et ..."
 
@@ -71,18 +75,22 @@ msgid "Archives"
 msgstr "Arşiv"
 
 #: ablog/templates/postcard2.html:2
+msgid "Update"
+msgstr "Güncelleme"
+
+#: ablog/templates/postcard2.html:7
 msgid "Author"
 msgstr "Yazar"
 
-#: ablog/templates/postcard2.html:12
+#: ablog/templates/postcard2.html:17
 msgid "Location"
 msgstr "Mevki"
 
-#: ablog/templates/postcard2.html:22
+#: ablog/templates/postcard2.html:27
 msgid "Category"
 msgstr "Kategori"
 
-#: ablog/templates/postcard2.html:32
+#: ablog/templates/postcard2.html:37
 msgid "Tag"
 msgstr "Etiket"
 
