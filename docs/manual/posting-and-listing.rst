@@ -87,8 +87,9 @@ following directive:
       Update date format must follow the format specified with
       :confval:`post_date_format` configuration option.
 
-      Updates content render like the update at the end of this post.
+      Update directive renders like the update at the end of this post.
 
+.. _posting-sections:
 
 Posting Sections
 ----------------
@@ -102,21 +103,23 @@ Posting Sections
 :rst:dir:`post` directive can be used multiple times in a single page
 to create multiple posts of different sections of the document.
 
-Second time a document is posted, post title and excerpt will be extracted
-from the section in which the :rst:dir:`post` directive resides and
-will be used in archive pages and post lists.
+When :rst:dir:`post` is used more than once, post titles and excerpts
+are extracted from the sections that contain the directives. This
+behavior can also be set as the default behavior using
+:confval:`post_always_section` configuration options.
 
-Some caveats and differences from a document posts are:
+Some caveats and differences from posting a document once are:
 
   * Next and previous links at the bottom will only regard the first post
     in the document.
   * Information displayed on the sidebar will belong to the first post.
-  * Section posts can be referred using page name and section title,
-    e.g. ``:ref:`posting-and-listing-posting-sections```.
+  * References for section posts is not automatically created.  Labels for
+    cross-referencing needs to be created manually, e.g.
+    ``.. _posting-sections``. See :ref:`xref-syntax` for details.
 
 Multiple use of :rst:dir:`post` may be suitable for major additions
 to a previous post. For minor changes, :rst:dir:`update` directive
-may be more suitable.
+may be preferred.
 
 
 Listing
@@ -153,5 +156,5 @@ A list of posts can be displayed in any page using the following directive:
 .. update:: Aug 20, 2014
 
    Added :rst:dir:`update` directive and
-   :ref:`posting-and-listing-posting-sections` section.
+   :ref:`posting-sections` section.
    Also revised the text here and there.

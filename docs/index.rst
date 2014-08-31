@@ -44,8 +44,9 @@ in :file:`conf.py`:
   # if `templates_path` is not defined before
   templates_path = [ablog.get_html_templates_path()]
 
-..
-  See more detailed instructions in :ref:`get-started` post.
+
+See more detailed instructions in :ref:`ablog-configuration-options`
+and :ref:`posting-and-listing` posts.
 
 **Read The Docs**
 

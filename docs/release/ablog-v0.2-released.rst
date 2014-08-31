@@ -1,7 +1,7 @@
 ABlog v0.2 released
 ===================
 
-.. post::
+.. post:: Aug 31, 2014
    :tags: tips
    :author: Ahmet
    :category: Release
@@ -11,10 +11,10 @@ ABlog v0.2 released
 
 ABlog v0.2 is released. This version comes with several new features:
 
-  * You can post a document multiple times, see
-    :ref:`posting-and-listing-posting-sections` for details.
+  * You can post a document multiple times, see :ref:`posting-sections`
+    for details.
 
-  * You can make notes of updates in a post using :rst:dir:`update`
+  * You can make note of updates in a post using :rst:dir:`update`
     directive.
 
   * Blog feeds for authors, locations, categories, tags, and years
@@ -23,3 +23,5 @@ ABlog v0.2 is released. This version comes with several new features:
 
   * Blog Feeds can be made full text using :confval:`blog_feed_fulltext`
     configuration variable.
+
+  * Recent posts side bar includes month and day of the posts.

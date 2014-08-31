@@ -87,6 +87,14 @@ Post related
    Number of seconds (default is ``5``) that a redirect page waits before
    refreshing the page to redirect to the post.
 
+.. confval:: post_always_section
+
+   When ``True``, post title and excerpt is always taken from the section that
+   contains the :rst:dir:`post` directive, instead of the document. This is the
+   behavior when :rst:dir:`post` is used multiple times in a document. Default
+   is ``False``.
+
+
 
 Blog feeds
 ----------
@@ -109,8 +117,9 @@ Turn feeds by setting :confval:`blog_baseurl` configuration variable.
 
 .. update:: Aug 24, 2014
 
-   Added :confval:`blog_feed_archives`,  :confval:`blog_feed_fulltext`, and
-   :confval:`blog_feed_subtitle` options.
+   Added :confval:`blog_feed_archives`,  :confval:`blog_feed_fulltext`,
+   :confval:`blog_feed_subtitle`, and :confval:`post_always_section`
+   options.
 
 
 
