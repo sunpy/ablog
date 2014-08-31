@@ -308,7 +308,8 @@ class Post(object):
 
     def __lt__(self, other):
 
-        return (self.date or FUTURE) < (other.date or FUTURE)
+        return ((self.date or FUTURE), self.title) < (
+                (other.date or FUTURE), other.title)
 
     def to_html(self, pagename, fulltext=False):
         """Return excerpt as HTML after resolving references with respect to
