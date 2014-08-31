@@ -262,9 +262,12 @@ def process_posts(app, doctree):
                 section_name = section.attributes['ids'][0]
                 post_name = docname + '#' + section_name
                 label += '-' + section_name
+        else:
+            # create a reference for the post
+            # if it is posting the document
+            # ! this does not work for sections
+            app.env.domains['std'].data['labels'][label] = (docname, label, title)
 
-        # create a reference for the post
-        app.env.domains['std'].data['labels'][label] = (docname, label, title)
 
         section_copy = section.deepcopy()
         # multiple posting may result having post nodes
