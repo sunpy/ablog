@@ -4,7 +4,10 @@ import os
 import re
 
 import datetime as dtmod
-from urlparse import urljoin
+try:
+    from urlparse import urljoin
+except ImportError:
+    from urllib.parse import urljoin
 from datetime import datetime
 from unicodedata import normalize
 
