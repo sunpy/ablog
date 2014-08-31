@@ -58,7 +58,7 @@ blog_authors = {
 
 }
 blog_feed_archives = True
-blog_feed_fulltext = False
+blog_feed_fulltext = True
 disqus_shortname = 'ablogforsphinx'
 disqus_pages = True
 fontawesome_css_file = 'css/font-awesome.css'
