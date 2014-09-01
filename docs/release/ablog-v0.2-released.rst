@@ -2,11 +2,9 @@ ABlog v0.2 released
 ===================
 
 .. post:: Aug 31, 2014
-   :tags: tips
    :author: Ahmet
    :category: Release
    :location: SF
-   :excerpt: 10
 
 
 ABlog v0.2 is released. This version comes with several new features:
@@ -25,3 +23,15 @@ ABlog v0.2 is released. This version comes with several new features:
     configuration variable.
 
   * Recent posts side bar includes month and day of the posts.
+
+
+ABlog v0.2.1 released
+---------------------
+
+.. post:: Sep 1, 2014
+   :author: Ahmet
+   :category: Release
+   :location: SF
+
+ABlog v0.2.1 is a bug fix release that solves duplicated content
+problem in full text atom feeds.

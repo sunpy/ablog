@@ -320,14 +320,19 @@ class Post(object):
 
         if fulltext:
             doctree = nodes.document({}, dummy_reporter)
-            doctree.append(self.doctree.deepcopy())
+            deepcopy = self.doctree.deepcopy()
+            if isinstance(deepcopy, nodes.document):
+                doctree.extend(deepcopy.children)
+            else:
+                doctree.append(deepcopy)
         else:
             doctree = nodes.document({}, dummy_reporter)
             for node in self.excerpt:
                 doctree.append(node.deepcopy())
         app = self.ablog.app
         app.env.resolve_references(doctree, pagename, app.builder)
-        return html_builder_write_doc(app.builder, pagename, doctree)
+        html = html_builder_write_doc(app.builder, pagename, doctree)
+        return html
 
     @property
     def next(self):

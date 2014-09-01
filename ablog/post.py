@@ -268,8 +268,10 @@ def process_posts(app, doctree):
             # ! this does not work for sections
             app.env.domains['std'].data['labels'][label] = (docname, label, title)
 
-
-        section_copy = section.deepcopy()
+        if section.parent is doctree:
+            section_copy = section[0].deepcopy()
+        else:
+            section_copy = section.deepcopy()
         # multiple posting may result having post nodes
         for nn in section_copy.traverse(PostNode):
             if nn['exclude']:
