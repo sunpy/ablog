@@ -339,7 +339,7 @@ def process_postlist(app, doctree, docname):
 
             bli.append(par)
             ref = nodes.reference()
-            ref['refuri'] = post.docname
+            ref['refuri'] = app.builder.get_relative_uri(docname, post.docname)
             ref['ids'] = []
             ref['backrefs'] = []
             ref['dupnames'] = []
@@ -437,11 +437,14 @@ def generate_archive_pages(app):
                 # skip collections containing only drafts
                 if not len(coll):
                     continue
+                folder = os.path.join(app.builder.outdir, coll.path)
+                if not os.path.isdir(folder):
+                    os.makedirs(folder)
+
                 feeds.append((coll,
-                              os.path.join(app.builder.outdir,
-                                           coll.path, 'atom.xml'),
-                              blog.blog_title + ' - ' + header + ' ' + str(coll),
-                              os.path.join(url, coll.path, 'atom.xml')))
+                          os.path.join(folder, 'atom.xml'),
+                          blog.blog_title + ' - ' + header + ' ' + str(coll),
+                          os.path.join(url, coll.path, 'atom.xml')))
 
 
     for feed_posts, feed_path, feed_title, feed_url in feeds:
