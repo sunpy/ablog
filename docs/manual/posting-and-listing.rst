@@ -81,8 +81,8 @@ following directive:
 
         .. update:: 20 Apr, 2014
 
-           Added :rst:dir:`update` directive and
-           :ref:`posting-and-listing-posting-sections` section.
+           Added :rst:dir:`update` directive and :ref:`posting-sections`
+           section. Also revised the text here and there.
 
       Update date format must follow the format specified with
       :confval:`post_date_format` configuration option.
