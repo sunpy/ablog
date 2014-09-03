@@ -35,3 +35,14 @@ ABlog v0.2.1 released
 
 ABlog v0.2.1 is a bug fix release that solves duplicated content
 problem in full text atom feeds.
+
+ABlog v0.2.2 released
+---------------------
+
+.. post:: Sep 3, 2014
+   :author: Ahmet
+   :category: Release
+   :location: SF
+
+ABlog v0.2.2 is a bug fix release that solves broken links problem
+in post lists (:issue:`12`).
