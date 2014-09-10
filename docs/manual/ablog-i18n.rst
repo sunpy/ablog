@@ -58,4 +58,4 @@ involves the following steps:
 .. _init_catalog: http://babel.edgewall.org/wiki/Documentation/setup.html#init-catalog
 
 .. _update_catalog: http://babel.edgewall.org/wiki/Documentation/setup.html#update-catalog
-.. _compile_catlog: http://babel.edgewall.org/wiki/Documentation/setup.html#id4
+.. _compile_catalog: http://babel.edgewall.org/wiki/Documentation/setup.html#id4
