@@ -17,7 +17,7 @@ setup(
     author_email='lordnapi@gmail.com',
     description='ABlog for blogging with Sphinx',
     long_description=long_description,
-    url='http://github.com/abakan/ablog',
+    url='http://ablog.readthedocs.org/',
     packages=['ablog'],
     package_dir={'ablog': 'ablog'},
     package_data={'ablog': ['templates/*.html',
