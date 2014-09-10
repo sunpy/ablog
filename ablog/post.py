@@ -456,10 +456,10 @@ def generate_archive_pages(app):
                         generator=('ABlog', 'http://blog.readthedocs.org',
                                    ablog.__version__))
         for post in feed_posts:
-            post_url = post_id = os.path.join(
+            post_url = os.path.join(
                 url, app.builder.get_target_uri(post.docname))
             if post.section:
-                post_id += '#' + post.section
+                post_url += '#' + post.section
 
             feed.add(post.title,
                      content=post.to_html(blog.blog_path,
@@ -468,7 +468,7 @@ def generate_archive_pages(app):
                      content_type='html',
                      author=', '.join(a.name for a in post.author),
                      url=post_url,
-                     id=post_id,
+                     id=post_url,
                      updated=post.update, published=post.date)
 
         with open(feed_path, 'w') as out:
