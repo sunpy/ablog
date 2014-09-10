@@ -57,5 +57,5 @@ ABlog v0.2.3 released
    :category: Release
    :location: SF
 
-ABlog v0.2.3 is a bug fix release that solves broken links (:issue:`12`)
+ABlog v0.2.3 is a bug fix release that solves broken links (:issue:`13`)
 and non-unique post IDs problems atom feeds.
