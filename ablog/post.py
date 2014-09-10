@@ -415,7 +415,6 @@ def generate_archive_pages(app):
     if not url:
         return
 
-
     from werkzeug.contrib.atom import AtomFeed
     feed_path = os.path.join(app.builder.outdir, blog.blog_path, 'atom.xml')
 
@@ -457,7 +456,11 @@ def generate_archive_pages(app):
                         generator=('ABlog', 'http://blog.readthedocs.org',
                                    ablog.__version__))
         for post in feed_posts:
-            post_url = os.path.join(url, post.docname)
+            post_url = post_id = os.path.join(
+                url, app.builder.get_target_uri(post.docname))
+            if post.section:
+                post_id += '#' + post.section
+
             feed.add(post.title,
                      content=post.to_html(blog.blog_path,
                                           fulltext=blog.blog_feed_fulltext),
@@ -465,7 +468,7 @@ def generate_archive_pages(app):
                      content_type='html',
                      author=', '.join(a.name for a in post.author),
                      url=post_url,
-                     id=post_url,
+                     id=post_id,
                      updated=post.update, published=post.date)
 
         with open(feed_path, 'w') as out:
