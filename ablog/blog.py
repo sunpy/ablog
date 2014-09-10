@@ -33,6 +33,7 @@ def slugify(string):
 
 DEBUG = True
 CONFIG = [
+    # name, default, rebuild
     ('blog_path', 'blog', True),
     ('blog_title', 'Blog', True),
     ('blog_baseurl', None, True),
