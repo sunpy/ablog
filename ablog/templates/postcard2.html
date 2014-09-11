@@ -21,12 +21,21 @@
     {% endfor %}</li>
   {% endif %}
 
+  {% if post.language %}
+  <li>{% if fa %}<i class="fa-fw fa fa-language"></i>{% else %}{{ gettext('Language') }}:{% endif %}
+    {% for coll in post.language %}
+      {% if coll|length %}
+      <a href="{{ pathto(coll.docname) }}">{{ coll }}</a>{% if loop.index < post.language|length %},{% endif %}
+      {% else %}{{ coll }}{% if loop.index < post.language|length %},{% endif %}{% endif %}
+    {% endfor %}</li>
+  {% endif %}
+
   {% if post.category %}
   <li>{% if fa %}<i class="fa-fw fa fa-folder-open"></i>{% else %}{{ gettext('Category') }}:{% endif %}
     {% for coll in post.category %}
       {% if coll|length %}
-      <a href="{{ pathto(coll.docname) }}">{{ coll }}</a>
-      {% else %}{{ coll }}{% endif %}
+      <a href="{{ pathto(coll.docname) }}">{{ coll }}</a>{% if loop.index < post.category|length %},{% endif %}
+      {% else %}{{ coll }}{% if loop.index < post.category|length %},{% endif %}{% endif %}
     {% endfor %}</li>
   {% endif %}
 
@@ -35,8 +44,8 @@
       {% else %}{% if fa %}<i class="fa-fw fa fa-tag"></i>{% else %}{{ gettext('Tag') }}:{% endif %}{% endif %}
     {% for coll in post.tags %}
       {% if coll|length %}
-      <a href="{{ pathto(coll.docname) }}">{{ coll }}</a>
-      {% else %}{{ coll }}{% endif %}
+      <a href="{{ pathto(coll.docname) }}">{{ coll }}</a>{% if loop.index < post.tags|length %},{% endif %}
+      {% else %}{{ coll }}{% if loop.index < post.tags|length %},{% endif %}{% endif %}
     {% endfor %}</li>
   {% endif %}
   {% if ablog.disqus_shortname and (ablog[pagename].published or ablog.disqus_drafts) %}
