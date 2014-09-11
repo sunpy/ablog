@@ -53,6 +53,10 @@ blog_locations = {
     'Pittsburgh': ('Pittsburgh, PA', None),
     'SF': ('San Francisco, CA', None),
 }
+blog_languages = {
+    'en': ('English', None),
+}
+blog_default_language = 'en'
 blog_authors = {
     'Ahmet': ('Ahmet Bakan', 'http://ahmetbakan.com'),
     'Luc': ('Luc Saffre', 'http://saffre-rumma.net/luc/'),
