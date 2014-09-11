@@ -19,7 +19,8 @@ extensions = [
     'ablog'
 ]
 
-
+#language = 'de'
+#language = 'tr'
 # PROJECT
 
 version = release = ablog.__version__

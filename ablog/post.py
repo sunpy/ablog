@@ -185,7 +185,7 @@ def process_posts(app, doctree):
             except ValueError:
                 raise ValueError('invalid post update date in: ' + docname)
 
-            un[0].replace_self(nodes.title('', str(un[0][0]) + ' ' +
+            un[0].replace_self(nodes.title(u'', un[0][0].astext() + u' ' +
                                                update.strftime(pdf)))
             # for now, let updates look like note
             un['classes'] = ['note', 'update']
@@ -335,7 +335,7 @@ def process_postlist(app, doctree, docname):
 
             if True:
                 par.append(nodes.Text(
-                    post.date.strftime(blog.post_date_format) + ' - '))
+                    post.date.strftime(_(blog.post_date_format)) + ' - '))
 
             bli.append(par)
             ref = nodes.reference()

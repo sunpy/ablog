@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Classes for handling posts and archives."""
 
 import os
@@ -52,6 +53,7 @@ CONFIG = [
     ('fontawesome_css_file', False, True),
 
     ('post_date_format', '%b %d, %Y', True),
+    ('post_date_format_short', '%b %d', True),
     ('post_auto_image', 0, True),
     ('post_auto_excerpt', 1, True),
     ('post_redirect_refresh', 5, True),
