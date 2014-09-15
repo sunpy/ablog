@@ -111,7 +111,7 @@ class PostListDirective(Directive):
         'category': lambda a: set(s.strip() for s in a.split(',')),
         'location': lambda a: set(s.strip() for s in a.split(',')),
         'language': lambda a: set(s.strip() for s in a.split(',')),
-        'reverse': directives.flag,
+        'sort': directives.flag,
     }
 
     def run(self):
@@ -128,7 +128,7 @@ class PostListDirective(Directive):
         node['category'] = self.options.get('category', [])
         node['location'] = self.options.get('location', [])
         node['language'] = self.options.get('language', [])
-        node['reverse'] = 'reverse' in self.options
+        node['sort'] = 'sort' in self.options
         return [node]
 
 
@@ -328,9 +328,21 @@ def process_postlist(app, doctree, docname):
         register_posts(app)
 
     for node in doctree.traverse(PostList):
-        posts = list(blog.recent(node.attributes['length'], docname,
-                                      **node.attributes))
-        if node.attributes['reverse']:
+        colls = []
+        for cat in ['tags', 'author', 'category', 'location', 'language']:
+            for coll in node[cat]:
+                if coll in blog.catalogs[cat].collections:
+                    colls.append(blog.catalogs[cat].collections[coll])
+        if colls:
+            posts = set(blog.posts)
+            for coll in colls:
+                posts = posts & set(coll)
+            posts = list(posts)
+            posts.sort(reverse=True)
+        else:
+            posts = list(blog.recent(node.attributes['length'], docname,
+                                          **node.attributes))
+        if node.attributes['sort']:
             posts.sort() # in reverse chronological order, so no reverse=True
         bl = nodes.bullet_list()
         for post in posts:
