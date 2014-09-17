@@ -51,9 +51,9 @@ Authors, languages, & locations
    A dictionary of language code names mapping to full display names and
    links of these languages. Similar to :confval:`blog_authors`, dictionary
    keys should be used in ``post`` directive to refer to the locations.
-   Default is ``{}``. . Example::
+   Default is ``{}``. Example::
 
-     blog_language = {
+     blog_languages = {
          'en': ('English', None),
      }
 
