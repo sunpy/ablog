@@ -44,6 +44,7 @@ class PostDirective(Directive):
         'author': lambda a: [s.strip() for s in a.split(',')],
         'category': lambda a: [s.strip() for s in a.split(',')],
         'location': lambda a: [s.strip() for s in a.split(',')],
+        'language': lambda a: [s.strip() for s in a.split(',')],
         'redirect': lambda a: [s.strip() for s in a.split(',')],
         'title': lambda a: a.strip(),
         #'update': lambda a: a.strip(),
@@ -66,6 +67,7 @@ class PostDirective(Directive):
         node['author'] = self.options.get('author', [])
         node['category'] = self.options.get('category', [])
         node['location'] = self.options.get('location', [])
+        node['language'] = self.options.get('language', [])
         node['redirect'] = self.options.get('redirect', [])
         node['title'] = self.options.get('title', None)
         node['image'] = self.options.get('image', None)
@@ -108,7 +110,8 @@ class PostListDirective(Directive):
         'author': lambda a: set(s.strip() for s in a.split(',')),
         'category': lambda a: set(s.strip() for s in a.split(',')),
         'location': lambda a: set(s.strip() for s in a.split(',')),
-        'reverse': directives.flag,
+        'language': lambda a: set(s.strip() for s in a.split(',')),
+        'sort': directives.flag,
     }
 
     def run(self):
@@ -124,7 +127,8 @@ class PostListDirective(Directive):
         node['author'] = self.options.get('author', [])
         node['category'] = self.options.get('category', [])
         node['location'] = self.options.get('location', [])
-        node['reverse'] = 'reverse' in self.options
+        node['language'] = self.options.get('language', [])
+        node['sort'] = 'sort' in self.options
         return [node]
 
 
@@ -185,7 +189,7 @@ def process_posts(app, doctree):
             except ValueError:
                 raise ValueError('invalid post update date in: ' + docname)
 
-            un[0].replace_self(nodes.title('', str(un[0][0]) + ' ' +
+            un[0].replace_self(nodes.title(u'', un[0][0].astext() + u' ' +
                                                update.strftime(pdf)))
             # for now, let updates look like note
             un['classes'] = ['note', 'update']
@@ -292,6 +296,7 @@ def process_posts(app, doctree):
             'author': node['author'],
             'category': node['category'],
             'location': node['location'],
+            'language': node['language'],
             'redirect': node['redirect'],
             'image': node['image'],
             'exclude': node['exclude'],
@@ -306,7 +311,7 @@ def process_posts(app, doctree):
         # instantiate catalogs and collections here
         #  so that references are created and no warnings are issued
 
-        for key in ['tags', 'author', 'category', 'location']:
+        for key in ['tags', 'author', 'category', 'location', 'language']:
             catalog = blog.catalogs[key]
             for label in postinfo[key]:
                 catalog[label]
@@ -323,9 +328,21 @@ def process_postlist(app, doctree, docname):
         register_posts(app)
 
     for node in doctree.traverse(PostList):
-        posts = list(blog.recent(node.attributes['length'], docname,
-                                      **node.attributes))
-        if node.attributes['reverse']:
+        colls = []
+        for cat in ['tags', 'author', 'category', 'location', 'language']:
+            for coll in node[cat]:
+                if coll in blog.catalogs[cat].collections:
+                    colls.append(blog.catalogs[cat].collections[coll])
+        if colls:
+            posts = set(blog.posts)
+            for coll in colls:
+                posts = posts & set(coll)
+            posts = list(posts)
+            posts.sort(reverse=True)
+        else:
+            posts = list(blog.recent(node.attributes['length'], docname,
+                                          **node.attributes))
+        if node.attributes['sort']:
             posts.sort() # in reverse chronological order, so no reverse=True
         bl = nodes.bullet_list()
         for post in posts:
@@ -335,7 +352,7 @@ def process_postlist(app, doctree, docname):
 
             if True:
                 par.append(nodes.Text(
-                    post.date.strftime(blog.post_date_format) + ' - '))
+                    post.date.strftime(_(blog.post_date_format)) + ' - '))
 
             bli.append(par)
             ref = nodes.reference()
@@ -369,6 +386,7 @@ def generate_archive_pages(app):
     for title, header, catalog in [
         (_('Authors'), _('Posts by'), blog.author),
         (_('Locations'), _('Posts from'), blog.location),
+        (_('Languages'), _('Posts in'), blog.language),
         (_('Categories'), _('Posts in'), blog.category),
         (_('All posts'), _('Posted in'), blog.archive),
         (_('Tags'), _('Posts tagged'), blog.tags),]:
@@ -428,6 +446,7 @@ def generate_archive_pages(app):
         for header, catalog in [
             (_('Posts by'), blog.author),
             (_('Posts from'), blog.location),
+            (_('Posts in'), blog.language),
             (_('Posts in'), blog.category),
             (_('Posted in'), blog.archive),
             (_('Posts tagged'), blog.tags),]:

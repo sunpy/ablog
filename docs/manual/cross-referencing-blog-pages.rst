@@ -30,6 +30,7 @@ Drafts          :ref:`blog-drafts`          ``:ref:`blog-drafts```
 Tag             :ref:`tag-config`           ``:ref:`tag-config```
 Author          :ref:`author-ahmet`         ``:ref:`author-ahmet```
 Archive         :ref:`archive-2014`         ``:ref:`archive-2014```
+Language        :ref:`language-en`          ``:ref:`language-en```
 Location        :ref:`location-pittsburgh`  ``:ref:`location-pittsburgh```
 Category        :ref:`category-manual`      ``:ref:`category-manual```
 ==============  ==========================  ===============================
@@ -41,6 +42,7 @@ Archive         Example                     reStructured Text
 ==============  ==========================  ===============================
 By tag          :ref:`blog-tags`            ``:ref:`blog-tags```
 By author       :ref:`blog-authors`         ``:ref:`blog-authors```
+By language     :ref:`blog-languages`       ``:ref:`blog-languages```
 By location     :ref:`blog-locations`       ``:ref:`blog-locations```
 By category     :ref:`blog-categories`      ``:ref:`blog-categories```
 By archive      :ref:`blog-archives`        ``:ref:`blog-archives```

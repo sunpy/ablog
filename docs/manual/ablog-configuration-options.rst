@@ -10,7 +10,7 @@ ABlog Configuration Options
    :location: Pittsburgh
 
 
-This post describes ABlog configuration options that goes in
+This post describes ABlog configuration options that go in
 :ref:`Sphinx build configuration file <sphinx:build-config>`.
 
 General options
@@ -31,8 +31,8 @@ General options
    Base URL for the website, required for generating feeds.
 
 
-Authors & locations
--------------------
+Authors, languages, & locations
+-------------------------------
 
 .. confval:: blog_authors
 
@@ -45,6 +45,18 @@ Authors & locations
          'Durden': ('Tyler Durden',
                     'http://en.wikipedia.org/wiki/Tyler_Durden'),
      }
+
+.. confval:: blog_languages
+
+   A dictionary of language code names mapping to full display names and
+   links of these languages. Similar to :confval:`blog_authors`, dictionary
+   keys should be used in ``post`` directive to refer to the locations.
+   Default is ``{}``. . Example::
+
+     blog_language = {
+         'en': ('English', None),
+     }
+
 
 .. confval:: blog_locations
 
@@ -59,11 +71,21 @@ Authors & locations
    Name of the default author defined in :confval:`blog_authors`.
    Default is ``None``.
 
+.. confval:: blog_default_language
+
+   Code name of the default language defined in :confval:`blog_languages`.
+   Default is ``None``.
+
 .. confval:: blog_default_location
 
    Name of the default location defined in :confval:`blog_locations`.
    Default is ``None``.
 
+
+.. update:: Sep 15, 2014
+
+   Added :confval:`blog_languages` and :confval:`blog_default_language`
+   confivuration variables.
 
 Post related
 ------------
@@ -197,7 +219,5 @@ you see on the left are listed below in the same order:
 :file:`postcard.html` provides information regarding the current post.
 :file:`recentposts.html` lists most recent five posts.  Others provide a
 link to a archive pages generated for each tag, category, and year.
-In addition, there are ``authors.html`` and ``locations.html``
-sidebars that link to author and location archive pages.
-
-
+In addition, there are ``authors.html``, ``languages.html``, and
+``locations.html`` sidebars that link to author and location archive pages.

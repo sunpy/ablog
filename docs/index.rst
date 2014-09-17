@@ -81,11 +81,25 @@ directive:
 
 .. code-block:: rst
 
-  .. postlist:: 10
+  .. postlist:: 5
+     :category: Release
 
-This converts to a list of links to the most recent ten posts:
+This converts to a list of links to the most recent five posts in
+:ref:`category-release` category:
+
+.. postlist:: 5
+   :category: Release
+
+
+Documentation
+-------------
+
+You can learn more about ablog features in the following posts:
 
 .. postlist:: 10
+   :category: Manual
+   :sort:
+
 
 
 Feedback

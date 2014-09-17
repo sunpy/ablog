@@ -48,17 +48,18 @@ following directive:
    commas. Posts will be listed in archive pages generated for each unique
    tag and category.
 
-   **Authors & Locations**
+   **Authors, Languages, & Locations**
 
-   Likewise, you can specify authors and locations of a post using
-   ``:author:`` and ``:location:`` options.  Both option names are
-   in their singular form, but multiple values separated by commas
-   are accepted.
+   Likewise, you can specify authors, languages, and locations of a post using
+   ``:author:``, ``:language:``, and ``:location:`` options.  All of these
+   option names are in their singular form, but multiple values separated by
+   commas are accepted.
 
-   Using :confval:`blog_authors` and :confval:`blog_locations`
-   configuration variables, you can also provide home pages and
-   full names of authors and locations, which will be displayed
-   in archive pages generated for all unique authors and locations.
+   Using :confval:`blog_authors`, :confval:`blog_languages`, and
+   :confval:`blog_locations` configuration variables, you can also
+   provide home pages and/or full display names of authors, languages,
+   and locations, which will be displayed in archive pages generated
+   for all unique authors, languages, and locations.
 
    **Redirections**
 
@@ -129,28 +130,34 @@ A list of posts can be displayed in any page using the following directive:
 
 .. rst:directive:: postlist
 
-   Following example will list most recent 5 posts::
+    Following example display all the options the directive takes::
 
      .. postlist:: 5
+        :author: Ahmet
+        :category: Manual
+        :location: Pittsburgh
+        :language: en
+        :tags: tips
+        :sort:
 
+   This will result in a bullet list of up to 5 posts (default is all)
+   authored by :ref:`author-ahmet` in :ref:`language-en` when he was in
+   :ref:`location-pittsburgh` and posted in :ref:`category-manual`
+   with tags :ref:`tag-tips`. Posts will be in ``:sort:``\ed to appear in
+   chronological order. Here are those posts:
 
    .. postlist:: 5
+      :tags: tips
+      :category: Manual
+      :sort:
 
 
-   Note that if the current post is one of the most recent posts, it will
-   be omitted.
+   When no options are given all posts will be considered and they will
+   be ordered by recency.
 
-..
-        :tags: tips
-        :author: Ahmet
-        :location: Pittsburgh
-        :category: How To
-        :reverse:
 
-   This will result in a bullet list of up to 6 posts (default is all)
-   authored by :ref:`author-ahmet` from :ref:`location-pittsburgh` posted
-   in :ref:`category-manual` and tagged with :ref:`tag-tips`.  Posts
-   will be in reverse chronological order.
+   Also, note that if the current post is one of the most recent posts,
+   it will be omitted.
 
 
 .. update:: Aug 20, 2014
@@ -158,3 +165,8 @@ A list of posts can be displayed in any page using the following directive:
    Added :rst:dir:`update` directive and
    :ref:`posting-sections` section.
    Also revised the text here and there.
+
+.. update:: Sep 15, 2014
+
+   * :rst:dir:`post` directive has ``:language:`` option.
+   * :rst:dir:`postlist` directive takes arguments to filter posts.

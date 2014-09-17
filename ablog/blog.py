@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Classes for handling posts and archives."""
 
 import os
@@ -33,6 +34,7 @@ def slugify(string):
 
 DEBUG = True
 CONFIG = [
+    # name, default, rebuild
     ('blog_path', 'blog', True),
     ('blog_title', 'Blog', True),
     ('blog_baseurl', None, True),
@@ -45,12 +47,15 @@ CONFIG = [
     ('blog_default_author', None, True),
     ('blog_locations', {}, True),
     ('blog_default_location', None, True),
+    ('blog_languages', {}, True),
+    ('blog_default_language', None, True),
 
     ('fontawesome_link_cdn', False, True),
     ('fontawesome_included', False, True),
     ('fontawesome_css_file', False, True),
 
     ('post_date_format', '%b %d, %Y', True),
+    ('post_date_format_short', '%b %d', True),
     ('post_auto_image', 0, True),
     ('post_auto_excerpt', 1, True),
     ('post_redirect_refresh', 5, True),
@@ -103,6 +108,10 @@ class Blog(object):
         if opt is not None and not isinstance(opt, list):
             self.config['blog_default_location'] = [opt]
 
+        opt = self.config['blog_default_language']
+        if opt is not None and not isinstance(opt, list):
+            self.config['blog_default_language'] = [opt]
+
         # blog catalog contains all posts
         self.blog = Catalog(self, 'blog', 'blog', None)
 
@@ -126,12 +135,17 @@ class Blog(object):
         domain.data['labels']['blog-locations'] = (
             self.location.docname, '', 'Locations')
 
+        self.language = cat['language'] = Catalog(self, 'language',
+            'language',  'language')
+        domain.data['labels']['blog-languages'] = (
+            self.language.docname, '', 'Languages')
+
         self.category = cat['category'] = Catalog(self, 'category',
             'category', 'category')
         domain.data['labels']['blog-categories'] = (
             self.category.docname, '', 'Categories')
 
-        for catname in ['author', 'location']:
+        for catname in ['author', 'location', 'language']:
             catalog = self.catalogs[catname]
             items = self.config['blog_' + catname + 's'].items()
             for label, (name, link) in items:
@@ -289,11 +303,14 @@ class Post(object):
             self.author = info.get('author')
             self.category = info.get('category')
             self.location = info.get('location')
+            self.language = info.get('language')
 
             if not self.author and ablog.blog_default_author:
                 self.author = ablog.blog_default_author
             if not self.location and ablog.blog_default_location:
                 self.location = ablog.blog_default_location
+            if not self.language and ablog.blog_default_language:
+                self.language = ablog.blog_default_language
 
             self.archive = self.ablog.archive[self.date.year]
             self.archive.add(self)
@@ -303,6 +320,7 @@ class Post(object):
             self.author = info.get('author')
             self.category = info.get('category')
             self.location = info.get('location')
+            self.language = info.get('language')
             self.archive = []
 
         self.redirect = info.get('redirect')

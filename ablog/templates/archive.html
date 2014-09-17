@@ -36,10 +36,10 @@
       <ul class="ablog-archive">
       <li>{% if post.published %}
       {% if fa %}<i class="fa fa-calendar"></i>{% endif %}
-        {{ post.date.strftime("%b %d, %Y") }}
+        {{ post.date.strftime(gettext(ablog.post_date_format)) }}
       {% else %}
         {% if fa %}<i class="fa fa-pencil"></i>{% endif %}
-        {% if post.date %}{{ post.date.strftime("%b %d, %Y") }}
+        {% if post.date %}{{ post.date.strftime(gettext(ablog.post_date_format)) }}
         {% else %} Draft {% endif %}
       {% endif %}
       </li>
