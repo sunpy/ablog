@@ -19,3 +19,22 @@ improvements:
     ``languages.html`` to :confval:`html_sidebars` configuration option.
 
   * :rst:dir:`postlist` directive takes options to filter posts.
+
+
+ABlog v0.3.1 released
+---------------------
+
+.. post:: Sep 24, 2014
+   :author: Ahmet
+   :category: Release
+   :location: SF
+
+ABlog v0.3.1 is a minor release to fix two issues in templates:
+
+  * Links to collection (archive) feeds is displayed only on collection page
+    (e.g. :ref:`category-manual`), not on a catalog page that lists posts
+    for multiple collections (e.g. :ref:`blog-categories`).
+
+  * Links to collection feeds is displayed only when they are generated
+    (see :confval:`blog_feed_archives`). Previously, links would be generated
+    to feeds that did not exist.

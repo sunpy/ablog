@@ -20,7 +20,7 @@
   <div class="section">
 
     <h1>
-      {% if atom_feed and fa %}
+      {% if archive_feed and fa %}
       <a href="{{ pathto(archive.path, 1) }}/atom.xml"><i class="fa fa-rss fa-rotate-270"></i></a>{% endif %}
       {{ header }}
       {% if archive.href %}
@@ -44,7 +44,6 @@
       {% endif %}
       </li>
       {% include "postcard2.html" %}</ul>
-
       {{ post.to_html(archive.docname) }}
       <p><a href="{{ pathto(post.docname) }}">{{ _("Read more ...") }}</a></p>
       <hr>

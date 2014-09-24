@@ -401,7 +401,8 @@ def generate_archive_pages(app):
             'catalog': catalog,
             'summary': True,
             'atom_feed': atom_feed,
-            'feed_path': blog.blog_path
+            'feed_path': blog.blog_path,
+            'archive_feed': False,
         }
         yield (catalog.docname, context, 'archive.html')
 
@@ -417,7 +418,8 @@ def generate_archive_pages(app):
                 'catalog': [collection],
                 'summary': True,
                 'atom_feed': atom_feed,
-                'feed_path': collection.path
+                'feed_path': collection.path if blog.blog_feed_archives else blog.blog_path,
+                'archive_feed': atom_feed and blog.blog_feed_archives
             }
             yield (collection.docname, context, 'archive.html')
 
