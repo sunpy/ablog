@@ -116,7 +116,7 @@ class Blog(object):
         self.blog = Catalog(self, 'blog', 'blog', None)
 
         # contains post collections by year
-        self.archive = Catalog(self, 'archive', 'archive', None)
+        self.archive = Catalog(self, 'archive', 'archive', None, reverse=True)
         domain.data['labels']['blog-archives'] = (
             self.archive.docname, '', 'Archives')
 
@@ -390,7 +390,7 @@ class Catalog(object):
 
     """Handles collections of posts."""
 
-    def __init__(self, blog, name, xref, path):
+    def __init__(self, blog, name, xref, path, reverse=False):
 
         self.blog = blog
         self.name = name
@@ -404,6 +404,7 @@ class Catalog(object):
 
         self._lens = None
         self._minmax = None
+        self._reverse = reverse
 
     def __getitem__(self, name):
 
@@ -427,7 +428,7 @@ class Catalog(object):
     def __iter__(self):
 
         keys = list(self.collections)
-        keys.sort()
+        keys.sort(reverse=self._reverse)
         for key in keys:
             yield self.collections[key]
 
