@@ -339,6 +339,7 @@ def process_postlist(app, doctree, docname):
                 posts = posts & set(coll)
             posts = list(posts)
             posts.sort(reverse=True)
+            posts = posts[:node.attributes['length']]
         else:
             posts = list(blog.recent(node.attributes['length'], docname,
                                           **node.attributes))
