@@ -81,13 +81,13 @@ directive:
 
 .. code-block:: rst
 
-  .. postlist:: 5
+  .. postlist:: 2
      :category: Release
 
 This converts to a list of links to the most recent five posts in
 :ref:`category-release` category:
 
-.. postlist:: 5
+.. postlist:: 2
    :category: Release
 
 
