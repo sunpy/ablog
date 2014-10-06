@@ -332,7 +332,7 @@ class Post(object):
         return ((self.date or FUTURE), self.title) < (
                 (other.date or FUTURE), other.title)
 
-    def to_html(self, pagename, fulltext=False):
+    def to_html(self, pagename, fulltext=False, drop_h1=True):
         """Return excerpt as HTML after resolving references with respect to
         *pagename*."""
 
@@ -350,6 +350,9 @@ class Post(object):
         app = self.ablog.app
         app.env.resolve_references(doctree, pagename, app.builder)
         html = html_builder_write_doc(app.builder, pagename, doctree)
+
+        if drop_h1:
+            html = re.sub('<h1>(.*?)</h1>', '', html, count=int(drop_h1))
         return html
 
     @property
