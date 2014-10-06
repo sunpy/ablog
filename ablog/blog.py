@@ -333,8 +333,10 @@ class Post(object):
                 (other.date or FUTURE), other.title)
 
     def to_html(self, pagename, fulltext=False, drop_h1=True):
-        """Return excerpt as HTML after resolving references with respect to
-        *pagename*."""
+        """Return excerpt or *fulltext* as HTML after resolving references
+        with respect to *pagename*. By default, first `<h1>` tag is dropped
+        from the output. More than one can be dropped by setting *drop_h1*
+        to the desired number of tags to be dropped."""
 
         if fulltext:
             doctree = nodes.document({}, dummy_reporter)
@@ -352,7 +354,7 @@ class Post(object):
         html = html_builder_write_doc(app.builder, pagename, doctree)
 
         if drop_h1:
-            html = re.sub('<h1>(.*?)</h1>', '', html, count=int(drop_h1))
+            html = re.sub('<h1>(.*?)</h1>', '', html, count=abs(int(drop_h1)))
         return html
 
     @property
