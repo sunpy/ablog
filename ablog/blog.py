@@ -168,7 +168,6 @@ class Blog(object):
             self.blog_title + ' Feed')
 
         # set some internal configuration options
-        self.config['cloud_size'] = 5
         self.config['fontawesome'] = (self.config['fontawesome_included'] or
                                       self.config['fontawesome_link_cdn'] or
                                       self.config['fontawesome_css_file'])
@@ -402,8 +401,8 @@ class Catalog(object):
         else:
             self.path = self.docname = blog.blog_path
 
-        self._lens = None
-        self._minmax = None
+        self._coll_lens = None
+        self._min_max = None
         self._reverse = reverse
 
     def __getitem__(self, name):
@@ -444,14 +443,15 @@ class Catalog(object):
             colls.append(coll)
         setattr(post, self.name, colls)
 
-    def minmax(self):
+    def _minmax(self):
         """Return minimum and maximum sizes of collections."""
 
-        if self._lens is None or len(self._lens) != len(self.collections):
-            self._lens = [len(coll) for coll in self.collections.values()
+        if (self._coll_lens is None or
+            len(self._coll_lens) != len(self.collections)):
+            self._coll_lens = [len(coll) for coll in self.collections.values()
                           if len(coll)]
-            self._minmax = min(self._lens), max(self._lens)
-        return self._minmax
+            self._min_max = min(self._coll_lens), max(self._coll_lens)
+        return self._min_max
 
 
 class Collection(object):
@@ -514,15 +514,16 @@ class Collection(object):
             post_name += '#' + post.section
         self._posts[post_name] = post
 
-    @property
-    def relsize(self):
-        """Relative size used in tag clouds. Relat"""
+    def relsize(self, maxsize=5, minsize=1):
+        """Relative size used in tag clouds."""
 
-        if len(self.catalog) == 1:
-            return 3
-        min_, max_ = self.catalog.minmax()
-        size = int((len(self) - min_) / max(max_ - min_, 1) *
-                   (self.catalog.blog.cloud_size - 1)) + 1
+        min_, max_ = self.catalog._minmax()
+
+        diff = maxsize - minsize
+        if len(self.catalog) == 1 or min_ == max_:
+            return int(round(diff / 2. + minsize))
+
+        size = int(1. * (len(self) - min_) / (max_ - min_) * diff + minsize)
         return size
 
     @property

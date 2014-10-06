@@ -13,7 +13,7 @@
   <ul class="ablog-cloud">
     {% for coll in ablog.tags %}
       {% if coll %}
-      <li class="ablog-cloud ablog-cloud-{{ coll.relsize }}">
+      <li class="ablog-cloud ablog-cloud-{{ coll.relsize(5, 1) }}">
         <a href="{{ pathto(coll.docname) }}">{{ coll }}</a></li>
       {% endif %}
     {% endfor %}
