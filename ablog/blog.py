@@ -326,6 +326,10 @@ class Post(object):
 
         self.options = info
 
+    def __str__(self):
+
+        return self.title
+
     def __lt__(self, other):
 
         return ((self.date or FUTURE), self.title) < (

@@ -21,3 +21,6 @@ and bugfixes:
 
   * Issue :issue:`22`, :rst:dir:`postlist` directive listing more than
     specified number of posts, is fixed.
+
+  * :rst:dir:`postlist` directive accepts arguments to format list items
+    (:issue:`20`).

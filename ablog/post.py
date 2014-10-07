@@ -2,6 +2,7 @@
 """post and postlist directives."""
 
 import os
+from string import Formatter
 from datetime import datetime
 
 from docutils import nodes
@@ -111,6 +112,8 @@ class PostListDirective(Directive):
         'category': lambda a: set(s.strip() for s in a.split(',')),
         'location': lambda a: set(s.strip() for s in a.split(',')),
         'language': lambda a: set(s.strip() for s in a.split(',')),
+        'format': lambda a: a.strip(),
+        'date': lambda a: a.strip(),
         'sort': directives.flag,
     }
 
@@ -128,6 +131,8 @@ class PostListDirective(Directive):
         node['category'] = self.options.get('category', [])
         node['location'] = self.options.get('location', [])
         node['language'] = self.options.get('language', [])
+        node['format'] = self.options.get('format', '{date} - {title}')
+        node['date'] = self.options.get('date', None)
         node['sort'] = 'sort' in self.options
         return [node]
 
@@ -345,30 +350,49 @@ def process_postlist(app, doctree, docname):
                                           **node.attributes))
         if node.attributes['sort']:
             posts.sort() # in reverse chronological order, so no reverse=True
+
+        fmts = list(Formatter().parse(node.attributes['format']))
+        for text, key, __, __ in fmts:
+            if key not in {'date', 'title', 'author', 'location', 'language',
+                'category', 'tags'}:
+                raise KeyError('{} is not recognized in postlist format'
+                    .format(key))
+
+        date_format = node.attributes['date'] or _(blog.post_date_format_short)
         bl = nodes.bullet_list()
         for post in posts:
             bli = nodes.list_item()
             bl.append(bli)
             par = nodes.paragraph()
-
-            if True:
-                par.append(nodes.Text(
-                    post.date.strftime(_(blog.post_date_format)) + ' - '))
-
             bli.append(par)
-            ref = nodes.reference()
-            ref['refuri'] = app.builder.get_relative_uri(docname, post.docname)
-            ref['ids'] = []
-            ref['backrefs'] = []
-            ref['dupnames'] = []
-            ref['classes'] = []
-            ref['names'] = []
-            ref['internal'] = True
-            par.append(ref)
 
-            emp = nodes.emphasis()
-            ref.append(emp)
-            emp.append(nodes.Text(post.title))
+
+            for text, key, __, __ in fmts:
+                if text:
+                    par.append(nodes.Text(text))
+                if key == 'date':
+                    par.append(nodes.Text(post.date.strftime(date_format)))
+                else:
+                    if key == 'title':
+                        items = [post]
+                    else:
+                        items = getattr(post, key)
+
+                    for i, item in enumerate(items):
+                        ref = nodes.reference()
+                        ref['refuri'] = app.builder.get_relative_uri(docname, item.docname)
+                        ref['ids'] = []
+                        ref['backrefs'] = []
+                        ref['dupnames'] = []
+                        ref['classes'] = []
+                        ref['names'] = []
+                        ref['internal'] = True
+                        par.append(ref)
+                        emp = nodes.emphasis()
+                        ref.append(emp)
+                        emp.append(nodes.Text(str(item)))
+                        if i + 1 < len(items):
+                            par.append(nodes.Text(', '))
 
         node.replace_self(bl)
 
