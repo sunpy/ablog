@@ -5,7 +5,7 @@
     Template for posts.
 #}
 {%- extends "layout.html" %}
-
+{% set fa = ablog.fontawesome %}
 {%- block extrahead %}
   {{ super() }}
   {% if atom_feed %}
@@ -16,6 +16,10 @@
   {% elif ablog.fontawesome_css_file %}
   <link rel="stylesheet" href="{{ pathto('_static/' + ablog.fontawesome_css_file, 1) }}" type="text/css" />
   {% endif %}
+  <style type="text/css">
+    ul.ablog-archive {list-style: none; overflow: auto; margin-left: 0px}
+    ul.ablog-archive li {float: left; margin-right: 5px; font-size: 80%}
+  </style>
 {% endblock %}
 
 {% block body %}

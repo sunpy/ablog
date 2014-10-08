@@ -416,7 +416,7 @@ def generate_archive_pages(app):
         (_('All posts'), _('Posted in'), blog.archive),
         (_('Tags'), _('Posts tagged'), blog.tags),]:
 
-        if not len(catalog):
+        if not catalog:
             continue
 
         context = {
@@ -429,24 +429,23 @@ def generate_archive_pages(app):
             'feed_path': blog.blog_path,
             'archive_feed': False,
         }
-        yield (catalog.docname, context, 'archive.html')
+        yield (catalog.docname, context, 'catalog.html')
 
         for collection in catalog:
 
-            if not len(collection):
+            if not collection:
                 continue
-
             context = {
                 'parents': [],
                 'title': u'{} {}'.format(header, collection),
                 'header': header,
-                'catalog': [collection],
+                'collection': collection,
                 'summary': True,
                 'atom_feed': atom_feed,
                 'feed_path': collection.path if blog.blog_feed_archives else blog.blog_path,
                 'archive_feed': atom_feed and blog.blog_feed_archives
             }
-            yield (collection.docname, context, 'archive.html')
+            yield (collection.docname, context, 'collection.html')
 
     context = {
         'parents': [],
@@ -456,9 +455,17 @@ def generate_archive_pages(app):
     }
     yield (blog.drafts.docname, context, 'archive.html')
 
+
+def generate_atom_feeds(app):
+    """Generate archive pages for all posts, categories, tags, authors, and
+    drafts."""
+
+    blog = Blog(app)
+
+
     url = blog.blog_baseurl
     if not url:
-        return
+        raise StopIteration
 
     from werkzeug.contrib.atom import AtomFeed
     feed_path = os.path.join(app.builder.outdir, blog.blog_path, 'atom.xml')
@@ -524,6 +531,8 @@ def generate_archive_pages(app):
             except TypeError:
                 out.write(feed_str)
 
+    if 0:
+        yield
 
 def register_posts(app):
     """Register posts found in the Sphinx build environment."""
