@@ -427,7 +427,6 @@ def generate_archive_pages(app):
             'summary': True,
             'atom_feed': atom_feed,
             'feed_path': blog.blog_path,
-            'archive_feed': False,
         }
         yield (catalog.docname, context, 'catalog.html')
 
@@ -450,10 +449,10 @@ def generate_archive_pages(app):
     context = {
         'parents': [],
         'title': _('Drafts'),
-        'catalog': [blog.drafts],
+        'collection': blog.drafts,
         'summary': True,
     }
-    yield (blog.drafts.docname, context, 'archive.html')
+    yield (blog.drafts.docname, context, 'collection.html')
 
 
 def generate_atom_feeds(app):
