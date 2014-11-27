@@ -12,7 +12,24 @@
       {{ collection }}
       {% endif %}
     </h1>
+    {% if ablog.blog_archive_titles %}
     {% for post in collection %}
+    <div class="section">
+      <p>
+      {% if fa %}{% endif %}
+      {% if post.published %}
+        {{ post.date.strftime(gettext(ablog.post_date_format)) }}
+      {% else %}
+        Draft
+      {% endif %}
+      - <a href="{{ pathto(post.docname) }}{{ anchor(post) }}">{{ post.title }}</a>
+      </p>
+      {% if 0 %}<ul class="ablog-archive">{% include "postcard2.html" %}</ul>{% endif %}
+    </div>
+    {% endfor %}
+    {% else %}
+    {% for post in collection %}
+
     <div class="section">
       <h2><a href="{{ pathto(post.docname) }}{{ anchor(post) }}">{{ post.title }}</a></h2>
 
@@ -32,5 +49,6 @@
       <hr>
     </div>
     {% endfor %}
+    {% endif %}
   </div>
 {% endblock %}

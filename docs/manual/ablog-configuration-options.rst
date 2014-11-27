@@ -31,6 +31,12 @@ General options
    Base URL for the website, required for generating feeds.
 
 
+.. confval:: blog_archive_titles
+
+   Choose to archive only post titles in collection pages, default is
+   ``False``.
+
+
 Authors, languages, & locations
 -------------------------------
 
@@ -136,14 +142,25 @@ Turn feeds by setting :confval:`blog_baseurl` configuration variable.
 
    Blog feed subtitle, default is ``None``.
 
+.. confval:: blog_feed_titles
+
+   Choose to feed only post titles, default is ``False``.
+
+.. confval:: blog_feed_length
+
+   Specify number of recent posts to include in feeds, default is ``None``
+   for all posts.
 
 .. update:: Aug 24, 2014
 
-   Added :confval:`blog_feed_archives`,  :confval:`blog_feed_fulltext`,
+   Added :confval:`blog_feed_archives`, :confval:`blog_feed_fulltext`,
    :confval:`blog_feed_subtitle`, and :confval:`post_always_section`
    options.
 
+.. update:: Nov 27, 2014
 
+   Added :confval:`blog_feed_titles`, :confval:`blog_feed_length`, and
+   :confval:`blog_archive_titles` options.
 
 .. _fa:
 

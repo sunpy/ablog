@@ -408,7 +408,9 @@ def generate_archive_pages(app):
                    'redirect.html')
 
     atom_feed = bool(blog.blog_baseurl)
-    for title, header, catalog in [
+    feed_archives = blog.blog_feed_archives
+    blog_path = blog.blog_path
+    for title, header, catalog  in [
         (_('Authors'), _('Posts by'), blog.author),
         (_('Locations'), _('Posts from'), blog.location),
         (_('Languages'), _('Posts in'), blog.language),
@@ -426,7 +428,7 @@ def generate_archive_pages(app):
             'catalog': catalog,
             'summary': True,
             'atom_feed': atom_feed,
-            'feed_path': blog.blog_path,
+            'feed_path': blog_path,
         }
         yield (catalog.docname, context, 'catalog.html')
 
@@ -441,10 +443,29 @@ def generate_archive_pages(app):
                 'collection': collection,
                 'summary': True,
                 'atom_feed': atom_feed,
-                'feed_path': collection.path if blog.blog_feed_archives else blog.blog_path,
-                'archive_feed': atom_feed and blog.blog_feed_archives
+                'feed_path': collection.path if feed_archives else blog_path,
+                'archive_feed': atom_feed and feed_archives
             }
             yield (collection.docname, context, 'collection.html')
+
+
+    ppp = 5
+    #for page, i in enumerate(range(0, len(blog.posts), ppp)):
+    if 1:
+        context = {
+            'parents': [],
+            'title': _('All Posts'),
+            'header': _('All'),
+            'collection': blog.posts,
+            'summary': True,
+            'atom_feed': atom_feed,
+            'feed_path': blog.blog_path,
+        }
+        docname = blog.posts.docname
+        #if page:
+        #    docname += '/' + str(page)
+        yield (docname, context, 'collection.html')
+
 
     context = {
         'parents': [],
@@ -497,6 +518,9 @@ def generate_atom_feeds(app):
                           blog.blog_title + ' - ' + header + ' ' + str(coll),
                           os.path.join(url, coll.path, 'atom.xml')))
 
+    # Config options
+    feed_length = blog.blog_feed_length
+    feed_fulltext = blog.blog_feed_fulltext
 
     for feed_posts, feed_path, feed_title, feed_url in feeds:
 
@@ -507,15 +531,21 @@ def generate_atom_feeds(app):
                         subtitle=blog.blog_feed_subtitle,
                         generator=('ABlog', 'http://blog.readthedocs.org',
                                    ablog.__version__))
-        for post in feed_posts:
+        for i, post in enumerate(feed_posts):
+            if feed_length and i == feed_length:
+                break
             post_url = os.path.join(
                 url, app.builder.get_target_uri(post.docname))
             if post.section:
                 post_url += '#' + post.section
 
+            if blog.blog_feed_titles:
+                content = None
+            else:
+                content = post.to_html(blog.blog_path, fulltext=feed_fulltext)
+
             feed.add(post.title,
-                     content=post.to_html(blog.blog_path,
-                                          fulltext=blog.blog_feed_fulltext),
+                     content=content,
                      title_type='text',
                      content_type='html',
                      author=', '.join(a.name for a in post.author),
@@ -531,6 +561,8 @@ def generate_atom_feeds(app):
                 out.write(feed_str)
 
     if 0:
+        # this is to make the function a generator
+        # and make work for Sphinx 'html-collect-pages'
         yield
 
 def register_posts(app):

@@ -8,14 +8,19 @@ ABlog v0.4 released
 
 
 ABlog v0.4 is released. This version comes with the following improvements
-and bugfixes:
+and bug fixes:
+
+  * Added :confval:`blog_feed_titles`, :confval:`blog_feed_length`, and
+    :confval:`blog_archive_titles` configuration options (see :issue:`24`).
+
+  * Set the default for :confval:`blog_feed_archives` to ``False``, which
+    was set to ``True`` although documented to be otherwise.
 
   * Issue :issue:`2`, relative size of tags being the minimum size when
-    all tags have the same number of posts, is fixed. Now, then have the
-    mean size, and max/min size can be controlled from template.
+    all tags have the same number of posts, is fixed. Now, mean size is
+    used, and max/min size can be controlled from template.
 
-  * Issue :issue:`19`, related order of yearly archives, is fixed. Yearly
-    archives are ordered by recency.
+  * Issue :issue:`19` is fixed. Yearly archives are ordered by recency.
 
   * Issue :issue:`21`, duplicated post title in feeds, is fixed.
 

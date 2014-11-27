@@ -1,5 +1,5 @@
 {% if ablog.archive %}
-  <h3><a href="{{ pathto(ablog.archive.path) }}">{{ gettext('Archives') }}</a></h3>
+  <h3><a href="{{ pathto(ablog.archive.docname) }}">{{ gettext('Archives') }}</a></h3>
   <ul>
   {% for coll in ablog.archive %}
     {% if coll %}

@@ -38,10 +38,13 @@ CONFIG = [
     ('blog_path', 'blog', True),
     ('blog_title', 'Blog', True),
     ('blog_baseurl', None, True),
+    ('blog_archive_titles', None, False),
 
     ('blog_feed_archives', False, True),
     ('blog_feed_fulltext', False, True),
     ('blog_feed_subtitle', None, True),
+    ('blog_feed_titles', None, False),
+    ('blog_feed_length', None, None),
 
     ('blog_authors', {}, True),
     ('blog_default_author', None, True),
@@ -117,6 +120,7 @@ class Blog(object):
 
         # contains post collections by year
         self.archive = Catalog(self, 'archive', 'archive', None, reverse=True)
+        self.archive.docname += '/archive'
         domain.data['labels']['blog-archives'] = (
             self.archive.docname, '', 'Archives')
 
@@ -462,13 +466,13 @@ class Collection(object):
 
     """Posts sharing a label, i.e. tag, category, author, or location."""
 
-    def __init__(self, catalog, label, name=None, href=None, path=None):
+    def __init__(self, catalog, label, name=None, href=None, path=None, page=0):
 
         self.catalog = catalog
         self.label = label
         self.name = name or self.label
         self.href = href
-
+        self.page = page
         self._posts = {}
 
         self._path = path
