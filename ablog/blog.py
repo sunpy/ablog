@@ -232,7 +232,7 @@ class Blog(object):
     def link_posts(self):
         """Link posts after sorting them post by published date."""
 
-        if getattr(self, '_posts_sorted', False):
+        if not getattr(self, '_posts_sorted', False):
             posts = [post for post in self.posts if post.order == 1]
             posts.sort()
             posts[0].prev = posts[-1].next = None
