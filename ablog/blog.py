@@ -210,7 +210,6 @@ class Blog(object):
     def register(self, docname, info):
         """Register post *docname*."""
 
-
         post = Post(self, docname, info)
         if post.date and post.date < TOMORROW:
             self.posts.add(post)
@@ -233,14 +232,15 @@ class Blog(object):
     def link_posts(self):
         """Link posts after sorting them post by published date."""
 
-        posts = [post for post in self.posts if post.order == 1]
-        posts.sort()
-        posts[0].prev = posts[-1].next = None
-        for i in range(1, len(posts)):
-            post = posts[i]
-            posts[i - 1].next = post
-            post.prev = posts[i - 1]
-
+        if getattr(self, '_posts_sorted', False):
+            posts = [post for post in self.posts if post.order == 1]
+            posts.sort()
+            posts[0].prev = posts[-1].next = None
+            for i in range(1, len(posts)):
+                post = posts[i]
+                posts[i - 1].next = post
+                post.prev = posts[i - 1]
+            self._posts_sorted = True
 
     def page_id(self, pagename):
         """Page identifier for Disqus."""
@@ -296,6 +296,7 @@ class Post(object):
         self.excerpt = info['excerpt']
         self.doctree = info['doctree']
         self._next = self._prev = -1
+        self._computed_date = date or FUTURE
 
         #self.language = info.get('language')
 
@@ -331,13 +332,10 @@ class Post(object):
         self.options = info
 
     def __str__(self):
-
         return self.title
 
     def __lt__(self, other):
-
-        return ((self.date or FUTURE), self.title) < (
-                (other.date or FUTURE), other.title)
+        return (self._computed_date, self.title) < (other._computed_date, other.title)
 
     def to_html(self, pagename, fulltext=False, drop_h1=True):
         """Return excerpt or *fulltext* as HTML after resolving references
@@ -474,7 +472,7 @@ class Collection(object):
         self.href = href
         self.page = page
         self._posts = {}
-
+        self._posts_iter = None
         self._path = path
         self.xref = self.catalog.xref + '-' + slugify(label)
         self._slug = None
@@ -501,9 +499,12 @@ class Collection(object):
 
     def __iter__(self):
 
-        posts = list(self._posts.values())
-        posts.sort(reverse=True)
-        for post in posts:
+        if self._posts_iter is None:
+            posts = list(self._posts.values())
+            posts.sort(reverse=True)
+            self._posts_iter = posts
+
+        for post in self._posts_iter:
             yield post
 
     def __getitem__(self, key):
