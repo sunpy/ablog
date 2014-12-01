@@ -235,12 +235,10 @@ def process_posts(app, doctree):
             node.replace_self([])
         else:
             node.replace_self([])
-        nimgs = node['image'] or blog.post_auto_image
-        if node['image'] or blog.post_auto_image:
-            count = 0
-            for nod in section.traverse(nodes.image):
-                count += 1
-                if count == nimgs:
+        nimg = node['image'] or blog.post_auto_image
+        if nimg:
+            for img, nod in enumerate(section.traverse(nodes.image), start=1):
+                if img == nimg:
                     excerpt.append(nod.deepcopy())
                     break
         date = node['date']

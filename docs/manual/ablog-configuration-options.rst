@@ -110,6 +110,13 @@ Post related
 
    See :ref:`post-excerpts-and-images` for a more detailed discussion.
 
+.. confval:: post_auto_image
+
+   Index of the image that will be displayed in the excerpt of the post.
+   Default is ``0``, meaning no image.  Setting this to ``1`` will include
+   the first image, when available, to the excerpt.  This option can be set
+   on a per post basis using :rst:dir:`post` directive option ``image``.
+
 .. confval:: post_redirect_refresh
 
    Number of seconds (default is ``5``) that a redirect page waits before
