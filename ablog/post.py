@@ -170,8 +170,12 @@ def process_posts(app, doctree):
     app.env.metadata[docname]['orphan'] = True
 
     blog = Blog(app)
+    auto_excerpt = blog.post_auto_excerpt
     multi_post = len(post_nodes) > 1 or blog.post_always_section
     for order, node in enumerate(post_nodes, start=1):
+        print node['excerpt']
+        if node['excerpt'] is None:
+            node['excerpt'] = auto_excerpt
 
         if multi_post:
             # section title, and first few paragraphs of the section of post
@@ -221,7 +225,7 @@ def process_posts(app, doctree):
                 node.replace_self(node.children)
             for child in node.children:
                 excerpt.append(child.deepcopy())
-        else:
+        elif node['excerpt']:
             count = 0
             for nod in section.traverse(nodes.paragraph):
                 excerpt.append(nod.deepcopy())
@@ -229,11 +233,14 @@ def process_posts(app, doctree):
                 if count >= (node['excerpt'] or 0):
                     break
             node.replace_self([])
-        if node['image']:
+        else:
+            node.replace_self([])
+        nimgs = node['image'] or blog.post_auto_image
+        if node['image'] or blog.post_auto_image:
             count = 0
             for nod in section.traverse(nodes.image):
                 count += 1
-                if count == node['image']:
+                if count == nimgs:
                     excerpt.append(nod.deepcopy())
                     break
         date = node['date']
