@@ -173,7 +173,7 @@ def process_posts(app, doctree):
     auto_excerpt = blog.post_auto_excerpt
     multi_post = len(post_nodes) > 1 or blog.post_always_section
     for order, node in enumerate(post_nodes, start=1):
-        print node['excerpt']
+        # print node['excerpt']
         if node['excerpt'] is None:
             node['excerpt'] = auto_excerpt
 
