@@ -48,10 +48,10 @@ help:
 	@echo "  doctest    to run all doctests embedded in the documentation (if enabled)"
 
 install:
-	cd ..; rm -rf build; python setup.py install
+	cd ..; pip install -U .
 
 install3:
-	cd ..; rm -rf build; python3 setup.py install
+	cd ..; pip3 install -U .
 
 clean:
 	rm -rf $(BUILDDIR)/html/*
