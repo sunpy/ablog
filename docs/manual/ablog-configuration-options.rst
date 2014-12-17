@@ -138,8 +138,8 @@ Turn feeds by setting :confval:`blog_baseurl` configuration variable.
 
 .. confval:: blog_feed_archives
 
-   Choose to create per author, location, tag, category, and year
-   feeds, default is ``False``.
+   Choose to create feeds per author, location, tag, category, and year,
+   default is ``False``.
 
 .. confval:: blog_feed_fulltext
 
