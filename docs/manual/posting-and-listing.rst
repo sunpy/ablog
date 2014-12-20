@@ -138,7 +138,8 @@ A list of posts can be displayed in any page using the following directive:
         :location: Pittsburgh
         :language: en
         :tags: tips
-        :date: %A, %B %d
+        :date: %A, %B %d, %Y
+        :format: {title} by {author} on {date}
         :sort:
 
    This will result in a bullet list of up to 5 posts (default is all)
