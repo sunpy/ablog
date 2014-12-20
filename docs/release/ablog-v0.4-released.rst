@@ -1,7 +1,7 @@
 ABlog v0.4 released
 ===================
 
-.. post::
+.. post:: Dec 20, 2014
    :author: Ahmet
    :category: Release
    :location: SF
