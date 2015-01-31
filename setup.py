@@ -1,3 +1,4 @@
+import sys
 from setuptools import setup
 
 __version__ = ''
@@ -44,4 +45,13 @@ setup(
             ('**.py',   'python', None),
         ]
     },
+    entry_points = {
+        'console_scripts': [
+            'ablog = ablog.commands:ablog_main',
+            'ablog%s = ablog.commands:ablog_main' % sys.version_info[0],
+            ],
+        'distutils.commands': [
+            'ablog = ablog.commands:ablog_main',
+            ],
+        },
 )
