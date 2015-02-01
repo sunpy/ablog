@@ -6,7 +6,7 @@
     Quickly setup documentation source to work with Ablog.
 
     :copyright: Copyright 2007-2015 by Ablog Team
-    :license: 
+    :license:
 """
 import os
 import sys
@@ -60,7 +60,7 @@ class ABlogTemplates(object):
 import sys
 import os
 
-# ablog: Import ablog module 
+# ablog: Import ablog module
 import ablog
 
 
@@ -248,7 +248,7 @@ blog_title = 'A Blog'
 # Base URL for the website, required for generating feeds.
 # blog_baseurl = "http://ablog.readthedocs.org/"
 
-   
+
 
 # Choose to archive only post titles in collection pages, default is
 #  ``False``.
@@ -260,7 +260,7 @@ blog_title = 'A Blog'
 
 # A dictionary of author names mapping to author full display names and
 # links. Dictionary keys are what should be used in ``post`` directive
-# to refer to the author.  Default is ``{}``. 
+# to refer to the author.  Default is ``{}``.
 
 #blog_authors = {
 #        'Ahmet': ('Ahmet Bakan', 'http://ahmetbakan.com'),
@@ -271,7 +271,7 @@ blog_title = 'A Blog'
 # A dictionary of language code names mapping to full display names and
 # links of these languages. Similar to :confval:`blog_authors`, dictionary
 # keys should be used in ``post`` directive to refer to the locations.
-# Default is ``{}``. 
+# Default is ``{}``.
 
 #blog_languages = {
 #   'en': ('English', None),
@@ -308,7 +308,7 @@ blog_title = 'A Blog'
 
 # Date display format (default is ``'!b !d, !Y'``) for published posts that
 # goes as input to :meth:`datetime.date.strftime`.
-# TODO: Replace !  with percent sign ascii/unicode: 25h ---> need to figure out how to escape it to 
+# TODO: Replace !  with percent sign ascii/unicode: 25h ---> need to figure out how to escape it to
 
 #post_date_format = '!b !d, !Y'
 
@@ -368,14 +368,14 @@ blog_title = 'A Blog'
 # Specify number of recent posts to include in feeds, default is ``None``
 # for all posts.
 
-#blog_feed_length = None 
+#blog_feed_length = None
 
 # ------------
 # ablog: Font awesome
 # ------------
 
 # ABlog templates will use of `Font Awesome`_ icons if one of the following
-# is ``True`` 
+# is ``True``
 # --> Font Awesome: http://fontawesome.io/
 
 # Link to `Font Awesome`_ at `Bootstrap CDN`_ and use icons in sidebars
@@ -399,8 +399,8 @@ blog_title = 'A Blog'
 # ------------------
 
 # You can enable Disqus_ by setting ``disqus_shortname`` variable.
-# Disqus_ short name for the website. 
-# TODO: Default is?? 
+# Disqus_ short name for the website.
+# TODO: Default is??
 
 # disqus_shortname = None
 
@@ -422,9 +422,9 @@ blog_title = 'A Blog'
 # you see on the left are listed below in the same order:
 # TODO: Where are the missing 2 sidebars
 html_sidebars = {
-    '**': [ 'postcard.html', 
-            'recentposts.html', 'tagcloud.html', 
-            'categories.html',  'archives.html', 
+    '**': [ 'postcard.html',
+            'recentposts.html', 'tagcloud.html',
+            'categories.html',  'archives.html',
             'searchbox.html',
             ],
         }
@@ -445,7 +445,7 @@ Welcome to %(author)s's Blog!
 
 .. postlist:: 10
    :category: Release
-   
+
 ===============
 
 * :ref:`search`
@@ -474,7 +474,7 @@ endif
 
 ALLSPHINXOPTS   = -d $(BUILDDIR)/doctrees $(SPHINXOPTS) %(rsrcdir)s
 
-.PHONY: help clean html dirhtml singlehtml 
+.PHONY: help clean html dirhtml singlehtml
 
 help:
 \t@echo "Please use 'make <target>' where <target> is one of"
@@ -606,12 +606,12 @@ def generate(d, overwrite=True, silent=False):
     d['project_underline'] = column_width(d['project']) * '='
 
     extensions = (',\n' + indent).join((repr(name.replace('ext_', 'spinx.ext.')) for name in extension_list))
-    
+
     if extensions:
         d['extensions'] = '\n' + indent + extensions + ',\n'
     else:
         d['extensions'] = extensions
-    
+
     d['copyright'] = time.strftime('%Y') + ', ' + d['author']
     d['author_texescaped'] = text_type(d['author']).\
         translate(texescape.tex_escape_map)
@@ -706,9 +706,7 @@ def ask_user(d):
     """
     d.update(ABlogTemplates.ABLOG_DEFAULTS)
 
-    print(d)
-    
-    print bold('Welcome to the ABlog %s quickstart utility.') % __version__
+    print bold('Welcome to the ABlog %s quick start utility.') % __version__
     print '''
 Please enter values for the following settings (just press Enter to
 accept a default value, if one is given in brackets).'''
@@ -735,20 +733,12 @@ Enter the root path for your blog.'''
 
     if 'project' not in d:
         print '''
-The project name will occur in several places in the built documentation.'''
+The project name will occur in several places in the website.'''
         do_prompt(d, 'project', 'Blog project title')
     if 'author' not in d:
         do_prompt(d, 'author', 'Author name(s)')
 
-    if 'version' not in d:
-        print '''
-ABlog has the notion of a "version" and a "release" for the
-software. Each version can have multiple releases. For example, for
-Python the version is something like 2.5 or 3.0, while the release is
-something like 2.5.1 or 3.0a1.  If you don't need this dual structure,
-just set both to the same value.'''
-        do_prompt(d, 'version', 'Project version')
-        d['release'] = d['version']
+    d['release'] = d['version'] = ''
 
     while path.isfile(path.join(d['path'], d['master']+d['suffix'])) or \
           path.isfile(path.join(d['path'], 'source', d['master']+d['suffix'])):
@@ -766,7 +756,7 @@ A Makefile and a Windows command file can be generated for you so that you
 only have to run e.g. `make html' instead of invoking sphinx-build
 directly.'''
         do_prompt(d, 'makefile', 'Create Makefile? (y/n)', 'y', boolean)
-        
+
     print
 
 def ablog_create_blog_src_folder(d):
@@ -781,15 +771,15 @@ def ablog_create_blog_src_folder(d):
     else:
         pass
         #print("already here")
-        
+
     #print(d['path'])
     #print(d['dot'])
-    
+
 def ablog_sphinx_quickstart_wrapper():
     '''Borrowed from Sphinx 1.3b3'''
     if not color_terminal():
         nocolor()
-    
+
     # parse options
 
     d = ABlogTemplates.ABLOG_DEFAULTS
@@ -814,11 +804,10 @@ def ablog_sphinx_quickstart_wrapper():
     #ablog_process_extensions(d)
 
 
-def main(argv=sys.argv):
-    
+def ablog_start(**kwargs):
+
     #print(argv)
 
     ablog_sphinx_quickstart_wrapper()
-    
-   
-    
+
+

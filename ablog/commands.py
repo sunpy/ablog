@@ -46,18 +46,13 @@ ablog_parser.add_argument('-v', '--version',
     action=ABlogVersion, nargs=0)
 
 
-try:
-    from .quickstart import main as start_main
-except:
-    pass
-else:
-    ablog_commands = ablog_parser.add_subparsers(
-        title='subcommands')
-
-    subparser = ablog_commands.add_parser('start',
-            help='start a new blog project')
-    subparser.set_defaults(func=lambda ns: start_main([]))
-    subparser.set_defaults(subparser=subparser)
+from .start import ablog_start
+ablog_commands = ablog_parser.add_subparsers(
+    title='subcommands')
+subparser = ablog_commands.add_parser('start',
+        help='start a new blog project')
+subparser.set_defaults(func=lambda ns: ablog_start())
+subparser.set_defaults(subparser=subparser)
 
 
 def ablog_build(**kwargs):

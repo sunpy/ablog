@@ -60,7 +60,7 @@ blog_default_language = 'en'
 blog_authors = {
     'Ahmet': ('Ahmet Bakan', 'http://ahmetbakan.com'),
     'Luc': ('Luc Saffre', 'http://saffre-rumma.net/luc/'),
-
+    'Mehmet': (u'Mehmet Gerçeker', 'https://github.com/mehmetg'),
 }
 blog_feed_archives = True
 blog_feed_fulltext = True
