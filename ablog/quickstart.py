@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    ablog.quickstart
+    ablog.start
     ~~~~~~~~~~~~~~~~~
 
     Quickly setup documentation source to work with Ablog.
@@ -11,26 +11,30 @@
 import os
 import sys
 import inspect
-import optparse
-from os import path
+import time
 
+
+from os import path
+from io import open
+from docutils.utils import column_width
+
+from six import PY2, PY3, text_type
+from six.moves import input
+from docutils.utils import column_width
 
 from ablog import __version__
 from sphinx import quickstart as sphinx_quickstart
+from sphinx.util import texescape
 from sphinx.quickstart import boolean, ok, choice, do_prompt, is_path, mkdir_p
 from sphinx.util.console import purple, bold, red, turquoise, nocolor, color_terminal
+from sphinx.util.osutil import make_filename
 
-class MyFormatter(optparse.IndentedHelpFormatter):
-    def format_usage(self, usage):
-        return usage
-
-    def format_help(self, formatter):
-        result = []
-        if self.description:
-            result.append(self.format_description(formatter))
-        if self.option_list:
-            result.append(self.format_option_help(formatter))
-        return "\n".join(result)
+def is_module_installed(module_name):
+    try:
+        __import__(module_name)
+        return True
+    except:
+        return False
 
 class ABlogTemplates(object):
     if sys.version_info >= (3, 0):
@@ -74,12 +78,6 @@ import ablog
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [%(extensions)s]
-
-# ablog: Add ablog to sphinx extentions list
-if extensions:
-    extensions += 'ablog'
-else:
-    extensions += ['ablog']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['%(dot)stemplates']
@@ -572,9 +570,127 @@ For more information, visit <http://ablog.readthedocs.org//>.
             'suffix': '.rst',
             'master': 'index',
             'makefile': True,
-            'batchfile': True,
-            'epub': False
+            'batchfile': False,
+            'epub': False,
+            'ext_intersphinx': True,
+            'ext_extlinks' : True,
+            'ext_todo': True,
+            'ablog': True,
+            'alabaster': True
             }
+
+    EXTENSIONS = ('ext_extlinks', 'ext_intersphinx', 'ext_todo', 'ablog', 'alabaster')
+
+def generate(d, overwrite=True, silent=False):
+    extension_list = []
+    for extension in ABlogTemplates.EXTENSIONS:
+        if d.get(extension):
+            if(extension is 'alabaster' and not is_module_installed(extension)):
+                pass
+            else:
+                extension_list.append(extension)
+
+    """Generate project based on values in *d*."""
+
+    texescape.init()
+    indent = ' ' * 4
+
+    if 'mastertoctree' not in d:
+        d['mastertoctree'] = ''
+    if 'mastertocmaxdepth' not in d:
+        d['mastertocmaxdepth'] = 2
+
+    d['project_fn'] = make_filename(d['project'])
+    d['project_manpage'] = d['project_fn'].lower()
+    d['now'] = time.asctime()
+    d['project_underline'] = column_width(d['project']) * '='
+
+    extensions = (',\n' + indent).join((repr(name.replace('ext_', 'spinx.ext.')) for name in extension_list))
+    
+    if extensions:
+        d['extensions'] = '\n' + indent + extensions + ',\n'
+    else:
+        d['extensions'] = extensions
+    
+    d['copyright'] = time.strftime('%Y') + ', ' + d['author']
+    d['author_texescaped'] = text_type(d['author']).\
+        translate(texescape.tex_escape_map)
+    d['project_doc'] = d['project'] + ' Documentation'
+    d['project_doc_texescaped'] = text_type(d['project'] + ' Documentation').\
+        translate(texescape.tex_escape_map)
+
+    # escape backslashes and single quotes in strings that are put into
+    # a Python string literal
+    for key in ('project', 'project_doc', 'project_doc_texescaped',
+                'author', 'author_texescaped', 'copyright',
+                'version', 'release', 'master'):
+        d[key + '_str'] = d[key].replace('\\', '\\\\').replace("'", "\\'")
+
+    if not path.isdir(d['path']):
+        mkdir_p(d['path'])
+
+    srcdir = d['sep'] and path.join(d['path'], 'source') or d['path']
+
+    mkdir_p(srcdir)
+    if d['sep']:
+        builddir = path.join(d['path'], 'build')
+        d['exclude_patterns'] = ''
+    else:
+        builddir = path.join(srcdir, d['dot'] + 'build')
+        d['exclude_patterns'] = repr(d['dot'] + 'build')
+    mkdir_p(builddir)
+    mkdir_p(path.join(srcdir, d['dot'] + 'templates'))
+    mkdir_p(path.join(srcdir, d['dot'] + 'static'))
+
+    def write_file(fpath, content, newline=None):
+        if overwrite or not path.isfile(fpath):
+            print('Creating file %s.' % fpath)
+            f = open(fpath, 'wt', encoding='utf-8', newline=newline)
+            try:
+                f.write(content)
+            finally:
+                f.close()
+        else:
+            print('File %s already exists, skipping.' % fpath)
+
+    conf_text = ABlogTemplates.ABLOG_QUICKSTART_CONF % d
+    if d['epub']:
+        conf_text += ABlogTemplates.ABLOG_EPUB_CONFIG % d
+    if d.get('ext_intersphinx'):
+        conf_text += ABlogTemplates.ABLOG_INTERSPHINX_CONFIG
+
+    write_file(path.join(srcdir, 'conf.py'), conf_text)
+
+    masterfile = path.join(srcdir, d['master'] + d['suffix'])
+    write_file(masterfile, ABlogTemplates.ABLOG_MASTER_FILE % d)
+
+    if d['makefile'] is True:
+        d['rsrcdir'] = d['sep'] and 'source' or '.'
+        d['rbuilddir'] = d['sep'] and 'build' or d['dot'] + 'build'
+        # use binary mode, to avoid writing \r\n on Windows
+        write_file(path.join(d['path'], 'Makefile'), ABlogTemplates.ABLOG_MAKEFILE % d, u'\n')
+
+    if d['batchfile'] is True:
+        d['rsrcdir'] = d['sep'] and 'source' or '.'
+        d['rbuilddir'] = d['sep'] and 'build' or d['dot'] + 'build'
+        write_file(path.join(d['path'], 'make.bat'), ABlogTemplates.ABLOG_BATCHFILE % d, u'\r\n')
+
+    if silent:
+        return
+    print()
+    print(bold('Finished: An initial directory structure has been created.'))
+    print('''
+You should now populate your master file %s and create other documentation
+source files. ''' % masterfile + ((d['makefile'] or d['batchfile']) and '''\
+Use the Makefile to build the docs, like so:
+   make builder
+''' or '''\
+Use the sphinx-build command to build the docs, like so:
+   sphinx-build -b builder %s %s
+''' % (srcdir, builddir)) + '''\
+where "builder" is one of the supported builders, e.g. html, latex or linkcheck.
+''')
+
 
 
 def ask_user(d):
@@ -620,7 +736,7 @@ Enter the root path for your blog.'''
     if 'project' not in d:
         print '''
 The project name will occur in several places in the built documentation.'''
-        do_prompt(d, 'project', 'Project name')
+        do_prompt(d, 'project', 'Blog project title')
     if 'author' not in d:
         do_prompt(d, 'author', 'Author name(s)')
 
@@ -632,8 +748,7 @@ Python the version is something like 2.5 or 3.0, while the release is
 something like 2.5.1 or 3.0a1.  If you don't need this dual structure,
 just set both to the same value.'''
         do_prompt(d, 'version', 'Project version')
-    if 'release' not in d:
-        do_prompt(d, 'release', 'Project release', d['version'])
+        d['release'] = d['version']
 
     while path.isfile(path.join(d['path'], d['master']+d['suffix'])) or \
           path.isfile(path.join(d['path'], 'source', d['master']+d['suffix'])):
@@ -651,9 +766,7 @@ A Makefile and a Windows command file can be generated for you so that you
 only have to run e.g. `make html' instead of invoking sphinx-build
 directly.'''
         do_prompt(d, 'makefile', 'Create Makefile? (y/n)', 'y', boolean)
-    if 'batchfile' not in d:
-        do_prompt(d, 'batchfile', 'Create Windows command file? (y/n)',
-                  'y', boolean)
+        
     print
 
 def ablog_create_blog_src_folder(d):
@@ -672,106 +785,22 @@ def ablog_create_blog_src_folder(d):
     #print(d['path'])
     #print(d['dot'])
     
-def ablog_sphinx_quickstart_wrapper(argv=sys.argv):
+def ablog_sphinx_quickstart_wrapper():
     '''Borrowed from Sphinx 1.3b3'''
     if not color_terminal():
         nocolor()
     
-    parser = optparse.OptionParser(ABlogTemplates.USAGE, epilog=ABlogTemplates.EPILOG,
-                                   version='ABlog v%s' % __version__,
-                                   formatter=MyFormatter())
-    parser.add_option('-q', '--quiet', action='store_true', dest='quiet',
-                      default=False,
-                      help='quiet mode')
-
-    '''
-    group = parser.add_option_group('Structure options')
-    group.add_option('--sep', action='store_true', dest='sep',
-                     help='if specified, separate source and build dirs')
-    group.add_option('--dot', metavar='DOT', dest='dot',
-                     help='replacement for dot in _templates etc.')
-    '''
-
-    group = parser.add_option_group('Project basic options')
-    group.add_option('-p', '--project', metavar='PROJECT', dest='project',
-                     help='project name')
-    group.add_option('-a', '--author', metavar='AUTHOR', dest='author',
-                     help='author names')
-    group.add_option('-v', metavar='VERSION', dest='version',
-                     help='version of project')
-    group.add_option('-r', '--release', metavar='RELEASE', dest='release',
-                     help='release of project')
-    group.add_option('-l', '--language', metavar='LANGUAGE', dest='language',
-                     help='document language')
-    group.add_option('--suffix', metavar='SUFFIX', dest='suffix',
-                     help='source file suffix')
-    group.add_option('--master', metavar='MASTER', dest='master',
-                     help='master document name')
-
-    group = parser.add_option_group('Makefile and Batchfile creation')
-    group.add_option('--makefile', action='store_true', dest='makefile',
-                     default=False,
-                     help='create makefile')
-    group.add_option('--no-makefile', action='store_true', dest='no_makefile',
-                     default=False,
-                     help='not create makefile')
-    group.add_option('--batchfile', action='store_true', dest='batchfile',
-                     default=False,
-                     help='create batchfile')
-    group.add_option('--no-batchfile', action='store_true', dest='no_batchfile',
-                     default=False,
-                     help='not create batchfile')
-
     # parse options
-    try:
-        opts, args = parser.parse_args()
-    except SystemExit as err:
-        return err.code
 
-    if len(args) > 0:
-        opts.ensure_value('path', args[0])
-
-    d = vars(opts)
-    for k, v in list(d.items()):
-        # delete None or False value
-        if v is None or v is False:
-            del d[k]
+    d = ABlogTemplates.ABLOG_DEFAULTS
 
     try:
-        if 'quiet' in d:
-            if 'project' not in d or 'author' not in d or \
-               'version' not in d:
-                print('''"quiet" is specified, but any of "project", \
-                         "author" or "version" is not specified.''')
-                return
-
-        if all(['quiet' in d, 'project' in d, 'author' in d,
-                'version' in d]):
-            # quiet mode with all required params satisfied, use default
-            d.setdefault('release', d['version'])
-            d2 = ABlogTemplates.ABLOG_DEFAULTS.copy()
-            d2.update(d)
-            d = d2
-            if 'no_makefile' in d:
-                d['makefile'] = False
-            if 'no_batchfile' in d:
-                d['batchfile'] = False
-
-            if path.exists(d['path']) and (
-                    not path.isdir(d['path']) or os.listdir(d['path'])):
-                print()
-                print(bold('Error: specified path is not a directory, or not a'
-                           ' empty directory.'))
-                print('ablog-quickstart only generate into a empty directory.'
-                      ' Please specify a new root path.')
-                return
-        else:
-            ask_user(d)
+        ask_user(d)
     except (KeyboardInterrupt, EOFError):
         print()
         print('[Interrupted.]')
         return
-    
+    '''
     #monkey patching of sphinx.quickstart
     sphinx_quickstart.QUICKSTART_CONF = ABlogTemplates.ABLOG_QUICKSTART_CONF
     sphinx_quickstart.EPUB_CONFIG = ABlogTemplates.ABLOG_EPUB_CONFIG
@@ -779,16 +808,17 @@ def ablog_sphinx_quickstart_wrapper(argv=sys.argv):
     sphinx_quickstart.BATCHFILE = ABlogTemplates.ABLOG_BATCHFILE
     sphinx_quickstart.MASTER_FILE = ABlogTemplates.ABLOG_MASTER_FILE
     sphinx_quickstart.INTERSPHINX_CONFIG = ABlogTemplates.ABLOG_INTERSPHINX_CONFIG
-    
-    sphinx_quickstart.generate(d)
-    ablog_create_blog_src_folder(d)
+    '''
+
+    generate(d)
+    #ablog_process_extensions(d)
 
 
 def main(argv=sys.argv):
     
     #print(argv)
 
-    ablog_sphinx_quickstart_wrapper(argv)
+    ablog_sphinx_quickstart_wrapper()
     
    
     
