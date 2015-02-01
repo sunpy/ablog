@@ -10,9 +10,7 @@
 """
 import os
 import sys
-import inspect
 import time
-
 
 from os import path
 from io import open
@@ -39,14 +37,14 @@ def is_module_installed(module_name):
 class ABlogTemplates(object):
     if sys.version_info >= (3, 0):
         # prevents that the file is checked for being written in Python 2.x syntax
-        ABLOG_QUICKSTART_CONF = u'#!/usr/bin/env python3\n'
+        ABLOG_DEFAULT_CONF = u'#!/usr/bin/env python3\n'
     else:
-        ABLOG_QUICKSTART_CONF = u''
-    ABLOG_QUICKSTART_CONF += u'''\
+        ABLOG_DEFAULT_CONF = u''
+    ABLOG_DEFAULT_CONF += u'''\
 # -*- coding: utf-8 -*-
 #
 # %(project)s documentation build configuration file, created by
-# sphinx-quickstart on %(now)s.
+# ablog-start on %(now)s.
 #
 # This file is execfile()d with the current directory set to its
 # containing dir.
@@ -148,92 +146,6 @@ pygments_style = 'sphinx'
 # If true, keep warnings as "system message" paragraphs in the built documents.
 #keep_warnings = False
 
-
-# -- Options for HTML output ----------------------------------------------
-
-# The theme to use for HTML and HTML Help pages.  See the documentation for
-# a list of builtin themes.
-html_theme = 'default'
-
-# Theme options are theme-specific and customize the look and feel of a theme
-# further.  For a list of options available for each theme, see the
-# documentation.
-#html_theme_options = {}
-
-# Add any paths that contain custom themes here, relative to this directory.
-#html_theme_path = []
-
-# The name for this set of Sphinx documents.  If None, it defaults to
-# "<project> v<release> documentation".
-#html_title = None
-
-# A shorter title for the navigation bar.  Default is the same as html_title.
-#html_short_title = None
-
-# The name of an image file (relative to this directory) to place at the top
-# of the sidebar.
-#html_logo = None
-
-# The name of an image file (within the static path) to use as favicon of the
-# docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
-# pixels large.
-#html_favicon = None
-
-# Add any paths that contain custom static files (such as style sheets) here,
-# relative to this directory. They are copied after the builtin static files,
-# so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['%(dot)sstatic']
-
-# Add any extra paths that contain custom files (such as robots.txt or
-# .htaccess) here, relative to this directory. These files are copied
-# directly to the root of the documentation.
-#html_extra_path = []
-
-# If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
-# using the given strftime format.
-#html_last_updated_fmt = '%%b %%d, %%Y'
-
-# If true, SmartyPants will be used to convert quotes and dashes to
-# typographically correct entities.
-#html_use_smartypants = True
-
-# Custom sidebar templates, maps document names to template names.
-#html_sidebars = {}
-
-# Additional templates that should be rendered to pages, maps page names to
-# template names.
-#html_additional_pages = {}
-
-# If false, no module index is generated.
-#html_domain_indices = True
-
-# If false, no index is generated.
-#html_use_index = True
-
-# If true, the index is split into individual pages for each letter.
-#html_split_index = False
-
-# If true, links to the reST sources are added to the pages.
-#html_show_sourcelink = True
-
-# If true, "Created using Sphinx" is shown in the HTML footer. Default is True.
-#html_show_sphinx = True
-
-# If true, "(C) Copyright ..." is shown in the HTML footer. Default is True.
-#html_show_copyright = True
-
-# If true, an OpenSearch description file will be output, and all pages will
-# contain a <link> tag referring to it.  The value of this option must be the
-# base URL from which the finished HTML is served.
-#html_use_opensearch = ''
-
-# This is the file name suffix for HTML files (e.g. ".xhtml").
-#html_file_suffix = None
-
-# ablog: On Read The Docs, ABlog may cause an exception when Sphinx build environment is being pickled.
-if os.environ.get('READTHEDOCS', None) == 'True':
-    skip_pickling = True
-
 # ---------------
 # ablog: General ABlog Options
 # ---------------
@@ -247,7 +159,7 @@ blog_title = 'A Blog'
 
 # Base URL for the website, required for generating feeds.
 # blog_baseurl = "http://ablog.readthedocs.org/"
-
+blog_baseurl = '%(blog_baseurl)s'
 
 
 # Choose to archive only post titles in collection pages, default is
@@ -348,18 +260,13 @@ blog_title = 'A Blog'
 
 #blog_feed_archives = False
 
-
 # Choose to display full text in blog feeds, default is ``False``.
 
 #blog_feed_fulltext = False
 
-
-
 # Blog feed subtitle, default is ``None``.
 
 #blog_feed_subtitle = None
-
-
 
 # Choose to feed only post titles, default is ``False``.
 
@@ -413,6 +320,10 @@ blog_title = 'A Blog'
 # default is ``False``.
 #disqus_drafts = False
 
+'''
+    ABLOG_HTML_DEFAULT_CONF = u'''
+# -- Options for HTML output ----------------------------------------------
+
 # ------------------
 # ablog: Blog sidebars
 # ------------------
@@ -428,6 +339,194 @@ html_sidebars = {
             'searchbox.html',
             ],
         }
+
+# The theme to use for HTML and HTML Help pages.  See the documentation for
+# a list of builtin themes.
+html_theme = 'default'
+
+# Theme options are theme-specific and customize the look and feel of a theme
+# further.  For a list of options available for each theme, see the
+# documentation.
+#html_theme_options = {}
+
+# Add any paths that contain custom themes here, relative to this directory.
+#html_theme_path = []
+
+# The name for this set of Sphinx documents.  If None, it defaults to
+# "<project> v<release> documentation".
+#html_title = None
+
+# A shorter title for the navigation bar.  Default is the same as html_title.
+#html_short_title = None
+
+# The name of an image file (relative to this directory) to place at the top
+# of the sidebar.
+#html_logo = None
+
+# The name of an image file (within the static path) to use as favicon of the
+# docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
+# pixels large.
+#html_favicon = None
+
+# Add any paths that contain custom static files (such as style sheets) here,
+# relative to this directory. They are copied after the builtin static files,
+# so a file named "default.css" will overwrite the builtin "default.css".
+html_static_path = ['%(dot)sstatic']
+
+# Add any extra paths that contain custom files (such as robots.txt or
+# .htaccess) here, relative to this directory. These files are copied
+# directly to the root of the documentation.
+#html_extra_path = []
+
+# If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
+# using the given strftime format.
+#html_last_updated_fmt = '%%b %%d, %%Y'
+
+# If true, SmartyPants will be used to convert quotes and dashes to
+# typographically correct entities.
+#html_use_smartypants = True
+
+# Additional templates that should be rendered to pages, maps page names to
+# template names.
+#html_additional_pages = {}
+
+# If false, no module index is generated.
+#html_domain_indices = True
+
+# If false, no index is generated.
+#html_use_index = True
+
+# If true, the index is split into individual pages for each letter.
+#html_split_index = False
+
+# If true, links to the reST sources are added to the pages.
+#html_show_sourcelink = True
+
+# If true, "Created using Sphinx" is shown in the HTML footer. Default is True.
+#html_show_sphinx = True
+
+# If true, "(C) Copyright ..." is shown in the HTML footer. Default is True.
+#html_show_copyright = True
+
+# If true, an OpenSearch description file will be output, and all pages will
+# contain a <link> tag referring to it.  The value of this option must be the
+# base URL from which the finished HTML is served.
+#html_use_opensearch = ''
+
+# This is the file name suffix for HTML files (e.g. ".xhtml").
+#html_file_suffix = None
+
+# ablog: On Read The Docs, ABlog may cause an exception when Sphinx build environment is being pickled.
+if os.environ.get('READTHEDOCS', None) == 'True':
+    skip_pickling = True
+'''
+    ABLOG_HTML_ALABASTER_CONF = u'''
+import alabaster
+# -- Options for HTML output ----------------------------------------------
+
+# ------------------
+# ablog: Blog sidebars
+# ------------------
+
+# There are seven sidebars you can include in your HTML output
+# using Sphinx_ :confval:`html_sidebars` configuration option.  Sidebars that
+# you see on the left are listed below in the same order:
+# TODO: Where are the missing 2 sidebars
+html_sidebars = {
+   '**': ['about.html',
+          'postcard.html', 'recentposts.html',
+          'tagcloud.html', 'categories.html',
+          'archives.html',
+          'searchbox.html']
+        }
+
+# The theme to use for HTML and HTML Help pages.  See the documentation for
+# a list of builtin themes.
+html_theme = 'alabaster'
+
+# Theme options are theme-specific and customize the look and feel of a theme
+# further.  For a list of options available for each theme, see the
+# documentation.
+html_theme_options = {
+    'analytics_id': '%(analytics_id)s',
+    'github_button': '%(github_button)s',
+    'travis_button': %(show_travis_button)s,
+    'github_user': '%(github_user)s',
+    'github_repo': '%(github_repo)s',
+    'description': '%(github_repo_description)s',
+    'logo': '%(github_repo_logo)s',
+}
+
+# Add any paths that contain custom themes here, relative to this directory.
+html_theme_path = [alabaster.get_path()]
+
+# The name for this set of Sphinx documents.  If None, it defaults to
+# "<project> v<release> documentation".
+#html_title = None
+
+# A shorter title for the navigation bar.  Default is the same as html_title.
+#html_short_title = None
+
+# The name of an image file (relative to this directory) to place at the top
+# of the sidebar.
+#html_logo = None
+
+# The name of an image file (within the static path) to use as favicon of the
+# docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
+# pixels large.
+#html_favicon = None
+
+# Add any paths that contain custom static files (such as style sheets) here,
+# relative to this directory. They are copied after the builtin static files,
+# so a file named "default.css" will overwrite the builtin "default.css".
+html_static_path = ['%(dot)sstatic']
+
+# Add any extra paths that contain custom files (such as robots.txt or
+# .htaccess) here, relative to this directory. These files are copied
+# directly to the root of the documentation.
+#html_extra_path = []
+
+# If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
+# using the given strftime format.
+#html_last_updated_fmt = '%%b %%d, %%Y'
+
+# If true, SmartyPants will be used to convert quotes and dashes to
+# typographically correct entities.
+#html_use_smartypants = True
+
+# Additional templates that should be rendered to pages, maps page names to
+# template names.
+#html_additional_pages = {}
+
+# If false, no module index is generated.
+#html_domain_indices = True
+
+# If false, no index is generated.
+#html_use_index = True
+
+# If true, the index is split into individual pages for each letter.
+#html_split_index = False
+
+# If true, links to the reST sources are added to the pages.
+#html_show_sourcelink = True
+
+# If true, "Created using Sphinx" is shown in the HTML footer. Default is True.
+#html_show_sphinx = True
+
+# If true, "(C) Copyright ..." is shown in the HTML footer. Default is True.
+#html_show_copyright = True
+
+# If true, an OpenSearch description file will be output, and all pages will
+# contain a <link> tag referring to it.  The value of this option must be the
+# base URL from which the finished HTML is served.
+#html_use_opensearch = ''
+
+# This is the file name suffix for HTML files (e.g. ".xhtml").
+#html_file_suffix = None
+
+# ablog: On Read The Docs, ABlog may cause an exception when Sphinx build environment is being pickled.
+if os.environ.get('READTHEDOCS', None) == 'True':
+    skip_pickling = True
 '''
 
     ABLOG_EPUB_CONFIG = u''
@@ -452,124 +551,13 @@ Welcome to %(author)s's Blog!
 
 '''
 
-    ABLOG_MAKEFILE = u'''\
-# Makefile for Sphinx documentation
-#
-
-# You can set these variables from the command line.
-SPHINXOPTS    =
-SPHINXBUILD   = sphinx-build
-PAPER         =
-BUILDDIR      = %(rbuilddir)s
-
-# User-friendly check for sphinx-build
-ifeq ($(shell which $(SPHINXBUILD) >/dev/null 2>&1; echo $$?), 1)
-$(error \
-The '$(SPHINXBUILD)' command was not found. Make sure you have Sphinx \
-installed, then set the SPHINXBUILD environment variable to point \
-to the full path of the '$(SPHINXBUILD)' executable. Alternatively you \
-can add the directory with the executable to your PATH. \
-If you don't have Sphinx installed, grab it from http://sphinx-doc.org/)
-endif
-
-ALLSPHINXOPTS   = -d $(BUILDDIR)/doctrees $(SPHINXOPTS) %(rsrcdir)s
-
-.PHONY: help clean html dirhtml singlehtml
-
-help:
-\t@echo "Please use 'make <target>' where <target> is one of"
-\t@echo "  html       to make standalone HTML files"
-\t@echo "  dirhtml    to make HTML files named index.html in directories"
-
-clean:
-\trm -rf $(BUILDDIR)/*
-
-html:
-\t$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
-\t@echo
-\t@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
-
-dirhtml:
-\t$(SPHINXBUILD) -b dirhtml $(ALLSPHINXOPTS) $(BUILDDIR)/dirhtml
-\t@echo
-\t@echo "Build finished. The HTML pages are in $(BUILDDIR)/dirhtml."
-'''
-
-    ABLOG_BATCHFILE = u'''\
-@ECHO OFF
-
-REM Command file for Sphinx documentation
-
-if "%%SPHINXBUILD%%" == "" (
-\tset SPHINXBUILD=sphinx-build
-)
-set BUILDDIR=%(rbuilddir)s
-set ALLSPHINXOPTS=-d %%BUILDDIR%%/doctrees %%SPHINXOPTS%% %(rsrcdir)s
-
-if "%%1" == "" goto help
-
-if "%%1" == "help" (
-\t:help
-\techo.Please use `make ^<target^>` where ^<target^> is one of
-\techo.  html       to make standalone HTML files
-\techo.  dirhtml    to make HTML files named index.html in directories
-\tgoto end
-)
-
-if "%%1" == "clean" (
-\tfor /d %%%%i in (%%BUILDDIR%%\*) do rmdir /q /s %%%%i
-\tdel /q /s %%BUILDDIR%%\*
-\tgoto end
-)
-
-
-%%SPHINXBUILD%% 2> nul
-if errorlevel 9009 (
-\techo.
-\techo.The 'sphinx-build' command was not found. Make sure you have Sphinx
-\techo.installed, then set the SPHINXBUILD environment variable to point
-\techo.to the full path of the 'sphinx-build' executable. Alternatively you
-\techo.may add the Sphinx directory to PATH.
-\techo.
-\techo.If you don't have Sphinx installed, grab it from
-\techo.http://sphinx-doc.org/
-\texit /b 1
-)
-
-if "%%1" == "html" (
-\t%%SPHINXBUILD%% -b html %%ALLSPHINXOPTS%% %%BUILDDIR%%/html
-\tif errorlevel 1 exit /b 1
-\techo.
-\techo.Build finished. The HTML pages are in %%BUILDDIR%%/html.
-\tgoto end
-)
-
-if "%%1" == "dirhtml" (
-\t%%SPHINXBUILD%% -b dirhtml %%ALLSPHINXOPTS%% %%BUILDDIR%%/dirhtml
-\tif errorlevel 1 exit /b 1
-\techo.
-\techo.Build finished. The HTML pages are in %%BUILDDIR%%/dirhtml.
-\tgoto end
-)
-
-:end
-'''
-
-    USAGE = """\
-ABlog v%s
-Usage: %%prog [options] [projectdir]
-""" % __version__
-
-    EPILOG = """\
-For more information, visit <http://ablog.readthedocs.org//>.
-"""
     ABLOG_DEFAULTS = {
             'sep': False,
             'dot': '_',
             'language': None,
             'suffix': '.rst',
             'master': 'index',
-            'makefile': True,
+            'makefile': False,
             'batchfile': False,
             'epub': False,
             'ext_intersphinx': True,
@@ -582,6 +570,8 @@ For more information, visit <http://ablog.readthedocs.org//>.
     EXTENSIONS = ('ext_extlinks', 'ext_intersphinx', 'ext_todo', 'ablog', 'alabaster')
 
 def generate(d, overwrite=True, silent=False):
+    '''Borrowed from Sphinx 1.3b3'''
+
     extension_list = []
     for extension in ABlogTemplates.EXTENSIONS:
         if d.get(extension):
@@ -605,7 +595,7 @@ def generate(d, overwrite=True, silent=False):
     d['now'] = time.asctime()
     d['project_underline'] = column_width(d['project']) * '='
 
-    extensions = (',\n' + indent).join((repr(name.replace('ext_', 'spinx.ext.')) for name in extension_list))
+    extensions = (',\n' + indent).join((repr(name.replace('ext_', 'sphinx.ext.')) for name in extension_list))
 
     if extensions:
         d['extensions'] = '\n' + indent + extensions + ',\n'
@@ -653,7 +643,7 @@ def generate(d, overwrite=True, silent=False):
         else:
             print('File %s already exists, skipping.' % fpath)
 
-    conf_text = ABlogTemplates.ABLOG_QUICKSTART_CONF % d
+    conf_text = ABlogTemplates.ABLOG_DEFAULT_CONF % d
     if d['epub']:
         conf_text += ABlogTemplates.ABLOG_EPUB_CONFIG % d
     if d.get('ext_intersphinx'):
@@ -664,36 +654,14 @@ def generate(d, overwrite=True, silent=False):
     masterfile = path.join(srcdir, d['master'] + d['suffix'])
     write_file(masterfile, ABlogTemplates.ABLOG_MASTER_FILE % d)
 
-    if d['makefile'] is True:
-        d['rsrcdir'] = d['sep'] and 'source' or '.'
-        d['rbuilddir'] = d['sep'] and 'build' or d['dot'] + 'build'
-        # use binary mode, to avoid writing \r\n on Windows
-        write_file(path.join(d['path'], 'Makefile'), ABlogTemplates.ABLOG_MAKEFILE % d, u'\n')
-
-    if d['batchfile'] is True:
-        d['rsrcdir'] = d['sep'] and 'source' or '.'
-        d['rbuilddir'] = d['sep'] and 'build' or d['dot'] + 'build'
-        write_file(path.join(d['path'], 'make.bat'), ABlogTemplates.ABLOG_BATCHFILE % d, u'\r\n')
-
     if silent:
         return
-    print()
+    #print()
     print(bold('Finished: An initial directory structure has been created.'))
-    print('''
-You should now populate your master file %s and create other documentation
-source files. ''' % masterfile + ((d['makefile'] or d['batchfile']) and '''\
-Use the Makefile to build the docs, like so:
-   make builder
-''' or '''\
-Use the sphinx-build command to build the docs, like so:
-   sphinx-build -b builder %s %s
-''' % (srcdir, builddir)) + '''\
-where "builder" is one of the supported builders, e.g. html, latex or linkcheck.
-''')
-
-
 
 def ask_user(d):
+    '''Borrowed from Sphinx 1.3b3'''
+
     """Ask the user for quickstart values missing from *d*.
 
     Values are:
@@ -706,7 +674,7 @@ def ask_user(d):
     """
     d.update(ABlogTemplates.ABLOG_DEFAULTS)
 
-    print bold('Welcome to the ABlog %s quick start utility.') % __version__
+    print bold('Welcome to the ABlog %s start utility.') % __version__
     print '''
 Please enter values for the following settings (just press Enter to
 accept a default value, if one is given in brackets).'''
@@ -724,7 +692,7 @@ Enter the root path for your blog.'''
         print
         print bold('Error: an existing conf.py has been found in the '
                    'selected root path.')
-        print 'ablog-quickstart will not overwrite existing ABlog projects.'
+        print 'ablog-start will not overwrite existing ABlog projects.'
         print
         do_prompt(d, 'path', 'Please enter a new root path (or just Enter '
                   'to exit)', '', is_path)
@@ -733,7 +701,7 @@ Enter the root path for your blog.'''
 
     if 'project' not in d:
         print '''
-The project name will occur in several places in the website.'''
+The blog project title will occur in several places in the website.'''
         do_prompt(d, 'project', 'Blog project title')
     if 'author' not in d:
         do_prompt(d, 'author', 'Author name(s)')
@@ -745,42 +713,73 @@ The project name will occur in several places in the website.'''
         print
         print bold('Error: the master file %s has already been found in the '
                    'selected root path.' % (d['master']+d['suffix']))
-        print 'sphinx-quickstart will not overwrite the existing file.'
+        print 'ablog-start will not overwrite the existing file.'
         print
         do_prompt(d, 'master', 'Please enter a new file name, or rename the '
                   'existing file and press Enter', d['master'])
 
-    if 'makefile' not in d:
+    if 'blog_baseurl' not in d:
         print '''
-A Makefile and a Windows command file can be generated for you so that you
-only have to run e.g. `make html' instead of invoking sphinx-build
-directly.'''
-        do_prompt(d, 'makefile', 'Create Makefile? (y/n)', 'y', boolean)
+Please enter the base URL for your blog. This URL will be used for feed 
+generation.'''
+        do_prompt(d, 'blog_baseurl', 'Please enter the base URL for your blog. ', '')
 
-    print
+    if 'use_alabaster' not in d and 'alabaster' in d:
+        print '''
+You have the Alabaster Sphinx theme install on your system, would you
+like to enable it for your blog? '''
+        do_prompt(d, 'use_alabaster', 'Enable Alabaster Sphinx theme? (y/n)', 'y', boolean)
+        print '''
+Please enter your Google Analytics ID to your blog for tracking? Leave blank for disabling.'''
+        do_prompt(d, 'analytics_id', 'Please enter your Google Analytics ID', '', ok)
+        
+        #Ask user if this is for a github project.
+        print '''
+Would you like to enable Alabaster options for GitHub projects on your blog? '''
+        do_prompt(d, 'github_button', 'Enable Alabaster GitHub features? (y/n)', 'n', boolean)
+    
+    #If using Alabaster and blogging about a GitHub project we have more questions for you!
+    if d['use_alabaster']:
+        ABlogTemplates.ABLOG_DEFAULT_CONF += ABlogTemplates.ABLOG_HTML_ALABASTER_CONF
+        if d['github_button']:
+            if 'github_repo' not in d:
+                print '''
+Please enter the name for the GitHub project.'''
+                do_prompt(d, 'github_repo', 'Please enter the project name. ', '', ok)
 
-def ablog_create_blog_src_folder(d):
-    '''Creates a folder to hold the .rst files for blog entries'''
-    #TODO: we probably need to reference this somewhere in config to use it for automated blog entries, etc.
+            if 'github_user' not in d:
+                print '''
+Please enter the user name for the GitHub project.'''
+            do_prompt(d, 'github_user', 'Please enter GitHub user name. ', '', ok)
+        
+            if 'github_repo_description' not in d:
+                print '''
+Please enter a short description for the GitHub project.'''
+                do_prompt(d, 'github_repo_description', 'Please enter GitHub project description. ', '', ok)
 
-    blog_src_path = path.join(d['path'], (d['dot'] + 'blog'))
-    #print(blog_src_path)
-    if not path.exists(blog_src_path):
-        mkdir_p(blog_src_path)
-        #print("created")
+            if 'github_repo_logo' not in d:
+                print '''
+Please enter the path for the GitHub project logo. (png, jpg, etc.)'''
+                do_prompt(d, 'github_repo_logo', 'Please enter logo path. ', '', ok)
+
+            if 'show_travis_button' not in d:
+                print '''
+If you happen to have the github project linked to Travis CI, you may want
+to enable the Travis-CI button in your blog.'''
+                do_prompt(d, 'show_travis_button', 'Enable the Travis CI button in your blog? (y/n)', 'n', boolean)
+        else:
+            d['github_repo'] = None
+            d['github_user'] = d['github_repo_description'] = d['github_repo_logo'] = ""
+            d['show_travis_button'] = False
+
     else:
-        pass
-        #print("already here")
+        ABlogTemplates.ABLOG_DEFAULT_CONF += ABlogTemplates.ABLOG_HTML_DEFAULT_CONF
 
-    #print(d['path'])
-    #print(d['dot'])
+    print  
 
 def ablog_sphinx_quickstart_wrapper():
-    '''Borrowed from Sphinx 1.3b3'''
     if not color_terminal():
         nocolor()
-
-    # parse options
 
     d = ABlogTemplates.ABLOG_DEFAULTS
 
@@ -790,23 +789,11 @@ def ablog_sphinx_quickstart_wrapper():
         print()
         print('[Interrupted.]')
         return
-    '''
-    #monkey patching of sphinx.quickstart
-    sphinx_quickstart.QUICKSTART_CONF = ABlogTemplates.ABLOG_QUICKSTART_CONF
-    sphinx_quickstart.EPUB_CONFIG = ABlogTemplates.ABLOG_EPUB_CONFIG
-    sphinx_quickstart.MAKEFILE = ABlogTemplates.ABLOG_MAKEFILE
-    sphinx_quickstart.BATCHFILE = ABlogTemplates.ABLOG_BATCHFILE
-    sphinx_quickstart.MASTER_FILE = ABlogTemplates.ABLOG_MASTER_FILE
-    sphinx_quickstart.INTERSPHINX_CONFIG = ABlogTemplates.ABLOG_INTERSPHINX_CONFIG
-    '''
 
     generate(d)
-    #ablog_process_extensions(d)
 
 
 def ablog_start(**kwargs):
-
-    #print(argv)
 
     ablog_sphinx_quickstart_wrapper()
 
