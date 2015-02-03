@@ -5,7 +5,7 @@ import ablog
 import argparse
 
 
-def find_confdir():
+def find_confdir(subparser):
 
     from os.path import isfile, join, abspath
     confdir = os.getcwd()
@@ -22,8 +22,16 @@ def find_confdir():
     if isfile(conf) and 'ablog' in open(conf).read():
         return confdir
     else:
-        return None
+        subparser.exit("Current directory and its parents doesn't "
+            "contain configuration file (conf.py).")
 
+
+def read_conf(confdir):
+
+    sys.path.insert(0, confdir)
+    conf = __import__('conf')
+    sys.path.pop(0)
+    return conf
 
 
 class ABlogVersion(argparse.Action):
@@ -38,12 +46,12 @@ class ABlogVersion(argparse.Action):
 ablog_parser = argparse.ArgumentParser(
     description="ABlog for blogging with Sphinx",
     epilog="See 'ablog <command> -h' for more information on a specific "
-           "command."
-    )
+           "command.")
 
 ablog_parser.add_argument('-v', '--version',
     help="print ABlog version and exit",
     action=ABlogVersion, nargs=0)
+
 
 
 from .start import ablog_start
@@ -55,32 +63,72 @@ subparser.set_defaults(func=lambda ns: ablog_start())
 subparser.set_defaults(subparser=subparser)
 
 
-def ablog_build(**kwargs):
+if 0:
+    def ablog_post(subparser, **kwargs):
 
+        conf = read_conf(find_confdir(subparser))
+
+        filename = kwargs['filename']
+        title = kwargs['title']
+        date_format = getattr(conf, 'post_date_format', '%b %d, %Y')
+
+        # add template here and create file
+
+        print('{} is ready to be edited.'.format(filename))
+
+    subparser = ablog_commands.add_parser('post',
+            help='post ',
+            version=ablog.__version__)
+
+    subparser.add_argument('filename', help='filename')
+
+    subparser.add_argument('-t', '--title', dest='title', type=str,
+        help='post title')
+
+    subparser.set_defaults(func=lambda ns: ablog_post(**ns.__dict__))
+    subparser.set_defaults(subparser=subparser)
+
+
+
+def ablog_build(subparser, **kwargs):
+
+    confdir = find_confdir(subparser)
+    conf = read_conf(confdir)
+
+    website = (kwargs['website'] or
+        os.path.join(confdir, getattr(conf, 'ablog_builddir', '_website')))
+    doctrees = (kwargs['doctrees'] or
+        os.path.join(confdir, getattr(conf, 'ablog_doctrees', '_doctrees')))
+    sourcedir = (kwargs['sourcedir'] or confdir)
     argv = sys.argv[:1]
-    argv.extend(['-b', kwargs['builder']])
-    argv.extend(['-d', kwargs['doctrees']])
-    argv.extend(['.', kwargs['outdir']])
+    argv.extend(['-b', kwargs['builder'] or getattr(conf, 'ablog_builder', 'dirhtml')])
+    argv.extend(['-d', doctrees])
+    argv.extend([sourcedir, website])
 
     from sphinx import main
     main(argv)
 
 subparser = ablog_commands.add_parser('build',
         help='build your blog project',
+        description="Build options can be set in conf.py. "
+        "Default values of path options are relative to conf.py.",
         version=ablog.__version__)
 
-subparser.add_argument('-b', '--builder', dest='builder', type=str,
-    default='dirhtml',
-    help='sphinx builder to use; default is `dirhtml`')
+subparser.add_argument('-b', dest='builder', type=str,
+    help="builder to use, default is value of `ablog_builder` or dirhtml")
 
-subparser.add_argument('-d', '--doctrees', dest='doctrees', type=str,
+subparser.add_argument('-d', dest='doctrees', type=str,
     default='_doctrees',
-    help='path for the cached environment and doctree files; default is `_doctrees`')
+    help="path for the cached environment and doctree files, "
+        "default is value of `ablog_doctrees` or _doctrees")
 
-subparser.add_argument('-o', '--outdir', dest='outdir', type=str,
-    default='_output',
-    help='path for your; default is `_output`')
+subparser.add_argument('-w', dest='website', type=str,
+    help="path for website, "
+        "default is value of `ablog_website` or _website")
 
+subparser.add_argument('-s', dest='sourcedir', type=str,
+    help="root path for source files, "
+        "default is path to the folder that contains conf.py")
 
 subparser.set_defaults(func=lambda ns: ablog_build(**ns.__dict__))
 subparser.set_defaults(subparser=subparser)
@@ -89,10 +137,8 @@ subparser.set_defaults(subparser=subparser)
 
 def ablog_serve(subparser, **kwargs):
 
-    confdir = find_confdir()
-    if not confdir:
-        subparser.exit('Configuration file (conf.py) could not be found '
-            'in the current working directory and its parents.')
+    confdir = find_confdir(subparser)
+    conf = read_conf(confdir)
 
     import SimpleHTTPServer
     import SocketServer
@@ -109,28 +155,29 @@ def ablog_serve(subparser, **kwargs):
     print(msg)
     print("Quit the server with CONTROL-C.")
 
-    outdir = os.path.join(confdir, kwargs['outdir'])
+    website = (kwargs['website'] or
+        os.path.join(confdir, getattr(conf, 'ablog_builddir', '_website')))
 
-    os.chdir(outdir)
+    os.chdir(website)
 
     (webbrowser.open_new_tab('http://127.0.0.1:8000') and
      httpd.serve_forever())
 
-
 subparser = ablog_commands.add_parser('serve',
-        help='serve your project locally',
+        help='serve and view your project',
         version=ablog.__version__)
 
-subparser.add_argument('-o', '--outdir', dest='outdir', type=str,
-    default='_output',
-    help='path to your project built directory; default is `_output`')
+subparser.add_argument('-w', dest='website', type=str,
+    help="path for website, "
+        "default is value of `ablog_website` or _website")
 
-subparser.add_argument('-p', '--port', dest='port', type=int,
+subparser.add_argument('-p', dest='port', type=int,
     default=8000,
     help='port number for HTTP server; default is 8000')
 
 subparser.set_defaults(func=lambda ns: ablog_serve(**ns.__dict__))
 subparser.set_defaults(subparser=subparser)
+
 
 
 

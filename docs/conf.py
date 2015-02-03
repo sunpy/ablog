@@ -6,6 +6,9 @@ import sys
 import alabaster
 import ablog
 
+ablog_builder = 'dirhtml'
+ablog_website = '_website'
+
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.doctest',
