@@ -111,24 +111,24 @@ def ablog_build(subparser, **kwargs):
 subparser = ablog_commands.add_parser('build',
         help='build your blog project',
         description="Build options can be set in conf.py. "
-        "Default values of path options are relative to conf.py.",
+        "Default values of paths are relative to conf.py.",
         version=ablog.__version__)
 
 subparser.add_argument('-b', dest='builder', type=str,
-    help="builder to use, default is value of `ablog_builder` or dirhtml")
+    help="builder to use, default `ablog_builder` or dirhtml")
 
 subparser.add_argument('-d', dest='doctrees', type=str,
     default='_doctrees',
     help="path for the cached environment and doctree files, "
-        "default is value of `ablog_doctrees` or _doctrees")
-
-subparser.add_argument('-w', dest='website', type=str,
-    help="path for website, "
-        "default is value of `ablog_website` or _website")
+        "default `ablog_doctrees` or _doctrees")
 
 subparser.add_argument('-s', dest='sourcedir', type=str,
     help="root path for source files, "
         "default is path to the folder that contains conf.py")
+
+subparser.add_argument('-w', dest='website', type=str,
+    help="path for website, default `ablog_website` or _website")
+
 
 subparser.set_defaults(func=lambda ns: ablog_build(**ns.__dict__))
 subparser.set_defaults(subparser=subparser)
@@ -145,41 +145,45 @@ def ablog_serve(subparser, **kwargs):
     import webbrowser
 
 
-    PORT = kwargs['port']
+    port = kwargs['port']
     Handler = SimpleHTTPServer.SimpleHTTPRequestHandler
-    httpd = SocketServer.TCPServer(("", PORT), Handler)
+    httpd = SocketServer.TCPServer(("", port), Handler)
 
-    sa = httpd.socket.getsockname()
-
-    msg = "Serving HTTP on", sa[0], "port", sa[1], "..."
-    print(msg)
-    print("Quit the server with CONTROL-C.")
+    ip, port = httpd.socket.getsockname()
+    print("Serving HTTP on {}:{}.".format(ip, port))
+    print("Quit the server with Control-C.")
 
     website = (kwargs['website'] or
         os.path.join(confdir, getattr(conf, 'ablog_builddir', '_website')))
 
     os.chdir(website)
 
-    (webbrowser.open_new_tab('http://127.0.0.1:8000') and
-     httpd.serve_forever())
+    if kwargs['view']:
+        (webbrowser.open_new_tab('http://127.0.0.1:{}'.format(port)) and
+         httpd.serve_forever())
+    else:
+        httpd.serve_forever()
 
 subparser = ablog_commands.add_parser('serve',
         help='serve and view your project',
+        description="Serve options can be set in conf.py. "
+        "Default values of paths are relative to conf.py.",
         version=ablog.__version__)
 
-subparser.add_argument('-w', dest='website', type=str,
-    help="path for website, "
-        "default is value of `ablog_website` or _website")
+subparser.add_argument('-n', dest='view',
+        action='store_false', default=True,
+        help="do not open website in a new browser tab")
 
 subparser.add_argument('-p', dest='port', type=int,
     default=8000,
     help='port number for HTTP server; default is 8000')
 
+subparser.add_argument('-w', dest='website', type=str,
+    help="path for website, "
+        "default `ablog_website` or _website")
+
 subparser.set_defaults(func=lambda ns: ablog_serve(**ns.__dict__))
 subparser.set_defaults(subparser=subparser)
-
-
-
 
 
 def ablog_main():
