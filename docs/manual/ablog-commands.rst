@@ -17,7 +17,7 @@ building, serving, and viewing blog pages, as well as starting a new
 blog.
 
 
-.. code-block:: sh
+.. code-block::
 
    $ ablog
 
@@ -42,7 +42,7 @@ blog.
 `ablog start`
 -------------
 
-.. code-block:: sh
+.. code-block::
 
    $ ablog start -h
    usage: ablog start [-h]
@@ -55,7 +55,7 @@ blog.
 `ablog build`
 -------------
 
-.. code-block:: sh
+.. code-block::
 
   $ ablog build -h
   usage: ablog build [-h] [-v] [-b BUILDER] [-d DOCTREES] [-w WEBSITE]
@@ -79,7 +79,7 @@ blog.
 `ablog serve`
 -------------
 
-.. code-block:: sh
+.. code-block::
 
    $ ablog serve -h
    usage: ablog serve [-h] [-v] [-w WEBSITE] [-p PORT]
