@@ -36,17 +36,19 @@ class UpdateNode(nodes.Admonition, nodes.Element):
 class PostDirective(Directive):
     """Handle ``post`` directives."""
 
+    _split = lambda a: [s.strip() for s in (a or '').split(',') if s.strip()]
+
     has_content = True
     required_arguments = 0
     optional_arguments = 1
     final_argument_whitespace = True
     option_spec = {
-        'tags': lambda a: [s.strip() for s in a.split(',')],
-        'author': lambda a: [s.strip() for s in a.split(',')],
-        'category': lambda a: [s.strip() for s in a.split(',')],
-        'location': lambda a: [s.strip() for s in a.split(',')],
-        'language': lambda a: [s.strip() for s in a.split(',')],
-        'redirect': lambda a: [s.strip() for s in a.split(',')],
+        'tags': _split,
+        'author': _split,
+        'category': _split,
+        'location': _split,
+        'language': _split,
+        'redirect': _split,
         'title': lambda a: a.strip(),
         #'update': lambda a: a.strip(),
         'image': int,
@@ -102,16 +104,17 @@ class UpdateDirective(Directive):
 class PostListDirective(Directive):
     """Handle ``postlist`` directives."""
 
+    _split = lambda a: set(s.strip() for s in a.split(','))
     has_content = False
     required_arguments = 0
     optional_arguments = 1
     final_argument_whitespace = False
     option_spec = {
-        'tags': lambda a: set(s.strip() for s in a.split(',')),
-        'author': lambda a: set(s.strip() for s in a.split(',')),
-        'category': lambda a: set(s.strip() for s in a.split(',')),
-        'location': lambda a: set(s.strip() for s in a.split(',')),
-        'language': lambda a: set(s.strip() for s in a.split(',')),
+        'tags': _split,
+        'author': _split,
+        'category': _split,
+        'location': _split,
+        'language': _split,
         'format': lambda a: a.strip(),
         'date': lambda a: a.strip(),
         'sort': directives.flag,
