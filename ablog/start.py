@@ -157,7 +157,7 @@ pygments_style = 'sphinx'
 # The “title” for the blog, used in acthive pages.  Default is ``'Blog'``.
 blog_title = 'A Blog'
 
-# Base URL for the website, required for generating feeds.
+# Base URL for the blog, required for generating feeds.
 # blog_baseurl = "http://ablog.readthedocs.org/"
 blog_baseurl = '%(blog_baseurl)s'
 
@@ -306,7 +306,7 @@ blog_baseurl = '%(blog_baseurl)s'
 # ------------------
 
 # You can enable Disqus_ by setting ``disqus_shortname`` variable.
-# Disqus_ short name for the website.
+# Disqus_ short name for the blog.
 # TODO: Default is??
 
 # disqus_shortname = None
@@ -701,7 +701,7 @@ Enter the root path for your blog.'''
 
     if 'project' not in d:
         print '''
-The blog project title will occur in several places in the website.'''
+The blog project title will occur in several places in the blog.'''
         do_prompt(d, 'project', 'Blog project title')
     if 'author' not in d:
         do_prompt(d, 'author', 'Author name(s)')
@@ -729,18 +729,19 @@ generation.'''
 You have the Alabaster Sphinx theme install on your system, would you
 like to enable it for your blog? '''
         do_prompt(d, 'use_alabaster', 'Enable Alabaster Sphinx theme? (y/n)', 'y', boolean)
+
+    #If using Alabaster and blogging about a GitHub project we have more questions for you!
+    if d['use_alabaster']:
+        ABlogTemplates.ABLOG_DEFAULT_CONF += ABlogTemplates.ABLOG_HTML_ALABASTER_CONF    
         print '''
 Please enter your Google Analytics ID to your blog for tracking? Leave blank for disabling.'''
         do_prompt(d, 'analytics_id', 'Please enter your Google Analytics ID', '', ok)
-        
+    
         #Ask user if this is for a github project.
         print '''
 Would you like to enable Alabaster options for GitHub projects on your blog? '''
         do_prompt(d, 'github_button', 'Enable Alabaster GitHub features? (y/n)', 'n', boolean)
     
-    #If using Alabaster and blogging about a GitHub project we have more questions for you!
-    if d['use_alabaster']:
-        ABlogTemplates.ABLOG_DEFAULT_CONF += ABlogTemplates.ABLOG_HTML_ALABASTER_CONF
         if d['github_button']:
             if 'github_repo' not in d:
                 print '''
