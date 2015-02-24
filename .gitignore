@@ -9,7 +9,7 @@ dist/
 *.egg-info/
 
 # Sphinx documentation
-docs/_build/
+docs/_*
 
 .DS_Store
 
