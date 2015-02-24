@@ -523,7 +523,7 @@ def generate_atom_feeds(app):
 
                 feeds.append((coll,
                           os.path.join(folder, 'atom.xml'),
-                          blog.blog_title + ' - ' + header + ' ' + str(coll),
+                          blog.blog_title + u' - ' + header + u' ' + unicode(coll),
                           os.path.join(url, coll.path, 'atom.xml')))
 
     # Config options
