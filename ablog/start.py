@@ -268,7 +268,7 @@ blog_baseurl = '%(blog_baseurl)s'
 # ------------------
 
 # You can enable Disqus_ by setting ``disqus_shortname`` variable.
-# Disqus_ short name for the website.
+# Disqus_ short name for the blog.
 # TODO: Default is??
 # disqus_shortname = None
 
@@ -696,6 +696,10 @@ file later.'''
 You have Alabaster Sphinx theme installed. Would you
 like to enable it for your blog?'''
         do_prompt(d, 'use_alabaster', 'Enable Alabaster Sphinx theme? (y/n)', 'y', boolean)
+
+    #If using Alabaster and blogging about a GitHub project we have more questions for you!
+    if d['use_alabaster']:
+        ABlogTemplates.ABLOG_DEFAULT_CONF += ABlogTemplates.ABLOG_HTML_ALABASTER_CONF
         print '''
 Please enter your Google Analytics ID to your blog for tracking? Leave blank for disabling.'''
         do_prompt(d, 'analytics_id', 'Google Analytics ID', '', ok)
@@ -705,9 +709,6 @@ Please enter your Google Analytics ID to your blog for tracking? Leave blank for
 Would you like to enable Alabaster options for GitHub projects on your blog? '''
         do_prompt(d, 'github_button', 'Enable Alabaster GitHub features? (y/n)', 'n', boolean)
 
-    #If using Alabaster and blogging about a GitHub project we have more questions for you!
-    if d['use_alabaster']:
-        ABlogTemplates.ABLOG_DEFAULT_CONF += ABlogTemplates.ABLOG_HTML_ALABASTER_CONF
         if d['github_button']:
             if 'github_repo' not in d:
                 print '''
