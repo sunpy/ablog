@@ -12,7 +12,7 @@ website project into a full-fledged blog with:
   * `Disqus integration <http://ablog.readthedocs.org/manual/ablog-configuration-options/#disqus-integration>`_
   * `Font-Awesome integration <http://ablog.readthedocs.org/manual/ablog-configuration-options/#fa>`_
 
-Looking for an example? Just browse `ABlog documentation <http://ablog.readthedocs.org>`_ ;)
+Looking for an example? Take a look at `ABlog documentation <http://ablog.readthedocs.org>`_ ;)
 
 Installation
 ------------
@@ -24,8 +24,12 @@ You can install ABlog using pip_::
 In addition to Sphinx_, Werkzeug_ is required for generating feeds.
 
 
-Configuration
--------------
+Getting Started
+---------------
+
+If you are starting a new project, see
+`ABlog Quick Start <http://ablog.readthedocs.org/manual/ablog-quick-start>`_
+guide.
 
 To enable blogging in a Sphinx project, append ``ablog`` to the
 list of extensions and ABlog template path to :confval:`templates_path`
@@ -90,8 +94,8 @@ This converts to a list of links to the most recent five posts in
    :category: Release
 
 
-Documentation
--------------
+Learn More
+----------
 
 You can learn more about ablog features in the following posts:
 
