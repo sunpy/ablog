@@ -1,0 +1,18 @@
+language: python
+python:
+  - 2.7
+  - 3.3
+  - 3.4
+virtualenv:
+  system_site_packages: true
+before_install:
+  - uname -a
+  - free -m
+  - df -h
+  - ulimit -a
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq libatlas-dev libatlas-base-dev liblapack-dev gfortran
+install:
+  - pip install .
+script:
+  - cd docs; ablog build
