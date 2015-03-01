@@ -636,26 +636,26 @@ def ask_user(d):
     """
     d.update(ABlogTemplates.ABLOG_DEFAULTS)
 
-    print bold('Welcome to the ABlog %s start utility.') % __version__
-    print '''
+    print(bold('Welcome to the ABlog %s start utility.') % __version__)
+    print('''
 Please enter values for the following settings (just press Enter to
-accept a default value, if one is given in brackets).'''
+accept a default value, if one is given in brackets).''')
 
     if 'path' in d:
-        print bold('''
-Selected root path: %s''' % d['path'])
+        print(bold('''
+Selected root path: %s''' % d['path']))
     else:
-        print '''
-Enter the root path for your blog project.'''
+        print('''
+Enter the root path for your blog project.''')
         do_prompt(d, 'path', 'Root path for your project', '.', is_path)
 
     while path.isfile(path.join(d['path'], 'conf.py')) or \
           path.isfile(path.join(d['path'], 'source', 'conf.py')):
-        print
-        print bold('Error: an existing conf.py has been found in the '
-                   'selected root path.')
-        print 'ablog start will not overwrite existing ABlog projects.'
-        print
+        print("")
+        print(bold('Error: an existing conf.py has been found in the '
+                   'selected root path.'))
+        print('ablog start will not overwrite existing ABlog projects.')
+        print("")
         do_prompt(d, 'path', 'Please enter a new root path (or just Enter '
                   'to exit)', '', is_path)
         if not d['path']:
@@ -679,65 +679,61 @@ you can specify individual authors using `blog_authors` configuration option.'''
 
     while path.isfile(path.join(d['path'], d['master']+d['suffix'])) or \
           path.isfile(path.join(d['path'], 'source', d['master']+d['suffix'])):
-        print
-        print bold('Error: the master file %s has already been found in the '
-                   'selected root path.' % (d['master']+d['suffix']))
-        print 'ablog-start will not overwrite the existing file.'
-        print
+        print('')
+        print(bold('Error: the master file %s has already been found in the '
+                   'selected root path.' % (d['master']+d['suffix'])))
+        print('ablog-start will not overwrite the existing file.')
+        print("")
         do_prompt(d, 'master', 'Please enter a new file name, or rename the '
                   'existing file and press Enter', d['master'])
 
     if 'blog_baseurl' not in d:
-        print '''
+        print('''
 Please enter the base URL for your project. Blog feeds will be generated
 using this URL. If you don't have one yet, you can set it in configuration
-file later.'''
+file later.''')
         do_prompt(d, 'blog_baseurl', 'Base URL for your project', None, lambda x: True)
 
     if 'use_alabaster' not in d and 'alabaster' in d:
-        print '''
+        print('''
 You have Alabaster Sphinx theme installed. Would you
-like to enable it for your blog?'''
+like to enable it for your blog?''')
         do_prompt(d, 'use_alabaster', 'Enable Alabaster Sphinx theme? (y/n)', 'y', boolean)
 
     #If using Alabaster and blogging about a GitHub project we have more questions for you!
     if d['use_alabaster']:
         ABlogTemplates.ABLOG_DEFAULT_CONF += ABlogTemplates.ABLOG_HTML_ALABASTER_CONF
-        print '''
-Please enter your Google Analytics ID to your blog for tracking? Leave blank for disabling.'''
+        print('''
+Please enter your Google Analytics ID to your blog for tracking? Leave blank for disabling.''')
         do_prompt(d, 'analytics_id', 'Google Analytics ID', '', ok)
 
         #Ask user if this is for a github project.
-        print '''
-Would you like to enable Alabaster options for GitHub projects on your blog? '''
+        print('''
+Would you like to enable Alabaster options for GitHub projects on your blog?''')
         do_prompt(d, 'github_button', 'Enable Alabaster GitHub features? (y/n)', 'n', boolean)
 
         if d['github_button']:
             if 'github_repo' not in d:
-                print '''
-Please enter the name for the GitHub project.'''
+                print('\nPlease enter the name for the GitHub project.')
                 do_prompt(d, 'github_repo', 'Please enter the project name. ', '', ok)
 
             if 'github_user' not in d:
-                print '''
-Please enter the user name for the GitHub project.'''
+                print('\nPlease enter the user name for the GitHub project.')
             do_prompt(d, 'github_user', 'Please enter GitHub user name. ', '', ok)
 
             if 'github_repo_description' not in d:
-                print '''
-Please enter a short description for the GitHub project.'''
+                print('\nPlease enter a short description for the GitHub project.')
                 do_prompt(d, 'github_repo_description', 'Please enter GitHub project description. ', '', ok)
 
             if 0:
                 if 'github_repo_logo' not in d:
-                    print '''
-    Please enter the path for the GitHub project logo. (png, jpg, etc.)'''
+                    print('\nPlease enter the path for the GitHub project logo. (png, jpg, etc.)')
                     do_prompt(d, 'github_repo_logo', 'Please enter logo path. ', '', ok)
 
                 if 'show_travis_button' not in d:
-                    print '''
+                    print('''
     If you happen to have the github project linked to Travis CI, you may want
-    to enable the Travis-CI button in your blog.'''
+    to enable the Travis-CI button in your blog.''')
                     do_prompt(d, 'show_travis_button', 'Enable the Travis CI button in your blog? (y/n)', 'n', boolean)
         else:
             d['github_repo'] = None
@@ -747,7 +743,7 @@ Please enter a short description for the GitHub project.'''
     else:
         ABlogTemplates.ABLOG_DEFAULT_CONF += ABlogTemplates.ABLOG_HTML_DEFAULT_CONF
 
-    print
+    print('')
 
 def ablog_sphinx_quickstart_wrapper():
     if not color_terminal():
@@ -758,7 +754,7 @@ def ablog_sphinx_quickstart_wrapper():
     try:
         ask_user(d)
     except (KeyboardInterrupt, EOFError):
-        print()
+        print('')
         print('[Interrupted.]')
         return
 
