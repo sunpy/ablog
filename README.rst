@@ -7,7 +7,7 @@
 .. image:: https://pypip.in/d/ABlog/badge.png
    :target: https://crate.io/packages/ablog
 
-   
+
 ABlog for Sphinx
 ================
 
@@ -20,8 +20,8 @@ website project into a full-fledged blog with:
   * `Disqus integration`_
   * `Font-Awesome integration`_
 
-Looking for an example? Take a look at `ABlog documentation <http://ablog.readthedocs.org>`_ 
-where each manual and release is a blog post ;) 
+Looking for an example? Take a look at `ABlog documentation <http://ablog.readthedocs.org>`_
+where each manual and release is a blog post ;)
 
 .. _Atom feeds: http://ablog.readthedocs.org/blog/atom.xml
 .. _Archive pages: http://ablog.readthedocs.org/blog/
@@ -36,16 +36,15 @@ You can install ABlog using pip_::
 
     pip install -U ablog
 
-This will install Sphinx_ and Werkzeug_ as well, respectively required for 
-building your website and generating feeds.
+This will install `Sphinx <http://sphinx-doc.org/>`_ and Werkzeug_ as well,
+respectively required for  building your website and generating feeds.
 
-If you are starting a new Sphinx project, you might want to also install 
+If you are starting a new Sphinx project, you might want to also install
 Alabaster_ to have a good looking website::
 
   pip install Alabaster
 
 .. _pip: https://pip.pypa.io
-.. _Sphinx: http://sphinx-doc.org/
 .. _Werkzeug: http://werkzeug.pocoo.org/
 .. _Alabaster: https://github.com/bitprophet/alabaster
 
@@ -64,7 +63,7 @@ If you already have a project, enable blogging by making following changes in ``
       '...',
       'ablog'
   ]
-  
+
   # 2a. Append templates path to `templates_path`
   import ablog
   templates_path.append(ablog.get_html_templates_path())
@@ -80,9 +79,9 @@ If you also installed Alabaster_, see how to configure it here_.
 How it works
 ------------
 
-If you are new to Sphinx_ and reStructuredText markup language, 
+If you are new to Sphinx_ and reStructuredText markup language,
 you might find `reStructuredText Primer`_ useful. Once you have
-some content (in ``.rst`` files), you can post *any page* using 
+some content (in ``.rst`` files), you can post *any page* using
 the ``post`` directive as follows:
 
 .. code-block:: rst
@@ -92,11 +91,11 @@ the ``post`` directive as follows:
      :category: python
      :author: me
      :location: SF
-     :language: en     
+     :language: en
 
 ABlog will index all files posted as above. When building HTML pages,
-it will create archives and feeds that list these posts as 
-specified by ``:tag:``, ``:category:``, etc. options. 
+it will create archives and feeds that list these posts as
+specified by ``:tag:``, ``:category:``, etc. options.
 
 You can also include a list of posts using ``postlist`` directive:
 
@@ -109,16 +108,16 @@ You can also include a list of posts using ``postlist`` directive:
 For ABlog documentation, this converts to the following list of links that you
 can follow to learn more about configuring and using ABlog:
 
-  * `Posting and Listing <http://ablog.readthedocs.org/manual/posting-and-listing/>`_ 
-  * `ABlog Configuration Options <http://ablog.readthedocs.org/manual/ablog-configuration-options/>`_ 
+  * `Posting and Listing <http://ablog.readthedocs.org/manual/posting-and-listing/>`_
+  * `ABlog Configuration Options <http://ablog.readthedocs.org/manual/ablog-configuration-options/>`_
   * `Cross-referencing Blog Pages <http://ablog.readthedocs.org/manual/cross-referencing-blog-pages/>`_
   * `Post Excerpts and Images <http://ablog.readthedocs.org/manual/post-excerpts-and-images/>`_
   * `Posting Sections <http://ablog.readthedocs.org/manual/posting-and-listing/#posting-sections>`_
-  
+
 
 .. _reStructuredText Primer: http://sphinx-doc.org/rest.html
 
-For existing projects, it is important to note that ABlog does not intertere 
+For existing projects, it is important to note that ABlog does not intertere
 with any Sphinx operations. Since you can post any page from any folder,
-you do not need to change how you organize project contents. 
+you do not need to change how you organize project contents.
 

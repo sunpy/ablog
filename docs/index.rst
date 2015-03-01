@@ -1,18 +1,33 @@
+.. image:: https://secure.travis-ci.org/abakan/ablog.png?branch=devel
+   :target: http://travis-ci.org/#!/abakan/ablog
+
+.. image:: https://pypip.in/v/ABlog/badge.png
+   :target: https://pypi.python.org/pypi/ABlog
+
+.. image:: https://pypip.in/d/ABlog/badge.png
+   :target: https://crate.io/packages/ablog
+
+
 ABlog for Sphinx
 ================
 
-It's a Blog... It's a Documentation... It's Sphinx with ABlog
-
-ABlog is a Sphinx extension that can convert any documentation or personal
+ABlog is a Sphinx extension that converts any documentation or personal
 website project into a full-fledged blog with:
 
-  * `Atom feeds <http://ablog.readthedocs.org/blog/atom.xml>`_
-  * `Archives <http://ablog.readthedocs.org/manual/cross-referencing-blog-pages/#archives>`_
-  * `Sidebars <http://ablog.readthedocs.org/manual/ablog-configuration-options/#sidebars>`_
-  * `Disqus integration <http://ablog.readthedocs.org/manual/ablog-configuration-options/#disqus-integration>`_
-  * `Font-Awesome integration <http://ablog.readthedocs.org/manual/ablog-configuration-options/#fa>`_
+  * `Atom feeds`_
+  * `Archive pages`_
+  * `Blog sidebars`_
+  * `Disqus integration`_
+  * `Font-Awesome integration`_
 
-Looking for an example? Take a look at `ABlog documentation <http://ablog.readthedocs.org>`_ ;)
+Looking for an example? Take a look at `ABlog documentation <http://ablog.readthedocs.org>`_
+where each manual and release is a blog post ;)
+
+.. _Atom feeds: http://ablog.readthedocs.org/blog/atom.xml
+.. _Archive pages: http://ablog.readthedocs.org/blog/
+.. _Blog sidebars: http://ablog.readthedocs.org/manual/ablog-configuration-options/#sidebars
+.. _Disqus integration: http://ablog.readthedocs.org/manual/ablog-configuration-options/#disqus-integration
+.. _Font-Awesome integration: http://ablog.readthedocs.org/manual/ablog-configuration-options/#fa
 
 Installation
 ------------
@@ -21,93 +36,88 @@ You can install ABlog using pip_::
 
     pip install -U ablog
 
-In addition to Sphinx_, Werkzeug_ is required for generating feeds.
+This will install `Sphinx <http://sphinx-doc.org/>`_ and Werkzeug_ as well,
+respectively required for  building your website and generating feeds.
+
+If you are starting a new Sphinx project, you might want to also install
+Alabaster_ to have a good looking website::
+
+  pip install Alabaster
+
+.. _pip: https://pip.pypa.io
+.. _Werkzeug: http://werkzeug.pocoo.org/
+.. _Alabaster: https://github.com/bitprophet/alabaster
 
 
 Getting Started
 ---------------
 
-If you are starting a new project, see
-`ABlog Quick Start <http://ablog.readthedocs.org/manual/ablog-quick-start>`_
-guide.
+If you are starting a new project, see `ABlog Quick Start`_ guide.
 
-To enable blogging in a Sphinx project, append ``ablog`` to the
-list of extensions and ABlog template path to :confval:`templates_path`
-in :file:`conf.py`:
+If you already have a project, enable blogging by making following changes in ``conf.py``:
 
 .. code-block:: python
 
+  # 1. Append 'ablog' to list of extensions
   extensions = [
       '...',
       'ablog'
   ]
+
+  # 2a. Append templates path to `templates_path`
   import ablog
   templates_path.append(ablog.get_html_templates_path())
 
-  # if `templates_path` is not defined before
+  # 2b. If `templates_path` is not defined before
   templates_path = [ablog.get_html_templates_path()]
 
+If you also installed Alabaster_, see how to configure it here_.
 
-See more detailed instructions in :ref:`ablog-configuration-options`
-and :ref:`posting-and-listing` posts.
-
-**Read The Docs**
-
-On `Read The Docs`_, ABlog may cause an exception when Sphinx build environment
-is being pickled.  To circumvent this problem, include the following
-in :file:`conf.py`::
-
-  if os.environ.get('READTHEDOCS', None) == 'True':
-      skip_pickling = True
-
-This should not effect how the documentation is built.
+.. _ABlog Quick Start: http://ablog.readthedocs.org/manual/ablog-quick-start
+.. _here: https://github.com/bitprophet/alabaster#installation
 
 How it works
 ------------
 
-ABlog catalogs all :file:`.rst` files indicated as posts and creates
-archive pages and a blog feed. It does not interfere with Sphinx's operations,
-and you do not need to change how you structure content in separate folders.
-
-You can convert *any page*, containing a new usage example or a new release
-announcement, to a post with the :rst:dir:`post` directive as follows:
+If you are new to Sphinx_ and reStructuredText markup language,
+you might find `reStructuredText Primer`_ useful. Once you have
+some content (in ``.rst`` files), you can post *any page* using
+the ``post`` directive as follows:
 
 .. code-block:: rst
 
   .. post:: Apr 15, 2014
-     :tags: python, earth, love, peace
+     :tags: earth, love, peace
+     :category: python
+     :author: me
+     :location: SF
+     :language: en
 
-ABlog will include the page in specified archive pages and the blog feed.
+ABlog will index all files posted as above. When building HTML pages,
+it will create archives and feeds that list these posts as
+specified by ``:tag:``, ``:category:``, etc. options.
 
-You can include a list of posts anywhere simply using :rst:dir:`postlist`
-directive:
+You can also include a list of posts using ``postlist`` directive:
 
 .. code-block:: rst
 
-  .. postlist:: 2
-     :category: Release
+  .. postlist:: 5
+     :category: Manual
+     :reverse:
 
-This converts to a list of links to the most recent five posts in
-:ref:`category-release` category:
+For ABlog documentation, this converts to the following list of links that you
+can follow to learn more about configuring and using ABlog:
 
-.. postlist:: 2
-   :category: Release
-
-
-Learn More
-----------
-
-You can learn more about ablog features in the following posts:
-
-.. postlist:: 10
-   :category: Manual
-   :sort:
+  * `Posting and Listing <http://ablog.readthedocs.org/manual/posting-and-listing/>`_
+  * `ABlog Configuration Options <http://ablog.readthedocs.org/manual/ablog-configuration-options/>`_
+  * `Cross-referencing Blog Pages <http://ablog.readthedocs.org/manual/cross-referencing-blog-pages/>`_
+  * `Post Excerpts and Images <http://ablog.readthedocs.org/manual/post-excerpts-and-images/>`_
+  * `Posting Sections <http://ablog.readthedocs.org/manual/posting-and-listing/#posting-sections>`_
 
 
+.. _reStructuredText Primer: http://sphinx-doc.org/rest.html
 
-Feedback
---------
+For existing projects, it is important to note that ABlog does not intertere
+with any Sphinx operations. Since you can post any page from any folder,
+you do not need to change how you organize project contents.
 
-ABlog has been used with the Sphinx_ 1.2.2, Python 2.7 and 3.4
-to generate its documentation blog. If you try it with different
-Python and Sphinx versions, please give feedback to help us improve it.

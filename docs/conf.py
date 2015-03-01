@@ -110,9 +110,7 @@ extlinks = {
 rst_epilog = '''
 .. _Sphinx: http://sphinx-doc.org/
 .. _Python: http://python.org
-.. _pip: http://www.pip-installer.org/
 .. _Disqus: http://disqus.com/
-.. _Werkzeug: http://werkzeug.pocoo.org/
 .. _GitHub: https://github.com/abakan/ablog
 .. _PyPI: https://pypi.python.org/pypi/ablog
 .. _Read The Docs: https://readthedocs.org/
