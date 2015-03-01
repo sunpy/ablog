@@ -7,7 +7,7 @@ ABlog is a Sphinx extension that converts any documentation or personal
 website project into a full-fledged blog with:
 
   * `Atom feeds`_, e.g. `ABlog feed`_
-  * `Archives pages`_, e.g. `ABlog archive`_
+  * `Archive pages`_, e.g. `ABlog archive`_
   * `Blog sidebars`_ with including tag cloud, archive links, etc.
   * `Disqus integration`_
   * `Font-Awesome integration`_
