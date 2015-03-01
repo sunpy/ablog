@@ -84,27 +84,42 @@ You can convert *any page* to a post with the ``post`` directive as follows:
 
   .. post:: Apr 15, 2014
      :tags: python, earth, love, peace
+     :category:
+     :language: en
+     :location: Milky Way
+     :author:
      
   Here Goes Your Post or Page Title
   =================================
   
   Followed by an awesome content!
 
-ABlog catalogs all ``.rst`` files indicated as posts as above and creates
-archive pages and blog feeds. It does not interfere with Sphinx's operations,
-and you do not need to change how you structure content in separate folders.
+ABlog will catalog all ``.rst`` files (pages) indicated as posts as above, 
+whithout interfering with Sphinx's operations. Since any page from any folder 
+in your project can be posted, you do not need to change how you organize
+content in separate folders. 
 
-ABlog will include the page in specified archive pages and the blog feed.
-You can include a list of posts anywhere simply using ``postlist``
-directive:
+When you are building HTML pages, posts will be included in archives and feeds 
+specified by ``:tag:``, ``:category:``, etc. options automatically.
+
+In additon, you can include a list of posts anywhere in your project 
+simply using ``postlist`` directive:
 
 .. code-block:: rst
 
   .. postlist:: 5
      :category: Manual
+     :reverse:
 
-This converts to a list of links to the most recent five posts in
-Manual_ category:
+For ABlog documentation, this converts to a list of links to the oldest 
+five posts in Manual_ category:
+
+  * `Posting and Listing <http://ablog.readthedocs.org/manual/posting-and-listing/>`_ 
+  * `ABlog Configuration Options <http://ablog.readthedocs.org/manual/ablog-configuration-options/>`_ 
+  * `Cross-referencing Blog Pages <http://ablog.readthedocs.org/manual/cross-referencing-blog-pages/>`_
+  * `Post Excerpts and Images <http://ablog.readthedocs.org/manual/post-excerpts-and-images/>`_
+  * `Posting Sections <http://ablog.readthedocs.org/manual/posting-and-listing/#posting-sections>_`
+  
 
 .. _Manual: http://ablog.readthedocs.org/blog/category/manual/
 
