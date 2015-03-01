@@ -3,6 +3,7 @@
 
 import os
 import re
+import sys
 
 import datetime as dtmod
 try:
@@ -18,15 +19,24 @@ from docutils.io import StringOutput
 from sphinx.util.osutil import relative_uri
 from sphinx.environment import dummy_reporter
 
+if sys.version_info >= (3, 0):
+    text_type = str
+else:
+    text_type = unicode
+
 def slugify(string):
     """Slugify *s*."""
 
-    try:
-        string = unicode(string)
-        string = normalize('NFKD', string).encode('ascii', 'ignore')
-    except NameError:
-        string = str(string)
-        string = normalize('NFKD', string).encode('ascii', 'ignore').decode()
+    string = text_type(string)
+    string = normalize('NFKD', string).encode('ascii', 'ignore')
+
+    if 0:
+        try:
+            string = unicode(string)
+            string = normalize('NFKD', string).encode('ascii', 'ignore')
+        except NameError:
+            string = str(string)
+            string = normalize('NFKD', string).encode('ascii', 'ignore').decode()
 
     string = re.sub(r'[^\w\s-]', '', string).strip().lower()
     return re.sub(r'[-\s]+', '-', string)
@@ -495,7 +505,7 @@ class Collection(object):
 
     def __unicode__(self):
 
-        return unicode(self.name)
+        return text_type(self.name)
 
     def __iter__(self):
 

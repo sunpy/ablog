@@ -2,6 +2,7 @@
 """post and postlist directives."""
 
 import os
+import sys
 from string import Formatter
 from datetime import datetime
 
@@ -13,6 +14,11 @@ from docutils.parsers.rst import directives
 
 import ablog
 from .blog import Blog, slugify
+
+if sys.version_info >= (3, 0):
+    text_type = str
+else:
+    text_type = unicode
 
 class PostNode(nodes.Element):
     """Represent ``post`` directive content and options in document tree."""
@@ -523,7 +529,7 @@ def generate_atom_feeds(app):
 
                 feeds.append((coll,
                           os.path.join(folder, 'atom.xml'),
-                          blog.blog_title + u' - ' + header + u' ' + unicode(coll),
+                          blog.blog_title + u' - ' + header + u' ' + text_type(coll),
                           os.path.join(url, coll.path, 'atom.xml')))
 
     # Config options
