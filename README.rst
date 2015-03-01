@@ -65,8 +65,7 @@ If you already have a project, enable blogging by making following changes in ``
 If you also installed Alabaster_, see how to configure it here_.
 
 .. _ABlog Quick Start: http://ablog.readthedocs.org/manual/ablog-quick-start
-.. templates_path: http://sphinx-doc.org/config.html#confval-templates_path
-.. here_: https://github.com/bitprophet/alabaster#installation
+.. _here: https://github.com/bitprophet/alabaster#installation
 
 How it works
 ------------
