@@ -8,4 +8,4 @@ before_install:
 install:
   - pip install .
 script:
-  - cd docs; ablog build
+  - cd docs; ablog build -T

@@ -47,7 +47,7 @@ ablog_parser.add_argument('-v', '--version',
 
 
 
-from .start import ablog_start
+from ablog.start import ablog_start
 ablog_commands = ablog_parser.add_subparsers(
     title='subcommands')
 subparser = ablog_commands.add_parser('start',
@@ -90,11 +90,13 @@ def ablog_build(subparser, **kwargs):
     website = (kwargs['website'] or
         os.path.join(confdir, getattr(conf, 'ablog_builddir', '_website')))
     doctrees = (kwargs['doctrees'] or
-        os.path.join(confdir, getattr(conf, 'ablog_doctrees', '_doctrees')))
+        os.path.join(confdir, getattr(conf, 'ablog_doctrees', '.doctrees')))
     sourcedir = (kwargs['sourcedir'] or confdir)
     argv = sys.argv[:1]
     argv.extend(['-b', kwargs['builder'] or getattr(conf, 'ablog_builder', 'dirhtml')])
     argv.extend(['-d', doctrees])
+    if kwargs['traceback']:
+        argv.extend(['-T'])
     argv.extend([sourcedir, website])
 
     from sphinx import main
@@ -109,7 +111,7 @@ subparser.add_argument('-b', dest='builder', type=str,
     help="builder to use, default `ablog_builder` or dirhtml")
 
 subparser.add_argument('-d', dest='doctrees', type=str,
-    default='_doctrees',
+    default='.doctrees',
     help="path for the cached environment and doctree files, "
         "default `ablog_doctrees` or _doctrees")
 
@@ -120,6 +122,9 @@ subparser.add_argument('-s', dest='sourcedir', type=str,
 subparser.add_argument('-w', dest='website', type=str,
     help="path for website, default `ablog_website` or _website")
 
+subparser.add_argument('-T', dest='traceback',
+    action='store_true', default=False,
+    help="show full traceback on exception")
 
 subparser.set_defaults(func=lambda ns: ablog_build(**ns.__dict__))
 subparser.set_defaults(subparser=subparser)

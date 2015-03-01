@@ -28,15 +28,7 @@ def slugify(string):
     """Slugify *s*."""
 
     string = text_type(string)
-    string = normalize('NFKD', string).encode('ascii', 'ignore')
-
-    if 0:
-        try:
-            string = unicode(string)
-            string = normalize('NFKD', string).encode('ascii', 'ignore')
-        except NameError:
-            string = str(string)
-            string = normalize('NFKD', string).encode('ascii', 'ignore').decode()
+    string = normalize('NFKD', string)
 
     string = re.sub(r'[^\w\s-]', '', string).strip().lower()
     return re.sub(r'[-\s]+', '-', string)
