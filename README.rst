@@ -71,7 +71,10 @@ If you also installed Alabaster_, see how to configure it here_.
 How it works
 ------------
 
-You can post *any page* with the ``post`` directive as follows:
+If you are new to Sphinx_ and reStructuredText markup language, 
+you might find `reStructuredText Primer`_ useful. Once you have
+some content (in ``.rst` files), you can post *any page* using 
+the ``post`` directive as follows:
 
 .. code-block:: rst
 
@@ -82,10 +85,9 @@ You can post *any page* with the ``post`` directive as follows:
      :location: SF
      :language: en     
 
-ABlog will index all posted ``.rst`` files (pages)  without interfering with Sphinx's operations. Since any page from any folder can be posted, you do not need to change how you organize project contents in separate folders. 
-
-When building HTML pages, posts will be included in archives and feeds 
-specified by ``:tag:``, ``:category:``, etc. options.
+ABlog will index all files posted as above, and when building HTML pages
+it will create archives and feeds pages that list these posts as 
+specified by ``:tag:``, ``:category:``, etc. options. 
 
 In addition, you can include a list of posts anywhere in your project 
 simply using ``postlist`` directive:
@@ -107,4 +109,9 @@ five posts in Manual_ category:
   
 
 .. _Manual: http://ablog.readthedocs.org/blog/category/manual/
+.. reStructuredText Primer: http://sphinx-doc.org/rest.html
+
+For existing projects, it is important to note that ABlog does not intertere 
+with any Sphinx operations. Since you can post any page from any folder,
+you do not need to change how you organize project contents. 
 
