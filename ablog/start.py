@@ -16,8 +16,11 @@ from os import path
 from io import open
 from docutils.utils import column_width
 
-from six import PY2, PY3, text_type
-from six.moves import input
+if sys.version_info >= (3, 0):
+    text_type = str
+else:
+    text_type = unicode
+
 from docutils.utils import column_width
 
 from ablog import __version__
