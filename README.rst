@@ -72,7 +72,7 @@ How it works
 
 If you are new to Sphinx_ and reStructuredText markup language, 
 you might find `reStructuredText Primer`_ useful. Once you have
-some content (in ``.rst` files), you can post *any page* using 
+some content (in ``.rst`` files), you can post *any page* using 
 the ``post`` directive as follows:
 
 .. code-block:: rst
@@ -108,7 +108,7 @@ five posts in Manual_ category:
   
 
 .. _Manual: http://ablog.readthedocs.org/blog/category/manual/
-.. reStructuredText Primer: http://sphinx-doc.org/rest.html
+.. _reStructuredText Primer: http://sphinx-doc.org/rest.html
 
 For existing projects, it is important to note that ABlog does not intertere 
 with any Sphinx operations. Since you can post any page from any folder,
