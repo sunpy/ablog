@@ -106,7 +106,6 @@ can follow to learn more about configuring and using ABlog:
   * `Posting Sections <http://ablog.readthedocs.org/manual/posting-and-listing/#posting-sections>`_
   
 
-.. _Manual: http://ablog.readthedocs.org/blog/category/manual/
 .. _reStructuredText Primer: http://sphinx-doc.org/rest.html
 
 For existing projects, it is important to note that ABlog does not intertere 
