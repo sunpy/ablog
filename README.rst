@@ -26,11 +26,11 @@ You can install ABlog using pip_::
 
     pip install -U ablog
 
-This will install required packages Sphinx_ and Werkzeug_ as well, respectively for 
+This will install Sphinx_ and Werkzeug_ as well, respectively required for 
 building your website and generating feeds.
 
-If you don't already have a Sphinx project with a nice theme, you might want to 
-install Alabaster_ too to start with a good looking website::
+If you are starting a new Sphinx project, you might want to also install 
+Alabaster_ to have a good looking website::
 
   pip install Alabaster
 
@@ -45,24 +45,24 @@ Getting Started
 
 If you are starting a new project, see `ABlog Quick Start`_ guide.
 
-If you already have a project, enable blogging by editing ``conf.py`` as follows:
+If you already have a project, enable blogging by making following changes in ``conf.py``:
 
 .. code-block:: python
 
-  # 1. Append ablog to list of extensions
+  # 1. Append 'ablog' to list of extensions
   extensions = [
       '...',
       'ablog'
   ]
   
-  # 2a. Append ABlog templates path to `templates_path`
+  # 2a. Append templates path to `templates_path`
   import ablog
   templates_path.append(ablog.get_html_templates_path())
 
   # 2b. If `templates_path` is not defined before
   templates_path = [ablog.get_html_templates_path()]
 
-If you have also installed Alabaster_, see here_ how to configure it.
+If you also installed Alabaster_, see how to configure it here_.
 
 .. _ABlog Quick Start: http://ablog.readthedocs.org/manual/ablog-quick-start
 .. templates_path: http://sphinx-doc.org/config.html#confval-templates_path
@@ -71,23 +71,23 @@ If you have also installed Alabaster_, see here_ how to configure it.
 How it works
 ------------
 
-You can convert *any page* to a post with the ``post`` directive as follows:
+You can post *any page* with the ``post`` directive as follows:
 
 .. code-block:: rst
 
   .. post:: Apr 15, 2014
-     :tags: python, earth, love, peace
-     
+     :tags: earth, love, peace
+     :category: python
+     :author: me
+     :location: SF
+     :language: en     
 
-ABlog will catalog all ``.rst`` files (pages) indicated as posts as above, 
-whithout interfering with Sphinx's operations. Since any page from any folder 
-in your project can be posted, you do not need to change how you organize
-content in separate folders. 
+ABlog will index all posted ``.rst`` files (pages)  without interfering with Sphinx's operations. Since any page from any folder can be posted, you do not need to change how you organize project contents in separate folders. 
 
-When you are building HTML pages, posts will be included in archives and feeds 
-specified by ``:tag:``, ``:category:``, etc. options automatically.
+When building HTML pages, posts will be included in archives and feeds 
+specified by ``:tag:``, ``:category:``, etc. options.
 
-In additon, you can include a list of posts anywhere in your project 
+In addition, you can include a list of posts anywhere in your project 
 simply using ``postlist`` directive:
 
 .. code-block:: rst
