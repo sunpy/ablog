@@ -33,6 +33,10 @@ You can install ABlog using pip_::
 In addition to Sphinx_, Werkzeug_ is required for generating feeds.
 
 
+.. _pip: https://pip.pypa.io
+.. _Sphinx: http://sphinx-doc.org/
+.. _Werkzeug: http://werkzeug.pocoo.org/
+
 Getting Started
 ---------------
 
