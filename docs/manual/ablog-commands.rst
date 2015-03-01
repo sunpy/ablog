@@ -7,7 +7,7 @@ ABlog Commands
 
 .. post:: Feb 1, 2015
    :tags: config
-   :author: Ahmet
+   :author: Ahmet, Mehmet
    :category: Manual
    :location: SF
 
@@ -20,8 +20,7 @@ blog.
 ::
 
   $ ablog
-
-  usage: ablog [-h] [-v] {start,post,build,serve} ...
+  usage: ablog [-h] [-v] {start,build,serve,post} ...
 
   ABlog for blogging with Sphinx
 
@@ -30,17 +29,18 @@ blog.
     -v, --version         print ABlog version and exit
 
   subcommands:
-    {start,post,build,serve}
+    {start,build,serve,post}
       start               start a new blog project
-      post                post
       build               build your blog project
-      serve               serve your project locally
+      serve               serve and view your project
+      post                create a blank post
 
   See 'ablog <command> -h' for more information on a specific command.
 
 
-`ablog start`
--------------
+Start a Project
+---------------
+
 
 ::
 
@@ -52,41 +52,57 @@ blog.
 
 
 
-`ablog build`
+Build Website
 -------------
+
 
 ::
 
   $ ablog build -h
-  usage: ablog build [-h] [-v] [-b BUILDER] [-d DOCTREES] [-w WEBSITE]
-                     [-s SOURCEDIR]
+  usage: ablog build [-h] [-b BUILDER] [-d DOCTREES] [-s SOURCEDIR] [-w WEBSITE]
+                     [-T]
 
-  Build options can be set in conf.py. Default values of path options are
-  relative to conf.py.
+  Build options can be set in conf.py. Default values of paths are relative to
+  conf.py.
 
   optional arguments:
-    -h, --help     show this help message and exit
-    -v, --version  show program's version number and exit
-    -b BUILDER     builder to use, default is value of `ablog_builder` or
-                   dirhtml
-    -d DOCTREES    path for the cached environment and doctree files, default is
-                   value of `ablog_doctrees` or _doctrees
-    -w WEBSITE     path for website, default is value of `ablog_website` or
-                   _website
-    -s SOURCEDIR   root path for source files, default is path to the folder
-                   that contains conf.py
+    -h, --help    show this help message and exit
+    -b BUILDER    builder to use, default `ablog_builder` or dirhtml
+    -d DOCTREES   path for the cached environment and doctree files, default
+                  `ablog_doctrees` or _doctrees
+    -s SOURCEDIR  root path for source files, default is path to the folder that
+                  contains conf.py
+    -w WEBSITE    path for website, default `ablog_website` or _website
+    -T            show full traceback on exception
 
-`ablog serve`
--------------
+Serve and View
+--------------
 
 ::
 
   $ ablog serve -h
-  usage: ablog serve [-h] [-v] [-w WEBSITE] [-p PORT]
+  usage: ablog serve [-h] [-n] [-p PORT] [-w WEBSITE]
+
+  Serve options can be set in conf.py. Default values of paths are relative to
+  conf.py.
 
   optional arguments:
-    -h, --help     show this help message and exit
-    -v, --version  show program's version number and exit
-    -w WEBSITE     path for website, default is value of `ablog_website` or
-                   _website
-    -p PORT        port number for HTTP server; default is 8000
+    -h, --help  show this help message and exit
+    -n          do not open website in a new browser tab
+    -p PORT     port number for HTTP server; default is 8000
+    -w WEBSITE  path for website, default `ablog_website` or _website
+
+Create a Post
+-------------
+
+::
+
+  $ ablog post -h
+  usage: ablog post [-h] [-t TITLE] filename
+
+  positional arguments:
+    filename    filename, e.g. my-nth-post.rst
+
+  optional arguments:
+    -h, --help  show this help message and exit
+    -t TITLE    post title; default is `New Post`

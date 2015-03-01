@@ -222,7 +222,7 @@ def ablog_post(subparser, **kwargs):
 
 
 subparser = ablog_commands.add_parser('post',
-        help='creates a blank post with today''s date',)
+        help='create a blank post',)
 
 subparser.add_argument('-t', dest='title', type=str,
     default='New Post',

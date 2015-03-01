@@ -1,13 +1,3 @@
-.. image:: https://secure.travis-ci.org/abakan/ablog.png?branch=devel
-   :target: http://travis-ci.org/#!/abakan/ablog
-
-.. image:: https://pypip.in/v/ABlog/badge.png
-   :target: https://pypi.python.org/pypi/ABlog
-
-.. image:: https://pypip.in/d/ABlog/badge.png
-   :target: https://crate.io/packages/ablog
-
-
 ABlog for Sphinx
 ================
 
@@ -121,3 +111,12 @@ For existing projects, it is important to note that ABlog does not intertere
 with any Sphinx operations. Since you can post any page from any folder,
 you do not need to change how you organize project contents.
 
+
+.. image:: https://secure.travis-ci.org/abakan/ablog.png?branch=devel
+   :target: http://travis-ci.org/#!/abakan/ablog
+
+.. image:: https://pypip.in/v/ABlog/badge.png
+   :target: https://pypi.python.org/pypi/ABlog
+
+.. image:: https://pypip.in/d/ABlog/badge.png
+   :target: https://crate.io/packages/ablog
