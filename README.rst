@@ -84,12 +84,11 @@ the ``post`` directive as follows:
      :location: SF
      :language: en     
 
-ABlog will index all files posted as above, and when building HTML pages
-it will create archives and feeds pages that list these posts as 
+ABlog will index all files posted as above. When building HTML pages,
+it will create archives and feeds that list these posts as 
 specified by ``:tag:``, ``:category:``, etc. options. 
 
-In addition, you can include a list of posts anywhere in your project 
-simply using ``postlist`` directive:
+You can also include a list of posts using ``postlist`` directive:
 
 .. code-block:: rst
 
