@@ -96,8 +96,8 @@ You can also include a list of posts using ``postlist`` directive:
      :category: Manual
      :reverse:
 
-For ABlog documentation, this converts to a list of links to the oldest 
-five posts in Manual_ category:
+For ABlog documentation, this converts to the following list of links that you
+can follow to learn more about configuring and using ABlog:
 
   * `Posting and Listing <http://ablog.readthedocs.org/manual/posting-and-listing/>`_ 
   * `ABlog Configuration Options <http://ablog.readthedocs.org/manual/ablog-configuration-options/>`_ 
