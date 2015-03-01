@@ -5,7 +5,7 @@
    :target: https://pypi.python.org/pypi/ABlog
 
 .. image:: https://pypip.in/d/ABlog/badge.png
-   :target: https://crate.io/packages/ABlog
+   :target: https://crate.io/packages/ablog
 
    
 ABlog for Sphinx
