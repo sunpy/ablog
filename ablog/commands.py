@@ -34,13 +34,6 @@ def read_conf(confdir):
     return conf
 
 
-class ABlogVersion(argparse.Action):
-
-    def __call__(self, parser, namespace, values, option_string=None):
-
-        import ablog
-        print("ABlog version " + ablog.__version__)
-        parser.exit()
 
 
 ablog_parser = argparse.ArgumentParser(
@@ -50,7 +43,7 @@ ablog_parser = argparse.ArgumentParser(
 
 ablog_parser.add_argument('-v', '--version',
     help="print ABlog version and exit",
-    action=ABlogVersion, nargs=0)
+    action='version', version=ablog.__version__)
 
 
 
@@ -77,8 +70,7 @@ if 0:
         print('{} is ready to be edited.'.format(filename))
 
     subparser = ablog_commands.add_parser('post',
-            help='post ',
-            version=ablog.__version__)
+            help='post ')
 
     subparser.add_argument('filename', help='filename')
 
@@ -111,8 +103,7 @@ def ablog_build(subparser, **kwargs):
 subparser = ablog_commands.add_parser('build',
         help='build your blog project',
         description="Build options can be set in conf.py. "
-        "Default values of paths are relative to conf.py.",
-        version=ablog.__version__)
+        "Default values of paths are relative to conf.py.")
 
 subparser.add_argument('-b', dest='builder', type=str,
     help="builder to use, default `ablog_builder` or dirhtml")
@@ -167,8 +158,7 @@ def ablog_serve(subparser, **kwargs):
 subparser = ablog_commands.add_parser('serve',
         help='serve and view your project',
         description="Serve options can be set in conf.py. "
-        "Default values of paths are relative to conf.py.",
-        version=ablog.__version__)
+        "Default values of paths are relative to conf.py.")
 
 subparser.add_argument('-n', dest='view',
         action='store_false', default=True,
@@ -227,8 +217,7 @@ def ablog_post(subparser, **kwargs):
 
 
 subparser = ablog_commands.add_parser('post',
-        help='creates a blank post with today''s date',
-        version=ablog.__version__)
+        help='creates a blank post with today''s date',)
 
 subparser.add_argument('-t', dest='title', type=str,
     default='New Post',
