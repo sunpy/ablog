@@ -3,16 +3,25 @@ ABlog for Sphinx
 
 It's a Blog... It's a Documentation... It's Sphinx with ABlog
 
-ABlog is a Sphinx extension that can convert any documentation or personal
+ABlog is a Sphinx extension that converts any documentation or personal
 website project into a full-fledged blog with:
 
-  * `Atom feeds <http://ablog.readthedocs.org/blog/atom.xml>`_
-  * `Archives <http://ablog.readthedocs.org/manual/cross-referencing-blog-pages/#archives>`_
-  * `Sidebars <http://ablog.readthedocs.org/manual/ablog-configuration-options/#sidebars>`_
-  * `Disqus integration <http://ablog.readthedocs.org/manual/ablog-configuration-options/#disqus-integration>`_
-  * `Font-Awesome integration <http://ablog.readthedocs.org/manual/ablog-configuration-options/#fa>`_
+  * `Atom feeds`_, e.g. `ABlog feed`_
+  * `Archives pages`_, e.g. `ABlog archive`_
+  * `Blog sidebars`_ with including tag cloud, archive links, etc.
+  * `Disqus integration`_
+  * `Font-Awesome integration`_
 
-Looking for an example? Take a look at `ABlog documentation <http://ablog.readthedocs.org>`_ ;)
+Looking for an example? Take a look at `ABlog documentation <http://ablog.readthedocs.org>`_ 
+where each manual page and release is a blog post ;) 
+
+.. _Atom feeds: http://ablog.readthedocs.org/manual/ablog-configuration-options/#blog-feeds
+.. _ABlog feed: http://ablog.readthedocs.org/blog/atom.xml
+.. _Archive pages: http://ablog.readthedocs.org/manual/cross-referencing-blog-pages/#archives
+.. _ABlog archive: http://ablog.readthedocs.org/blog/
+.. _Blog sidebars: http://ablog.readthedocs.org/manual/ablog-configuration-options/#sidebars
+.. _Disqus integration: http://ablog.readthedocs.org/manual/ablog-configuration-options/#disqus-integration
+.. _Font-Awesome integration: http://ablog.readthedocs.org/manual/ablog-configuration-options/#fa
 
 Installation
 ------------
