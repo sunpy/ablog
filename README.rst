@@ -103,7 +103,7 @@ five posts in Manual_ category:
   * `ABlog Configuration Options <http://ablog.readthedocs.org/manual/ablog-configuration-options/>`_ 
   * `Cross-referencing Blog Pages <http://ablog.readthedocs.org/manual/cross-referencing-blog-pages/>`_
   * `Post Excerpts and Images <http://ablog.readthedocs.org/manual/post-excerpts-and-images/>`_
-  * `Posting Sections <http://ablog.readthedocs.org/manual/posting-and-listing/#posting-sections>_`
+  * `Posting Sections <http://ablog.readthedocs.org/manual/posting-and-listing/#posting-sections>`_
   
 
 .. _Manual: http://ablog.readthedocs.org/blog/category/manual/
