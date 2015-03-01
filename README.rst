@@ -1,3 +1,13 @@
+.. image:: https://secure.travis-ci.org/abakan/ablog.png?branch=devel
+   :target: http://travis-ci.org/#!/abakan/ablog
+
+.. image:: https://pypip.in/v/ABlog/badge.png
+   :target: https://pypi.python.org/pypi/ABlog
+
+.. image:: https://pypip.in/d/ABlog/badge.png
+   :target: https://crate.io/packages/ABlog
+
+   
 ABlog for Sphinx
 ================
 
