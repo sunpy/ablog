@@ -10,7 +10,6 @@ with open('ablog/__init__.py') as inp:
 with open('README.rst') as inp:
     long_description = inp.read()
 
-
 setup(
     name='ablog',
     version=__version__,
@@ -38,7 +37,7 @@ setup(
                  'Programming Language :: Python :: 3',
                 ],
     provides=['ablog ({0:s})'.format(__version__)],
-    requires=['Werkzeug', 'Sphinx'],
+    install_requires=['Werkzeug', 'Sphinx'],
     message_extractors={
         'ablog': [
             ('**.html', 'jinja2', None),
