@@ -1,11 +1,9 @@
 .. _commands:
 
-
-
 ABlog Commands
 ==============
 
-.. post:: Feb 1, 2015
+.. post:: Mar 1, 2015
    :tags: config
    :author: Ahmet, Mehmet
    :category: Manual

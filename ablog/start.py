@@ -1,13 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-    ablog.start
-    ~~~~~~~~~~~~~~~~~
 
-    Quickly setup documentation source to work with Ablog.
-
-    :copyright: Copyright 2007-2015 by Ablog Team
-    :license:
-"""
 import os
 import sys
 import time
@@ -30,6 +22,10 @@ from sphinx.quickstart import boolean, ok, choice, do_prompt, is_path, mkdir_p
 from sphinx.util.console import purple, bold, red, turquoise, nocolor, color_terminal
 from sphinx.util.osutil import make_filename
 
+from textwrap import wrap
+
+w = lambda t, ls=80: '\n'.join(wrap(t, ls))
+
 def is_module_installed(module_name):
     try:
         __import__(module_name)
@@ -46,9 +42,8 @@ class ABlogTemplates(object):
     ABLOG_DEFAULT_CONF += u'''\
 # -*- coding: utf-8 -*-
 #
-# %(project)s documentation build configuration file, created by
-# ablog start on %(now)s.
-#
+# %(project)s build configuration file, created by
+# `ablog start` on %(now)s.
 #
 # Note that not all possible configuration values are present in this file.
 # All configuration values have a default; values that are commented out
@@ -58,29 +53,154 @@ import os
 import sys
 import ablog
 
+# -- General ABlog Options ----------------------------------------------------
+
+# A path relative to the configuration directory for blog archive pages.
+#blog_path = 'blog'
+
+# The “title” for the blog, used in acthive pages.  Default is ``'Blog'``.
+blog_title = '%(project_str)s Blog'
+
+# Base URL for the website, required for generating feeds.
+# e.g. blog_baseurl = "http://example.com/"
+blog_baseurl = '%(blog_baseurl)s'
+
+# Choose to archive only post titles. Archiving only titles can speed
+# up project building.
+#blog_archive_titles = False
+
+# -- Blog Authors, Languages, and Locations -----------------------------------
+
+# A dictionary of author names mapping to author full display names and
+# links. Dictionary keys are what should be used in ``post`` directive
+# to refer to the author.  Default is ``{}``.
+#blog_authors = {
+#    'Name': ('Full Name', 'http://fullname.com'),
+#}
+
+
+# A dictionary of language code names mapping to full display names and
+# links of these languages. Similar to :confval:`blog_authors`, dictionary
+# keys should be used in ``post`` directive to refer to the locations.
+# Default is ``{}``.
+#blog_languages = {
+#    'en': ('English', None),
+#}
+
+
+# A dictionary of location names mapping to full display names and
+# links of these locations. Similar to :confval:`blog_authors`, dictionary
+# keys should be used in ``post`` directive to refer to the locations.
+# Default is ``{}``.
+#blog_locations = {
+#    'Earth': ('The Blue Planet', 'http://en.wikipedia.org/wiki/Earth),
+#}
+
+
+
+# -- Blog Post Related --------------------------------------------------------
+
+# Date display format (default is ``'!b !d, !Y'``) for published posts that
+# goes as input to :meth:`datetime.date.strftime`.
+# TODO: Replace !  with percent sign ascii/unicode: 25h ---> need to figure out how to escape it to
+
+# post_date_format = '%%b %%d, %%Y'
+
+
+# Number of paragraphs (default is ``1``) that will be displayed as an excerpt
+# from the post. Setting this ``0`` will result in displaying no post excerpt
+# in archive pages.  This option can be set on a per post basis using
+#post_auto_excerpt = 1
+
+# Index of the image that will be displayed in the excerpt of the post.
+# Default is ``0``, meaning no image.  Setting this to ``1`` will include
+# the first image, when available, to the excerpt.  This option can be set
+# on a per post basis using :rst:dir:`post` directive option ``image``.
+#post_auto_image = 0
+
+# Number of seconds (default is ``5``) that a redirect page waits before
+# refreshing the page to redirect to the post.
+#post_redirect_refresh = 5
+
+# When ``True``, post title and excerpt is always taken from the section that
+# contains the :rst:dir:`post` directive, instead of the document. This is the
+# behavior when :rst:dir:`post` is used multiple times in a document. Default
+# is ``False``.
+#post_always_section = False
+
+# -- Blog Feed Options --------------------------------------------------------
+
+# Turn feeds by setting :confval:`blog_baseurl` configuration variable.
+# Choose to create feeds per author, location, tag, category, and year,
+# default is ``False``.
+#blog_feed_archives = False
+
+# Choose to display full text in blog feeds, default is ``False``.
+#blog_feed_fulltext = False
+
+# Blog feed subtitle, default is ``None``.
+#blog_feed_subtitle = None
+
+# Choose to feed only post titles, default is ``False``.
+#blog_feed_titles = False
+
+# Specify number of recent posts to include in feeds, default is ``None``
+# for all posts.
+#blog_feed_length = None
+
+# -- Font-Awesome Options -----------------------------------------------------
+
+# ABlog templates will use of `Font Awesome`_ icons if one of the following
+# is ``True``
+# --> Font Awesome: http://fontawesome.io/
+
+# Link to `Font Awesome`_ at `Bootstrap CDN`_ and use icons in sidebars
+# and post footers.  Default: ``False``
+# fontawesome_link_cdn = False
+
+# Sphinx_ theme already links to `Font Awesome`_.  Default: ``False``
+# fontawesome_included = False
+
+# Alternatively, you can provide the path to `Font Awesome`_ :file:`.css`
+# with the configuration option: fontawesome_css_file
+# Path to `Font Awesome`_ :file:`.css` (default is ``None``) that will
+# be linked to in HTML output by ABlog.
+# fontawesome_css_file = None
+
+# -- Disqus Integration -------------------------------------------------------
+
+# You can enable Disqus_ by setting ``disqus_shortname`` variable.
+# Disqus_ short name for the blog.
+# TODO: Default is??
+# disqus_shortname = None
+
+
+# Choose to disqus pages that are not posts, default is ``False``.
+# disqus_pages = False
+
+# Choose to disqus posts that are drafts (without a published date),
+# default is ``False``.
+# disqus_drafts = False
+
+
+
+# -- Sphinx Options -----------------------------------------------------------
+
 # If your project needs a minimal Sphinx version, state it here.
 needs_sphinx = '1.2'
 
-# -- Extensions ------------------------------------------------
-
-# If extensions (or modules to document with autodoc) are in another directory,
-# add these directories to sys.path here. If the directory is relative to the
-# documentation root, use os.path.abspath to make it absolute, like shown here.
-#sys.path.insert(0, os.path.abspath('.'))
-
-# Add any Sphinx extension module names here, as strings. They can be
-# extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
+# Add any Sphinx extension names here, as strings. They can be extensions
+# coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [%(extensions)s]
 
-# Add any paths that contain templates here, relative to this directory.
-templates_path = ['%(dot)stemplates']
 
-# ablog: Append ablog templates path of ablog to sphinx templates_path
-if templates_path:
-    templates_path.append(ablog.get_html_templates_path())
-else:
-    templates_path = [ablog.get_html_templates_path()]
+# Add any paths that contain templates here, relative to this directory.
+templates_path = [
+    '%(dot)stemplates',
+    ablog.get_html_templates_path(),
+]
+
 
 # The suffix of source filenames.
 source_suffix = '%(suffix)s'
@@ -142,146 +262,6 @@ pygments_style = 'sphinx'
 # If true, keep warnings as "system message" paragraphs in the built documents.
 #keep_warnings = False
 
-# ---------------
-# ablog: General ABlog Options
-# ---------------
-
-# A path relative to the configuration directory for blog archive pages.
-# blog_path = 'blog'
-
-# The “title” for the blog, used in acthive pages.  Default is ``'Blog'``.
-blog_title = 'A Blog'
-
-# Base URL for the website, required for generating feeds.
-# blog_baseurl = "http://example.com/"
-blog_baseurl = '%(blog_baseurl)s'
-
-
-# Choose to archive only post titles in collection pages.
-# blog_archive_titles = False
-
-# -------------------------------
-# ablog: Authors, languages, & locations
-# -------------------------------
-
-# A dictionary of author names mapping to author full display names and
-# links. Dictionary keys are what should be used in ``post`` directive
-# to refer to the author.  Default is ``{}``.
-# blog_authors = {
-#     'Name': ('Full Name', 'http://fullname.com'),
-# }
-# blog_default_author = None
-
-# A dictionary of language code names mapping to full display names and
-# links of these languages. Similar to :confval:`blog_authors`, dictionary
-# keys should be used in ``post`` directive to refer to the locations.
-# Default is ``{}``.
-# blog_languages = {
-#     'en': ('English', None),
-# }
-# blog_default_language = None
-
-# A dictionary of location names mapping to full display names and
-# links of these locations. Similar to :confval:`blog_authors`, dictionary
-# keys should be used in ``post`` directive to refer to the locations.
-# Default is ``{}``.
-# blog_locations = {
-#     'Earth': ('The Blue Planet', 'http://en.wikipedia.org/wiki/Earth),
-# }
-# blog_default_location = None
-
-
-# ------------
-# ablog: Post related
-# ------------
-
-# Date display format (default is ``'!b !d, !Y'``) for published posts that
-# goes as input to :meth:`datetime.date.strftime`.
-# TODO: Replace !  with percent sign ascii/unicode: 25h ---> need to figure out how to escape it to
-
-# post_date_format = '%%b %%d, %%Y'
-
-
-# Number of paragraphs (default is ``1``) that will be displayed as an excerpt
-# from the post. Setting this ``0`` will result in displaying no post excerpt
-# in archive pages.  This option can be set on a per post basis using
-# post_auto_excerpt = 1
-
-# Index of the image that will be displayed in the excerpt of the post.
-# Default is ``0``, meaning no image.  Setting this to ``1`` will include
-# the first image, when available, to the excerpt.  This option can be set
-# on a per post basis using :rst:dir:`post` directive option ``image``.
-# post_auto_image = 0
-
-# Number of seconds (default is ``5``) that a redirect page waits before
-# refreshing the page to redirect to the post.
-# post_redirect_refresh = 5
-
-# When ``True``, post title and excerpt is always taken from the section that
-# contains the :rst:dir:`post` directive, instead of the document. This is the
-# behavior when :rst:dir:`post` is used multiple times in a document. Default
-# is ``False``.
-# post_always_section = False
-
-# ----------
-# ablog: Blog feeds
-# ----------
-
-# Turn feeds by setting :confval:`blog_baseurl` configuration variable.
-# Choose to create feeds per author, location, tag, category, and year,
-# default is ``False``.
-# blog_feed_archives = False
-
-# Choose to display full text in blog feeds, default is ``False``.
-# blog_feed_fulltext = False
-
-# Blog feed subtitle, default is ``None``.
-# blog_feed_subtitle = None
-
-# Choose to feed only post titles, default is ``False``.
-# blog_feed_titles = False
-
-# Specify number of recent posts to include in feeds, default is ``None``
-# for all posts.
-# blog_feed_length = None
-
-# ------------
-# ablog: Font awesome
-# ------------
-
-# ABlog templates will use of `Font Awesome`_ icons if one of the following
-# is ``True``
-# --> Font Awesome: http://fontawesome.io/
-
-# Link to `Font Awesome`_ at `Bootstrap CDN`_ and use icons in sidebars
-# and post footers.  Default: ``False``
-# fontawesome_link_cdn = False
-
-# Sphinx_ theme already links to `Font Awesome`_.  Default: ``False``
-# fontawesome_included = False
-
-# Alternatively, you can provide the path to `Font Awesome`_ :file:`.css`
-# with the configuration option: fontawesome_css_file
-# Path to `Font Awesome`_ :file:`.css` (default is ``None``) that will
-# be linked to in HTML output by ABlog.
-# fontawesome_css_file = None
-
-# ------------------
-# Disqus integration
-# ------------------
-
-# You can enable Disqus_ by setting ``disqus_shortname`` variable.
-# Disqus_ short name for the blog.
-# TODO: Default is??
-# disqus_shortname = None
-
-
-# Choose to disqus pages that are not posts, default is ``False``.
-# disqus_pages = False
-
-# Choose to disqus posts that are drafts (without a published date),
-# default is ``False``.
-# disqus_drafts = False
 
 '''
 
@@ -413,12 +393,6 @@ html_theme = 'alabaster'
 # documentation.
 html_theme_options = {
     'analytics_id': '%(analytics_id)s',
-    'github_button': '%(github_button)s',
-    'travis_button': %(show_travis_button)s,
-    'github_user': '%(github_user)s',
-    'github_repo': '%(github_repo)s',
-    'description': '%(github_repo_description)s',
-    'logo': '%(github_repo_logo)s',
 }
 
 # Add any paths that contain custom themes here, relative to this directory.
@@ -557,7 +531,8 @@ def generate(d, overwrite=True, silent=False):
     d['now'] = time.asctime()
     d['project_underline'] = column_width(d['project']) * '='
 
-    extensions = (',\n' + indent).join((repr(name.replace('ext_', 'sphinx.ext.')) for name in extension_list))
+    extensions = (',\n' + indent).join((
+        repr(name.replace('ext_', 'sphinx.ext.')) for name in extension_list))
 
     if extensions:
         d['extensions'] = '\n' + indent + extensions + ',\n'
@@ -565,11 +540,11 @@ def generate(d, overwrite=True, silent=False):
         d['extensions'] = extensions
 
     d['copyright'] = time.strftime('%Y') + ', ' + d['author']
-    d['author_texescaped'] = text_type(d['author']).\
-        translate(texescape.tex_escape_map)
+    d['author_texescaped'] = text_type(d['author']
+        ).translate(texescape.tex_escape_map)
     d['project_doc'] = d['project'] + ' Documentation'
-    d['project_doc_texescaped'] = text_type(d['project'] + ' Documentation').\
-        translate(texescape.tex_escape_map)
+    d['project_doc_texescaped'] = text_type(d['project'] + ' Documentation'
+        ).translate(texescape.tex_escape_map)
 
     # escape backslashes and single quotes in strings that are put into
     # a Python string literal
@@ -584,13 +559,14 @@ def generate(d, overwrite=True, silent=False):
     srcdir = d['sep'] and path.join(d['path'], 'source') or d['path']
 
     mkdir_p(srcdir)
-    if d['sep']:
-        builddir = path.join(d['path'], 'build')
-        d['exclude_patterns'] = ''
-    else:
-        builddir = path.join(srcdir, d['dot'] + 'build')
-        d['exclude_patterns'] = repr(d['dot'] + 'build')
-    mkdir_p(builddir)
+    d['exclude_patterns'] = ''
+    #if d['sep']:
+    #    builddir = path.join(d['path'], 'build')
+    #
+    #else:
+    #    builddir = path.join(srcdir, d['dot'] + 'build')
+    #    d['exclude_patterns'] = repr(d['dot'] + 'build')
+    #mkdir_p(builddir)
     mkdir_p(path.join(srcdir, d['dot'] + 'templates'))
     mkdir_p(path.join(srcdir, d['dot'] + 'static'))
 
@@ -636,43 +612,43 @@ def ask_user(d):
     """
     d.update(ABlogTemplates.ABLOG_DEFAULTS)
 
-    print(bold('Welcome to the ABlog %s start utility.') % __version__)
-    print('''
-Please enter values for the following settings (just press Enter to
-accept a default value, if one is given in brackets).''')
+    print(bold('Welcome to the ABlog %s quick start utility.') % __version__)
+    print('')
+    print(w('Please enter values for the following settings (just press Enter '
+        'to accept a default value, if one is given in brackets).'))
 
+    print('')
     if 'path' in d:
-        print(bold('''
-Selected root path: %s''' % d['path']))
+        print(bold('Selected root path: %s' % d['path']))
     else:
-        print('''
-Enter the root path for your blog project.''')
+        print('Enter the root path for your blog project.')
         do_prompt(d, 'path', 'Root path for your project', '.', is_path)
 
     while path.isfile(path.join(d['path'], 'conf.py')) or \
           path.isfile(path.join(d['path'], 'source', 'conf.py')):
-        print("")
-        print(bold('Error: an existing conf.py has been found in the '
-                   'selected root path.'))
-        print('ablog start will not overwrite existing ABlog projects.')
-        print("")
-        do_prompt(d, 'path', 'Please enter a new root path (or just Enter '
-                  'to exit)', '', is_path)
+        print('')
+        print(bold(w('Error: an existing conf.py has been found in the '
+                   'selected root path.')))
+        print('ablog start will not overwrite existing Sphinx projects.')
+        print('')
+        do_prompt(d, 'path',
+            'Please enter a new root path (or just Enter to exit)', '', is_path)
         if not d['path']:
             sys.exit(1)
 
     if 'project' not in d:
-        print('''
-Project name will occur in several places in the website, including
-blog archive pages and atom feeds. Later, you can set separate names
-for different parts of the website in configuration file.''')
+        print('')
+        print(w('Project name will occur in several places in the website, '
+            'including blog archive pages and atom feeds. Later, you can '
+            'set separate names for different parts of the website in '
+            'configuration file.'))
         do_prompt(d, 'project', 'Project name')
 
     if 'author' not in d:
-        print('''
-Author can be thought of as the copyright holder for the content. If your
-blog has multiple authors, you might want to enter a team name here. Later,
-you can specify individual authors using `blog_authors` configuration option.''')
+        print(w('This of author as the copyright holder of the content. '
+            'If your blog has multiple authors, you might want to enter '
+            'a team name here. Later, you can specify individual authors '
+            'using `blog_authors` configuration option.'))
         do_prompt(d, 'author', 'Author name(s)')
 
     d['release'] = d['version'] = ''
@@ -680,65 +656,34 @@ you can specify individual authors using `blog_authors` configuration option.'''
     while path.isfile(path.join(d['path'], d['master']+d['suffix'])) or \
           path.isfile(path.join(d['path'], 'source', d['master']+d['suffix'])):
         print('')
-        print(bold('Error: the master file %s has already been found in the '
-                   'selected root path.' % (d['master']+d['suffix'])))
+        print(bold(w('Error: the master file %s has already been found in the '
+                   'selected root path.' % (d['master'] + d['suffix']))))
         print('ablog-start will not overwrite the existing file.')
-        print("")
-        do_prompt(d, 'master', 'Please enter a new file name, or rename the '
-                  'existing file and press Enter', d['master'])
+        print('')
+        do_prompt(d, 'master', w('Please enter a new file name, or rename the '
+                  'existing file and press Enter'), d['master'])
 
     if 'blog_baseurl' not in d:
-        print('''
-Please enter the base URL for your project. Blog feeds will be generated
-using this URL. If you don't have one yet, you can set it in configuration
-file later.''')
-        do_prompt(d, 'blog_baseurl', 'Base URL for your project', None, lambda x: True)
+        print('')
+        print(w('Please enter the base URL for your project. Blog feeds will '
+            'be generated relative to this URL. If you don\'t have one yet, '
+            'you can set it in configuration file later.'))
+        do_prompt(d, 'blog_baseurl', 'Base URL for your project',
+            None, lambda x: True)
 
     if 'use_alabaster' not in d and 'alabaster' in d:
-        print('''
-You have Alabaster Sphinx theme installed. Would you
-like to enable it for your blog?''')
+        print('')
+        print(w('You have Alabaster Sphinx theme installed. Would you '
+            'like to enable it for your blog?'))
         do_prompt(d, 'use_alabaster', 'Enable Alabaster Sphinx theme? (y/n)', 'y', boolean)
 
     #If using Alabaster and blogging about a GitHub project we have more questions for you!
     if d['use_alabaster']:
         ABlogTemplates.ABLOG_DEFAULT_CONF += ABlogTemplates.ABLOG_HTML_ALABASTER_CONF
-        print('''
-Please enter your Google Analytics ID to your blog for tracking? Leave blank for disabling.''')
+        print('')
+        print(w('Please enter your Google Analytics ID for your website. '
+            'Leave blank to add it in conf.py it later.'))
         do_prompt(d, 'analytics_id', 'Google Analytics ID', '', ok)
-
-        #Ask user if this is for a github project.
-        print('''
-Would you like to enable Alabaster options for GitHub projects on your blog?''')
-        do_prompt(d, 'github_button', 'Enable Alabaster GitHub features? (y/n)', 'n', boolean)
-
-        if d['github_button']:
-            if 'github_repo' not in d:
-                print('\nPlease enter the name for the GitHub project.')
-                do_prompt(d, 'github_repo', 'Please enter the project name. ', '', ok)
-
-            if 'github_user' not in d:
-                print('\nPlease enter the user name for the GitHub project.')
-            do_prompt(d, 'github_user', 'Please enter GitHub user name. ', '', ok)
-
-            if 'github_repo_description' not in d:
-                print('\nPlease enter a short description for the GitHub project.')
-                do_prompt(d, 'github_repo_description', 'Please enter GitHub project description. ', '', ok)
-
-            if 0:
-                if 'github_repo_logo' not in d:
-                    print('\nPlease enter the path for the GitHub project logo. (png, jpg, etc.)')
-                    do_prompt(d, 'github_repo_logo', 'Please enter logo path. ', '', ok)
-
-                if 'show_travis_button' not in d:
-                    print('''
-    If you happen to have the github project linked to Travis CI, you may want
-    to enable the Travis-CI button in your blog.''')
-                    do_prompt(d, 'show_travis_button', 'Enable the Travis CI button in your blog? (y/n)', 'n', boolean)
-        else:
-            d['github_repo'] = None
-            d['github_user'] = d['github_repo_description'] = d['github_repo_logo'] = ""
-            d['show_travis_button'] = False
 
     else:
         ABlogTemplates.ABLOG_DEFAULT_CONF += ABlogTemplates.ABLOG_HTML_DEFAULT_CONF

@@ -4,7 +4,7 @@
 ABlog Quick Start
 =================
 
-.. post:: Feb 9, 2015
+.. post:: Mar 1, 2015
    :tags: config, start,
    :author: Mehmet
    :category: Manual
