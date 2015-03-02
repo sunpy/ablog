@@ -9,3 +9,4 @@ install:
 script:
   - cd docs; ablog build -T
   - printf "\nABlog\nABlog Team\nhttp://ablog.readthedocs.org\n\nGA" | ablog start
+  - printf "ablog\nABlog\nABlog Team\nhttp://ablog.readthedocs.org\n\nGA" | ablog start

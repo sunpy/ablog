@@ -10,6 +10,7 @@ dist/
 
 # Sphinx documentation
 docs/_*
+docs/.*
 
 .DS_Store
 
