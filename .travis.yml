@@ -8,4 +8,4 @@ install:
   - pip install .
 script:
   - cd docs; ablog build -T
-  - printf "\nABs\nAB\nhttpab.com\n\nGA" | ablog start
+  - printf "\nABlog\nABlog Team\nhttp://ablog.readthedocs.org\n\nGA" | ablog start
