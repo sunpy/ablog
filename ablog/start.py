@@ -34,12 +34,33 @@ def is_module_installed(module_name):
         return False
 
 class ABlogTemplates(object):
+
+
+    def __init__(self, options):
+
+        self._options = options
+
+
+    @property
+    def conf(self):
+
+        c = self._conf
+        if self._options.get('use_alabaster'):
+            c += self._conf_alabaster
+        else:
+            c += self._conf_default
+
+        return c
+
     if sys.version_info >= (3, 0):
         # prevents that the file is checked for being written in Python 2.x syntax
-        ABLOG_DEFAULT_CONF = u'#!/usr/bin/env python3\n'
+        _conf = u'#!/usr/bin/env python3\n'
     else:
-        ABLOG_DEFAULT_CONF = u''
-    ABLOG_DEFAULT_CONF += u'''\
+        _conf = u''
+
+
+
+    _conf += u'''
 # -*- coding: utf-8 -*-
 #
 # %(project)s build configuration file, created by
@@ -265,9 +286,8 @@ pygments_style = 'sphinx'
 
 '''
 
-    ABLOG_HTML_DEFAULT_CONF = u'''
-# -- Options for HTML output ----------------------------------------------
-
+    _conf_default = u'''
+# -- Options for HTML output c
 # ------------------
 # ablog: Blog sidebars
 # ------------------
@@ -364,7 +384,7 @@ html_static_path = ['%(dot)sstatic']
 if os.environ.get('READTHEDOCS', None) == 'True':
     skip_pickling = True
 '''
-    ABLOG_HTML_ALABASTER_CONF = u'''
+    _conf_alabaster = u'''
 import alabaster
 # -- Options for HTML output ----------------------------------------------
 
@@ -467,11 +487,8 @@ if os.environ.get('READTHEDOCS', None) == 'True':
     skip_pickling = True
 '''
 
-    ABLOG_EPUB_CONFIG = u''
 
-    ABLOG_INTERSPHINX_CONFIG = u''
-
-    ABLOG_MASTER_FILE = u'''\
+    index = u'''
 .. %(project)s index file, created by `ablog start` on %(now)s.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
@@ -487,7 +504,25 @@ Here is a list of most recent posts:
 
 '''
 
-    ABLOG_DEFAULTS = {
+    post = u'''
+.. %(project)s post example, created by `ablog start` on %(now)s.
+   You can adapt this file completely to your liking and move into any folder
+   under project root.
+
+.. post:: %(now)s
+   :tags: atag
+
+
+First Post
+==========
+
+Hello again World!
+
+
+'''
+
+
+    defaults = {
             'sep': False,
             'dot': '_',
             'language': None,
@@ -503,13 +538,14 @@ Here is a list of most recent posts:
             'alabaster': True
             }
 
-    EXTENSIONS = ('ext_extlinks', 'ext_intersphinx', 'ext_todo', 'ablog', 'alabaster')
+    extensions = ('ext_extlinks', 'ext_intersphinx', 'ext_todo', 'ablog', 'alabaster')
+
 
 def generate(d, overwrite=True, silent=False):
     '''Borrowed from Sphinx 1.3b3'''
 
     extension_list = []
-    for extension in ABlogTemplates.EXTENSIONS:
+    for extension in ABlogTemplates.extensions:
         if d.get(extension):
             if(extension is 'alabaster' and not is_module_installed(extension)):
                 pass
@@ -581,26 +617,25 @@ def generate(d, overwrite=True, silent=False):
         else:
             print('File %s already exists, skipping.' % fpath)
 
-    conf_text = ABlogTemplates.ABLOG_DEFAULT_CONF % d
-    if d['epub']:
-        conf_text += ABlogTemplates.ABLOG_EPUB_CONFIG % d
-    if d.get('ext_intersphinx'):
-        conf_text += ABlogTemplates.ABLOG_INTERSPHINX_CONFIG
+    abt = ABlogTemplates(d)
+    conf_text = abt.conf % d
 
     write_file(path.join(srcdir, 'conf.py'), conf_text)
 
     masterfile = path.join(srcdir, d['master'] + d['suffix'])
-    write_file(masterfile, ABlogTemplates.ABLOG_MASTER_FILE % d)
+    write_file(masterfile, abt.index % d)
 
     if silent:
         return
-    #print()
+
+
     print(bold('Finished: An initial directory structure has been created.'))
 
-def ask_user(d):
-    '''Borrowed from Sphinx 1.3b3'''
 
-    """Ask the user for quickstart values missing from *d*.
+def ask_user(d):
+    """Borrowed from Sphinx 1.3b3
+
+    Ask the user for quickstart values missing from *d*.
 
     Values are:
 
@@ -610,7 +645,8 @@ def ask_user(d):
     * version:   version of project
     * release:   release of project
     """
-    d.update(ABlogTemplates.ABLOG_DEFAULTS)
+
+    d.update(ABlogTemplates.defaults)
 
     print(bold('Welcome to the ABlog %s quick start utility.') % __version__)
     print('')
@@ -675,26 +711,23 @@ def ask_user(d):
         print('')
         print(w('You have Alabaster Sphinx theme installed. Would you '
             'like to enable it for your blog?'))
-        do_prompt(d, 'use_alabaster', 'Enable Alabaster Sphinx theme? (y/n)', 'y', boolean)
+        do_prompt(d, 'use_alabaster',
+            'Enable Alabaster Sphinx theme? (y/n)', 'y', boolean)
 
     #If using Alabaster and blogging about a GitHub project we have more questions for you!
     if d['use_alabaster']:
-        ABlogTemplates.ABLOG_DEFAULT_CONF += ABlogTemplates.ABLOG_HTML_ALABASTER_CONF
         print('')
         print(w('Please enter your Google Analytics ID for your website. '
             'Leave blank to add it in conf.py it later.'))
         do_prompt(d, 'analytics_id', 'Google Analytics ID', '', ok)
 
-    else:
-        ABlogTemplates.ABLOG_DEFAULT_CONF += ABlogTemplates.ABLOG_HTML_DEFAULT_CONF
-
     print('')
 
-def ablog_sphinx_quickstart_wrapper():
+def ablog_start(**kwargs):
     if not color_terminal():
         nocolor()
 
-    d = ABlogTemplates.ABLOG_DEFAULTS
+    d = ABlogTemplates.defaults
 
     try:
         ask_user(d)
@@ -704,10 +737,4 @@ def ablog_sphinx_quickstart_wrapper():
         return
 
     generate(d)
-
-
-def ablog_start(**kwargs):
-
-    ablog_sphinx_quickstart_wrapper()
-
 
