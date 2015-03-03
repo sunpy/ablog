@@ -26,9 +26,9 @@ You can install ABlog using pip_::
 
     pip install -U ablog
 
-This will also install `Sphinx <http://sphinx-doc.org/>`_, Werkzeug_ and
-Alabaster_, respectively required for building your website, generating
-feeds, and making your website look good.
+This will also install `Sphinx <http://sphinx-doc.org/>`_, Alabaster_, and
+Werkzeug_, respectively required for building your website, making it look
+good, and generating feeds.
 
 .. _pip: https://pip.pypa.io
 .. _Werkzeug: http://werkzeug.pocoo.org/
