@@ -37,7 +37,7 @@ setup(
                  'Programming Language :: Python :: 3',
                 ],
     provides=['ablog ({0:s})'.format(__version__)],
-    install_requires=['Werkzeug', 'Sphinx'],
+    install_requires=['Werkzeug', 'Sphinx', 'alabaster'],
     message_extractors={
         'ablog': [
             ('**.html', 'jinja2', None),
