@@ -57,6 +57,7 @@ class ABlogTemplates(object):
 import os
 import sys
 import ablog
+import alabaster
 
 # -- General ABlog Options ----------------------------------------------------
 
@@ -214,10 +215,10 @@ needs_sphinx = '1.2'
 extensions = [%(extensions)s]
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['%(dot)stemplates']
+templates_path = ['%(dot)stemplates', ablog.get_html_templates_path()]
 
 # The suffix(es) of source filenames.
-source_suffix = ['%(suffix)s']
+source_suffix = '%(suffix)s'
 
 # The encoding of source files.
 #source_encoding = 'utf-8-sig'
@@ -296,7 +297,7 @@ html_theme = 'alabaster'
 #html_theme_options = {}
 
 # Add any paths that contain custom themes here, relative to this directory.
-#html_theme_path = []
+html_theme_path = [alabaster.get_path()]
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
