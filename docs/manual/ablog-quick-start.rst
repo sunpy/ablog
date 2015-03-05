@@ -6,37 +6,45 @@ ABlog Quick Start
 
 .. post:: Mar 1, 2015
    :tags: config, start,
-   :author: Mehmet
+   :author: Mehmet, Ahmet
    :category: Manual
    :location: SF
 
-This is a simple walk through of the `ablog start` flow,
-intended to explain the options you're presented when
-running the command to start your blog.
+This is a short walk through of blogging work flow and description of blog
+components.
 
 The start command will ask you to enter the following:
 
-Basic Information:
-^^^^^^^^^^^^^^^^^^
+Blogging Workflow
+-----------------
 
-1. **Blog root folder:**
-    This is where your configuration file and the rest of your projects files and folders will be created.
-    The default is [.] the current working folder.
+1. `ablog start`
 
-#. **Title of your blog:**
-	Title of your blog. It will appear on various locations on your blog depending
-	on your choice of themes.
+  Run this command to kick start your project. You will be a few simple
+  questions and end up with
 
-#. **Author Name:**
-	Name of the blog owner (person, project, organization, etc.)
-	It will be the actual display 'title' of the blog.
+2. `ablog build`
 
-#. **Blog URL:**
-	The URL pointing to your intended publishing address of your blog.
-	It will be used for feed generation. (e.g. Atom, RSS etc.)
+3. `ablog serve`
 
-Optional Features:
-^^^^^^^^^^^^^^^^^^
+4. Write new content in reStructuredText, and repeated #2 and #3.
+
+
+
+Archives
+--------
+
+ABlog generates archives pages automatically for pretty much everything ...
+
+
+Blog Feeds
+----------
+
+Feeds are generated for ...
+
+
+Blog Theme
+----------
 
 **Alabaster Sphinx theme opt-in:**
 If you happen to have Alabaster Sphinx theme installed on your system,
@@ -90,4 +98,6 @@ Alabaster GitHub Options:
 			If your project is linked to Travis-CI you can enable the
 			Travis-CI button/build badge, if you like.
 			Default is [n].
+
+
 
