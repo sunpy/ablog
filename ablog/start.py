@@ -33,18 +33,15 @@ def is_module_installed(module_name):
     except:
         return False
 
-class ABlogTemplates(object):
+
+ABLOG_CONF = u''
+
+# prevents that the file is checked for being written in Python 2.x syntax
+if sys.version_info >= (3, 0):
+    ABLOG_CONF = u'#!/usr/bin/env python3\n'
 
 
-
-    if sys.version_info >= (3, 0):
-        # prevents that the file is checked for being written in Python 2.x syntax
-        conf = u'#!/usr/bin/env python3\n'
-    else:
-        conf = u''
-
-
-    conf += u'''
+ABLOG_CONF += u'''
 # -*- coding: utf-8 -*-
 #
 # %(project)s build configuration file, created by
@@ -65,11 +62,11 @@ import alabaster
 #blog_path = 'blog'
 
 # The “title” for the blog, used in acthive pages.  Default is ``'Blog'``.
-blog_title = '%(project_str)s Blog'
+blog_title = u'%(project_str)s Blog'
 
 # Base URL for the website, required for generating feeds.
 # e.g. blog_baseurl = "http://example.com/"
-blog_baseurl = '%(blog_baseurl)s'
+blog_baseurl = u'%(blog_baseurl)s'
 
 # Choose to archive only post titles. Archiving only titles can speed
 # up project building.
@@ -80,9 +77,9 @@ blog_baseurl = '%(blog_baseurl)s'
 # A dictionary of author names mapping to author full display names and
 # links. Dictionary keys are what should be used in ``post`` directive
 # to refer to the author.  Default is ``{}``.
-#blog_authors = {
-#    'Name': ('Full Name', 'http://fullname.com'),
-#}
+blog_authors = {
+    '%(author_str)s': ('%(author_str)s', None),
+}
 
 
 # A dictionary of language code names mapping to full display names and
@@ -171,22 +168,21 @@ html_sidebars = {
 
 # -- Font-Awesome Options -----------------------------------------------------
 
-# ABlog templates will use of `Font Awesome`_ icons if one of the following
+# ABlog templates will use of Font Awesome icons if one of the following
 # is ``True``
-# --> Font Awesome: http://fontawesome.io/
 
 # Link to `Font Awesome`_ at `Bootstrap CDN`_ and use icons in sidebars
 # and post footers.  Default: ``False``
-# fontawesome_link_cdn = False
+fontawesome_link_cdn = True
 
 # Sphinx_ theme already links to `Font Awesome`_.  Default: ``False``
-# fontawesome_included = False
+#fontawesome_included = False
 
 # Alternatively, you can provide the path to `Font Awesome`_ :file:`.css`
 # with the configuration option: fontawesome_css_file
 # Path to `Font Awesome`_ :file:`.css` (default is ``None``) that will
 # be linked to in HTML output by ABlog.
-# fontawesome_css_file = None
+#fontawesome_css_file = None
 
 # -- Disqus Integration -------------------------------------------------------
 
@@ -212,7 +208,13 @@ needs_sphinx = '1.2'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = [%(extensions)s]
+extensions = [
+    'sphinx.ext.extlinks',
+    'sphinx.ext.intersphinx',
+    'sphinx.ext.todo',
+    'alabaster',
+    'ablog',
+]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['%(dot)stemplates', ablog.get_html_templates_path()]
@@ -388,7 +390,7 @@ htmlhelp_basename = '%(project_fn)sdoc'
 
 
 
-    index = u'''
+ABLOG_INDEX = u'''
 .. %(project)s index file, created by `ablog start` on %(now)s.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
@@ -404,13 +406,14 @@ Here is a list of most recent posts:
 
 '''
 
-    post = u'''
+ABLOG_POST = u'''
 .. %(project)s post example, created by `ablog start` on %(now)s.
    You can adapt this file completely to your liking and move into any folder
    under project root.
 
 .. post:: %(now)s
    :tags: atag
+   :author: %(author_str)s
 
 
 First Post
@@ -422,35 +425,22 @@ Hello again World!
 '''
 
 
-    defaults = {
-            'sep': False,
-            'dot': '_',
-            'language': None,
-            'suffix': '.rst',
-            'master': 'index',
-            'makefile': False,
-            'batchfile': False,
-            'epub': False,
-            'ext_intersphinx': True,
-            'ext_extlinks' : True,
-            'ext_todo': True,
-            'ablog': True,
-            'alabaster': True
-            }
+CONF_DEFAULTS = {
+    'sep': False,
+    'dot': '_',
+    'language': None,
+    'suffix': '.rst',
+    'master': 'index',
+    'makefile': False,
+    'batchfile': False,
+    'epub': False,
+    'ext_todo': False,
+}
 
-    extensions = ('ext_extlinks', 'ext_intersphinx', 'ext_todo', 'ablog', 'alabaster')
 
 
 def generate(d, overwrite=True, silent=False):
     '''Borrowed from Sphinx 1.3b3'''
-
-    extension_list = []
-    for extension in ABlogTemplates.extensions:
-        if d.get(extension):
-            if(extension is 'alabaster' and not is_module_installed(extension)):
-                pass
-            else:
-                extension_list.append(extension)
 
     """Generate project based on values in *d*."""
 
@@ -466,14 +456,6 @@ def generate(d, overwrite=True, silent=False):
     d['project_manpage'] = d['project_fn'].lower()
     d['now'] = time.asctime()
     d['project_underline'] = column_width(d['project']) * '='
-
-    extensions = (',\n' + indent).join((
-        repr(name.replace('ext_', 'sphinx.ext.')) for name in extension_list))
-
-    if extensions:
-        d['extensions'] = '\n' + indent + extensions + ',\n'
-    else:
-        d['extensions'] = extensions
 
     d['copyright'] = time.strftime('%Y') + ', ' + d['author']
     d['author_texescaped'] = text_type(d['author']
@@ -517,17 +499,17 @@ def generate(d, overwrite=True, silent=False):
         else:
             print('File %s already exists, skipping.' % fpath)
 
-    abt = ABlogTemplates()
-    conf_text = abt.conf % d
-
+    conf_text = ABLOG_CONF % d
     write_file(path.join(srcdir, 'conf.py'), conf_text)
 
     masterfile = path.join(srcdir, d['master'] + d['suffix'])
-    write_file(masterfile, abt.index % d)
+    write_file(masterfile, ABLOG_INDEX % d)
+
+    firstpost = path.join(srcdir, 'first-post' + d['suffix'])
+    write_file(firstpost, ABLOG_POST % d)
 
     if silent:
         return
-
 
     print(bold('Finished: An initial directory structure has been created.'))
 
@@ -546,7 +528,7 @@ def ask_user(d):
     * release:   release of project
     """
 
-    d.update(ABlogTemplates.defaults)
+    d.update(CONF_DEFAULTS)
 
     print(bold('Welcome to the ABlog %s quick start utility.') % __version__)
     print('')
@@ -613,7 +595,7 @@ def ablog_start(**kwargs):
     if not color_terminal():
         nocolor()
 
-    d = ABlogTemplates.defaults
+    d = CONF_DEFAULTS
 
     try:
         ask_user(d)
