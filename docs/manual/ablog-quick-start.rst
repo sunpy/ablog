@@ -20,12 +20,16 @@ Blogging Workflow
 
 1. `ablog start`
 
-  Run this command to kick start your project. You will be a few simple
-  questions and end up with
+   Run this command to kick start your project. You will be a few simple
+   questions and end up with a sample page and a post.
 
 2. `ablog build`
 
+   This command will prepare HTML pages for you.
+
 3. `ablog serve`
+
+   You are now ready to view your website in a browser.
 
 4. Write new content in reStructuredText, and repeated #2 and #3.
 
@@ -46,7 +50,7 @@ Feeds are generated for ...
 Blog Theme
 ----------
 
-**Alabaster Sphinx theme opt-in:**
+Alabaster is the default theme for ABlog. It
 If you happen to have Alabaster Sphinx theme installed on your system,
 you will be asked whether you'd like to enable it.
 The default value is [y] and you'll only be asked, if you have alabaster
@@ -74,30 +78,3 @@ Alabaster Options:
 	questions.
 
 **This is the end, if you're not using GitHub options for `Alabaster`**
-
-Alabaster GitHub Options:
-^^^^^^^^^^^^^^^^^^^^^^^^^
-
-		1. **GitHub Project Name:**
-		The name of the GitHub project, just the project name.
-		e.g. `http://www.github.com/abakan/ablog` --> `ablog`
-
-		#. **GitHub User Name:**
-			The user name of the GitHub project owner.
-			e.g. `http://www.github.com/abakan/ablog` --> `abakan`
-
-		#. **GitHub Project Description:**
-			A single line (short line) description for the GitHhub project.
-
-		#. **GitHub Project Logo:**
-			Path to the GitHub project logo.
-			Relative to project root or external (http, etc.).
-			Default is blank and you can leave blank to disable.
-
-		#. **Travis-CI Button Opt-In:**
-			If your project is linked to Travis-CI you can enable the
-			Travis-CI button/build badge, if you like.
-			Default is [n].
-
-
-
