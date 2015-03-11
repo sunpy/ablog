@@ -47,7 +47,7 @@ html_favicon = '_static/ablog.ico'
 
 templates_path = [ablog.get_html_templates_path()]
 
-if os.environ.get('READTHEDOCS', None) == 'True' and 0:
+if os.environ.get('READTHEDOCS', None) == 'True':
     skip_pickling = True
 
 blog_title = 'ABlog'
