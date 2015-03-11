@@ -19,16 +19,16 @@ and bug fixes:
   * Fixed issues with :confval:`post_auto_excerpt` and
     :confval:`post_auto_image` configuration options.
 
-  * Issue :issue:`2`, relative size of tags being the minimum size when
-    all tags have the same number of posts, is fixed. Now, mean size is
+  * Fixed :issue:`2`, relative size of tags being the minimum size when
+    all tags have the same number of posts. Now, mean size is
     used, and max/min size can be controlled from template.
 
-  * Issue :issue:`19` is fixed. Yearly archives are ordered by recency.
+  * Fixed :issue:`19`. Yearly archives are ordered by recency.
 
-  * Issue :issue:`21`, duplicated post title in feeds, is fixed.
+  * Fixed duplicated post title in feeds, :issue:`21`.
 
-  * Issue :issue:`22`, :rst:dir:`postlist` directive listing more than
-    specified number of posts, is fixed.
+  * Fixed :issue:`22`, :rst:dir:`postlist` directive listing more than
+    specified number of posts.
 
   * :rst:dir:`postlist` directive accepts arguments to format list items
     (:issue:`20`).
