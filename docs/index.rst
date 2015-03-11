@@ -19,6 +19,8 @@ where each manual and release is a blog post ;)
 .. _Disqus integration: http://ablog.readthedocs.org/manual/ablog-configuration-options/#disqus-integration
 .. _Font-Awesome integration: http://ablog.readthedocs.org/manual/ablog-configuration-options/#fa
 
+.. _installation:
+
 Installation
 ------------
 

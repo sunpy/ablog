@@ -3,6 +3,7 @@
 import os
 import sys
 import time
+import datetime
 
 from os import path
 from io import open
@@ -102,10 +103,6 @@ blog_authors = {
 
 # -- Blog Post Related --------------------------------------------------------
 
-# Date display format (default is ``'!b !d, !Y'``) for published posts that
-# goes as input to :meth:`datetime.date.strftime`.
-# TODO: Replace !  with percent sign ascii/unicode: 25h ---> need to figure out how to escape it to
-
 # post_date_format = '%%b %%d, %%Y'
 
 
@@ -139,12 +136,12 @@ blog_authors = {
 # In addition, there are authors.html, languages.html, and locations.html
 # sidebars that link to author and location archive pages.
 html_sidebars = {
-    '**': [ 'postcard.html',
+    '**': [ 'postcard.html', 'navigation.html',
             'recentposts.html', 'tagcloud.html',
             'categories.html',  'archives.html',
             'searchbox.html',
             ],
-        }
+    }
 
 # -- Blog Feed Options --------------------------------------------------------
 
@@ -388,8 +385,6 @@ htmlhelp_basename = '%(project_fn)sdoc'
 
 '''
 
-
-
 ABLOG_INDEX = u'''
 .. %(project)s index file, created by `ablog start` on %(now)s.
    You can adapt this file completely to your liking, but it should at least
@@ -402,26 +397,45 @@ Hello World!
 
 Here is a list of most recent posts:
 
+
 .. postlist:: 5
+
+
+.. Following contains non-post .rst files. Adding them here will
+   make Sphinx aware of those pages and have them included in navigation.
+
+.. toctree::
+   :hidden:
+
+   about.rst
+
+'''
+
+ABLOG_ABOUT = u'''
+
+About %(author)s
+============================
+
+Hello World!
+
+Here is a list of most recent posts:
 
 '''
 
 ABLOG_POST = u'''
-.. %(project)s post example, created by `ablog start` on %(now)s.
-   You can adapt this file completely to your liking and move into any folder
-   under project root.
+.. %(project)s post example, created by `ablog start` on %(post_date)s.
 
-.. post:: %(now)s
+.. post:: %(post_date)s
    :tags: atag
    :author: %(author_str)s
-
 
 First Post
 ==========
 
-Hello again World!
-
-
+World, hello again! This very first paragraph of the post will be used
+as excerpt in archive pages. See `Post Excerpts and Images
+http://ablog.readthedocs.org/manual/post-excerpts-and-images/` to learn more
+about
 '''
 
 
@@ -505,6 +519,10 @@ def generate(d, overwrite=True, silent=False):
     masterfile = path.join(srcdir, d['master'] + d['suffix'])
     write_file(masterfile, ABLOG_INDEX % d)
 
+    about = path.join(srcdir, 'about' + d['suffix'])
+    write_file(about, ABLOG_ABOUT % d)
+
+    d['post_date'] = datetime.datetime.today().strftime('%b %d, %Y')
     firstpost = path.join(srcdir, 'first-post' + d['suffix'])
     write_file(firstpost, ABLOG_POST % d)
 

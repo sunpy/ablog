@@ -10,33 +10,48 @@ ABlog Quick Start
    :category: Manual
    :location: SF
 
-This is a short walk through of blogging work flow and description of blog
-components.
+This short walk through assumes that you have installed ABlog. If not,
+see :ref:`installation` guide.
 
-The start command will ask you to enter the following:
+Start a Project
+---------------
 
-Blogging Workflow
------------------
+To start a new project, run ``ablog start`` command in a directory where
+you want to keep your project source files. This command will ask you a
+few questions and create following files and folders:
 
-1. `ablog start`
+  * :file:`conf.py` contains project configuration required for
+    building HTML pages.
 
-   Run this command to kick start your project. You will be a few simple
-   questions and end up with a sample page and a post.
+  * :file:`index.rst` becomes the landing page of your website. See the inside
+    of it for more information.
 
-2. `ablog build`
+  * :file:`about.rst` may contain information about you. A link to this
+    page will show up in `Navigation` sidebar.
 
-   This command will prepare HTML pages for you.
+  * :file:`first-post.rst` is a blog post example that contains
+    :rst:dir:`post` directive. See
 
-3. `ablog serve`
+  * :file:`_static` is for keeping image, :file:`.js`, and :file:`.css` files.
+    Once you go through this page, you may find out more
+    about this folder  :confval:`html_static_path` for more information.
 
-   You are now ready to view your website in a browser.
-
-4. Write new content in reStructuredText, and repeated #2 and #3.
-
+  * :file:`_templates` is for custom HTML templates. See
+    :confval:`templates_path` for more information.
 
 
-Archives
---------
+
+Build and View
+--------------
+
+
+Write Content
+-------------
+
+
+
+Blog Components
+---------------
 
 ABlog generates archives pages automatically for pretty much everything ...
 
