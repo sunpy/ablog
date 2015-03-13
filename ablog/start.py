@@ -185,17 +185,14 @@ fontawesome_link_cdn = True
 
 # You can enable Disqus_ by setting ``disqus_shortname`` variable.
 # Disqus_ short name for the blog.
-# TODO: Default is??
-# disqus_shortname = None
-
+#disqus_shortname = None
 
 # Choose to disqus pages that are not posts, default is ``False``.
-# disqus_pages = False
+#disqus_pages = False
 
 # Choose to disqus posts that are drafts (without a published date),
 # default is ``False``.
-# disqus_drafts = False
-
+#disqus_drafts = False
 
 # -- Sphinx Options -----------------------------------------------------------
 
@@ -393,16 +390,21 @@ ABLOG_INDEX = u'''
 Welcome to %(author)s's Blog!
 ===========%(project_underline)s=================
 
-Hello World!
+Hello World! Find more about me here: :ref:`about`
+
 
 Here is a list of most recent posts:
-
 
 .. postlist:: 5
 
 
-.. Following contains non-post .rst files. Adding them here will
-   make Sphinx aware of those pages and have them included in navigation.
+.. Following directive contains non-post `.rst` files. Adding them here will
+   make Sphinx aware of pages that should be included in TOC tree. That's also
+   how they appear in Navigation sidebar.
+
+   Note that posts are excluded from this directive so that they aren't
+   double listed in the sidebar both under Navigation and Recent Posts,
+   for example.
 
 .. toctree::
    :hidden:
@@ -412,13 +414,12 @@ Here is a list of most recent posts:
 '''
 
 ABLOG_ABOUT = u'''
+.. _about:
 
 About %(author)s
 ============================
 
-Hello World!
-
-Here is a list of most recent posts:
+The world wants to know more about you.
 
 '''
 
@@ -433,9 +434,9 @@ First Post
 ==========
 
 World, hello again! This very first paragraph of the post will be used
-as excerpt in archive pages. See `Post Excerpts and Images
-http://ablog.readthedocs.org/manual/post-excerpts-and-images/` to learn more
-about
+as excerpt in archives and feeds. Find out how to control how much is shown
+in `Post Excerpts and Images
+<http://ablog.readthedocs.org/manual/post-excerpts-and-images/>`_.
 '''
 
 

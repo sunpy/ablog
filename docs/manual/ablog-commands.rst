@@ -10,10 +10,8 @@ ABlog Commands
    :location: SF
 
 
-`ablog` command is designed to streamline blog operations, i.e.
-building, serving, and viewing blog pages, as well as starting a new
-blog.
-
+``ablog`` commands are for streamlining blog operations, i.e. building, serving,
+and viewing blog pages, as well as starting a new blog.
 
 ::
 
@@ -39,20 +37,27 @@ blog.
 Start a Project
 ---------------
 
+``ablog start`` command is for quickly setting up a blog project. See
+:ref:`quick-start` for how it works and what it prepares for you.
+
 
 ::
 
-  $ ablog start -h
+  $ ablog serve -h
   usage: ablog start [-h]
+
+  Start a new blog project with in less than 10 seconds. After answering a few
+  questions, you will end up with a configuration file and sample pages.
 
   optional arguments:
     -h, --help  show this help message and exit
 
 
 
-Build Website
--------------
+Build your Website
+------------------
 
+Running ``ablog build`` in your project folder builds your website HTML pages.
 
 ::
 
@@ -67,7 +72,7 @@ Build Website
     -h, --help    show this help message and exit
     -b BUILDER    builder to use, default `ablog_builder` or dirhtml
     -d DOCTREES   path for the cached environment and doctree files, default
-                  `ablog_doctrees` or _doctrees
+                  `ablog_doctrees` or .doctrees
     -s SOURCEDIR  root path for source files, default is path to the folder that
                   contains conf.py
     -w WEBSITE    path for website, default `ablog_website` or _website
@@ -75,6 +80,9 @@ Build Website
 
 Serve and View
 --------------
+
+Running ``ablog serve``, after building your website, will start a Python
+server and open up browser tab to view your website.
 
 ::
 
@@ -93,6 +101,8 @@ Serve and View
 Create a Post
 -------------
 
+Finally, ``ablog post`` will make a new post template file.
+
 ::
 
   $ ablog post -h
@@ -103,4 +113,4 @@ Create a Post
 
   optional arguments:
     -h, --help  show this help message and exit
-    -t TITLE    post title; default is `New Post`
+    -t TITLE    post title; default is `New Post

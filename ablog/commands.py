@@ -51,7 +51,10 @@ from ablog.start import ablog_start
 ablog_commands = ablog_parser.add_subparsers(
     title='subcommands')
 subparser = ablog_commands.add_parser('start',
-        help='start a new blog project')
+    help='start a new blog project',
+    description="Start a new blog project with in less than 10 seconds. "
+    "After answering a few questions, you will end up with a configuration "
+    "file and sample pages.")
 subparser.set_defaults(func=lambda ns: ablog_start())
 subparser.set_defaults(subparser=subparser)
 
@@ -113,7 +116,7 @@ subparser.add_argument('-b', dest='builder', type=str,
 subparser.add_argument('-d', dest='doctrees', type=str,
     default='.doctrees',
     help="path for the cached environment and doctree files, "
-        "default `ablog_doctrees` or _doctrees")
+        "default `ablog_doctrees` or .doctrees")
 
 subparser.add_argument('-s', dest='sourcedir', type=str,
     help="root path for source files, "

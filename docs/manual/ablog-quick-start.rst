@@ -1,4 +1,4 @@
-.. _workflow:
+.. _quick-start:
 
 
 ABlog Quick Start
@@ -10,86 +10,114 @@ ABlog Quick Start
    :category: Manual
    :location: SF
 
-This short walk through assumes that you have installed ABlog. If not,
-see :ref:`installation` guide.
+This short walk through of blogging work flow assumes that you have already
+installed ABlog. If not, see :ref:`installation` guide.
 
 Start a Project
 ---------------
 
 To start a new project, run ``ablog start`` command in a directory where
 you want to keep your project source files. This command will ask you a
-few questions and create following files and folders:
+few questions and create following files:
 
   * :file:`conf.py` contains project configuration required for
-    building HTML pages.
+    building HTML pages. You will find out more different groups of
+    configuration options soon.
 
-  * :file:`index.rst` becomes the landing page of your website. See the inside
-    of it for more information.
+  * :file:`first-post.rst` is a blog post example.
 
-  * :file:`about.rst` may contain information about you. A link to this
-    page will show up in `Navigation` sidebar.
+  * :file:`index.rst` is going to be the *landing* page of your website.
 
-  * :file:`first-post.rst` is a blog post example that contains
-    :rst:dir:`post` directive. See
-
-  * :file:`_static` is for keeping image, :file:`.js`, and :file:`.css` files.
-    Once you go through this page, you may find out more
-    about this folder  :confval:`html_static_path` for more information.
-
-  * :file:`_templates` is for custom HTML templates. See
-    :confval:`templates_path` for more information.
+  * :file:`about.rst` is another page where you may put information *about*
+    yourself.
 
 
 
 Build and View
 --------------
 
+Before any further details, let's see quickly what your project looks like.
+First run ``ablog build`` in your project folder to create HTML pages in
+:file:`_website` folder. Then, call ``ablog serve`` to open them in your
+default browser.
+
+What you see initially is built from :file:`index.rst`. In the page
+and sidebar, you will find links to your first post and about page.
+Find out more about controlling where links to other pages appear
+in :file:`index.rst`.
+
 
 Write Content
 -------------
 
+You will need to write content in reStructuredText format. If you are
+Sphinx_
+
+Pages
+^^^^^
+
+Pages in your project are :file:`.rst` files that are only a :rst:dir:`post`
+directive short of becoming blog posts. While you may be planning to write
+blog posts primarily, you may have more than a landing page in your website.
+In that case, you will need to make them browsable from the landing page.
+To this end, you need to list each non-post page in a TOCTree. This is shown
+for *about* page into :file:`index.rst`. You can also find more about this
+in ....
 
 
-Blog Components
----------------
+Posts
+^^^^^
 
-ABlog generates archives pages automatically for pretty much everything ...
+Posts are pages with a :rst:dir:`post` directive that tags, catgorizes
+ABlog takes care of
+listing posts in appropriate places, such as ``
 
-
-Blog Feeds
-----------
-
-Feeds are generated for ...
-
-
-Blog Theme
-----------
-
-Alabaster is the default theme for ABlog. It
-If you happen to have Alabaster Sphinx theme installed on your system,
-you will be asked whether you'd like to enable it.
-The default value is [y] and you'll only be asked, if you have alabaster
-installed on your system. If you don't see this prompt and wan't to install
-alabaster on your system, you can do so by using the following command:
-
-    >>> pip install alabaster
-
-Please see `Alabaster GitHub home`_ for more information.
-
-.. _`Alabaster GitHub home`: https://github.com/bitprophet/alabaster
-
-**This is the end, if you're not using 'Alabaster'.**
+ABlog also generates archive pages and atom feeds from your posts. A post
+will appear
 
 
-Alabaster Options:
-^^^^^^^^^^^^^^^^^^
+Comments
+--------
 
-	1. **Google Analytics ID:**
-	Google Analytics ID for the blog to track traffic.
-	The default is blank. Leave blank to disable.
 
-	2. **Alabaster GitHub Options:**
-	Enables GitHub options for Alabaster and will lead to a few more
-	questions.
+Analytics
+---------
 
-**This is the end, if you're not using GitHub options for `Alabaster`**
+ABlog uses Alabaster_ theme by default to make sure that your project does not
+look like a Python package documentation. This may soon change though with
+Alabaster_ becoming the default theme for Sphinx_ in v1.3. But for now,
+
+
+Configuration
+-------------
+
+There are four major groups of configuration options that can help you
+customize how your website looks:
+
+  * :ref:`config` - add blog authors, post locations and languages to your
+    blog, level of achives and feeds and how much content they display, etc.
+
+  * Sphinx options -
+
+  * HTML output options -
+
+  * Alabaster_ theme options - you can
+
+
+Other Folders
+-------------
+
+You might have noticed that your project contains three folders that we have
+not mention yet. Here they are:
+
+  * :file:`_static` is for keeping image, :file:`.js`, and :file:`.css` files.
+    :confval:`html_static_path` Sphinx option for more information.
+
+  * :file:`_templates` is for custom HTML templates. See
+    :confval:`templates_path` for more information.
+
+  * :file:`.doctree` folder, created after build command is called, is
+    where Sphinx_ stores the state of your project. Files in this folder
+    saves time when you rebuild your project.
+
+
