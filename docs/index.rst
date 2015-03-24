@@ -52,25 +52,24 @@ If you already have a project, enable blogging by making following changes in ``
       'ablog'
   ]
 
-  # 2a. Append templates path to `templates_path`
+  # 2. Append templates path to `ablog.templates_path()`
   import ablog
+
+  # 2a. `templates_path` exists
   templates_path.append(ablog.get_html_templates_path())
 
-  # 2b. If `templates_path` is not defined before
+  # 2b. `templates_path` is not defined before
   templates_path = [ablog.get_html_templates_path()]
 
-If you also installed Alabaster_, see how to configure it here_.
-
 .. _ABlog Quick Start: http://ablog.readthedocs.org/manual/ablog-quick-start
-.. _here: https://github.com/bitprophet/alabaster#installation
 
 How it works
 ------------
 
 If you are new to Sphinx_ and reStructuredText markup language,
 you might find `reStructuredText Primer`_ useful. Once you have
-some content (in ``.rst`` files), you can post *any page* using
-the ``post`` directive as follows:
+content (in ``.rst`` files), you can post *any page* using the
+``post`` directive as follows:
 
 .. code-block:: rst
 
@@ -81,9 +80,8 @@ the ``post`` directive as follows:
      :location: SF
      :language: en
 
-ABlog will index all files posted as above. When building HTML pages,
-it will create archives and feeds that list these posts as
-specified by ``:tag:``, ``:category:``, etc. options.
+ABlog will index all files posted as above and list them in archives and feeds
+specified in ``:tag:``, ``:category:``, etc. options.
 
 You can also include a list of posts using ``postlist`` directive:
 
@@ -93,8 +91,8 @@ You can also include a list of posts using ``postlist`` directive:
      :category: Manual
      :reverse:
 
-For ABlog documentation, this converts to the following list of links that you
-can follow to learn more about configuring and using ABlog:
+For ABlog documentation, this converts to the following where you
+can find more about configuring and using ABlog:
 
   * `Posting and Listing <http://ablog.readthedocs.org/manual/posting-and-listing/>`_
   * `ABlog Configuration Options <http://ablog.readthedocs.org/manual/ablog-configuration-options/>`_
