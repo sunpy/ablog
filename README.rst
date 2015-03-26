@@ -55,11 +55,12 @@ If you already have a project, enable blogging by making following changes in ``
   # 2. Append templates path to `ablog.templates_path()`
   import ablog
 
-  # 2a. if `templates_path` is defined
+  # 2a. if `templates_path` is not defined
+  templates_path = [ablog.get_html_templates_path()]
+
+  # 2b. if `templates_path` is defined
   templates_path.append(ablog.get_html_templates_path())
 
-  # 2b. if `templates_path` is not defined
-  templates_path = [ablog.get_html_templates_path()]
 
 .. _ABlog Quick Start: http://ablog.readthedocs.org/manual/ablog-quick-start
 
