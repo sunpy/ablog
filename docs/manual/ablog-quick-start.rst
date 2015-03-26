@@ -54,6 +54,9 @@ Write Content
 If you are new to Sphinx_ and reStructuredText markup language,
 you might find `reStructuredText Primer`_ useful.
 
+.. _reStructuredText Primer: http://sphinx-doc.org/rest.html
+
+
 Pages
 ^^^^^
 
