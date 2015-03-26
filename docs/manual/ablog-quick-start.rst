@@ -51,7 +51,8 @@ navigation links within the project.
 Write Content
 -------------
 
-Sphinx_ converts reStructuredText to HTML. You can
+If you are new to Sphinx_ and reStructuredText markup language,
+you might find `reStructuredText Primer`_ useful.
 
 Pages
 ^^^^^
