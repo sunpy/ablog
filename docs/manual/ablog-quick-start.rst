@@ -93,7 +93,9 @@ customize how your website looks:
   * :ref:`config` - add blog authors, post locations and languages to your
     blog, adjust archive and feed content, etc.
 
-  * Sphinx general configuration -
+  * `General configuration <http://sphinx-doc.org/config.html#general-configuration>`_
+    and `project information <http://sphinx-doc.org/config.html#project-information>`_
+
 
   * :ref:`html-options` - configure appearance of your website
 
