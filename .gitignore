@@ -6,6 +6,7 @@ MANIFEST
 # Distribution / packaging
 build/
 dist/
+demo/
 *.egg-info/
 
 # Sphinx documentation

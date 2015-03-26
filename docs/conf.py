@@ -114,6 +114,7 @@ rst_epilog = '''
 .. _GitHub: https://github.com/abakan/ablog
 .. _PyPI: https://pypi.python.org/pypi/ablog
 .. _Read The Docs: https://readthedocs.org/
+.. _Alabaster: https://github.com/bitprophet/alabaster
 '''
 
 import re

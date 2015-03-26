@@ -4,7 +4,7 @@ ABlog Commands
 ==============
 
 .. post:: Mar 1, 2015
-   :tags: config
+   :tags: config, commands
    :author: Ahmet, Mehmet
    :category: Manual
    :location: SF
