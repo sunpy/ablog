@@ -358,7 +358,13 @@ class Post(object):
                 doctree.append(node.deepcopy())
         app = self.ablog.app
         app.env.resolve_references(doctree, pagename, app.builder)
+
+        add_permalinks, app.builder.add_permalinks = (
+            app.builder.add_permalinks, False)
+
         html = html_builder_write_doc(app.builder, pagename, doctree)
+
+        app.builder.add_permalinks = add_permalinks
 
         if drop_h1:
             html = re.sub('<h1>(.*?)</h1>', '', html, count=abs(int(drop_h1)))
