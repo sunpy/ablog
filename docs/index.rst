@@ -46,13 +46,13 @@ If you already have a project, enable blogging by making following changes in ``
 
 .. code-block:: python
 
-  # 1. Append 'ablog' to list of extensions
+  # 1. Add 'ablog' to list of extensions
   extensions = [
       '...',
       'ablog'
   ]
 
-  # 2. Append templates path to `ablog.templates_path()`
+  # 2. Add ablog templates path
   import ablog
 
   # 2a. if `templates_path` is not defined
