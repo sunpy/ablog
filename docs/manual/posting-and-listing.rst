@@ -140,7 +140,7 @@ A list of posts can be displayed in any page using the following directive:
         :tags: tips
         :date: %A, %B %d, %Y
         :format: {title} by {author} on {date}
-        :excerpt:
+        :excerpts:
         :sort:
 
    This will result in a bullet list of up to 5 posts (default is all)
@@ -182,4 +182,4 @@ A list of posts can be displayed in any page using the following directive:
 .. update:: Mar 28, 2015
 
    * Added ``:excerpts:`` option to :rst:dir:`postlist` to list posts
-     with their exceprts.
+     with their excerpts.

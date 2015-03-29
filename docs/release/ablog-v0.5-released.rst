@@ -18,4 +18,4 @@ ABlog v0.5.1 released
    :category: Release
    :location: SF
 
-Added ``:exceprts:`` option to :rst:dir:`postlist` directive.
+Added ``:excerpts:`` option to :rst:dir:`postlist` directive.
