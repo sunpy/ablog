@@ -90,16 +90,25 @@ You can also include a list of posts using ``postlist`` directive:
 
   .. postlist:: 5
      :category: Manual
-     :reverse:
+     :sort:
 
 For ABlog documentation, this converts to the following where you
 can find more about configuring and using ABlog:
 
-  * `Posting and Listing <http://ablog.readthedocs.org/manual/posting-and-listing/>`_
-  * `ABlog Configuration Options <http://ablog.readthedocs.org/manual/ablog-configuration-options/>`_
-  * `Cross-referencing Blog Pages <http://ablog.readthedocs.org/manual/cross-referencing-blog-pages/>`_
-  * `Post Excerpts and Images <http://ablog.readthedocs.org/manual/post-excerpts-and-images/>`_
-  * `Posting Sections <http://ablog.readthedocs.org/manual/posting-and-listing/#posting-sections>`_
+.. only:: html
+
+   .. postlist:: 5
+      :category: Manual
+      :sort:
+
+
+.. only:: not html
+
+   * `Posting and Listing <http://ablog.readthedocs.org/manual/posting-and-listing/>`_
+   * `ABlog Configuration Options <http://ablog.readthedocs.org/manual/ablog-configuration-options/>`_
+   * `Cross-referencing Blog Pages <http://ablog.readthedocs.org/manual/cross-referencing-blog-pages/>`_
+   * `Post Excerpts and Images <http://ablog.readthedocs.org/manual/post-excerpts-and-images/>`_
+   * `Posting Sections <http://ablog.readthedocs.org/manual/posting-and-listing/#posting-sections>`_
 
 
 .. _reStructuredText Primer: http://sphinx-doc.org/rest.html
