@@ -124,6 +124,7 @@ class PostListDirective(Directive):
         'format': lambda a: a.strip(),
         'date': lambda a: a.strip(),
         'sort': directives.flag,
+        'excerpts': directives.flag,
     }
 
     def run(self):
@@ -143,6 +144,8 @@ class PostListDirective(Directive):
         node['format'] = self.options.get('format', '{date} - {title}')
         node['date'] = self.options.get('date', None)
         node['sort'] = 'sort' in self.options
+        node['excerpts'] = 'excerpts' in self.options
+        node['image'] = 'image' in self.options
         return [node]
 
 
@@ -372,6 +375,7 @@ def process_postlist(app, doctree, docname):
                 raise KeyError('{} is not recognized in postlist format'
                     .format(key))
 
+        excerpts = node.attributes['excerpts']
         date_format = node.attributes['date'] or _(blog.post_date_format_short)
         bl = nodes.bullet_list()
         for post in posts:
@@ -407,6 +411,8 @@ def process_postlist(app, doctree, docname):
                         emp.append(nodes.Text(str(item)))
                         if i + 1 < len(items):
                             par.append(nodes.Text(', '))
+            if excerpts:
+                bli.extend(post.excerpt)
 
         node.replace_self(bl)
 

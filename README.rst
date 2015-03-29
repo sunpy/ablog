@@ -90,7 +90,7 @@ You can also include a list of posts using ``postlist`` directive:
 
   .. postlist:: 5
      :category: Manual
-     :reverse:
+     :sort:
 
 For ABlog documentation, this converts to the following where you
 can find more about configuring and using ABlog:

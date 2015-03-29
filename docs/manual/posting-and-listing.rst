@@ -140,13 +140,15 @@ A list of posts can be displayed in any page using the following directive:
         :tags: tips
         :date: %A, %B %d, %Y
         :format: {title} by {author} on {date}
+        :excerpt:
         :sort:
 
    This will result in a bullet list of up to 5 posts (default is all)
    authored by :ref:`author-ahmet` in :ref:`language-en` when he was in
    :ref:`location-pittsburgh` and posted in :ref:`category-manual`
    with tags :ref:`tag-tips`. Posts will be in ``:sort:``\ed to appear in
-   chronological order. Here are those posts:
+   chronological order and listed with their ``:excerpts:``.
+   Here are those posts:
 
    .. postlist:: 5
       :author: Ahmet
@@ -156,12 +158,11 @@ A list of posts can be displayed in any page using the following directive:
       :tags: tips
       :date: %A, %B %d, %Y
       :format: {title} by {author} on {date}
+      :excerpts:
       :sort:
-
 
    When no options are given all posts will be considered and they will
    be ordered by recency.
-
 
    Also, note that if the current post is one of the most recent posts,
    it will be omitted.
@@ -177,3 +178,8 @@ A list of posts can be displayed in any page using the following directive:
 
    * :rst:dir:`post` directive has ``:language:`` option.
    * :rst:dir:`postlist` directive takes arguments to filter posts.
+
+.. update:: Mar 28, 2015
+
+   * Added ``:excerpts:`` option to :rst:dir:`postlist` to list posts
+     with their exceprts.
