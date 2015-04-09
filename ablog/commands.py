@@ -343,8 +343,8 @@ def ablog_deploy(subparser, **kwargs):
         run('git commit -m "Updates."', echo=True)
 
         if kwargs['github_token']:
-            with open('.git/credentials', 'w') as out:
-                out.write('https://${}:@github.com'
+            with open(os.path.join(gitdir, '.git/credentials'), 'w') as out:
+                out.write('https://{}:@github.com'
                     .format(os.environ[kwargs['github_token']]))
 
         push = 'git push'
