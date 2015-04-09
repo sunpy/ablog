@@ -4,8 +4,10 @@ Deploy to GitHub Pages
 
 
 .. post:: Apr 07, 2015
-   :tags:
-   :category:
+   :tags: deploy
+   :author: Ahmet
+   :category: Manual
+   :location: SF
 
 If you are looking for a place to publish your blog, `GitHub Pages`_ might
 be the place for you.
@@ -30,8 +32,15 @@ to get published:
 
    ii. copy all files from build folder (:file:`_website`) to :file:`username.github.io`,
 
-   iii. add copied files and commit,
+   iii. add and commit copied files,
 
    iv. and finally push the changes to publish.
 
 Let us know how this works for you!
+
+.. _Jekyll: http://jekyllrb.com/
+
+..
+
+   iv. add `.nojekyll <https://help.github.com/articles/using-jekyll-with-pages/#turning-jekyll-off>`_
+       file, since this ain't no Jekyll_
