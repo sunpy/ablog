@@ -332,6 +332,7 @@ def ablog_deploy(subparser, **kwargs):
                     git_add.append(fnnew)
         print('Moved {} files to {}.github.io'
             .format(len(git_add), github_pages))
+
         os.chdir(gitdir)
 
         run("git add -f " +
@@ -342,8 +343,9 @@ def ablog_deploy(subparser, **kwargs):
         run('git commit -m "Updates."', echo=True)
 
         if kwargs['github_token']:
-            run('echo "https://${}:@github.com" > .git/credentials'
-                .format(kwargs['github_token'], echo=True))
+            with open('.git/credentials', 'w') as out:
+                out.write('https://${}:@github.com'
+                    .format(os.environ[kwargs['github_token']]))
 
         push = 'git push'
         if kwargs['push_quietly']:
