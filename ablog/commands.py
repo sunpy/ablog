@@ -341,9 +341,14 @@ def ablog_deploy(subparser, **kwargs):
             run("git add -f .nojekyll")
         run('git commit -m "Updates."', echo=True)
 
+        if kwargs['github_token']:
+            run('echo "https://${}:@github.com" > .git/credentials'
+                .format(kwargs['github_token'], echo=True))
+
         push = 'git push'
         if kwargs['push_quietly']:
             push += ' -q'
+        push += ' origin master'
         run(push, echo=True)
 
     else:
@@ -357,6 +362,9 @@ subparser = ablog_commands.add_parser('deploy',
 
 subparser.add_argument('-g', dest='github_pages', type=str,
     help="GitHub user name for deploying to GitHub pages")
+
+subparser.add_argument('--github-token', dest='github_token', type=str,
+    help="environment variable name storing GitHub access token")
 
 subparser.add_argument('--push-quietly', dest='push_quietly',
     action='store_true', default=False,
