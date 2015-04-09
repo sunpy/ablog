@@ -340,7 +340,11 @@ def ablog_deploy(subparser, **kwargs):
             open('.nojekyll', 'w')
             run("git add -f .nojekyll")
         run('git commit -m "Updates."', echo=True)
-        run('git push', echo=True)
+
+        push = 'git push'
+        if kwargs['push_quietly']:
+            push += ' -q'
+        run(push, echo=True)
 
     else:
         print('No place to deploy.')
@@ -353,6 +357,11 @@ subparser = ablog_commands.add_parser('deploy',
 
 subparser.add_argument('-g', dest='github_pages', type=str,
     help="GitHub user name for deploying to GitHub pages")
+
+subparser.add_argument('--push-quietly', dest='push_quietly',
+    action='store_true', default=False,
+    help="be more quiet when pushing changes")
+
 
 subparser.add_argument('-w', dest='website', type=str,
     help="path for website, default is _website when `ablog_website` is not set in conf.py")
