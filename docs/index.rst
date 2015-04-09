@@ -117,3 +117,6 @@ you do not need to change how you organize project contents.
 
 .. image:: https://pypip.in/d/ABlog/badge.png
    :target: https://crate.io/packages/ablog
+
+.. image:: https://readthedocs.org/projects/ablog/badge/?version=latest
+   :target: http://ablog.readthedocs.org/

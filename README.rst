@@ -28,14 +28,14 @@ You can install ABlog using pip_::
 
     pip install -U ablog
 
-This will also install `Sphinx <http://sphinx-doc.org/>`_, Alabaster_, and
-Werkzeug_, respectively required for building your website, making it look
-good, and generating feeds.
+This will also install `Sphinx <http://sphinx-doc.org/>`_, Alabaster_,
+Werkzeug_, and Invoke_ respectively required for building your website,
+making it look good, generating feeds, and running deploy commands.
 
 .. _pip: https://pip.pypa.io
 .. _Werkzeug: http://werkzeug.pocoo.org/
 .. _Alabaster: https://github.com/bitprophet/alabaster
-
+.. _Invoke: http://www.pyinvoke.org/
 
 Getting Started
 ---------------
