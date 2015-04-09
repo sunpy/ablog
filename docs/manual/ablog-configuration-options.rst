@@ -91,7 +91,7 @@ Authors, languages, & locations
 .. update:: Sep 15, 2014
 
    Added :confval:`blog_languages` and :confval:`blog_default_language`
-   confivuration variables.
+   configuration variables.
 
 Post related
 ------------
@@ -245,3 +245,31 @@ you see on the left are listed below in the same order:
 link to a archive pages generated for each tag, category, and year.
 In addition, there are ``authors.html``, ``languages.html``, and
 ``locations.html`` sidebars that link to author and location archive pages.
+
+Command Options
+---------------
+
+.. update:: Apr 7, 2015
+
+   Added :ref:`commands` options.
+
+.. confval:: ablog_website
+
+   Directory name for build output files. Default is ``_website``.
+
+.. confval:: ablog_doctrees
+
+   Directory name for build cache files. Default is ``.doctrees``.
+
+.. confval:: ablog_builder
+
+   HTML builder, default is ``dirhtml``. Build HTML pages, but with
+   a single directory per document. Makes for prettier URLs (no .html)
+   if served from a webserver. Alternative is ``html`` to build
+   one HTML file per document.
+
+.. confval:: github_pages
+
+   GitHub user name used by ``ablog deploy`` command. See :ref:`deploy`
+   and :ref:`deploy-to-github-pages` for more information.
+

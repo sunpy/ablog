@@ -1,8 +1,12 @@
 
 import os
 import sys
+import glob
 import ablog
+import shutil
 import argparse
+
+
 
 
 def find_confdir(subparser):
@@ -107,7 +111,7 @@ def ablog_build(subparser, **kwargs):
 
 subparser = ablog_commands.add_parser('build',
         help='build your blog project',
-        description="Build options can be set in conf.py. "
+        description="Path options can be set in conf.py. "
         "Default values of paths are relative to conf.py.")
 
 subparser.add_argument('-b', dest='builder', type=str,
@@ -116,14 +120,14 @@ subparser.add_argument('-b', dest='builder', type=str,
 subparser.add_argument('-d', dest='doctrees', type=str,
     default='.doctrees',
     help="path for the cached environment and doctree files, "
-        "default `ablog_doctrees` or .doctrees")
+        "default .doctrees when `ablog_doctrees` is not set in conf.py")
 
 subparser.add_argument('-s', dest='sourcedir', type=str,
     help="root path for source files, "
         "default is path to the folder that contains conf.py")
 
 subparser.add_argument('-w', dest='website', type=str,
-    help="path for website, default `ablog_website` or _website")
+    help="path for website, default is _website when `ablog_website` is not set in conf.py")
 
 subparser.add_argument('-T', dest='traceback',
     action='store_true', default=False,
@@ -132,6 +136,50 @@ subparser.add_argument('-T', dest='traceback',
 subparser.set_defaults(func=lambda ns: ablog_build(**ns.__dict__))
 subparser.set_defaults(subparser=subparser)
 
+
+def ablog_clean(subparser, **kwargs):
+
+    confdir = find_confdir(subparser)
+    conf = read_conf(confdir)
+
+    website = (kwargs['website'] or
+        os.path.join(confdir, getattr(conf, 'ablog_builddir', '_website')))
+
+    doctrees = (kwargs['doctrees'] or
+        os.path.join(confdir, getattr(conf, 'ablog_doctrees', '.doctrees')))
+
+
+    if glob.glob(os.path.join(website, '*')):
+        shutil.rmtree(website)
+        print('Removed {}.'.format(os.path.relpath(website)))
+    else:
+        print('Nothing to clean.')
+
+    if kwargs['deep'] and glob.glob(os.path.join(doctrees, '*')):
+        shutil.rmtree(doctrees)
+        print('Removed {}.'.format(os.path.relpath(doctrees)))
+
+
+subparser = ablog_commands.add_parser('clean',
+        help='clean your blog build files',
+        description="Path options can be set in conf.py. "
+        "Default values of paths are relative to conf.py.")
+
+subparser.add_argument('-d', dest='doctrees', type=str,
+    default='.doctrees',
+    help="path for the cached environment and doctree files, "
+        "default .doctrees when `ablog_doctrees` is not set in conf.py")
+
+subparser.add_argument('-w', dest='website', type=str,
+    help="path for website, default is _website when `ablog_website` is not set in conf.py")
+
+subparser.add_argument('-D', dest='deep',
+    action='store_true', default=False,
+    help="deep clean, remove cached environment and doctree files")
+
+
+subparser.set_defaults(func=lambda ns: ablog_clean(**ns.__dict__))
+subparser.set_defaults(subparser=subparser)
 
 
 def ablog_serve(subparser, **kwargs):
@@ -178,16 +226,18 @@ subparser.add_argument('-p', dest='port', type=int,
 
 subparser.add_argument('-w', dest='website', type=str,
     help="path for website, "
-        "default `ablog_website` or _website")
+        "default is _website when `ablog_website` is not set in conf.py")
 
 subparser.set_defaults(func=lambda ns: ablog_serve(**ns.__dict__))
 subparser.set_defaults(subparser=subparser)
+
 
 def ablog_post(subparser, **kwargs):
 
     POST_TEMPLATE =u'''
 %(title)s
 ====================
+
 .. post:: %(date)s
    :tags:
    :category:
@@ -236,6 +286,78 @@ subparser.add_argument(dest='filename', type=str,
 
 subparser.set_defaults(func=lambda ns: ablog_post(**ns.__dict__))
 subparser.set_defaults(subparser=subparser)
+
+def ablog_deploy(subparser, **kwargs):
+
+    confdir = find_confdir(subparser)
+    conf = read_conf(confdir)
+
+    github_pages = (kwargs['github_pages'] or
+        getattr(conf, 'github_pages') or None)
+
+    #from subprocess import call
+
+    website = (kwargs['website'] or
+        os.path.join(confdir, getattr(conf, 'ablog_builddir', '_website')))
+
+    tomove = glob.glob(os.path.join(website, '*'))
+    if not tomove:
+        print('Nothing to deploy, build first.')
+        return
+
+    try:
+        from invoke import run
+    except ImportError:
+        raise ImportError("invoke is required by deploy command, "
+            "run `pip install invoke`")
+
+
+    if github_pages:
+
+        gitdir = os.path.join(confdir, "{0}.github.io".format(github_pages))
+        if os.path.isdir(gitdir):
+            os.chdir(gitdir)
+            run("git pull", echo=True)
+        else:
+            run("git clone https://github.com/{0}/{0}.github.io.git"
+                .format(github_pages), echo=True)
+
+        git_add = []
+        for tm in tomove:
+            for root, dirnames, filenames in os.walk(website):
+                for filename in filenames:
+                    fn = os.path.join(root, filename)
+                    fnnew = fn.replace(website, gitdir)
+                    os.renames(fn, fnnew)
+                    git_add.append(fnnew)
+        print('Moved {} files to {}.github.io'
+            .format(len(git_add), github_pages))
+        os.chdir(gitdir)
+
+        run("git add -f " +
+            " ".join([os.path.relpath(p) for p in git_add]), echo=True)
+        run('git commit -m "Updates."', echo=True)
+        run('git push', echo=True)
+
+    else:
+        print('No place to deploy.')
+
+
+subparser = ablog_commands.add_parser('deploy',
+        help='deploy your website build files',
+        description="Path options can be set in conf.py. "
+        "Default values of paths are relative to conf.py.")
+
+subparser.add_argument('-g', dest='github_pages', type=str,
+    help="GitHub user name for deploying to GitHub pages")
+
+subparser.add_argument('-w', dest='website', type=str,
+    help="path for website, default is _website when `ablog_website` is not set in conf.py")
+
+
+subparser.set_defaults(func=lambda ns: ablog_deploy(**ns.__dict__))
+subparser.set_defaults(subparser=subparser)
+
 
 def ablog_main():
 
