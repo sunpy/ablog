@@ -3,7 +3,7 @@ python:
   - 2.7
   - 3.4
 before_install:
-  - pip install Sphinx Werkzeug alabaster
+  - pip install Sphinx Werkzeug alabaster invoke
 install:
   - pip install .
 script:
