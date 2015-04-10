@@ -341,7 +341,7 @@ def ablog_deploy(subparser, **kwargs):
             open('.nojekyll', 'w')
             run("git add -f .nojekyll")
 
-        run('git commit -m "{}"'.format(kwargs.get('message', 'Updates.'), echo=True)
+        run('git commit -m "{}"'.format(kwargs.get('message', 'Updates.'), echo=True))
 
         if kwargs['github_token']:
             with open(os.path.join(gitdir, '.git/credentials'), 'w') as out:
