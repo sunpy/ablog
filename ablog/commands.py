@@ -334,7 +334,7 @@ def ablog_deploy(subparser, **kwargs):
             .format(len(git_add), github_pages))
 
         os.chdir(gitdir)
-        run("pwd; ls -l")
+        run("pwd; ls -la", echo=True)
         run("git add -f " +
             " ".join([os.path.relpath(p) for p in git_add]), echo=True)
         if not os.path.isfile('.nojekyll'):
@@ -342,7 +342,7 @@ def ablog_deploy(subparser, **kwargs):
             run("git add -f .nojekyll")
 
         run('git commit -m "Updates."', echo=True)
-        run("pwd; ls -l")
+        run("pwd; ls -la", echo=True)
         if kwargs['github_token']:
             with open(os.path.join(gitdir, '.git/credentials'), 'w') as out:
                 out.write('https://{}:@github.com'
