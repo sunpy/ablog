@@ -34,12 +34,11 @@ to get published:
 
    iii. add and commit copied files,
 
-   iv. and finally push the changes to publish.
+   iv. add `.nojekyll <https://help.github.com/articles/using-jekyll-with-pages/#turning-jekyll-off>`_
+       file, since this ain't no Jekyll_
+
+   v. and finally push the changes to publish.
 
 Let us know how this works for you!
 
 .. _Jekyll: http://jekyllrb.com/
-
-..
-  iv. add `.nojekyll <https://help.github.com/articles/using-jekyll-with-pages/#turning-jekyll-off>`_
-      file, since this ain't no Jekyll_

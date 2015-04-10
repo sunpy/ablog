@@ -118,16 +118,22 @@ Running ``ablog deploy`` will push your website to GitHub.
 ::
 
   $ ablog deploy -h
-  usage: ablog deploy [-h] [-g GITHUB_PAGES] [-w WEBSITE]
+  usage: ablog deploy [-h] [-g GITHUB_PAGES] [-m MESSAGE]
+                      [--github-token GITHUB_TOKEN] [--push-quietly]
+                      [-w WEBSITE]
 
   Path options can be set in conf.py. Default values of paths are relative to
   conf.py.
 
   optional arguments:
-    -h, --help       show this help message and exit
-    -g GITHUB_PAGES  GitHub user name for deploying to GitHub pages
-    -w WEBSITE       path for website, default is _website when `ablog_website`
-                     is not set in conf.py
+    -h, --help            show this help message and exit
+    -g GITHUB_PAGES       GitHub username for deploying to GitHub pages
+    -m MESSAGE            commit message
+    --github-token GITHUB_TOKEN
+                          environment variable name storing GitHub access token
+    --push-quietly        be more quiet when pushing changes
+    -w WEBSITE            path for website, default is _website when
+                          `ablog_website` is not set in conf.py
 
 Create a Post
 -------------

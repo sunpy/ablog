@@ -364,7 +364,7 @@ subparser = ablog_commands.add_parser('deploy',
         "Default values of paths are relative to conf.py.")
 
 subparser.add_argument('-g', dest='github_pages', type=str,
-    help="GitHub user name for deploying to GitHub pages")
+    help="GitHub username for deploying to GitHub pages")
 
 subparser.add_argument('-m', dest='message', type=str,
     help="commit message")
