@@ -10,9 +10,6 @@ website project into a full-fledged blog with:
   * `Disqus integration`_
   * `Font-Awesome integration`_
 
-Looking for an example? Take a look at `ABlog documentation <http://ablog.readthedocs.org>`_
-where each manual page and release note is a blog post ;)
-
 .. _Atom feeds: http://ablog.readthedocs.org/blog/atom.xml
 .. _Archive pages: http://ablog.readthedocs.org/blog/
 .. _Blog sidebars: http://ablog.readthedocs.org/manual/ablog-configuration-options/#sidebars
