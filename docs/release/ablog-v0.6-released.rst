@@ -31,5 +31,5 @@ ABlog v0.6.2 released
    :category: Release
    :location: SF
 
-ABlog v0.6.1 is released to fix an issue with loading of Disqus comments
+ABlog v0.6.2 is released to fix an issue with loading of Disqus comments
 (:issue:`33`) and interpreting non-ascii characters (:issue:`34`).
