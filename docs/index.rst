@@ -9,12 +9,14 @@ website project into a full-fledged blog with:
   * `Blog sidebars`_
   * `Disqus integration`_
   * `Font-Awesome integration`_
+  * `Easy GitHub Pages deploys`_
 
 .. _Atom feeds: http://ablog.readthedocs.org/blog/atom.xml
 .. _Archive pages: http://ablog.readthedocs.org/blog/
 .. _Blog sidebars: http://ablog.readthedocs.org/manual/ablog-configuration-options/#sidebars
 .. _Disqus integration: http://ablog.readthedocs.org/manual/ablog-configuration-options/#disqus-integration
 .. _Font-Awesome integration: http://ablog.readthedocs.org/manual/ablog-configuration-options/#fa
+.. _Easy GitHub Pages deploys: http://ablog.readthedocs.org/manual/deploy-to-github-pages/
 
 .. _installation:
 
