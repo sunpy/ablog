@@ -140,6 +140,7 @@ A list of posts can be displayed in any page using the following directive:
         :tags: tips
         :date: %A, %B %d, %Y
         :format: {title} by {author} on {date}
+        :list-style: circle
         :excerpts:
         :sort:
 
@@ -158,6 +159,7 @@ A list of posts can be displayed in any page using the following directive:
       :tags: tips
       :date: %A, %B %d, %Y
       :format: {title} by {author} on {date}
+      :list-style: circle
       :excerpts:
       :sort:
 

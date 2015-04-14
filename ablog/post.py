@@ -125,6 +125,7 @@ class PostListDirective(Directive):
         'date': lambda a: a.strip(),
         'sort': directives.flag,
         'excerpts': directives.flag,
+        'list-style': lambda a: a.strip(),
     }
 
     def run(self):
@@ -146,6 +147,7 @@ class PostListDirective(Directive):
         node['sort'] = 'sort' in self.options
         node['excerpts'] = 'excerpts' in self.options
         node['image'] = 'image' in self.options
+        node['list-style'] = self.options.get('list-style', 'disc')
         return [node]
 
 
@@ -378,6 +380,7 @@ def process_postlist(app, doctree, docname):
         excerpts = node.attributes['excerpts']
         date_format = node.attributes['date'] or _(blog.post_date_format_short)
         bl = nodes.bullet_list()
+        bl.attributes['classes'].append('post-list-style-' + node['list-style'])
         for post in posts:
             bli = nodes.list_item()
             bl.append(bli)
