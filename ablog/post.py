@@ -408,7 +408,7 @@ def process_postlist(app, doctree, docname):
                         par.append(ref)
                         emp = nodes.emphasis()
                         ref.append(emp)
-                        emp.append(nodes.Text(str(item)))
+                        emp.append(nodes.Text(text_type(item)))
                         if i + 1 < len(items):
                             par.append(nodes.Text(', '))
             if excerpts:

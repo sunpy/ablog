@@ -491,7 +491,7 @@ class Collection(object):
 
     def __str__(self):
 
-        return str(self.name)
+        return text_type(self.name)
 
     def __len__(self):
 
