@@ -63,31 +63,6 @@ subparser.set_defaults(func=lambda ns: ablog_start())
 subparser.set_defaults(subparser=subparser)
 
 
-if 0:
-    def ablog_post(subparser, **kwargs):
-
-        conf = read_conf(find_confdir(subparser))
-
-        filename = kwargs['filename']
-        title = kwargs['title']
-        date_format = getattr(conf, 'post_date_format', '%b %d, %Y')
-
-        # add template here and create file
-
-        print('{} is ready to be edited.'.format(filename))
-
-    subparser = ablog_commands.add_parser('post',
-            help='post ')
-
-    subparser.add_argument('filename', help='filename')
-
-    subparser.add_argument('-t', '--title', dest='title', type=str,
-        help='post title')
-
-    subparser.set_defaults(func=lambda ns: ablog_post(**ns.__dict__))
-    subparser.set_defaults(subparser=subparser)
-
-
 
 def ablog_build(subparser, **kwargs):
 
@@ -273,8 +248,6 @@ def ablog_post(subparser, **kwargs):
             out.write(post_text)
 
         print('Blog post created: %s' % filename)
-
-
 
 
 
