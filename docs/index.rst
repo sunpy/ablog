@@ -88,23 +88,25 @@ You can also include a list of posts using ``postlist`` directive:
 
 .. code-block:: rst
 
-  .. postlist:: 5
+  .. postlist::
+     :list-style: circle
      :category: Manual
+     :format: {title}
      :sort:
 
 For ABlog documentation, this converts to the following where you
 can find more about configuring and using ABlog:
 
-  * `Posting and Listing <http://ablog.readthedocs.org/manual/posting-and-listing/>`_
-  * `ABlog Configuration Options <http://ablog.readthedocs.org/manual/ablog-configuration-options/>`_
-  * `Cross-referencing Blog Pages <http://ablog.readthedocs.org/manual/cross-referencing-blog-pages/>`_
-  * `Post Excerpts and Images <http://ablog.readthedocs.org/manual/post-excerpts-and-images/>`_
-  * `Posting Sections <http://ablog.readthedocs.org/manual/posting-and-listing/#posting-sections>`_
+.. postlist::
+   :category: Manual
+   :list-style: circle
+   :format: {title}
+   :sort:
 
 
 .. _reStructuredText Primer: http://sphinx-doc.org/rest.html
 
-For existing projects, it is important to note that ABlog does not intertere
+For existing projects, it is important to note that ABlog does not interfere
 with any Sphinx operations. Since you can post any page from any folder,
 you do not need to change how you organize project contents.
 
