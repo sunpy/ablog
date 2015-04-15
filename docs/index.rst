@@ -106,10 +106,6 @@ can find more about configuring and using ABlog:
 
 .. _reStructuredText Primer: http://sphinx-doc.org/rest.html
 
-For existing projects, it is important to note that ABlog does not interfere
-with any Sphinx operations. Since you can post any page from any folder,
-you do not need to change how you organize project contents.
-
 
 .. image:: https://secure.travis-ci.org/abakan/ablog.png?branch=devel
    :target: http://travis-ci.org/#!/abakan/ablog
