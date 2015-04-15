@@ -88,7 +88,7 @@ following directive:
       Update date format must follow the format specified with
       :confval:`post_date_format` configuration option.
 
-      Update directive renders like the update at the end of this post.
+      Update directive renders like the updates that are at the end of this post.
 
 .. _posting-sections:
 
@@ -164,10 +164,8 @@ A list of posts can be displayed in any page using the following directive:
       :sort:
 
    When no options are given all posts will be considered and they will
-   be ordered by recency.
-
-   Also, note that if the current post is one of the most recent posts,
-   it will be omitted.
+   be ordered by recency.  Also, note that if the current post is one of
+   the most recent posts, it will be omitted.
 
 
 .. update:: Aug 20, 2014
@@ -183,5 +181,10 @@ A list of posts can be displayed in any page using the following directive:
 
 .. update:: Mar 28, 2015
 
-   * Added ``:excerpts:`` option to :rst:dir:`postlist` to list posts
-     with their excerpts.
+   Added ``:excerpts:`` option to :rst:dir:`postlist` to list posts
+   with their excerpts.
+
+.. update:: Apr 14, 2015
+
+   Added ``:list-style:`` option to :rst:dir:`postlist` to control bullet
+   list style. *circle*, *disk*, and *none* (default) are recognized.

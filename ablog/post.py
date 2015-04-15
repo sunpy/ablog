@@ -147,7 +147,7 @@ class PostListDirective(Directive):
         node['sort'] = 'sort' in self.options
         node['excerpts'] = 'excerpts' in self.options
         node['image'] = 'image' in self.options
-        node['list-style'] = self.options.get('list-style', 'disc')
+        node['list-style'] = self.options.get('list-style', 'none')
         return [node]
 
 
