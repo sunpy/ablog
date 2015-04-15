@@ -63,31 +63,6 @@ subparser.set_defaults(func=lambda ns: ablog_start())
 subparser.set_defaults(subparser=subparser)
 
 
-if 0:
-    def ablog_post(subparser, **kwargs):
-
-        conf = read_conf(find_confdir(subparser))
-
-        filename = kwargs['filename']
-        title = kwargs['title']
-        date_format = getattr(conf, 'post_date_format', '%b %d, %Y')
-
-        # add template here and create file
-
-        print('{} is ready to be edited.'.format(filename))
-
-    subparser = ablog_commands.add_parser('post',
-            help='post ')
-
-    subparser.add_argument('filename', help='filename')
-
-    subparser.add_argument('-t', '--title', dest='title', type=str,
-        help='post title')
-
-    subparser.set_defaults(func=lambda ns: ablog_post(**ns.__dict__))
-    subparser.set_defaults(subparser=subparser)
-
-
 
 def ablog_build(subparser, **kwargs):
 
@@ -236,15 +211,13 @@ def ablog_post(subparser, **kwargs):
 
     POST_TEMPLATE =u'''
 %(title)s
-====================
+%(equal)s
 
 .. post:: %(date)s
    :tags:
    :category:
 
 '''
-
-    blog_root = find_confdir(subparser)
 
     from datetime import date
     from os import path
@@ -253,10 +226,16 @@ def ablog_post(subparser, **kwargs):
     today = date.today()
     title = kwargs['title']
     filename = kwargs['filename']
+    if not filename.lower().endswith('.rst'):
+        filename += '.rst'
+
     today = today.strftime("%b %d, %Y")
+    if not title:
+        title = filename[:-4].replace('-', ' ').title()
 
     pars = {'date': today,
-            'title': title
+            'title': title,
+            'equal': '=' * len(title)
             }
 
     if path.isfile(filename):
@@ -272,17 +251,14 @@ def ablog_post(subparser, **kwargs):
 
 
 
-
-
 subparser = ablog_commands.add_parser('post',
         help='create a blank post',)
 
 subparser.add_argument('-t', dest='title', type=str,
-    default='New Post',
-    help='post title; default is `New Post`')
+    help='post title; default is formed from filename')
 
 subparser.add_argument(dest='filename', type=str,
-    help='filename, e.g. my-nth-post.rst')
+    help='filename, e.g. my-nth-post (.rst appended)')
 
 subparser.set_defaults(func=lambda ns: ablog_post(**ns.__dict__))
 subparser.set_defaults(subparser=subparser)

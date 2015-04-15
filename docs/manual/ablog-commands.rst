@@ -146,11 +146,11 @@ Finally, ``ablog post`` will make a new post template file.
   usage: ablog post [-h] [-t TITLE] filename
 
   positional arguments:
-    filename    filename, e.g. my-nth-post.rst
+    filename    filename, e.g. my-nth-post (.rst appended)
 
   optional arguments:
     -h, --help  show this help message and exit
-    -t TITLE    post title; default is `New Post
+    -t TITLE    post title; default is formed from filename
 
 Clean Files
 -----------
