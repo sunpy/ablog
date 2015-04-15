@@ -1,0 +1,117 @@
+# Translations template for ablog.
+# Copyright (C) 2014 ORGANIZATION
+# This file is distributed under the same license as the ablog project.
+# uralbash <root@uralbash.ru>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ablog 0.2.3\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2014-09-14 21:22-0700\n"
+"PO-Revision-Date: 2015-04-14 17:10+0500\n"
+"Last-Translator: uralbash <root@uralbash.ru>\n"
+"Language-Team: Russian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 1.3\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: ablog/post.py:89
+msgid "Updated on"
+msgstr "Обновлено"
+
+#: ablog/post.py:387 ablog/templates/authors.html:2
+msgid "Authors"
+msgstr "Авторы"
+
+#: ablog/post.py:387 ablog/post.py:447
+msgid "Posts by"
+msgstr "Опубликовано"
+
+#: ablog/post.py:388 ablog/templates/locations.html:2
+msgid "Locations"
+msgstr ""
+
+#: ablog/post.py:388 ablog/post.py:448
+msgid "Posts from"
+msgstr "Сообщения из"
+
+#: ablog/post.py:389 ablog/templates/languages.html:2
+msgid "Languages"
+msgstr "Языки"
+
+#: ablog/post.py:389 ablog/post.py:390 ablog/post.py:449 ablog/post.py:450
+msgid "Posts in"
+msgstr "Сообщений в"
+
+#: ablog/post.py:390 ablog/templates/categories.html:2
+msgid "Categories"
+msgstr "Категории"
+
+#: ablog/post.py:391
+msgid "All posts"
+msgstr "Все записи"
+
+#: ablog/post.py:391 ablog/post.py:451
+msgid "Posted in"
+msgstr "Опубликовано в"
+
+#: ablog/post.py:392 ablog/templates/postcard2.html:43
+#: ablog/templates/tagcloud.html:2
+msgid "Tags"
+msgstr "Теги"
+
+#: ablog/post.py:392 ablog/post.py:452
+msgid "Posts tagged"
+msgstr "Сообщения с тегом"
+
+#: ablog/post.py:426
+msgid "Drafts"
+msgstr "Черновик"
+
+#: ablog/templates/archive.html:49
+msgid "Read more ..."
+msgstr "Читать ..."
+
+#: ablog/templates/archives.html:2
+msgid "Archives"
+msgstr "Архив"
+
+#: ablog/templates/postcard2.html:2
+msgid "Update"
+msgstr "Обновить"
+
+#: ablog/templates/postcard2.html:7
+msgid "Author"
+msgstr "Автор"
+
+#: ablog/templates/postcard2.html:16
+msgid "Location"
+msgstr "Расположение"
+
+#: ablog/templates/postcard2.html:25
+msgid "Language"
+msgstr "Язык"
+
+#: ablog/templates/postcard2.html:34
+msgid "Category"
+msgstr "Категория"
+
+#: ablog/templates/postcard2.html:44
+msgid "Tag"
+msgstr "Тег"
+
+#: ablog/templates/postnavy.html:7
+msgid "Previous"
+msgstr "Предыдущий"
+
+#: ablog/templates/postnavy.html:17
+msgid "Next"
+msgstr "Следующий"
+
+#: ablog/templates/recentposts.html:2
+msgid "Recent Posts"
+msgstr "Недавние Записи"
