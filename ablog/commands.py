@@ -102,28 +102,29 @@ cmd(ablog_start, name='start', help='start a new blog project',
     action='store_true', default=False,
     help="show full traceback on exception")
 @arg_doctrees
+@arg_website
 @arg('-s', dest='sourcedir', type=str,
     help="root path for source files, "
         "default is path to the folder that contains conf.py")
-@arg_website
 @arg('-b', dest='builder', type=str,
     help="builder to use, default `ablog_builder` or dirhtml")
 @cmd(name='build', help='build your blog project',
     description="Path options can be set in conf.py. "
     "Default values of paths are relative to conf.py.")
-def ablog_build(**kwargs):
+def ablog_build(builder=None, sourcedir=None, website=None, doctrees=None,
+    traceback=False, **kwargs):
 
     confdir = find_confdir()
     conf = read_conf(confdir)
-    website = (kwargs['website'] or
+    website = (website or
         os.path.join(confdir, getattr(conf, 'ablog_builddir', '_website')))
-    doctrees = (kwargs['doctrees'] or
+    doctrees = (doctrees or
         os.path.join(confdir, getattr(conf, 'ablog_doctrees', '.doctrees')))
-    sourcedir = (kwargs['sourcedir'] or confdir)
+    sourcedir = (sourcedir or confdir)
     argv = sys.argv[:1]
-    argv.extend(['-b', kwargs['builder'] or getattr(conf, 'ablog_builder', 'dirhtml')])
+    argv.extend(['-b', builder or getattr(conf, 'ablog_builder', 'dirhtml')])
     argv.extend(['-d', doctrees])
-    if kwargs['traceback']:
+    if traceback:
         argv.extend(['-T'])
     argv.extend([sourcedir, website])
 
@@ -138,7 +139,7 @@ def ablog_build(**kwargs):
 @cmd(name='clean', help='clean your blog build files',
     description="Path options can be set in conf.py. "
     "Default values of paths are relative to conf.py.")
-def ablog_clean(website=None, doctrees=None, deep=False):
+def ablog_clean(website=None, doctrees=None, deep=False, **kwargs):
 
     confdir = find_confdir()
     conf = read_conf(confdir)
@@ -170,7 +171,7 @@ def ablog_clean(website=None, doctrees=None, deep=False):
 @cmd(name='serve', help='serve and view your project',
     description="Serve options can be set in conf.py. "
     "Default values of paths are relative to conf.py.")
-def ablog_serve(**kwargs):
+def ablog_serve(website=None, port=8000, view=True, **kwargs):
 
     confdir = find_confdir()
     conf = read_conf(confdir)
@@ -179,8 +180,6 @@ def ablog_serve(**kwargs):
     import SocketServer
     import webbrowser
 
-
-    port = kwargs['port']
     Handler = SimpleHTTPServer.SimpleHTTPRequestHandler
     httpd = SocketServer.TCPServer(("", port), Handler)
 
@@ -188,12 +187,12 @@ def ablog_serve(**kwargs):
     print("Serving HTTP on {}:{}.".format(ip, port))
     print("Quit the server with Control-C.")
 
-    website = (kwargs['website'] or
+    website = (website or
         os.path.join(confdir, getattr(conf, 'ablog_builddir', '_website')))
 
     os.chdir(website)
 
-    if kwargs['view']:
+    if view:
         (webbrowser.open_new_tab('http://127.0.0.1:{}'.format(port)) and
          httpd.serve_forever())
     else:
@@ -206,7 +205,7 @@ def ablog_serve(**kwargs):
 @arg(dest='filename', type=str,
     help='filename, e.g. my-nth-post (.rst appended)')
 @cmd(name='post', help='create a blank post',)
-def ablog_post(**kwargs):
+def ablog_post(filename, title=None, **kwargs):
 
     POST_TEMPLATE =u'''
 %(title)s
@@ -222,8 +221,6 @@ def ablog_post(**kwargs):
 
     #Generate basic post params.
     today = date.today()
-    title = kwargs['title']
-    filename = kwargs['filename']
     if not filename.lower().endswith('.rst'):
         filename += '.rst'
 
@@ -261,7 +258,7 @@ def ablog_post(**kwargs):
     description="Path options can be set in conf.py. "
     "Default values of paths are relative to conf.py.")
 def ablog_deploy(website, message=None, github_pages=None,
-    push_quietly=False, github_token=None):
+    push_quietly=False, github_token=None, **kwargs):
 
     confdir = find_confdir()
     conf = read_conf(confdir)
