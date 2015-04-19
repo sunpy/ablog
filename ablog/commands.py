@@ -1,4 +1,3 @@
-
 import os
 import sys
 import glob
@@ -7,9 +6,7 @@ import shutil
 import argparse
 
 
-
-
-def find_confdir(subparser):
+def find_confdir():
 
     from os.path import isfile, join, abspath
     confdir = os.getcwd()
@@ -26,7 +23,7 @@ def find_confdir(subparser):
     if isfile(conf) and 'ablog' in open(conf).read():
         return confdir
     else:
-        subparser.exit("Current directory and its parents doesn't "
+        sys.exit("Current directory and its parents doesn't "
             "contain configuration file (conf.py).")
 
 
@@ -36,8 +33,6 @@ def read_conf(confdir):
     conf = __import__('conf')
     sys.path.pop(0)
     return conf
-
-
 
 
 parser = argparse.ArgumentParser(
@@ -116,9 +111,9 @@ cmd(ablog_start, name='start', help='start a new blog project',
 @cmd(name='build', help='build your blog project',
     description="Path options can be set in conf.py. "
     "Default values of paths are relative to conf.py.")
-def ablog_build(subparser, **kwargs):
+def ablog_build(**kwargs):
 
-    confdir = find_confdir(subparser)
+    confdir = find_confdir()
     conf = read_conf(confdir)
     website = (kwargs['website'] or
         os.path.join(confdir, getattr(conf, 'ablog_builddir', '_website')))
@@ -143,15 +138,15 @@ def ablog_build(subparser, **kwargs):
 @cmd(name='clean', help='clean your blog build files',
     description="Path options can be set in conf.py. "
     "Default values of paths are relative to conf.py.")
-def ablog_clean(subparser, **kwargs):
+def ablog_clean(website=None, doctrees=None, deep=False):
 
-    confdir = find_confdir(subparser)
+    confdir = find_confdir()
     conf = read_conf(confdir)
 
-    website = (kwargs['website'] or
+    website = (website or
         os.path.join(confdir, getattr(conf, 'ablog_builddir', '_website')))
 
-    doctrees = (kwargs['doctrees'] or
+    doctrees = (doctrees or
         os.path.join(confdir, getattr(conf, 'ablog_doctrees', '.doctrees')))
 
 
@@ -161,7 +156,7 @@ def ablog_clean(subparser, **kwargs):
     else:
         print('Nothing to clean.')
 
-    if kwargs['deep'] and glob.glob(os.path.join(doctrees, '*')):
+    if deep and glob.glob(os.path.join(doctrees, '*')):
         shutil.rmtree(doctrees)
         print('Removed {}.'.format(os.path.relpath(doctrees)))
 
@@ -175,9 +170,9 @@ def ablog_clean(subparser, **kwargs):
 @cmd(name='serve', help='serve and view your project',
     description="Serve options can be set in conf.py. "
     "Default values of paths are relative to conf.py.")
-def ablog_serve(subparser, **kwargs):
+def ablog_serve(**kwargs):
 
-    confdir = find_confdir(subparser)
+    confdir = find_confdir()
     conf = read_conf(confdir)
 
     import SimpleHTTPServer
@@ -211,7 +206,7 @@ def ablog_serve(subparser, **kwargs):
 @arg(dest='filename', type=str,
     help='filename, e.g. my-nth-post (.rst appended)')
 @cmd(name='post', help='create a blank post',)
-def ablog_post(subparser, **kwargs):
+def ablog_post(**kwargs):
 
     POST_TEMPLATE =u'''
 %(title)s
@@ -256,28 +251,24 @@ def ablog_post(subparser, **kwargs):
 
 @arg('--github-token', dest='github_token', type=str,
     help="environment variable name storing GitHub access token")
-@arg('--push-quietly', dest='push_quietly',
-    action='store_true', default=False,
+@arg('--push-quietly', dest='push_quietly', action='store_true', default=False,
     help="be more quiet when pushing changes")
-@arg('-m', dest='message', type=str,
-    help="commit message")
+@arg('-m', dest='message', type=str, help="commit message")
 @arg('-g', dest='github_pages', type=str,
     help="GitHub username for deploying to GitHub pages")
 @arg_website
 @cmd(name='deploy', help='deploy your website build files',
     description="Path options can be set in conf.py. "
     "Default values of paths are relative to conf.py.")
-def ablog_deploy(subparser, **kwargs):
+def ablog_deploy(website, message=None, github_pages=None,
+    push_quietly=False, github_token=None):
 
-    confdir = find_confdir(subparser)
+    confdir = find_confdir()
     conf = read_conf(confdir)
 
-    github_pages = (kwargs['github_pages'] or
-        getattr(conf, 'github_pages') or None)
+    github_pages = (github_pages or getattr(conf, 'github_pages') or None)
 
-    #from subprocess import call
-
-    website = (kwargs['website'] or
+    website = (website or
         os.path.join(confdir, getattr(conf, 'ablog_builddir', '_website')))
 
     tomove = glob.glob(os.path.join(website, '*'))
@@ -321,15 +312,15 @@ def ablog_deploy(subparser, **kwargs):
             open('.nojekyll', 'w')
             run("git add -f .nojekyll")
 
-        run('git commit -m "{}"'.format(kwargs.get('message', 'Updates.'), echo=True))
+        run('git commit -m "{}"'.format(message or 'Updates.', echo=True))
 
-        if kwargs['github_token']:
+        if github_token:
             with open(os.path.join(gitdir, '.git/credentials'), 'w') as out:
                 out.write('https://{}:@github.com'
-                    .format(os.environ[kwargs['github_token']]))
+                    .format(os.environ[github_token]))
             run('git config credential.helper "store --file=.git/credentials"')
         push = 'git push'
-        if kwargs['push_quietly']:
+        if push_quietly:
             push += ' -q'
         push += ' origin master'
         run(push, echo=True)
