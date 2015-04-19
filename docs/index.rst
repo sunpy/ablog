@@ -36,6 +36,7 @@ making it look good, generating feeds, and running deploy commands.
 .. _Alabaster: https://github.com/bitprophet/alabaster
 .. _Invoke: http://www.pyinvoke.org/
 
+
 Getting Started
 ---------------
 
@@ -60,8 +61,8 @@ If you already have a project, enable blogging by making following changes in ``
   # 2b. if `templates_path` is defined
   templates_path.append(ablog.get_html_templates_path())
 
-
 .. _ABlog Quick Start: http://ablog.readthedocs.org/manual/ablog-quick-start
+
 
 How it works
 ------------

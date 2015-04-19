@@ -162,8 +162,11 @@ def ablog_clean(website=None, doctrees=None, deep=False, **kwargs):
         print('Removed {}.'.format(os.path.relpath(doctrees)))
 
 
-@arg('-n', dest='view',
-    action='store_false', default=True,
+@arg('--patterns', dest='rebuild', action='store_false', default='*.rst;*.txt',
+    help="patterns for triggering rebuilds")
+@arg('-r', dest='rebuild', action='store_true', default=False,
+    help="rebuild when a file matching patterns change or get added")
+@arg('-n', dest='view', action='store_false', default=True,
     help="do not open website in a new browser tab")
 @arg('-p', dest='port', type=int, default=8000,
     help='port number for HTTP server; default is 8000')
@@ -171,7 +174,8 @@ def ablog_clean(website=None, doctrees=None, deep=False, **kwargs):
 @cmd(name='serve', help='serve and view your project',
     description="Serve options can be set in conf.py. "
     "Default values of paths are relative to conf.py.")
-def ablog_serve(website=None, port=8000, view=True, **kwargs):
+def ablog_serve(website=None, port=8000, view=True, rebuild=False,
+    patterns='*.rst;*.txt', **kwargs):
 
     confdir = find_confdir()
     conf = read_conf(confdir)
@@ -192,11 +196,40 @@ def ablog_serve(website=None, port=8000, view=True, **kwargs):
 
     os.chdir(website)
 
-    if view:
-        (webbrowser.open_new_tab('http://127.0.0.1:{}'.format(port)) and
-         httpd.serve_forever())
+    if rebuild:
+
+        #from watchdog.watchmedo import observe_with
+        from watchdog.observers import Observer
+        from watchdog.tricks import ShellCommandTrick
+        patterns = patterns.split(';')
+        ignore_patterns = [os.path.join(website, '*')]
+        handler = ShellCommandTrick(shell_command='ablog build',
+                                    patterns=patterns,
+                                    ignore_patterns=ignore_patterns,
+                                    ignore_directories=False,
+                                    wait_for_process=True,
+                                    drop_during_process=False)
+
+        observer = Observer(timeout=1)
+        observer.schedule(handler, confdir, recursive=True)
+        observer.start()
+        try:
+            if view:
+                (webbrowser.open_new_tab('http://127.0.0.1:{}'.format(port)) and
+                 httpd.serve_forever())
+            else:
+                httpd.serve_forever()
+        except KeyboardInterrupt:
+            observer.stop()
+        observer.join()
+
+
     else:
-        httpd.serve_forever()
+        if view:
+            (webbrowser.open_new_tab('http://127.0.0.1:{}'.format(port)) and
+             httpd.serve_forever())
+        else:
+            httpd.serve_forever()
 
 
 

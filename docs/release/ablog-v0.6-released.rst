@@ -11,6 +11,7 @@ ABlog v0.6 is released with new :ref:`ablog-commands`. You can use
 ``ablog deploy`` to :ref:`deploy-to-github-pages`, and also ``ablog clean``
 to do spring cleaning every once in a while.
 
+
 ABlog v0.6.1 released
 ---------------------
 
@@ -50,3 +51,15 @@ ABlog v0.6.3 comes with Russian localisation and following enhancements:
 
   * ``ablog post`` command de-slugifies filename to make the title
     when it's not given.
+
+
+ABlog v0.6.4 released
+---------------------
+
+.. post:: Apr 19, 2015
+   :author: Ahmet
+   :category: Release
+   :location: SF
+
+ABlog v0.6.4 comes with improved ``ablog serve`` command that helps you
+:ref:`watch-yourself-blogging`.
