@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import os
 import sys
 import time
 import datetime
@@ -14,26 +13,16 @@ if sys.version_info >= (3, 0):
 else:
     text_type = unicode
 
-from docutils.utils import column_width
 
 from ablog import __version__
-from sphinx import quickstart as sphinx_quickstart
 from sphinx.util import texescape
-from sphinx.quickstart import boolean, ok, choice, do_prompt, is_path, mkdir_p
-from sphinx.util.console import purple, bold, red, turquoise, nocolor, color_terminal
+from sphinx.quickstart import do_prompt, is_path, mkdir_p
+from sphinx.util.console import bold, nocolor, color_terminal
 from sphinx.util.osutil import make_filename
 
 from textwrap import wrap
 
 w = lambda t, ls=80: '\n'.join(wrap(t, ls))
-
-def is_module_installed(module_name):
-    try:
-        __import__(module_name)
-        return True
-    except:
-        return False
-
 
 ABLOG_CONF = u''
 
@@ -459,7 +448,6 @@ def generate(d, overwrite=True, silent=False):
     """Generate project based on values in *d*."""
 
     texescape.init()
-    indent = ' ' * 4
 
     if 'mastertoctree' not in d:
         d['mastertoctree'] = ''
