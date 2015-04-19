@@ -40,35 +40,86 @@ def read_conf(confdir):
 
 
 
-ablog_parser = argparse.ArgumentParser(
+parser = argparse.ArgumentParser(
     description="ABlog for blogging with Sphinx",
     epilog="See 'ablog <command> -h' for more information on a specific "
            "command.")
 
-ablog_parser.add_argument('-v', '--version',
+parser.add_argument('-v', '--version',
     help="print ABlog version and exit",
     action='version', version=ablog.__version__)
 
 
 
-from ablog.start import ablog_start
-ablog_commands = ablog_parser.add_subparsers(
-    title='subcommands')
-subparser = ablog_commands.add_parser('start',
-    help='start a new blog project',
+commands = ablog_commands = parser.add_subparsers(title='commands')
+
+def cmd(func=None, **kwargs):
+
+    if func is None:
+        def cmd_inner(func):
+            return cmd(func, **kwargs)
+        return cmd_inner
+    else:
+        command = commands.add_parser(**kwargs)
+        command.set_defaults(func=func)
+        command.set_defaults(subparser=command)
+        func.command = command
+        return func
+
+def arg(*args, **kwargs):
+    if args and callable(args[0]):
+        func = args[0]
+        args = args[1:]
+    else:
+        func = None
+    if func is None:
+        def arg_inner(func):
+            return arg(func, *args, **kwargs)
+        return arg_inner
+    else:
+        func.command.add_argument(*args, **kwargs)
+        return func
+
+def arg_website(func):
+
+    arg(func, '-w', dest='website', type=str,
+        help="path for website, default is _website when `ablog_website` "
+            "is not set in conf.py")
+    return func
+
+def arg_doctrees(func):
+
+    arg(func, '-d', dest='doctrees', type=str, default='.doctrees',
+        help="path for the cached environment and doctree files, "
+            "default .doctrees when `ablog_doctrees` is not set in conf.py")
+    return func
+
+
+
+from .start import ablog_start
+cmd(ablog_start, name='start', help='start a new blog project',
     description="Start a new blog project with in less than 10 seconds. "
     "After answering a few questions, you will end up with a configuration "
     "file and sample pages.")
-subparser.set_defaults(func=lambda ns: ablog_start())
-subparser.set_defaults(subparser=subparser)
 
 
-
+@arg('-T', dest='traceback',
+    action='store_true', default=False,
+    help="show full traceback on exception")
+@arg_doctrees
+@arg('-s', dest='sourcedir', type=str,
+    help="root path for source files, "
+        "default is path to the folder that contains conf.py")
+@arg_website
+@arg('-b', dest='builder', type=str,
+    help="builder to use, default `ablog_builder` or dirhtml")
+@cmd(name='build', help='build your blog project',
+    description="Path options can be set in conf.py. "
+    "Default values of paths are relative to conf.py.")
 def ablog_build(subparser, **kwargs):
 
     confdir = find_confdir(subparser)
     conf = read_conf(confdir)
-
     website = (kwargs['website'] or
         os.path.join(confdir, getattr(conf, 'ablog_builddir', '_website')))
     doctrees = (kwargs['doctrees'] or
@@ -84,34 +135,14 @@ def ablog_build(subparser, **kwargs):
     from sphinx import main
     main(argv)
 
-subparser = ablog_commands.add_parser('build',
-        help='build your blog project',
-        description="Path options can be set in conf.py. "
-        "Default values of paths are relative to conf.py.")
 
-subparser.add_argument('-b', dest='builder', type=str,
-    help="builder to use, default `ablog_builder` or dirhtml")
-
-subparser.add_argument('-d', dest='doctrees', type=str,
-    default='.doctrees',
-    help="path for the cached environment and doctree files, "
-        "default .doctrees when `ablog_doctrees` is not set in conf.py")
-
-subparser.add_argument('-s', dest='sourcedir', type=str,
-    help="root path for source files, "
-        "default is path to the folder that contains conf.py")
-
-subparser.add_argument('-w', dest='website', type=str,
-    help="path for website, default is _website when `ablog_website` is not set in conf.py")
-
-subparser.add_argument('-T', dest='traceback',
-    action='store_true', default=False,
-    help="show full traceback on exception")
-
-subparser.set_defaults(func=lambda ns: ablog_build(**ns.__dict__))
-subparser.set_defaults(subparser=subparser)
-
-
+@arg('-D', dest='deep', action='store_true', default=False,
+    help="deep clean, remove cached environment and doctree files")
+@arg_doctrees
+@arg_website
+@cmd(name='clean', help='clean your blog build files',
+    description="Path options can be set in conf.py. "
+    "Default values of paths are relative to conf.py.")
 def ablog_clean(subparser, **kwargs):
 
     confdir = find_confdir(subparser)
@@ -135,28 +166,15 @@ def ablog_clean(subparser, **kwargs):
         print('Removed {}.'.format(os.path.relpath(doctrees)))
 
 
-subparser = ablog_commands.add_parser('clean',
-        help='clean your blog build files',
-        description="Path options can be set in conf.py. "
-        "Default values of paths are relative to conf.py.")
-
-subparser.add_argument('-d', dest='doctrees', type=str,
-    default='.doctrees',
-    help="path for the cached environment and doctree files, "
-        "default .doctrees when `ablog_doctrees` is not set in conf.py")
-
-subparser.add_argument('-w', dest='website', type=str,
-    help="path for website, default is _website when `ablog_website` is not set in conf.py")
-
-subparser.add_argument('-D', dest='deep',
-    action='store_true', default=False,
-    help="deep clean, remove cached environment and doctree files")
-
-
-subparser.set_defaults(func=lambda ns: ablog_clean(**ns.__dict__))
-subparser.set_defaults(subparser=subparser)
-
-
+@arg('-n', dest='view',
+    action='store_false', default=True,
+    help="do not open website in a new browser tab")
+@arg('-p', dest='port', type=int, default=8000,
+    help='port number for HTTP server; default is 8000')
+@arg_website
+@cmd(name='serve', help='serve and view your project',
+    description="Serve options can be set in conf.py. "
+    "Default values of paths are relative to conf.py.")
 def ablog_serve(subparser, **kwargs):
 
     confdir = find_confdir(subparser)
@@ -186,27 +204,13 @@ def ablog_serve(subparser, **kwargs):
     else:
         httpd.serve_forever()
 
-subparser = ablog_commands.add_parser('serve',
-        help='serve and view your project',
-        description="Serve options can be set in conf.py. "
-        "Default values of paths are relative to conf.py.")
-
-subparser.add_argument('-n', dest='view',
-        action='store_false', default=True,
-        help="do not open website in a new browser tab")
-
-subparser.add_argument('-p', dest='port', type=int,
-    default=8000,
-    help='port number for HTTP server; default is 8000')
-
-subparser.add_argument('-w', dest='website', type=str,
-    help="path for website, "
-        "default is _website when `ablog_website` is not set in conf.py")
-
-subparser.set_defaults(func=lambda ns: ablog_serve(**ns.__dict__))
-subparser.set_defaults(subparser=subparser)
 
 
+@arg('-t', dest='title', type=str,
+    help='post title; default is formed from filename')
+@arg(dest='filename', type=str,
+    help='filename, e.g. my-nth-post (.rst appended)')
+@cmd(name='post', help='create a blank post',)
 def ablog_post(subparser, **kwargs):
 
     POST_TEMPLATE =u'''
@@ -218,7 +222,6 @@ def ablog_post(subparser, **kwargs):
    :category:
 
 '''
-
     from datetime import date
     from os import path
 
@@ -251,18 +254,19 @@ def ablog_post(subparser, **kwargs):
 
 
 
-subparser = ablog_commands.add_parser('post',
-        help='create a blank post',)
-
-subparser.add_argument('-t', dest='title', type=str,
-    help='post title; default is formed from filename')
-
-subparser.add_argument(dest='filename', type=str,
-    help='filename, e.g. my-nth-post (.rst appended)')
-
-subparser.set_defaults(func=lambda ns: ablog_post(**ns.__dict__))
-subparser.set_defaults(subparser=subparser)
-
+@arg('--github-token', dest='github_token', type=str,
+    help="environment variable name storing GitHub access token")
+@arg('--push-quietly', dest='push_quietly',
+    action='store_true', default=False,
+    help="be more quiet when pushing changes")
+@arg('-m', dest='message', type=str,
+    help="commit message")
+@arg('-g', dest='github_pages', type=str,
+    help="GitHub username for deploying to GitHub pages")
+@arg_website
+@cmd(name='deploy', help='deploy your website build files',
+    description="Path options can be set in conf.py. "
+    "Default values of paths are relative to conf.py.")
 def ablog_deploy(subparser, **kwargs):
 
     confdir = find_confdir(subparser)
@@ -334,41 +338,14 @@ def ablog_deploy(subparser, **kwargs):
         print('No place to deploy.')
 
 
-subparser = ablog_commands.add_parser('deploy',
-        help='deploy your website build files',
-        description="Path options can be set in conf.py. "
-        "Default values of paths are relative to conf.py.")
-
-subparser.add_argument('-g', dest='github_pages', type=str,
-    help="GitHub username for deploying to GitHub pages")
-
-subparser.add_argument('-m', dest='message', type=str,
-    help="commit message")
-
-subparser.add_argument('--github-token', dest='github_token', type=str,
-    help="environment variable name storing GitHub access token")
-
-subparser.add_argument('--push-quietly', dest='push_quietly',
-    action='store_true', default=False,
-    help="be more quiet when pushing changes")
-
-
-subparser.add_argument('-w', dest='website', type=str,
-    help="path for website, default is _website when `ablog_website` is not set in conf.py")
-
-
-subparser.set_defaults(func=lambda ns: ablog_deploy(**ns.__dict__))
-subparser.set_defaults(subparser=subparser)
-
 
 def ablog_main():
 
-
     if len(sys.argv) == 1:
-        ablog_parser.print_help()
+        parser.print_help()
     else:
-        namespace = ablog_parser.parse_args()
-        namespace.func(namespace)
+        namespace = parser.parse_args()
+        namespace.func(**namespace.__dict__)
 
 
 if __name__ == '__main__':
