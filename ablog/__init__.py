@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 """ABlog for Sphinx"""
-
 import os
 
 from .blog import Blog, CONFIG
@@ -10,20 +9,23 @@ from .post import (PostDirective, PostListDirective, UpdateDirective,
 
 __version__ = '0.6.4'
 
-def anchor(post):
 
+def anchor(post):
+    """Return anchor string for posts that arepage sections."""
 
     if post.section:
         return '#' + post.section
     else:
         return ''
 
+
 def init_ablog(app):
-    """Instantiate ABlog and link from `html_context` so that it can be
+    """Instantiate ABlog and add to `html_context` so that it can be
     reached from templates."""
 
     app.config.html_context['ablog'] = Blog(app)
     app.config.html_context['anchor'] = anchor
+
 
 def setup(app):
     """Setup ABlog extension."""
@@ -33,6 +35,7 @@ def setup(app):
 
     app.add_directive('post', PostDirective)
     app.add_directive('postlist', PostListDirective)
+
     app.connect('builder-inited', init_ablog)
     app.connect('doctree-read', process_posts)
     app.connect('env-purge-doc', purge_posts)
@@ -45,12 +48,13 @@ def setup(app):
                  html=(lambda s, n: s.visit_admonition(n),
                        lambda s, n: s.depart_admonition(n)))
 
-    ld = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'locale')
-    app.config.locale_dirs.append(ld)
+    pkgdir = os.path.abspath(os.path.dirname(__file__))
+    locale_dir = os.path.join(pkgdir, 'locale')
+    app.config.locale_dirs.append(locale_dir)
 
 
 def get_html_templates_path():
-    """Return path to the folder containing ABlog templates."""
+    """Return path to ABlog templates folder."""
 
-    return os.path.join(os.path.abspath(os.path.dirname(__file__)),
-                        'templates')
+    pkgdir = os.path.abspath(os.path.dirname(__file__))
+    return os.path.join(pkgdir, 'templates')

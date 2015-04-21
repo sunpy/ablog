@@ -20,6 +20,7 @@ if sys.version_info >= (3, 0):
 else:
     text_type = unicode
 
+
 class PostNode(nodes.Element):
     """Represent ``post`` directive content and options in document tree."""
 
@@ -33,10 +34,9 @@ class PostList(nodes.General, nodes.Element):
 
 
 class UpdateNode(nodes.Admonition, nodes.Element):
-
+    """Represent ``update`` directive."""
 
     pass
-
 
 
 class PostDirective(Directive):
@@ -56,7 +56,6 @@ class PostDirective(Directive):
         'language': _split,
         'redirect': _split,
         'title': lambda a: a.strip(),
-        #'update': lambda a: a.strip(),
         'image': int,
         'excerpt': int,
         'exclude': directives.flag,
@@ -71,7 +70,6 @@ class PostDirective(Directive):
                                 node, match_titles=1)
 
         node['date'] = self.arguments[0] if self.arguments else None
-        #node['update'] = self.options.get('update', None)
         node['tags'] = self.options.get('tags', [])
         node['author'] = self.options.get('author', [])
         node['category'] = self.options.get('category', [])
@@ -99,12 +97,9 @@ class UpdateDirective(Directive):
                              self.options,
                              self.content, self.lineno, self.content_offset,
                              self.block_text, self.state, self.state_machine)
-            #date = datetime.strptime(date, app.config['post_date_format'])
         ad[0]['date'] = self.arguments[0] if self.arguments else ''
-
         set_source_info(self, ad[0])
         return ad
-
 
 
 class PostListDirective(Directive):
@@ -152,13 +147,13 @@ class PostListDirective(Directive):
 
 
 def purge_posts(app, env, docname):
-    """Remove post and reference to it in the standard domain when its
+    """Remove post and reference to it from the standard domain when its
     document is removed or changed."""
 
     if hasattr(env, 'ablog_posts'):
         env.ablog_posts.pop(docname, None)
-    env.domains['std'].data['labels'].pop(os.path.split(docname)[1], None)
-
+    filename = os.path.split(docname)[1]
+    env.domains['std'].data['labels'].pop(filename, None)
 
 
 def process_posts(app, doctree):
@@ -264,14 +259,6 @@ def process_posts(app, doctree):
         else:
             date = None
 
-        #update = node['update']
-        #if update:
-        #    try:
-        #        update = datetime.strptime(update, app.config['post_date_format'])
-        #    except ValueError:
-        #        raise ValueError('invalid post update date in: ' + docname)
-        #else:
-        #    update = date
 
         # if docname ends with `index` use folder name to reference the document
         # a potential problem here is that there may be files/folders with the
@@ -283,12 +270,10 @@ def process_posts(app, doctree):
             label = slugify(title)
 
 
-        post_name = docname
         section_name = ''
 
         if multi_post and section.parent is not doctree:
                 section_name = section.attributes['ids'][0]
-                post_name = docname + '#' + section_name
                 label += '-' + section_name
         else:
             # create a reference for the post
@@ -300,6 +285,7 @@ def process_posts(app, doctree):
             section_copy = section[0].deepcopy()
         else:
             section_copy = section.deepcopy()
+
         # multiple posting may result having post nodes
         for nn in section_copy.traverse(PostNode):
             if nn['exclude']:

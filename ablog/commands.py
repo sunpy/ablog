@@ -7,6 +7,7 @@ import argparse
 
 
 def find_confdir():
+    """Return path to current directory or its parent that contains conf.py"""
 
     from os.path import isfile, join, abspath
     confdir = os.getcwd()
@@ -14,9 +15,7 @@ def find_confdir():
     parent = lambda d: abspath(join(d, '..'))
 
     while not isfile(join(confdir, 'conf.py')) and confdir != parent(confdir):
-
         confdir = parent(confdir)
-
 
     conf = join(confdir, 'conf.py')
 
@@ -28,6 +27,7 @@ def find_confdir():
 
 
 def read_conf(confdir):
+    """Return conf.py file as a module."""
 
     sys.path.insert(0, confdir)
     conf = __import__('conf')
@@ -43,7 +43,6 @@ parser = argparse.ArgumentParser(
 parser.add_argument('-v', '--version',
     help="print ABlog version and exit",
     action='version', version=ablog.__version__)
-
 
 
 commands = ablog_commands = parser.add_subparsers(title='commands')
@@ -88,7 +87,6 @@ def arg_doctrees(func):
         help="path for the cached environment and doctree files, "
             "default .doctrees when `ablog_doctrees` is not set in conf.py")
     return func
-
 
 
 from .start import ablog_start
@@ -150,16 +148,19 @@ def ablog_clean(website=None, doctrees=None, deep=False, **kwargs):
     doctrees = (doctrees or
         os.path.join(confdir, getattr(conf, 'ablog_doctrees', '.doctrees')))
 
-
+    nothing = True
     if glob.glob(os.path.join(website, '*')):
         shutil.rmtree(website)
         print('Removed {}.'.format(os.path.relpath(website)))
-    else:
-        print('Nothing to clean.')
+        nothing = False
 
     if deep and glob.glob(os.path.join(doctrees, '*')):
         shutil.rmtree(doctrees)
         print('Removed {}.'.format(os.path.relpath(doctrees)))
+        nothing = False
+
+    if nothing:
+        print('Nothing to clean.')
 
 
 @arg('--patterns', dest='rebuild', action='store_false', default='*.rst;*.txt',
@@ -232,7 +233,6 @@ def ablog_serve(website=None, port=8000, view=True, rebuild=False,
             httpd.serve_forever()
 
 
-
 @arg('-t', dest='title', type=str,
     help='post title; default is formed from filename')
 @arg(dest='filename', type=str,
@@ -276,7 +276,6 @@ def ablog_post(filename, title=None, **kwargs):
             out.write(post_text)
 
         print('Blog post created: %s' % filename)
-
 
 
 @arg('--github-token', dest='github_token', type=str,
@@ -357,7 +356,6 @@ def ablog_deploy(website, message=None, github_pages=None,
 
     else:
         print('No place to deploy.')
-
 
 
 def ablog_main():
