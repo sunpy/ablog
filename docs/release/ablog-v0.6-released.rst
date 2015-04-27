@@ -63,3 +63,15 @@ ABlog v0.6.4 released
 
 ABlog v0.6.4 comes with improved ``ablog serve`` command that helps you
 :ref:`watch-yourself-blogging`.
+
+
+ABlog v0.6.5 released
+---------------------
+
+.. post:: Apr 27, 2015
+   :author: Ahmet
+   :category: Release
+   :location: SF
+
+ABlog v0.6.5 is a bug fix release to resolve :issue:`38`, an exception raised
+when using :rst:dir:`postlist` without specifying number of posts.
