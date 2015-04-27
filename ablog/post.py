@@ -163,7 +163,7 @@ def _get_section_title(section):
         break
     # A problem with the following is that title may contain pending
     # references, e.g. :ref:`tag-tips`
-    title = title.astext()
+    return title.astext()
 
 
 def _get_update_dates(section, docname, post_date_format):
