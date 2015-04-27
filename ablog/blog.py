@@ -223,6 +223,8 @@ class Blog(object):
     def recent(self, num, docname=None, **labels):
         """Yield *num* recent posts, excluding the one with `docname`."""
 
+        if num is None:
+            num = len(self)
         for i, post in enumerate(self.posts):
             if post.docname == docname:
                 num += 1

@@ -156,6 +156,38 @@ def purge_posts(app, env, docname):
     env.domains['std'].data['labels'].pop(filename, None)
 
 
+def _get_section_title(section):
+    """Return section title as text."""
+
+    for title in section.traverse(nodes.title):
+        break
+    # A problem with the following is that title may contain pending
+    # references, e.g. :ref:`tag-tips`
+    title = title.astext()
+
+
+def _get_update_dates(section, docname, post_date_format):
+    """Return list of dates of updates found section."""
+
+
+    update_nodes = list(section.traverse(UpdateNode))
+    update_dates = []
+    for update_node in update_nodes:
+        try:
+            update = datetime.strptime(update_node['date'], post_date_format)
+        except ValueError:
+            raise ValueError('invalid post update date in: ' + docname)
+
+        substitute = nodes.title(u'',
+            update_node[0][0].astext() + u' ' + update.strftime(post_date_format))
+        update_node[0].replace_self(substitute)
+        # for now, let updates look like note
+        update_node['classes'] = ['note', 'update']
+
+        update_dates.append(update)
+    return update_dates
+
+
 def process_posts(app, doctree):
     """Process posts and map posted document names to post details in the
     environment."""
@@ -167,11 +199,10 @@ def process_posts(app, doctree):
     if not hasattr(env, 'ablog_posts'):
         env.ablog_posts = {}
 
-
     post_nodes = list(doctree.traverse(PostNode))
     if not post_nodes:
         return
-    pdf = app.config['post_date_format']
+    post_date_format = app.config['post_date_format']
     docname = env.docname
 
     # mark the post as 'orphan' so that
@@ -181,8 +212,8 @@ def process_posts(app, doctree):
     blog = Blog(app)
     auto_excerpt = blog.post_auto_excerpt
     multi_post = len(post_nodes) > 1 or blog.post_always_section
+
     for order, node in enumerate(post_nodes, start=1):
-        # print node['excerpt']
         if node['excerpt'] is None:
             node['excerpt'] = auto_excerpt
 
@@ -199,31 +230,11 @@ def process_posts(app, doctree):
 
         # get updates here, in the section that post belongs to
         # Might there be orphan updates?
-        update_nodes = list(section.traverse(UpdateNode))
-        update_dates = []
-        for un in update_nodes:
-            try:
-                update = datetime.strptime(un['date'], pdf)
-            except ValueError:
-                raise ValueError('invalid post update date in: ' + docname)
-
-            un[0].replace_self(nodes.title(u'', un[0][0].astext() + u' ' +
-                                               update.strftime(pdf)))
-            # for now, let updates look like note
-            un['classes'] = ['note', 'update']
-
-            update_dates.append(update)
-
+        update_dates = _get_update_dates(section, docname, post_date_format)
 
         # Making sure that post has a title because all post titles
         # are needed when resolving post lists in documents
-        title = node['title']
-        if not title:
-            for title in section.traverse(nodes.title):
-                break
-            # A problem with the following is that title may contain pending
-            # references, e.g. :ref:`tag-tips`
-            title = title.astext()
+        title = node['title'] or _get_section_title(section)
 
         # creating a summary here, before references are resolved
         excerpt = []
@@ -253,7 +264,7 @@ def process_posts(app, doctree):
         date = node['date']
         if date:
             try:
-                date = datetime.strptime(date, pdf)
+                date = datetime.strptime(date, post_date_format)
             except ValueError:
                 raise ValueError('invalid post published date in: ' + docname)
         else:
@@ -269,9 +280,7 @@ def process_posts(app, doctree):
         if not label:
             label = slugify(title)
 
-
         section_name = ''
-
         if multi_post and section.parent is not doctree:
                 section_name = section.attributes['ids'][0]
                 label += '-' + section_name
@@ -320,7 +329,6 @@ def process_posts(app, doctree):
 
         # instantiate catalogs and collections here
         #  so that references are created and no warnings are issued
-
         for key in ['tags', 'author', 'category', 'location', 'language']:
             catalog = blog.catalogs[key]
             for label in postinfo[key]:
@@ -343,6 +351,7 @@ def process_postlist(app, doctree, docname):
             for coll in node[cat]:
                 if coll in blog.catalogs[cat].collections:
                     colls.append(blog.catalogs[cat].collections[coll])
+
         if colls:
             posts = set(blog.posts)
             for coll in colls:
@@ -353,6 +362,7 @@ def process_postlist(app, doctree, docname):
         else:
             posts = list(blog.recent(node.attributes['length'], docname,
                                           **node.attributes))
+
         if node.attributes['sort']:
             posts.sort() # in reverse chronological order, so no reverse=True
 
@@ -458,7 +468,7 @@ def generate_archive_pages(app):
             yield (collection.docname, context, 'collection.html')
 
 
-    ppp = 5
+    #ppp = 5
     #for page, i in enumerate(range(0, len(blog.posts), ppp)):
     if 1:
         context = {
@@ -573,6 +583,7 @@ def generate_atom_feeds(app):
         # this is to make the function a generator
         # and make work for Sphinx 'html-collect-pages'
         yield
+
 
 def register_posts(app):
     """Register posts found in the Sphinx build environment."""
