@@ -152,7 +152,7 @@ def purge_posts(app, env, docname):
     """Remove post and reference to it from the standard domain when its
     document is removed or changed."""
 
-    obj = (env, app)[ON_RTD]
+    obj = (env, Blog)[ON_RTD]
     if hasattr(obj, 'ablog_posts'):
         obj.ablog_posts.pop(docname, None)
 
@@ -197,7 +197,7 @@ def process_posts(app, doctree):
     environment."""
 
     env = app.builder.env
-    obj = (env, app)[ON_RTD]
+    obj = (env, Blog)[ON_RTD]
     if not hasattr(obj, 'ablog_posts'):
         obj.ablog_posts = {}
 
