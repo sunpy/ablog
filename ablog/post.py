@@ -157,7 +157,7 @@ def purge_posts(app, env, docname):
         obj.ablog_posts.pop(docname, None)
 
     filename = os.path.split(docname)[1]
-    obj.domains['std'].data['labels'].pop(filename, None)
+    env.domains['std'].data['labels'].pop(filename, None)
 
 
 def _get_section_title(section):
