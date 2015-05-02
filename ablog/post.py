@@ -21,8 +21,6 @@ else:
     text_type = unicode
 
 
-ON_RTD = os.environ.get('READTHEDOCS', None) == 'True'
-
 class PostNode(nodes.Element):
     """Represent ``post`` directive content and options in document tree."""
 
@@ -152,9 +150,8 @@ def purge_posts(app, env, docname):
     """Remove post and reference to it from the standard domain when its
     document is removed or changed."""
 
-    obj = (env, Blog)[ON_RTD]
-    if hasattr(obj, 'ablog_posts'):
-        obj.ablog_posts.pop(docname, None)
+    if hasattr(env, 'ablog_posts'):
+        env.ablog_posts.pop(docname, None)
 
     filename = os.path.split(docname)[1]
     env.domains['std'].data['labels'].pop(filename, None)
@@ -197,9 +194,11 @@ def process_posts(app, doctree):
     environment."""
 
     env = app.builder.env
-    obj = (env, Blog)[ON_RTD]
-    if not hasattr(obj, 'ablog_posts'):
-        obj.ablog_posts = {}
+    if os.environ.get('READTHEDOCS', None) == 'True':
+        env.topickle = lambda *args: env.warn('index',
+            'Environment is not being pickled.')
+    if not hasattr(env, 'ablog_posts'):
+        env.ablog_posts = {}
 
     post_nodes = list(doctree.traverse(PostNode))
     if not post_nodes:
@@ -324,9 +323,9 @@ def process_posts(app, doctree):
             'doctree': section_copy
         }
 
-        if docname not in obj.ablog_posts:
-            obj.ablog_posts[docname] = []
-        obj.ablog_posts[docname].append(postinfo)
+        if docname not in env.ablog_posts:
+            env.ablog_posts[docname] = []
+        env.ablog_posts[docname].append(postinfo)
 
 
         # instantiate catalogs and collections here
