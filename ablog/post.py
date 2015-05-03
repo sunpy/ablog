@@ -191,13 +191,14 @@ def _get_update_dates(section, docname, post_date_format):
 def skip_pickling(env):
 
 
-    def dump(obj, level=0):
-        for attr in dir(obj):
-            val = getattr(obj, attr)
-            if isinstance(val, (int, float, str, unicode, list, dict, set)):
-                print('{}{}'.format(level * ' ', repr(val)))
-            else:
-                dump(val, level=level+1)
+    def dump(obj, level=0, env=env):
+        if obj is not env:
+            for attr in dir(obj):
+                val = getattr(obj, attr)
+                if isinstance(val, (int, float, str, unicode, list, dict, set)):
+                    print('{}{}'.format(level * ' ', repr(val)))
+                else:
+                    dump(val, level=level+1)
 
     env._topickle = env.topickle
     def topickle(self, *args):
@@ -207,7 +208,8 @@ def skip_pickling(env):
         except:
             pass
 
-        dump(env)
+        for attr in dir(env):
+            dump(getattr(env, attr))
     env.topickle = topickle
     #env.topickle = lambda *args: env.warn('index',
     #    'Building on Read The Docs, environment is not being pickled.')
