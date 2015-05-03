@@ -208,7 +208,7 @@ def skip_pickling(env):
 
 
     env._topickle = env.topickle
-    def topickle(self, *args):
+    def topickle(self=env, *args):
 
         warnfunc = self._warnfunc
         self.set_warnfunc(None)
