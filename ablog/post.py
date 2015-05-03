@@ -245,7 +245,7 @@ def process_posts(app, doctree):
     environment."""
 
     env = app.builder.env
-    if os.environ.get('READTHEDOCS', None) == 'True' and 0:
+    if os.environ.get('READTHEDOCS', None) == 'True' or 1:
         skip_pickling(env)
     if not hasattr(env, 'ablog_posts'):
         env.ablog_posts = {}
