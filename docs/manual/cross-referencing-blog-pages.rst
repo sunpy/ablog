@@ -14,15 +14,21 @@ cross-referenced using the name of the file, or when the file is named
 This page, :ref:`cross-referencing-blog-pages`, for example is referenced
 as ``:ref:`cross-referencing-blog-pages``` using :rst:role:`ref` role.
 
+When posts have long file names, it may be inconvenient to use them repeatedly
+for cross-referencing.  An alternative that Sphinx_ offers is creating your own
+short and unique labels for cross-referencing to posts. See :ref:`xref-syntax`
+for details.
+
 .. _archives:
 
 Archive pages
 -------------
 
-Archive pages, on the other hand, can be cross-referenced by combining
-archive type and archive name as follows:
-
 .. only:: html
+
+   Archive pages, on the other hand, can be cross-referenced by combining
+   archive type and archive name as follows:
+
 
    ==============  ==========================  ===============================
    Archive         Example                     reStructured Text
@@ -51,7 +57,6 @@ archive type and archive name as follows:
    ==============  ==========================  ===============================
 
 
-When posts have long file or folder names, it may be convenient to use
-them repeatedly for cross-referencing.  An alternative that Sphinx_ offers
-is creating your own short and unique labels for cross-referencing to posts.
-See :ref:`xref-syntax` for details.
+.. only:: latex
+
+   Archive pages cannot be cross-referenced in LaTeX/PDB builds.

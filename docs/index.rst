@@ -106,6 +106,7 @@ can find more about configuring and using ABlog:
 
 .. _reStructuredText Primer: http://sphinx-doc.org/rest.html
 
+
 .. only:: html
 
    .. image:: https://secure.travis-ci.org/abakan/ablog.png?branch=devel

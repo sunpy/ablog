@@ -43,9 +43,7 @@ Images
 
 Let's first include a local and a non-local image in this post.
 
-.. only:: html
-
-   .. image:: https://www.python.org/static/community_logos/python-logo.png
+.. image:: https://www.python.org/static/community_logos/python-logo.png
 
 .. image:: /_static/ablog.png
 
