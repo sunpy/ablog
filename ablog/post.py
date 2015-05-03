@@ -193,7 +193,7 @@ def skip_pickling(env):
 
     def dump(obj, level=0):
         for attr in dir(obj):
-            val = getattr(obj, a)
+            val = getattr(obj, attr)
             if isinstance(val, (int, float, str, unicode, list, dict, set)):
                 print('{}{}'.format(level * ' ', repr(val)))
             else:
