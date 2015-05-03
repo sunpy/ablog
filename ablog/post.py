@@ -232,6 +232,7 @@ def skip_pickling(env):
         self.set_warnfunc(warnfunc)
 
         #try_pickling(env)
+    tried.add(id(topickle))
     env.topickle = topickle
     #env.topickle = lambda *args: env.warn('index',
     #    'Building on Read The Docs, environment is not being pickled.')
