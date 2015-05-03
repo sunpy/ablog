@@ -232,7 +232,7 @@ def skip_pickling(env):
         self.domains = domains
         self.config.values = values
         self.set_warnfunc(warnfunc)
-        from code import interact; interact(local=locals())
+        #from code import interact; interact(local=locals())
         #try_pickling(env)
     tried.add(id(topickle))
     env.topickle = topickle
