@@ -28,6 +28,19 @@ def init_ablog(app):
     app.config.html_context['anchor'] = anchor
 
 
+def clean_html_context(app, exception):
+
+    from code import interact; interact(local=locals())
+
+    app.env.config.html_context.pop('ablog', None)
+    app.env.config.html_context.pop('anchor', None)
+
+def html_page_context(app, pagename, templatename, context, doctree):
+
+    context['ablog'] = Blog(app)
+    context['anchor'] = anchor
+
+
 def setup(app):
     """Setup ABlog extension."""
 
@@ -37,7 +50,8 @@ def setup(app):
     app.add_directive('post', PostDirective)
     app.add_directive('postlist', PostListDirective)
 
-    app.connect('builder-inited', init_ablog)
+    #app.connect('builder-inited', init_ablog)
+    #app.connect('build-finished', clean_html_context)
     app.connect('doctree-read', process_posts)
 
     app.connect('env-purge-doc', purge_posts)
@@ -45,6 +59,7 @@ def setup(app):
     app.connect('missing-reference', missing_reference)
     app.connect('html-collect-pages', generate_archive_pages)
     app.connect('html-collect-pages', generate_atom_feeds)
+    app.connect('html-page-context', html_page_context)
 
     app.add_directive('update', UpdateDirective)
     app.add_node(UpdateNode,

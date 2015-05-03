@@ -102,7 +102,6 @@ class Blog(object):
         for opt in CONFIG:
             self.config[opt[0]] = getattr(app.config, opt[0])
 
-
         opt = self.config['blog_default_author']
         if opt is not None and not isinstance(opt, list):
             self.config['blog_default_author'] = [opt]
