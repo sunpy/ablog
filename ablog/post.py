@@ -189,68 +189,12 @@ def _get_update_dates(section, docname, post_date_format):
         update_dates.append(update)
     return update_dates
 
-def skip_pickling(env):
-
-    import pickle
-    tried = set()
-    def try_pickling(obj, pref='env'):
-
-        for name, attr in getattr(obj, '__dict__').items():
-            if id(attr) in tried:
-                continue
-            tried.add(id(attr))
-            try:
-                pickle.dumps(attr)
-            except Exception as err:
-                print('{}.{}: {}'.format(pref, name, err))
-
-            if hasattr(attr, '__dict__'):
-                try_pickling(attr, pref + '.' + name)
-
-
-    env._topickle = env.topickle
-    import types
-    from six import class_types
-    def topickle(filename, self=env, *args):
-
-        warnfunc = self._warnfunc
-        self.set_warnfunc(None)
-        values = self.config.values
-        del self.config.values
-        domains = self.domains
-        del self.domains
-        picklefile = open(filename, 'wb')
-        # remove potentially pickling-problematic values from config
-        for key, val in list(vars(self.config).items()):
-            if key.startswith('_') or \
-               isinstance(val, types.ModuleType) or \
-               isinstance(val, types.FunctionType) or \
-               isinstance(val, class_types):
-                del self.config[key]
-        print('Trying to pickle:')
-        try_pickling(env)
-        #from code import interact; interact(local=locals())
-        # reset attributes
-
-        self.domains = domains
-        self.config.values = values
-        self.set_warnfunc(warnfunc)
-
-        #try_pickling(env)
-    tried.add(id(topickle))
-    env.topickle = topickle
-    #env.topickle = lambda *args: env.warn('index',
-    #    'Building on Read The Docs, environment is not being pickled.')
-
 
 def process_posts(app, doctree):
     """Process posts and map posted document names to post details in the
     environment."""
 
     env = app.builder.env
-    if os.environ.get('READTHEDOCS', None) and 0:
-        env.topickle = lambda *args: env.warn('index',
-        'Building on Read The Docs, environment is not being pickled.')
     if not hasattr(env, 'ablog_posts'):
         env.ablog_posts = {}
 
