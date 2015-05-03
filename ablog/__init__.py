@@ -38,6 +38,7 @@ def setup(app):
 
     app.connect('builder-inited', init_ablog)
     app.connect('doctree-read', process_posts)
+
     app.connect('env-purge-doc', purge_posts)
     app.connect('doctree-resolved', process_postlist)
     app.connect('html-collect-pages', generate_archive_pages)

@@ -76,6 +76,7 @@ TOMORROW = datetime.today() + dtmod.timedelta(1)
 FUTURE = datetime(9999, 12, 31)
 
 
+
 class Blog(object):
 
     """Handle blog operations."""
@@ -96,7 +97,8 @@ class Blog(object):
         self.config = {}
 
         # std domain of for creating references to posts and archives
-        self.std_domain = domain = self.app.env.domains['std']
+        #self.std_domain =
+        domain = self.app.env.domains['std']
 
         # get configuration from Sphinx app
         for opt in CONFIG:
@@ -485,9 +487,6 @@ class Collection(object):
         self.xref = self.catalog.xref + '-' + slugify(label)
         self._slug = None
         self._html = None
-
-        self.catalog.blog.std_domain.data['labels'][self.xref] = (
-            self.docname, self.xref, self.name)
 
     def __str__(self):
 

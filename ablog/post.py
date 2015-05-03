@@ -245,7 +245,7 @@ def process_posts(app, doctree):
     environment."""
 
     env = app.builder.env
-    if os.environ.get('READTHEDOCS', None) == 'True' or 1:
+    if os.environ.get('READTHEDOCS', None) == 'True' and 0:
         skip_pickling(env)
     if not hasattr(env, 'ablog_posts'):
         env.ablog_posts = {}
@@ -380,12 +380,18 @@ def process_posts(app, doctree):
 
         # instantiate catalogs and collections here
         #  so that references are created and no warnings are issued
+        std_domain = app.env.domains['std']
         for key in ['tags', 'author', 'category', 'location', 'language']:
             catalog = blog.catalogs[key]
             for label in postinfo[key]:
-                catalog[label]
+                coll = catalog[label]
+                std_domain.data['labels'][coll.xref] = (
+                    coll.docname, coll.xref, coll.name)
+
         if postinfo['date']:
-            blog.archive[postinfo['date'].year]
+            coll = blog.archive[postinfo['date'].year]
+            std_domain.data['labels'][coll.xref] = (
+                coll.docname, coll.xref, coll.name)
 
 
 def process_postlist(app, doctree, docname):
