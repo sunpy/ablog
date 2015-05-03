@@ -228,11 +228,13 @@ def skip_pickling(env):
                 del self.config[key]
         print('Trying to pickle:')
         try_pickling(env)
+        #from code import interact; interact(local=locals())
         # reset attributes
+
         self.domains = domains
         self.config.values = values
         self.set_warnfunc(warnfunc)
-        #from code import interact; interact(local=locals())
+
         #try_pickling(env)
     tried.add(id(topickle))
     env.topickle = topickle
@@ -245,8 +247,9 @@ def process_posts(app, doctree):
     environment."""
 
     env = app.builder.env
-    if os.environ.get('READTHEDOCS', None) == 'True' or 1:
-        skip_pickling(env)
+    if os.environ.get('READTHEDOCS', None):
+        env.topickle = lambda *args: env.warn('index',
+        'Building on Read The Docs, environment is not being pickled.')
     if not hasattr(env, 'ablog_posts'):
         env.ablog_posts = {}
 
