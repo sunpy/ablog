@@ -208,8 +208,9 @@ def skip_pickling(env):
 
 
     env._topickle = env.topickle
-    def topickle(self=env, *args):
-
+    import types
+    from six import class_types
+    def topickle(filename, self=env, *args):
         warnfunc = self._warnfunc
         self.set_warnfunc(None)
         values = self.config.values

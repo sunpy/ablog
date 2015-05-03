@@ -18,7 +18,6 @@ website project into a full-fledged blog with:
 .. _Font-Awesome integration: http://ablog.readthedocs.org/manual/ablog-configuration-options/#fa
 .. _Easy GitHub Pages deploys: http://ablog.readthedocs.org/manual/deploy-to-github-pages/
 
-
 .. _installation:
 
 Installation
