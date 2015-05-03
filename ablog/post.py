@@ -201,7 +201,7 @@ def skip_pickling(env):
             try:
                 pickle.dumps(attr)
             except Exception as err:
-                print('{}: {}'.format(pref, err))
+                print('{}.{}: {}'.format(pref, name, err))
 
             if hasattr(attr, '__dict__'):
                 try_pickling(attr, pref + '.' + name)
@@ -211,6 +211,7 @@ def skip_pickling(env):
     import types
     from six import class_types
     def topickle(filename, self=env, *args):
+
         warnfunc = self._warnfunc
         self.set_warnfunc(None)
         values = self.config.values
@@ -231,7 +232,7 @@ def skip_pickling(env):
         self.domains = domains
         self.config.values = values
         self.set_warnfunc(warnfunc)
-
+        from code import interact; interact(local=locals())
         #try_pickling(env)
     tried.add(id(topickle))
     env.topickle = topickle
