@@ -385,26 +385,28 @@ def process_posts(app, doctree):
 
         # instantiate catalogs and collections here
         #  so that references are created and no warnings are issued
-        std_domain = app.env.domains['std']
+        if non_html:
+            stdlabel = env.intersphinx_inventory.setdefault('std:label', {})
+            baseurl = getattr(env.config, 'blog_baseurl').rstrip('/') + '/'
+            project, version = env.config.project, text_type(env.config.version)
+        else:
+            stdlabel = env.domains['std'].data['labels']
+
         for key in ['tags', 'author', 'category', 'location', 'language']:
             catalog = blog.catalogs[key]
             for label in postinfo[key]:
                 coll = catalog[label]
                 if non_html:
-                    std_domain.data['labels'][coll.xref] = (
-                        'http://ablog.readthedocs.org/' + coll.docname, coll.xref, coll.name)
+                    stdlabel[coll.xref] = (project, version, baseurl + coll.docname, coll.name)
                 else:
-                    std_domain.data['labels'][coll.xref] = (
-                        coll.docname, coll.xref, coll.name)
+                    stdlabel[coll.xref] = (coll.docname, coll.xref, coll.name)
 
         if postinfo['date']:
             coll = blog.archive[postinfo['date'].year]
             if non_html:
-                std_domain.data['labels'][coll.xref] = (
-                    'http://ablog.readthedocs.org/' + coll.docname, coll.xref, coll.name)
+                stdlabel[coll.xref] = (project, version, baseurl + coll.docname, coll.name)
             else:
-                std_domain.data['labels'][coll.xref] = (
-                    coll.docname, coll.xref, coll.name)
+                stdlabel[coll.xref] = (coll.docname, coll.xref, coll.name)
 
 
 def process_postlist(app, doctree, docname):
