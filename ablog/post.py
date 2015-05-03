@@ -496,10 +496,12 @@ def _missing_reference(app, target, refdoc, refexplicit=False):
 
         if 'html' in app.builder.name:
             internal = True
+            uri = app.builder.get_relative_uri(refdoc, docname)
         else:
             internal = False
+            uri = blog.blog_baseurl + '/' + docname
 
-        uri = app.builder.get_relative_uri(refdoc, docname)
+
         newnode = nodes.reference('', '', internal=internal, refuri=uri,
                                   reftitle=dispname)
         if refexplicit:
