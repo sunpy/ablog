@@ -395,6 +395,8 @@ def process_posts(app, doctree):
 
         for key in ['tags', 'author', 'category', 'location', 'language']:
             catalog = blog.catalogs[key]
+            for label in postinfo[key]:
+                coll = catalog[label]
 
         if postinfo['date']:
             coll = blog.archive[postinfo['date'].year]
