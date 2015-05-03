@@ -225,6 +225,7 @@ def skip_pickling(env):
                isinstance(val, types.FunctionType) or \
                isinstance(val, class_types):
                 del self.config[key]
+        print('Trying to pickle:')
         try_pickling(env)
         # reset attributes
         self.domains = domains
