@@ -151,33 +151,18 @@ A list of posts can be displayed in any page using the following directive:
    chronological order and listed with their ``:excerpts:``.
    Here are those posts:
 
-   .. only:: html
+   .. postlist:: 5
+      :author: Ahmet
+      :category: Manual
+      :location: Pittsburgh
+      :language: en
+      :tags: tips
+      :date: %A, %B %d, %Y
+      :format: {title} by {author} on {date}
+      :list-style: circle
+      :excerpts:
+      :sort:
 
-      .. postlist:: 5
-         :author: Ahmet
-         :category: Manual
-         :location: Pittsburgh
-         :language: en
-         :tags: tips
-         :date: %A, %B %d, %Y
-         :format: {title} by {author} on {date}
-         :list-style: circle
-         :excerpts:
-         :sort:
-
-   .. only:: latex
-
-      .. postlist:: 5
-         :author: Ahmet
-         :category: Manual
-         :location: Pittsburgh
-         :language: en
-         :tags: tips
-         :date: %A, %B %d, %Y
-         :format: {title} on {date}
-         :list-style: circle
-         :excerpts:
-         :sort:
 
    When no options are given all posts will be considered and they will
    be ordered by recency.  Also, note that if the current post is one of

@@ -456,18 +456,22 @@ def process_postlist(app, doctree, docname):
                         items = getattr(post, key)
 
                     for i, item in enumerate(items):
-                        ref = nodes.reference()
-                        ref['refuri'] = app.builder.get_relative_uri(docname, item.docname)
-                        ref['ids'] = []
-                        ref['backrefs'] = []
-                        ref['dupnames'] = []
-                        ref['classes'] = []
-                        ref['names'] = []
-                        ref['internal'] = True
-                        par.append(ref)
-                        emp = nodes.emphasis()
-                        ref.append(emp)
-                        emp.append(nodes.Text(text_type(item)))
+                        if 'html' in app.builder.name:
+                            ref = nodes.reference()
+                            ref['refuri'] = app.builder.get_relative_uri(docname, item.docname)
+                            ref['ids'] = []
+                            ref['backrefs'] = []
+                            ref['dupnames'] = []
+                            ref['classes'] = []
+                            ref['names'] = []
+                            ref['internal'] = True
+                            ref['refuri'] = None
+                            par.append(ref)
+                            emp = nodes.emphasis()
+                            ref.append(emp)
+                            emp.append(nodes.Text(text_type(item)))
+                        else:
+                            par.append(nodes.Text(text_type(item)))
                         if i + 1 < len(items):
                             par.append(nodes.Text(', '))
             if excerpts:
