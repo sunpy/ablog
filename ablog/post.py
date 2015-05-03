@@ -381,6 +381,8 @@ def process_posts(app, doctree):
         env.ablog_posts[docname].append(postinfo)
 
 
+        non_html = 'html' not in app.builder.name
+
         # instantiate catalogs and collections here
         #  so that references are created and no warnings are issued
         std_domain = app.env.domains['std']
@@ -388,13 +390,21 @@ def process_posts(app, doctree):
             catalog = blog.catalogs[key]
             for label in postinfo[key]:
                 coll = catalog[label]
-                std_domain.data['labels'][coll.xref] = (
-                    coll.docname, coll.xref, coll.name)
+                if non_html:
+                    std_domain.data['labels'][coll.xref] = (
+                        'http://ablog.readthedocs.org/' + coll.docname, coll.xref, coll.name)
+                else:
+                    std_domain.data['labels'][coll.xref] = (
+                        coll.docname, coll.xref, coll.name)
 
         if postinfo['date']:
             coll = blog.archive[postinfo['date'].year]
-            std_domain.data['labels'][coll.xref] = (
-                coll.docname, coll.xref, coll.name)
+            if non_html:
+                std_domain.data['labels'][coll.xref] = (
+                    'http://ablog.readthedocs.org/' + coll.docname, coll.xref, coll.name)
+            else:
+                std_domain.data['labels'][coll.xref] = (
+                    coll.docname, coll.xref, coll.name)
 
 
 def process_postlist(app, doctree, docname):
@@ -455,7 +465,7 @@ def process_postlist(app, doctree, docname):
                     else:
                         items = getattr(post, key)
 
-                    for i, item in enumerate(items):
+                    for i, item in enumerate(items, start=1):
                         if 'html' in app.builder.name or key == 'title':
                             ref = nodes.reference()
                             ref['refuri'] = app.builder.get_relative_uri(docname, item.docname)
@@ -473,7 +483,7 @@ def process_postlist(app, doctree, docname):
                             emp = nodes.emphasis()
                             par.append(emp)
                             emp.append(nodes.Text(text_type(item)))
-                        if i + 1 < len(items):
+                        if i < len(items):
                             par.append(nodes.Text(', '))
             if excerpts:
                 bli.extend(post.excerpt)
@@ -613,7 +623,7 @@ def generate_atom_feeds(app):
                         url=url,
                         feed_url=feed_url,
                         subtitle=blog.blog_feed_subtitle,
-                        generator=('ABlog', 'http://blog.readthedocs.org',
+                        generator=('ABlog', 'http://ablog.readthedocs.org',
                                    ablog.__version__))
         for i, post in enumerate(feed_posts):
             if feed_length and i == feed_length:
