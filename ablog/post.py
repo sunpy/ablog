@@ -190,15 +190,22 @@ def _get_update_dates(section, docname, post_date_format):
 
 def skip_pickling(env):
 
+    import pickle
+    tried = set()
+    def try_pickling(obj, pref='env'):
 
-    def dump(obj, level=0, env=env):
-        if obj is not env:
-            for attr in dir(obj):
-                val = getattr(obj, attr)
-                if isinstance(val, (int, float, str, unicode, list, dict, set)):
-                    print('{}{}'.format(level * ' ', repr(val)))
-                else:
-                    dump(val, level=level+1)
+        for name, attr in getattr(obj, '__dict__').items():
+            if id(attr) in tried:
+                continue
+            tried.add(id(attr))
+            try:
+                pickle.dumps(attr)
+            except Exception as err:
+                print('{}: {}'.format(pref, err))
+
+            if hasattr(attr, '__dict__'):
+                try_pickling(attr, pref + '.' + name)
+
 
     env._topickle = env.topickle
     def topickle(self, *args):
@@ -208,8 +215,7 @@ def skip_pickling(env):
         except:
             pass
 
-        for attr in dir(env):
-            dump(getattr(env, attr))
+        try_pickling(env)
     env.topickle = topickle
     #env.topickle = lambda *args: env.warn('index',
     #    'Building on Read The Docs, environment is not being pickled.')
@@ -220,7 +226,7 @@ def process_posts(app, doctree):
     environment."""
 
     env = app.builder.env
-    if os.environ.get('READTHEDOCS', None) == 'True':
+    if os.environ.get('READTHEDOCS', None) == 'True' or 1:
         skip_pickling(env)
     if not hasattr(env, 'ablog_posts'):
         env.ablog_posts = {}
