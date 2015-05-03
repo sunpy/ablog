@@ -165,7 +165,7 @@ A list of posts can be displayed in any page using the following directive:
          :excerpts:
          :sort:
 
-    .. only:: latex
+   .. only:: latex
 
       .. postlist:: 5
          :author: Ahmet
