@@ -5,7 +5,8 @@ import os
 from .blog import Blog, CONFIG
 from .post import (PostDirective, PostListDirective, UpdateDirective,
                    UpdateNode, process_posts, process_postlist, purge_posts,
-                   generate_archive_pages, generate_atom_feeds)
+                   generate_archive_pages, generate_atom_feeds,
+                   missing_reference)
 
 __version__ = '0.6.5'
 
@@ -41,6 +42,7 @@ def setup(app):
 
     app.connect('env-purge-doc', purge_posts)
     app.connect('doctree-resolved', process_postlist)
+    app.connect('missing-reference', missing_reference)
     app.connect('html-collect-pages', generate_archive_pages)
     app.connect('html-collect-pages', generate_atom_feeds)
 

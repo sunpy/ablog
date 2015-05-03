@@ -11,6 +11,7 @@ from sphinx.locale import _
 from sphinx.util.nodes import set_source_info
 from sphinx.util.compat import Directive, make_admonition
 from docutils.parsers.rst import directives
+from docutils.utils import relative_path
 
 import ablog
 from .blog import Blog, slugify
@@ -394,19 +395,9 @@ def process_posts(app, doctree):
 
         for key in ['tags', 'author', 'category', 'location', 'language']:
             catalog = blog.catalogs[key]
-            for label in postinfo[key]:
-                coll = catalog[label]
-                if non_html:
-                    stdlabel[coll.xref] = (project, version, baseurl + coll.docname, coll.name)
-                else:
-                    stdlabel[coll.xref] = (coll.docname, coll.xref, coll.name)
 
         if postinfo['date']:
             coll = blog.archive[postinfo['date'].year]
-            if non_html:
-                stdlabel[coll.xref] = (project, version, baseurl + coll.docname, coll.name)
-            else:
-                stdlabel[coll.xref] = (coll.docname, coll.xref, coll.name)
 
 
 def process_postlist(app, doctree, docname):
@@ -468,7 +459,7 @@ def process_postlist(app, doctree, docname):
                         items = getattr(post, key)
 
                     for i, item in enumerate(items, start=1):
-                        if 'html' in app.builder.name or key == 'title':
+                        if key == 'title':
                             ref = nodes.reference()
                             ref['refuri'] = app.builder.get_relative_uri(docname, item.docname)
                             ref['ids'] = []
@@ -477,14 +468,12 @@ def process_postlist(app, doctree, docname):
                             ref['classes'] = []
                             ref['names'] = []
                             ref['internal'] = True
-                            par.append(ref)
                             emp = nodes.emphasis()
                             ref.append(emp)
                             emp.append(nodes.Text(text_type(item)))
                         else:
-                            emp = nodes.emphasis()
-                            par.append(emp)
-                            emp.append(nodes.Text(text_type(item)))
+                            ref = _missing_reference(app, item.xref, docname)
+                        par.append(ref)
                         if i < len(items):
                             par.append(nodes.Text(', '))
             if excerpts:
@@ -492,6 +481,35 @@ def process_postlist(app, doctree, docname):
 
         node.replace_self(bl)
 
+
+def missing_reference(app, env, node, contnode):
+
+
+    target = node['reftarget']
+    return _missing_reference(app, target, node['refdoc'], node['refexplicit'])
+
+def _missing_reference(app, target, refdoc, refexplicit=False):
+
+    blog = Blog(app)
+    if target in blog.references:
+        docname, dispname = blog.references[target]
+
+        if 'html' in app.builder.name:
+            internal = True
+        else:
+            internal = False
+
+        uri = app.builder.get_relative_uri(refdoc, docname)
+        newnode = nodes.reference('', '', internal=internal, refuri=uri,
+                                  reftitle=dispname)
+        if refexplicit:
+            newnode.append(contnode)
+        else:
+            emp = nodes.emphasis()
+            newnode.append(emp)
+            emp.append(nodes.Text(text_type(dispname)))
+
+        return newnode
 
 def generate_archive_pages(app):
     """Generate archive pages for all posts, categories, tags, authors, and

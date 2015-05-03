@@ -96,9 +96,7 @@ class Blog(object):
         self.app = app
         self.config = {}
 
-        # std domain of for creating references to posts and archives
-        #self.std_domain =
-        domain = self.app.env.domains['std']
+        self.references = refs = {}
 
         # get configuration from Sphinx app
         for opt in CONFIG:
@@ -123,33 +121,27 @@ class Blog(object):
         # contains post collections by year
         self.archive = Catalog(self, 'archive', 'archive', None, reverse=True)
         self.archive.docname += '/archive'
-        domain.data['labels']['blog-archives'] = (
-            self.archive.docname, '', 'Archives')
+        refs['blog-archives'] = (self.archive.docname, 'Archives')
 
         self.catalogs = cat = {}  # catalogs of user set labels
         self.tags = cat['tags'] = Catalog(self, 'tags', 'tag', 'tag')
-        domain.data['labels']['blog-tags'] = (
-            self.tags.docname, '', 'Tags')
+        refs['blog-tags'] = (self.tags.docname, 'Tags')
 
         self.author = cat['author'] = Catalog(self, 'author',
             'author', 'author')
-        domain.data['labels']['blog-authors'] = (
-            self.author.docname, '', 'Authors')
+        refs['blog-authors'] = (self.author.docname, 'Authors')
 
         self.location = cat['location'] = Catalog(self, 'location',
             'location',  'location')
-        domain.data['labels']['blog-locations'] = (
-            self.location.docname, '', 'Locations')
+        refs['blog-locations'] = (self.location.docname, 'Locations')
 
         self.language = cat['language'] = Catalog(self, 'language',
             'language',  'language')
-        domain.data['labels']['blog-languages'] = (
-            self.language.docname, '', 'Languages')
+        refs['blog-languages'] = (self.language.docname, 'Languages')
 
         self.category = cat['category'] = Catalog(self, 'category',
             'category', 'category')
-        domain.data['labels']['blog-categories'] = (
-            self.category.docname, '', 'Categories')
+        refs['blog-categories'] = (self.category.docname, 'Categories')
 
         for catname in ['author', 'location', 'language']:
             catalog = self.catalogs[catname]
@@ -164,14 +156,9 @@ class Blog(object):
 
         # add references to posts and drafts
         # e.g. :ref:`blog-posts`
-        domain.data['labels']['blog-posts'] = (
-            os.path.join(self.config['blog_path'], 'index'), '', 'Posts')
-        domain.data['labels']['blog-drafts'] = (
-            os.path.join(self.config['blog_path'], 'drafts', 'index'), '',
-                         'Drafts')
-        domain.data['labels']['blog-feed'] = (
-            os.path.join(self.config['blog_path'], 'atom.xml'), '',
-            self.blog_title + ' Feed')
+        refs['blog-posts'] = (os.path.join(self.config['blog_path'], 'index'), 'Posts')
+        refs['blog-drafts'] = (os.path.join(self.config['blog_path'], 'drafts', 'index'), 'Drafts')
+        refs['blog-feed'] = (os.path.join(self.config['blog_path'], 'atom.xml'), self.blog_title + ' Feed')
 
         # set some internal configuration options
         self.config['fontawesome'] = (self.config['fontawesome_included'] or
@@ -487,6 +474,8 @@ class Collection(object):
         self.xref = self.catalog.xref + '-' + slugify(label)
         self._slug = None
         self._html = None
+
+        self.catalog.blog.references[self.xref] = (self.docname, self.name)
 
     def __str__(self):
 

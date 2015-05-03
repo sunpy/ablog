@@ -54,9 +54,3 @@ By location     :ref:`blog-locations`       ``:ref:`blog-locations```
 By category     :ref:`blog-categories`      ``:ref:`blog-categories```
 By archive      :ref:`blog-archives`        ``:ref:`blog-archives```
 ==============  ==========================  ===============================
-
-.. note::
-
-   Note that archive pages cannot be cross-referenced in LaTeX/PDB builds
-   properly. Since they do not have source files and they won't be included
-   in non-HTML output.
