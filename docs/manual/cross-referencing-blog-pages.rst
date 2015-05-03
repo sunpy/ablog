@@ -24,39 +24,39 @@ for details.
 Archive pages
 -------------
 
-.. only:: html
 
-   Archive pages, on the other hand, can be cross-referenced by combining
-   archive type and archive name as follows:
-
-
-   ==============  ==========================  ===============================
-   Archive         Example                     reStructured Text
-   ==============  ==========================  ===============================
-   Posts           :ref:`blog-posts`           ``:ref:`blog-posts```
-   Drafts          :ref:`blog-drafts`          ``:ref:`blog-drafts```
-   Tag             :ref:`tag-config`           ``:ref:`tag-config```
-   Author          :ref:`author-ahmet`         ``:ref:`author-ahmet```
-   Archive         :ref:`archive-2014`         ``:ref:`archive-2014```
-   Language        :ref:`language-en`          ``:ref:`language-en```
-   Location        :ref:`location-pittsburgh`  ``:ref:`location-pittsburgh```
-   Category        :ref:`category-manual`      ``:ref:`category-manual```
-   ==============  ==========================  ===============================
-
-   Following archive pages list all posts by grouping them:
-
-   ==============  ==========================  ===============================
-   Archive         Example                     reStructured Text
-   ==============  ==========================  ===============================
-   By tag          :ref:`blog-tags`            ``:ref:`blog-tags```
-   By author       :ref:`blog-authors`         ``:ref:`blog-authors```
-   By language     :ref:`blog-languages`       ``:ref:`blog-languages```
-   By location     :ref:`blog-locations`       ``:ref:`blog-locations```
-   By category     :ref:`blog-categories`      ``:ref:`blog-categories```
-   By archive      :ref:`blog-archives`        ``:ref:`blog-archives```
-   ==============  ==========================  ===============================
+Archive pages, on the other hand, can be cross-referenced by combining
+archive type and archive name as follows:
 
 
-.. only:: latex
+==============  ==========================  ===============================
+Archive         Example                     reStructured Text
+==============  ==========================  ===============================
+Posts           :ref:`blog-posts`           ``:ref:`blog-posts```
+Drafts          :ref:`blog-drafts`          ``:ref:`blog-drafts```
+Tag             :ref:`tag-config`           ``:ref:`tag-config```
+Author          :ref:`author-ahmet`         ``:ref:`author-ahmet```
+Archive         :ref:`archive-2014`         ``:ref:`archive-2014```
+Language        :ref:`language-en`          ``:ref:`language-en```
+Location        :ref:`location-pittsburgh`  ``:ref:`location-pittsburgh```
+Category        :ref:`category-manual`      ``:ref:`category-manual```
+==============  ==========================  ===============================
 
-   Archive pages cannot be cross-referenced in LaTeX/PDB builds.
+Following archive pages list all posts by grouping them:
+
+==============  ==========================  ===============================
+Archive         Example                     reStructured Text
+==============  ==========================  ===============================
+By tag          :ref:`blog-tags`            ``:ref:`blog-tags```
+By author       :ref:`blog-authors`         ``:ref:`blog-authors```
+By language     :ref:`blog-languages`       ``:ref:`blog-languages```
+By location     :ref:`blog-locations`       ``:ref:`blog-locations```
+By category     :ref:`blog-categories`      ``:ref:`blog-categories```
+By archive      :ref:`blog-archives`        ``:ref:`blog-archives```
+==============  ==========================  ===============================
+
+.. note::
+
+   Note that archive pages cannot be cross-referenced in LaTeX/PDB builds
+   properly. Since they do not have source files and they won't be included
+   in non-HTML output.
