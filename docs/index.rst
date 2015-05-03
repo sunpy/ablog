@@ -119,3 +119,10 @@ can find more about configuring and using ABlog:
 
    .. image:: https://readthedocs.org/projects/ablog/badge/?version=latest
       :target: http://ablog.readthedocs.org/
+
+
+.. toctree::
+   :hidden:
+   :glob:
+
+   */*
