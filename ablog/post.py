@@ -248,7 +248,7 @@ def process_posts(app, doctree):
     environment."""
 
     env = app.builder.env
-    if os.environ.get('READTHEDOCS', None):
+    if os.environ.get('READTHEDOCS', None) and 0:
         env.topickle = lambda *args: env.warn('index',
         'Building on Read The Docs, environment is not being pickled.')
     if not hasattr(env, 'ablog_posts'):
