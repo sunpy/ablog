@@ -208,7 +208,7 @@ def skip_pickling(env):
             pass
 
         dump(env)
-
+    env.topickle = topickle
     #env.topickle = lambda *args: env.warn('index',
     #    'Building on Read The Docs, environment is not being pickled.')
 
