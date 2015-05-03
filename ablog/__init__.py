@@ -8,7 +8,7 @@ from .post import (PostDirective, PostListDirective, UpdateDirective,
                    generate_archive_pages, generate_atom_feeds,
                    missing_reference)
 
-__version__ = '0.6.5'
+__version__ = '0.7'
 
 
 def anchor(post):
@@ -19,21 +19,6 @@ def anchor(post):
     else:
         return ''
 
-
-def init_ablog(app):
-    """Instantiate ABlog and add to `html_context` so that it can be
-    reached from templates."""
-
-    app.config.html_context['ablog'] = Blog(app)
-    app.config.html_context['anchor'] = anchor
-
-
-def clean_html_context(app, exception):
-
-    from code import interact; interact(local=locals())
-
-    app.env.config.html_context.pop('ablog', None)
-    app.env.config.html_context.pop('anchor', None)
 
 def html_page_context(app, pagename, templatename, context, doctree):
 
@@ -50,8 +35,6 @@ def setup(app):
     app.add_directive('post', PostDirective)
     app.add_directive('postlist', PostListDirective)
 
-    #app.connect('builder-inited', init_ablog)
-    #app.connect('build-finished', clean_html_context)
     app.connect('doctree-read', process_posts)
 
     app.connect('env-purge-doc', purge_posts)

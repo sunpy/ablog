@@ -50,8 +50,9 @@ templates_path = [ablog.get_html_templates_path()]
 blog_title = 'ABlog'
 blog_baseurl = 'http://ablog.readthedocs.org'
 blog_locations = {
-    'Pittsburgh': ('Pittsburgh, PA', None),
-    'SF': ('San Francisco, CA', None),
+    'Pittsburgh': ('Pittsburgh, PA', 'http://en.wikipedia.org/wiki/Pittsburgh'),
+    'SF': ('San Francisco, CA', 'http://en.wikipedia.org/wiki/San_Francisco'),
+    'Denizli': ('Denizli, Turkey', 'http://en.wikipedia.org/wiki/Denizli'),
 }
 blog_languages = {
     'en': ('English', None),
