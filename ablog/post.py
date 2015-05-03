@@ -210,12 +210,27 @@ def skip_pickling(env):
     env._topickle = env.topickle
     def topickle(self, *args):
 
-        try:
-            self._topickle(*args)
-        except:
-            pass
-
+        warnfunc = self._warnfunc
+        self.set_warnfunc(None)
+        values = self.config.values
+        del self.config.values
+        domains = self.domains
+        del self.domains
+        picklefile = open(filename, 'wb')
+        # remove potentially pickling-problematic values from config
+        for key, val in list(vars(self.config).items()):
+            if key.startswith('_') or \
+               isinstance(val, types.ModuleType) or \
+               isinstance(val, types.FunctionType) or \
+               isinstance(val, class_types):
+                del self.config[key]
         try_pickling(env)
+        # reset attributes
+        self.domains = domains
+        self.config.values = values
+        self.set_warnfunc(warnfunc)
+
+        #try_pickling(env)
     env.topickle = topickle
     #env.topickle = lambda *args: env.warn('index',
     #    'Building on Read The Docs, environment is not being pickled.')
