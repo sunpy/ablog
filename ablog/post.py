@@ -456,7 +456,7 @@ def process_postlist(app, doctree, docname):
                         items = getattr(post, key)
 
                     for i, item in enumerate(items):
-                        if 'html' in app.builder.name:
+                        if 'html' in app.builder.name or key == 'title':
                             ref = nodes.reference()
                             ref['refuri'] = app.builder.get_relative_uri(docname, item.docname)
                             ref['ids'] = []
