@@ -188,6 +188,30 @@ def _get_update_dates(section, docname, post_date_format):
         update_dates.append(update)
     return update_dates
 
+def skip_pickling(env):
+
+
+    def dump(obj, level=0):
+        for attr in dir(obj):
+            val = getattr(obj, a)
+            if isinstance(val, (int, float, str, unicode, list, dict, set)):
+                print('{}{}'.format(level * ' ', repr(val)))
+            else:
+                dump(val, level=level+1)
+
+    env._topickle = env.topickle
+    def topickle(self, *args):
+
+        try:
+            self._topickle(*args)
+        except:
+            pass
+
+        dump(env)
+
+    #env.topickle = lambda *args: env.warn('index',
+    #    'Building on Read The Docs, environment is not being pickled.')
+
 
 def process_posts(app, doctree):
     """Process posts and map posted document names to post details in the
@@ -195,8 +219,7 @@ def process_posts(app, doctree):
 
     env = app.builder.env
     if os.environ.get('READTHEDOCS', None) == 'True':
-        env.topickle = lambda *args: env.warn('index',
-            'Building on Read The Docs, environment is not being pickled.')
+        skip_pickling(env)
     if not hasattr(env, 'ablog_posts'):
         env.ablog_posts = {}
 
