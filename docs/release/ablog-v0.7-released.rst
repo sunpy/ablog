@@ -1,4 +1,4 @@
-ABlog v0.7.0 released
+ABlog v0.7 released
 ===================
 
 .. post:: May 3, 2015
