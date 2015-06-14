@@ -181,12 +181,18 @@ def ablog_serve(website=None, port=8000, view=True, rebuild=False,
     confdir = find_confdir()
     conf = read_conf(confdir)
 
-    import SimpleHTTPServer
-    import SocketServer
+    try:
+        import SimpleHTTPServer as server
+    except ImportError:
+        from http import server
+        import socketserver
+    else:
+        import SocketServer as socketserver
+
     import webbrowser
 
-    Handler = SimpleHTTPServer.SimpleHTTPRequestHandler
-    httpd = SocketServer.TCPServer(("", port), Handler)
+    Handler = server.SimpleHTTPRequestHandler
+    httpd = socketserver.TCPServer(("", port), Handler)
 
     ip, port = httpd.socket.getsockname()
     print("Serving HTTP on {}:{}.".format(ip, port))
