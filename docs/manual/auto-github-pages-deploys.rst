@@ -5,7 +5,7 @@ Automate GitHub Pages Deploys
    :tags: deploy, tips
    :category: Manual
    :author: Ahmet
-   :location: Denizli
+   :location: SF
    :language: en
 
 
