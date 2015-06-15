@@ -21,4 +21,4 @@ ABlog v0.7.1 released
    :category: Release
    :location: SF
 
-ABlog v0.7.1 is released to fix import issues in :ref:`ablog-serve` command.
+ABlog v0.7.1 is released to fix Python 3 import issues in :command:`ablog serve` command.

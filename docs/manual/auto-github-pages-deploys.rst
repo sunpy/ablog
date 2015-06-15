@@ -26,7 +26,7 @@ hosted at GitHub. You can easily sync your GitHub projects with Travis CI
 by logging to Travis CI using your GitHub account:
 
 .. figure:: images/TravisCI_login.png
-   :scale: 30 %
+   :scale: 80 %
    :align: center
 
 
@@ -35,7 +35,7 @@ pages source repository. In the below example, source repository is **website**
 and will be pushed to *abakan.github.io*:
 
 .. figure:: images/TravisCI_accounts.png
-   :scale: 30 %
+   :scale: 80 %
    :align: center
 
 
@@ -47,7 +47,7 @@ token*. Go to GitHub :menuselection:`Settings --> Personal access tokens` page t
 generate a new token. You need only *public repo* access checked for this purpose:
 
 .. figure:: images/GitHub_token.png
-   :scale: 30 %
+   :scale: 80 %
    :align: center
 
 
@@ -56,7 +56,7 @@ Then, you need to set this access token as an environment variable, e.g.
 Keep the :guilabel:Display value in build logs` switch off. 
 
 .. figure:: images/TravisCI_settings.png
-   :scale: 30 %
+   :scale: 80 %
    :align: center
 
 
@@ -64,7 +64,7 @@ Also, do not forget to flick :guilabel:`Build pushes` on under
 :menuselection:`Settings --> General Settings`:
 
 .. figure:: images/TravisCI_global.png
-   :scale: 60 %
+   :scale: 65 %
    :align: center
 
 Configuration file
