@@ -1,17 +1,129 @@
 ABlog for Sphinx
 ================
 
-A Sphinx extension that converts any documentation or personal website project 
-into a full-fledged blog. See http://ablog.readthedocs.org for details.
+ABlog is a Sphinx extension that converts any documentation or personal
+website project into a full-fledged blog with:
 
-.. image:: https://secure.travis-ci.org/abakan/ablog.png?branch=devel
-   :target: http://travis-ci.org/#!/abakan/ablog
+  * `Atom feeds`_
+  * `Archive pages`_
+  * `Blog sidebars`_
+  * `Disqus integration`_
+  * `Font-Awesome integration`_
+  * `Easy GitHub Pages deploys`_
 
-.. image:: https://pypip.in/v/ABlog/badge.png
-   :target: https://pypi.python.org/pypi/ABlog
+.. _Atom feeds: http://ablog.readthedocs.org/blog/atom.xml
+.. _Archive pages: http://ablog.readthedocs.org/blog/
+.. _Blog sidebars: http://ablog.readthedocs.org/manual/ablog-configuration-options/#sidebars
+.. _Disqus integration: http://ablog.readthedocs.org/manual/ablog-configuration-options/#disqus-integration
+.. _Font-Awesome integration: http://ablog.readthedocs.org/manual/ablog-configuration-options/#fa
+.. _Easy GitHub Pages deploys: http://ablog.readthedocs.org/manual/deploy-to-github-pages/
 
-.. image:: https://pypip.in/d/ABlog/badge.png
-   :target: https://crate.io/packages/ablog
+.. _installation:
 
-.. image:: https://readthedocs.org/projects/ablog/badge/?version=latest
-   :target: http://ablog.readthedocs.org/
+Installation
+------------
+
+You can install ABlog using pip_::
+
+    pip install -U ablog
+
+This will also install `Sphinx <http://sphinx-doc.org/>`_, Alabaster_,
+Werkzeug_, and Invoke_ respectively required for building your website,
+making it look good, generating feeds, and running deploy commands.
+
+.. _pip: https://pip.pypa.io
+.. _Werkzeug: http://werkzeug.pocoo.org/
+.. _Alabaster: https://github.com/bitprophet/alabaster
+.. _Invoke: http://www.pyinvoke.org/
+
+
+Getting Started
+---------------
+
+If you are starting a new project, see `ABlog Quick Start`_ guide.
+
+If you already have a project, enable blogging by making following changes in ``conf.py``:
+
+.. code-block:: python
+
+  # 1. Add 'ablog' to list of extensions
+  extensions = [
+      '...',
+      'ablog'
+  ]
+
+  # 2. Add ablog templates path
+  import ablog
+
+  # 2a. if `templates_path` is not defined
+  templates_path = [ablog.get_html_templates_path()]
+
+  # 2b. if `templates_path` is defined
+  templates_path.append(ablog.get_html_templates_path())
+
+.. _ABlog Quick Start: http://ablog.readthedocs.org/manual/ablog-quick-start
+
+
+How it works
+------------
+
+If you are new to Sphinx_ and reStructuredText markup language,
+you might find `reStructuredText Primer`_ useful. Once you have
+content (in ``.rst`` files), you can post *any page* using the
+``post`` directive as follows:
+
+.. code-block:: rst
+
+  .. post:: Apr 15, 2014
+     :tags: earth, love, peace
+     :category: python
+     :author: me
+     :location: SF
+     :language: en
+
+ABlog will index all files posted as above and list them in archives and feeds
+specified in ``:tag:``, ``:category:``, etc. options.
+
+You can also include a list of posts using ``postlist`` directive:
+
+.. code-block:: rst
+
+  .. postlist::
+     :list-style: circle
+     :category: Manual
+     :format: {title}
+     :sort:
+
+For ABlog documentation, this converts to the following where you
+can find more about configuring and using ABlog:
+
+.. postlist::
+   :category: Manual
+   :list-style: circle
+   :format: {title}
+   :sort:
+
+
+.. _reStructuredText Primer: http://sphinx-doc.org/rest.html
+
+
+.. only:: html
+
+   .. image:: https://secure.travis-ci.org/abakan/ablog.png?branch=devel
+      :target: http://travis-ci.org/#!/abakan/ablog
+
+   .. image:: https://pypip.in/v/ABlog/badge.png
+      :target: https://pypi.python.org/pypi/ABlog
+
+   .. image:: https://pypip.in/d/ABlog/badge.png
+      :target: https://crate.io/packages/ablog
+
+   .. image:: https://readthedocs.org/projects/ablog/badge/?version=latest
+      :target: http://ablog.readthedocs.org/
+
+
+.. toctree::
+   :hidden:
+   :glob:
+
+   */*
