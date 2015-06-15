@@ -96,17 +96,19 @@ server and open up browser tab to view your website.
 ::
 
   $ ablog serve -h
-  usage: ablog serve [-h] [-n] [-p PORT] [-w WEBSITE]
+  usage: ablog serve [-h] [-w WEBSITE] [-p PORT] [-n] [-r] [--patterns]
 
   Serve options can be set in conf.py. Default values of paths are relative to
   conf.py.
 
   optional arguments:
     -h, --help  show this help message and exit
-    -n          do not open website in a new browser tab
-    -p PORT     port number for HTTP server; default is 8000
     -w WEBSITE  path for website, default is _website when `ablog_website` is
                 not set in conf.py
+    -p PORT     port number for HTTP server; default is 8000
+    -n          do not open website in a new browser tab
+    -r          rebuild when a file matching patterns change or get added
+    --patterns  patterns for triggering rebuilds
 
 .. _deploy:
 
