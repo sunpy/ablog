@@ -9,10 +9,11 @@ Automate GitHub Pages Deploys
    :language: en
 
 
-If being away from your personal computer is holding you from blogging, keep
+If being away from your personal computer is holding you back from blogging, keep
 reading. This post will show you how to automate builds and deploys using
 Travis CI. Once you set this up, all you need to do post an article will be
-pushing to GitHub or creating a new file on GitHub.com from any computer!
+pushing to GitHub or creating a new file on `GitHub.com <http://github.com>`_
+from any computer!
 
 For this to work, you need to be hosting your website on GitHub pages.
 If you are not already doing so, see :ref:`deploy-to-github-pages`.
@@ -23,16 +24,16 @@ Signup for Travis CI
 
 Travis CI is a continuous integration service used to build and test projects
 hosted at GitHub. You can easily sync your GitHub projects with Travis CI
-by logging to Travis CI using your GitHub account:
+signing up for Travis CI using your GitHub account:
 
 .. figure:: images/TravisCI_login.png
    :scale: 80 %
    :align: center
 
 
-Once you login, go to :guilabel:`Account` page and flick the switch on for your GitHub
-pages source repository. In the below example, source repository is **website**
-and will be pushed to *abakan.github.io*:
+Once you login, go to :guilabel:`Accounts` page and flick the switch on for your
+source repository for GitHub pages. In the below example, **website** is the
+source repository and *abakan.github.io* contains HTML output from builds:
 
 .. figure:: images/TravisCI_accounts.png
    :scale: 80 %
@@ -49,7 +50,6 @@ generate a new token. You need only *public repo* access checked for this purpos
 .. figure:: images/GitHub_token.png
    :scale: 80 %
    :align: center
-
 
 Then, you need to set this access token as an environment variable, e.g.
 ``DEPLOY_KEY``, under :menuselection:`Settings --> Environment Variables`.
@@ -97,3 +97,15 @@ following:
       - ablog deploy --push-quietly --github-token=DEPLOY_KEY -m="`git log -1 --pretty=%B`"
 
 
+The main part of the process, that is building of the website, is under ``script`` block.
+If you repository has dependencies to other Python packages, you can install them
+in ``before_install`` block.
+
+Upon a successful built, your website is deployed. Note that there is no
+mention of your GitHub Pages repository, i.e. ``username.github.io``.
+That is specified in :file:`conf.py` file with :confval:`github_pages`.
+See :ref:`deploy-to-github-pages` and :ref:`commands` to find out more about
+deploy options.
+
+Finally, you can find out more about :file:`.travis.yml` file and customizing your built on
+Travis CI `user documentation <http://docs.travis-ci.com/user/customizing-the-build/>`_.
