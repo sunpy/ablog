@@ -206,7 +206,11 @@ Disqus integration
 ------------------
 
 Of course one cannot think of a blog that doesn't allow for visitors to
-comment.  You can enable Disqus_ by setting ``disqus_shortname`` variable.
+comment. You can enable Disqus_ by setting :confval:`disqus_shortname`
+and :confval:`blog_baseurl` variables. The reason for requiring
+:confval:`blog_baseurl` to be specified as of v0.7.2 is to ensure
+that Disqus associates correct URLs with threads when you
+serve new posts locally for the first time.
 
 .. confval:: disqus_shortname
 

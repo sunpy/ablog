@@ -25,7 +25,7 @@
   {% if pagename in ablog %}
     {% include "postnavy.html" %}
   {% endif %}
-  {% if ablog.disqus_shortname and ((pagename in ablog and (ablog[pagename].published or ablog.disqus_drafts)) or (not pagename in ablog and ablog.disqus_pages)) %}
+  {% if ablog.disqus_shortname and ablog.blog_baseurl and ((pagename in ablog and (ablog[pagename].published or ablog.disqus_drafts)) or (not pagename in ablog and ablog.disqus_pages)) %}
     <div class="section">
     <h2>Comments</h2>
     <div id="disqus_thread"></div>
@@ -34,7 +34,7 @@
         var disqus_shortname = '{{ ablog.disqus_shortname }}'; // required: replace example with your forum shortname
         var disqus_identifier = '{{ablog.page_id(pagename)}}';
         var disqus_title = '{{title|e}}';
-        /* var disqus_url = '{{ablog.page_url(pagename)}}'; */
+        var disqus_url = '{{ablog.page_url(pagename)}}';
         /* * * DON'T EDIT BELOW THIS LINE * * */
         (function() {
             var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
