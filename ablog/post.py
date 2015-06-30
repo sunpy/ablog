@@ -5,6 +5,7 @@ import os
 import sys
 from string import Formatter
 from datetime import datetime
+from dateutil.parser import parse as date_parser
 
 from docutils import nodes
 from sphinx.locale import _
@@ -263,7 +264,8 @@ def process_posts(app, doctree):
         date = node['date']
         if date:
             try:
-                date = datetime.strptime(date, post_date_format)
+                #date = datetime.strptime(date, post_date_format)
+                date = date_parser(date)
             except ValueError:
                 raise ValueError('invalid post published date in: ' + docname)
         else:
