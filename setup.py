@@ -11,7 +11,7 @@ long_description = '''
 ABlog for Sphinx
 ================
 
-A Sphinx extension that converts any documentation or personal website project 
+A Sphinx extension that converts any documentation or personal website project
 into a full-fledged blog. See http://ablog.readthedocs.org for details.
 
 .. image:: https://secure.travis-ci.org/abakan/ablog.png?branch=devel
@@ -55,7 +55,7 @@ setup(
         'Programming Language :: Python :: 3',
         ],
     provides=['ablog ({0:s})'.format(__version__)],
-    install_requires=['Werkzeug', 'Sphinx', 'alabaster', 'invoke'],
+    install_requires=['Werkzeug', 'Sphinx', 'alabaster', 'invoke', 'python-dateutil'],
     message_extractors={
         'ablog': [
             ('**.html', 'jinja2', None),
