@@ -5,7 +5,10 @@ import os
 import sys
 from string import Formatter
 from datetime import datetime
-from dateutil.parser import parse as date_parser
+try:
+    from dateutil.parser import parse as date_parser
+except ImportError:
+    date_parser = None
 
 from docutils import nodes
 from sphinx.locale import _
@@ -264,10 +267,17 @@ def process_posts(app, doctree):
         date = node['date']
         if date:
             try:
-                #date = datetime.strptime(date, post_date_format)
-                date = date_parser(date)
+                date = datetime.strptime(date, post_date_format)
             except ValueError:
-                raise ValueError('invalid post published date in: ' + docname)
+                if date_parser:
+                    try:
+                        date = date_parser(date)
+                        print('using date parser')
+                    except ValueError:
+                        raise ValueError('invalid post date in: ' + docname)
+                else:
+                    raise ValueError('invalid post date in: ' + docname)
+
         else:
             date = None
 

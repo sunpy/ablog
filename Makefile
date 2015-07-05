@@ -7,7 +7,7 @@ demo:
 	printf "demo\nABlog\nABlog Team\nhttp://ablog.readthedocs.org" | ablog start
 
 install:
-	sudo pip install -U --no-deps --force-reinstall .
+	pip install -U --no-deps --force-reinstall .
 
 rebuild:
 	cd docs; watchmedo shell-command --patterns='*.rst' --command='ablog build' --recursive
