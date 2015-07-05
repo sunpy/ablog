@@ -33,7 +33,7 @@ def slugify(string):
     string = re.sub(r'[^\w\s-]', '', string).strip().lower()
     return re.sub(r'[-\s]+', '-', string)
 
-def os_path_join(path, *paths)
+def os_path_join(path, *paths):
 
     return os.path.join(path, *paths).replace(os.path.sep, '/')
 

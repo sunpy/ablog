@@ -54,7 +54,7 @@ for this improvement.
 .. _Andy Maloney: https://github.com/amaloney
 
 
-ABlog v0.7.4 released
+ABlog v0.7.5 released
 ---------------------
 
 .. post:: July 5 2015
@@ -62,5 +62,5 @@ ABlog v0.7.4 released
    :category: Release
    :location: SF
 
-ABlog v0.7.4 is released to fix Windows specific path resolving issue with
+ABlog v0.7.5 is released to fix Windows specific path resolving issue with
 archive pages. Thanks to Peter Mills for reporting this issue.
