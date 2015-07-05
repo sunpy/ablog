@@ -33,6 +33,10 @@ def slugify(string):
     string = re.sub(r'[^\w\s-]', '', string).strip().lower()
     return re.sub(r'[-\s]+', '-', string)
 
+def os_path_join(path, *paths)
+
+    return os.path.join(path, *paths).replace(os.path.sep, '/')
+
 
 DEBUG = True
 CONFIG = [
@@ -151,13 +155,13 @@ class Blog(object):
         self.posts = self.blog['post'] = Collection(self.blog, 'post',
             'Posts', path=self.blog_path)
         self.drafts = self.blog['draft'] = Collection(self.blog, 'draft',
-            'Drafts', path=os.path.join(self.blog_path, 'drafts'))
+            'Drafts', path=os_path_join(self.blog_path, 'drafts'))
 
         # add references to posts and drafts
         # e.g. :ref:`blog-posts`
-        refs['blog-posts'] = (os.path.join(self.config['blog_path'], 'index'), 'Posts')
-        refs['blog-drafts'] = (os.path.join(self.config['blog_path'], 'drafts', 'index'), 'Drafts')
-        refs['blog-feed'] = (os.path.join(self.config['blog_path'], 'atom.xml'), self.blog_title + ' Feed')
+        refs['blog-posts'] = (os_path_join(self.config['blog_path'], 'index'), 'Posts')
+        refs['blog-drafts'] = (os_path_join(self.config['blog_path'], 'drafts', 'index'), 'Drafts')
+        refs['blog-feed'] = (os_path_join(self.config['blog_path'], 'atom.xml'), self.blog_title + ' Feed')
 
         # set some internal configuration options
         self.config['fontawesome'] = (self.config['fontawesome_included'] or
@@ -193,7 +197,7 @@ class Blog(object):
     def feed_path(self):
         """RSS feed page name."""
 
-        return os.path.join(self.blog_path, 'rss.xml')
+        return os_path_join(self.blog_path, 'rss.xml')
 
     def register(self, docname, info):
         """Register post *docname*."""
@@ -399,7 +403,7 @@ class Catalog(object):
         self.collections = {}
 
         if path:
-            self.path = self.docname = os.path.join(blog.blog_path, path)
+            self.path = self.docname = os_path_join(blog.blog_path, path)
         else:
             self.path = self.docname = blog.blog_path
 
@@ -535,7 +539,7 @@ class Collection(object):
         """Collection page document name."""
 
         if self._path is None:
-            self._path = os.path.join(self.catalog.path, slugify(self.name))
+            self._path = os_path_join(self.catalog.path, slugify(self.name))
         return self._path
 
     path = docname

@@ -46,9 +46,21 @@ ABlog v0.7.3 released
    :category: Release
    :location: SF
 
-ABlog v0.7.3 makes use of `python-dateutil`_ for parsing post dates, so that you
-can be flexible with the format you use with dates. Thanks to `Andy Maloney`_
+ABlog v0.7.3 makes use of `python-dateutil`_ for parsing post dates, so now you
+can be flexible with the format you use in posts. Thanks to `Andy Maloney`_
 for this improvement.
 
 .. _python-dateutil: https://pypi.python.org/pypi/python-dateutil
 .. _Andy Maloney: https://github.com/amaloney
+
+
+ABlog v0.7.4 released
+---------------------
+
+.. post:: July 5 2015
+   :author: Ahmet
+   :category: Release
+   :location: SF
+
+ABlog v0.7.4 is released to fix Windows specific path resolving issue with
+archive pages. Thanks to Peter Mills for reporting this issue.
