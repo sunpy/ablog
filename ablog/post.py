@@ -18,7 +18,7 @@ from docutils.parsers.rst import directives
 from docutils.utils import relative_path
 
 import ablog
-from .blog import Blog, slugify
+from .blog import Blog, slugify, os_path_join
 
 if sys.version_info >= (3, 0):
     text_type = str
@@ -567,7 +567,7 @@ def generate_atom_feeds(app):
     feeds = [(blog.posts,
              feed_path,
              blog.blog_title,
-             os.path.join(url, blog.blog_path, 'atom.xml'))]
+             os_path_join(url, blog.blog_path, 'atom.xml'))]
 
     if blog.blog_feed_archives:
 
@@ -590,7 +590,7 @@ def generate_atom_feeds(app):
                 feeds.append((coll,
                           os.path.join(folder, 'atom.xml'),
                           blog.blog_title + u' - ' + header + u' ' + text_type(coll),
-                          os.path.join(url, coll.path, 'atom.xml')))
+                          os_path_join(url, coll.path, 'atom.xml')))
 
     # Config options
     feed_length = blog.blog_feed_length
@@ -608,7 +608,7 @@ def generate_atom_feeds(app):
         for i, post in enumerate(feed_posts):
             if feed_length and i == feed_length:
                 break
-            post_url = os.path.join(
+            post_url = os_path_join(
                 url, app.builder.get_target_uri(post.docname))
             if post.section:
                 post_url += '#' + post.section
