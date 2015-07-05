@@ -28,14 +28,15 @@ You can install ABlog using pip_::
     pip install -U ablog
 
 This will also install `Sphinx <http://sphinx-doc.org/>`_, Alabaster_,
-Werkzeug_, and Invoke_ respectively required for building your website,
-making it look good, generating feeds, and running deploy commands.
+Werkzeug_, Invoke_, dateutil_ respectively required for building your website,
+making it look good, generating feeds, running deploy commands, and parsing
+dates.
 
 .. _pip: https://pip.pypa.io
 .. _Werkzeug: http://werkzeug.pocoo.org/
 .. _Alabaster: https://github.com/bitprophet/alabaster
 .. _Invoke: http://www.pyinvoke.org/
-
+.. _dateutil: https://pypi.python.org/pypi/python-dateutil
 
 Getting Started
 ---------------
