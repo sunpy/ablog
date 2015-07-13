@@ -272,7 +272,6 @@ def process_posts(app, doctree):
                 if date_parser:
                     try:
                         date = date_parser(date)
-                        print('using date parser')
                     except ValueError:
                         raise ValueError('invalid post date in: ' + docname)
                 else:
@@ -434,8 +433,11 @@ def process_postlist(app, doctree, docname):
                         par.append(ref)
                         if i < len(items):
                             par.append(nodes.Text(', '))
-            if excerpts:
-                bli.extend(post.excerpt)
+            if excerpts and post.excerpt:
+                for enode in post.excerpt:
+                    enode = enode.deepcopy()
+                    enode.parent = bli.parent
+                    bli.append(enode)
 
         node.replace_self(bl)
 
