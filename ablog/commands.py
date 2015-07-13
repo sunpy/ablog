@@ -96,6 +96,9 @@ cmd(ablog_start, name='start', help='start a new blog project',
     "file and sample pages.")
 
 
+@arg('-P', dest='runpdb',
+    action='store_true', default=False,
+    help="run pdb on exception")
 @arg('-T', dest='traceback',
     action='store_true', default=False,
     help="show full traceback on exception")
@@ -110,7 +113,7 @@ cmd(ablog_start, name='start', help='start a new blog project',
     description="Path options can be set in conf.py. "
     "Default values of paths are relative to conf.py.")
 def ablog_build(builder=None, sourcedir=None, website=None, doctrees=None,
-    traceback=False, **kwargs):
+    traceback=False, runpdb=False, **kwargs):
 
     confdir = find_confdir()
     conf = read_conf(confdir)
@@ -124,6 +127,8 @@ def ablog_build(builder=None, sourcedir=None, website=None, doctrees=None,
     argv.extend(['-d', doctrees])
     if traceback:
         argv.extend(['-T'])
+    if runpdb:
+        argv.extend(['-P'])
     argv.extend([sourcedir, website])
 
     from sphinx import main
