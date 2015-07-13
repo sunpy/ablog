@@ -61,9 +61,11 @@ Start a Project
     -h, --help  show this help message and exit
 
 
+.. _build:
 
 Build your Website
 ------------------
+
 
 Running ``ablog build`` in your project folder builds your website HTML pages.
 
@@ -86,6 +88,7 @@ Running ``ablog build`` in your project folder builds your website HTML pages.
     -w WEBSITE    path for website, default is _website when `ablog_website` is
                   not set in conf.py
     -T            show full traceback on exception
+    -P            run pdb on exception
 
 Serve and View
 --------------

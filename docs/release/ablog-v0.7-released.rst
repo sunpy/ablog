@@ -64,3 +64,22 @@ ABlog v0.7.5 released
 
 ABlog v0.7.5 is released to fix Windows specific path resolving issue with
 archive pages. Thanks to Peter Mills for reporting this issue.
+
+
+ABlog v0.7.6 released
+---------------------
+
+.. post:: July 13 2015
+   :author: Ahmet
+   :category: Release
+   :location: SF
+
+ABlog v0.7.6 is released to fix path resolving issue that arose when
+``:excerpts:`` is used in :rst:dir:`postlist` directive. Once again, thanks
+to Peter Mills for reporting this issue. Other minor changes are:
+
+  * ``-P`` argument is added to :ref:`ablog build <build>` command to enable running pdb
+    on exceptions.
+
+  * ``conf.py`` file created by :ref:`ablog start <start>` updated to include
+    ``about.html`` sidebar that comes with Alabaster_ theme.
