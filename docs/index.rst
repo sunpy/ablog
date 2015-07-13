@@ -71,7 +71,7 @@ How it works
 If you are new to Sphinx_ and reStructuredText markup language,
 you might find `reStructuredText Primer`_ useful. Once you have
 content (in ``.rst`` files), you can post *any page* using the
-``post`` directive as follows:
+:rst:dir:`post` directive as follows:
 
 .. code-block:: rst
 
@@ -85,7 +85,7 @@ content (in ``.rst`` files), you can post *any page* using the
 ABlog will index all files posted as above and list them in archives and feeds
 specified in ``:tag:``, ``:category:``, etc. options.
 
-You can also include a list of posts using ``postlist`` directive:
+You can also include a list of posts using :rst:dir:`postlist` directive:
 
 .. code-block:: rst
 
