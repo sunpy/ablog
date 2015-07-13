@@ -125,7 +125,8 @@ blog_authors = {
 # In addition, there are authors.html, languages.html, and locations.html
 # sidebars that link to author and location archive pages.
 html_sidebars = {
-    '**': [ 'postcard.html', 'navigation.html',
+    '**': [ 'about.html',
+            'postcard.html', 'navigation.html',
             'recentposts.html', 'tagcloud.html',
             'categories.html',  'archives.html',
             'searchbox.html',
@@ -279,7 +280,9 @@ html_theme = 'alabaster'
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
-#html_theme_options = {}
+html_theme_options = {
+    'github_button': False,
+}
 
 # Add any paths that contain custom themes here, relative to this directory.
 html_theme_path = [alabaster.get_path()]
@@ -611,4 +614,3 @@ def ablog_start(**kwargs):
         return
 
     generate(d)
-
