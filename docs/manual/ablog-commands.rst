@@ -42,6 +42,8 @@ and viewing blog pages, as well as starting a new blog.
    :local:
    :backlinks: top
 
+.. _start:
+
 Start a Project
 ---------------
 
