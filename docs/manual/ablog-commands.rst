@@ -56,12 +56,11 @@ Start a Project
   $ ablog start -h
   usage: ablog start [-h]
 
-  Start a new blog project with in less than 10 seconds. After answering a few
-  questions, you will end up with a configuration file and sample pages.
+  Start a new blog project by answering a few questions. You will end up with a
+  configuration file and sample pages.
 
   optional arguments:
     -h, --help  show this help message and exit
-
 
 .. _build:
 

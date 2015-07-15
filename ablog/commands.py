@@ -91,9 +91,8 @@ def arg_doctrees(func):
 
 from .start import ablog_start
 cmd(ablog_start, name='start', help='start a new blog project',
-    description="Start a new blog project with in less than 10 seconds. "
-    "After answering a few questions, you will end up with a configuration "
-    "file and sample pages.")
+    description="Start a new blog project by answering a few questions. "
+    "You will end up with a configuration file and sample pages.")
 
 
 @arg('-P', dest='runpdb',
