@@ -388,6 +388,7 @@ Hello World! Find more about me here: :ref:`about`
 Here is a list of most recent posts:
 
 .. postlist:: 5
+   :excerpts:
 
 
 .. `toctree` directive, below, contains list of non-post `.rst` files.
