@@ -18,7 +18,7 @@ from docutils.parsers.rst import directives
 from docutils.utils import relative_path
 
 import ablog
-from .blog import Blog, slugify, os_path_join
+from .blog import Blog, slugify, os_path_join, revise_pending_xrefs
 
 if sys.version_info >= (3, 0):
     text_type = str
@@ -436,6 +436,8 @@ def process_postlist(app, doctree, docname):
             if excerpts and post.excerpt:
                 for enode in post.excerpt:
                     enode = enode.deepcopy()
+                    revise_pending_xrefs(enode, docname)
+                    app.env.resolve_references(enode, docname, app.builder)
                     enode.parent = bli.parent
                     bli.append(enode)
 
@@ -444,11 +446,11 @@ def process_postlist(app, doctree, docname):
 
 def missing_reference(app, env, node, contnode):
 
-
     target = node['reftarget']
-    return _missing_reference(app, target, node['refdoc'], node['refexplicit'])
+    return _missing_reference(app, target, node['refdoc'],
+                              contnode, node['refexplicit'])
 
-def _missing_reference(app, target, refdoc, refexplicit=False):
+def _missing_reference(app, target, refdoc, contnode=None, refexplicit=False):
 
     blog = Blog(app)
     if target in blog.references:
