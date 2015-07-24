@@ -83,3 +83,15 @@ to Peter Mills for reporting this issue. Other minor changes are:
 
   * ``conf.py`` file created by :ref:`ablog start <start>` updated to include
     ``about.html`` sidebar that comes with Alabaster_ theme.
+
+ABlog v0.7.7 released
+---------------------
+
+.. post:: July 24 2015
+   :author: Ahmet
+   :category: Release
+   :location: SF
+
+ABlog v0.7.7 is released to fix path resolving :issue:`41` that arose when
+cross-references were used in post excerpts, and also post redirect
+issue in templates.
