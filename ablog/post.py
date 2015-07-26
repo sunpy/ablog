@@ -438,6 +438,7 @@ def process_postlist(app, doctree, docname):
                     enode = enode.deepcopy()
                     enode.parent = bli.parent
                     bli.append(enode)
+                bli.append(nodes.line())
 
         node.replace_self(bl)
 
