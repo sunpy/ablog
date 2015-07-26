@@ -16,6 +16,7 @@ from unicodedata import normalize
 from docutils import nodes
 from docutils.io import StringOutput
 
+from sphinx import addnodes
 from sphinx.util.osutil import relative_uri
 from sphinx.environment import dummy_reporter
 
@@ -79,6 +80,11 @@ CONFIG = [
 TOMORROW = datetime.today() + dtmod.timedelta(1)
 FUTURE = datetime(9999, 12, 31)
 
+
+def revise_pending_xrefs(doctree, docname):
+
+    for node in doctree.traverse(addnodes.pending_xref):
+        node['refdoc'] = docname
 
 
 class Blog(object):
@@ -349,6 +355,8 @@ class Post(object):
             for node in self.excerpt:
                 doctree.append(node.deepcopy())
         app = self.ablog.app
+
+        revise_pending_xrefs(doctree, pagename)
         app.env.resolve_references(doctree, pagename, app.builder)
 
         add_permalinks, app.builder.add_permalinks = (

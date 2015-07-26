@@ -9,5 +9,5 @@ install:
 script:
   - cd docs; ablog build -T
   - cd docs; sphinx-build -b latex -T -d .doctrees . oudir
-  - printf "\nABlog\nABlog Team\nhttp://ablog.readthedocs.org" | ablog start
-  - printf "ablog\nABlog\nABlog Team\nhttp://ablog.readthedocs.org" | ablog start
+  - printf "\nABlog\nABlog Team\nhttp://ablog.readthedocs.org" | ablog start; ablog build
+  - printf "ablog\nABlog\nABlog Team\nhttp://ablog.readthedocs.org" | ablog start; cd ablog; ablog build
