@@ -440,6 +440,7 @@ def process_postlist(app, doctree, docname):
                     app.env.resolve_references(enode, docname, app.builder)
                     enode.parent = bli.parent
                     bli.append(enode)
+                bli.append(nodes.line())
 
         node.replace_self(bl)
 
