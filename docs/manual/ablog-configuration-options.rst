@@ -175,18 +175,29 @@ Font awesome
 ------------
 
 ABlog templates will use of `Font Awesome`_ icons if one of the following
-is ``True``:
+is set:
 
 .. _Font Awesome: http://fontawesome.io/
 
 
 .. confval:: fontawesome_link_cdn
 
-   Link to `Font Awesome`_ at `Bootstrap CDN`_ and use icons in sidebars
-   and post footers.  Default: ``False``
+   URL to `Font Awesome`_ at `Bootstrap CDN`_ and use icons in sidebars
+   and post footers.  Default: ``False`` (unset)
 
+   The value is used as URL; so set it to a valid value!
 
    .. _Bootstrap CDN: http://www.bootstrapcdn.com/#fontawesome_tab
+
+.. update:: Jul 29, 2015
+
+   This parameter used to be a ``Boolean``; where the url was hardcode (in the
+   page.html-template). Is has become a ``string``: to make it possible to configure the
+   correct/lastest/older version of `Font Awesome`_
+
+   To get the old behaviour, set it to
+   ‘http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css’ (which is a bit
+   old) 
 
 .. confval:: fontawesome_included
 
