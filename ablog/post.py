@@ -92,7 +92,7 @@ class UpdateDirective(Directive):
 
     has_content = True
     required_arguments = 1
-    optional_arguments = 0#1
+    optional_arguments = 0
     final_argument_whitespace = True
     option_spec = {}
 
@@ -182,10 +182,9 @@ def _get_update_dates(section, docname, post_date_format):
         try:
             update = datetime.strptime(update_node['date'], post_date_format)
         except ValueError:
-            raise ValueError('invalid post update date in: ' + docname)
+            raise ValueError('invalid post update date (%s) in: %s Expected format: %s' % (update_node['date'], docname, post_date_format))
 
-        substitute = nodes.title(u'',
-            update_node[0][0].astext() + u' ' + update.strftime(post_date_format))
+        substitute = nodes.title(u'', update_node[0][0].astext() + u' ' + update.strftime(post_date_format))
         update_node[0].replace_self(substitute)
         # for now, let updates look like note
         update_node['classes'] = ['note', 'update']
