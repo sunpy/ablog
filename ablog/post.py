@@ -275,7 +275,7 @@ def process_posts(app, doctree):
                     except ValueError:
                         raise ValueError('invalid post date in: ' + docname)
                 else:
-                    raise ValueError('invalid post date in: ' + docname)
+                    raise ValueError('invalid post date (%s) in: ' % (date) + docname +" expected format=%s" % post_date_format)
 
         else:
             date = None
@@ -361,7 +361,7 @@ def process_postlist(app, doctree, docname):
     """Replace `PostList` nodes with lists of posts. Also, register all posts
     if they have not been registered yet."""
 
-    blog = Blog()
+    blog = Blog(app)
     if not blog:
         register_posts(app)
 
@@ -389,7 +389,7 @@ def process_postlist(app, doctree, docname):
         fmts = list(Formatter().parse(node.attributes['format']))
         for text, key, __, __ in fmts:
             if key not in {'date', 'title', 'author', 'location', 'language',
-                'category', 'tags'}:
+                'category', 'tags', None}:
                 raise KeyError('{} is not recognized in postlist format'
                     .format(key))
 
@@ -407,6 +407,8 @@ def process_postlist(app, doctree, docname):
             for text, key, __, __ in fmts:
                 if text:
                     par.append(nodes.Text(text))
+                if key is None:
+                    continue
                 if key == 'date':
                     par.append(nodes.Text(post.date.strftime(date_format)))
                 else:
@@ -440,7 +442,6 @@ def process_postlist(app, doctree, docname):
                     app.env.resolve_references(enode, docname, app.builder)
                     enode.parent = bli.parent
                     bli.append(enode)
-                bli.append(nodes.line())
 
         node.replace_self(bl)
 
@@ -566,7 +567,12 @@ def generate_atom_feeds(app):
     if not url:
         raise StopIteration
 
-    from werkzeug.contrib.atom import AtomFeed
+    try:
+        from werkzeug.contrib.atom import AtomFeed
+    except ImportError:
+        app.warn("Can't import werkzeug's AtomFeed. Continue without atom/rss/feeds support")
+        return
+    
     feed_path = os.path.join(app.builder.outdir, blog.blog_path, 'atom.xml')
 
     feeds = [(blog.posts,
@@ -648,7 +654,7 @@ def generate_atom_feeds(app):
 def register_posts(app):
     """Register posts found in the Sphinx build environment."""
 
-    blog = Blog()
+    blog = Blog(app)
     for docname, posts in getattr(app.env, 'ablog_posts', {}).items():
         for postinfo in posts:
             blog.register(docname, postinfo)

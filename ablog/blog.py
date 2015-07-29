@@ -94,7 +94,7 @@ class Blog(object):
     # using a shared state
     _dict = {}
 
-    def __init__(self, app=None):
+    def __init__(self, app):
 
         self.__dict__ = self._dict
         if not self._dict:

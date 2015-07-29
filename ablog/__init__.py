@@ -9,6 +9,7 @@ from .post import (PostDirective, PostListDirective, UpdateDirective,
                    missing_reference)
 
 __version__ = '0.7.7'
+__version__ += '-GAM'
 
 
 def anchor(post):
