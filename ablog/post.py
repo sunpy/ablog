@@ -426,9 +426,7 @@ def process_postlist(app, doctree, docname):
                             ref['classes'] = []
                             ref['names'] = []
                             ref['internal'] = True
-                            emp = nodes.emphasis()
-                            ref.append(emp)
-                            emp.append(nodes.Text(text_type(item)))
+                            ref.append(nodes.Text(text_type(item)))
                         else:
                             ref = _missing_reference(app, item.xref, docname)
                         par.append(ref)
