@@ -22,8 +22,10 @@ from sphinx.environment import dummy_reporter
 
 if sys.version_info >= (3, 0):
     text_type = str
+    re_flag = 0
 else:
     text_type = unicode
+    re_flag = re.UNICODE
 
 def slugify(string):
     """Slugify *s*."""
@@ -31,8 +33,8 @@ def slugify(string):
     string = text_type(string)
     string = normalize('NFKD', string)
 
-    string = re.sub(r'[^\w\s-]', '', string).strip().lower()
-    return re.sub(r'[-\s]+', '-', string)
+    string = re.sub(r'[^\w\s-]', '', string, flags=re_flag).strip().lower()
+    return re.sub(r'[-\s]+', '-', string, flags=re_flag)
 
 def os_path_join(path, *paths):
 
