@@ -103,6 +103,7 @@ intersphinx_mapping = {
 extlinks = {
     'wiki': ('http://en.wikipedia.org/wiki/%s', ''),
     'issue': ('https://github.com/abakan/ablog/issues/%s', 'issue '),
+    'pull': ('https://github.com/abakan/ablog/pull/%s', 'pull request '),
 }
 
 rst_epilog = '''

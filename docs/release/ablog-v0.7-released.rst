@@ -84,6 +84,7 @@ to Peter Mills for reporting this issue. Other minor changes are:
   * ``conf.py`` file created by :ref:`ablog start <start>` updated to include
     ``about.html`` sidebar that comes with Alabaster_ theme.
 
+
 ABlog v0.7.7 released
 ---------------------
 
@@ -95,3 +96,20 @@ ABlog v0.7.7 released
 ABlog v0.7.7 is released to fix path resolving :issue:`41` that arose when
 cross-references were used in post excerpts, and also post redirect
 issue in templates.
+
+
+ABlog v0.7.8 released
+---------------------
+
+.. post:: August 22 2015
+   :author: Ahmet
+   :category: Release
+   :location: SF
+
+ABlog v0.7.8 is released to fix a Python 2 issue that appears when creating
+collection pages that contain non-ascii characters in their names (:issue:`45`)
+and filename escaping issue when committing changes using
+:ref:`ablog deploy <deploy>` command (:pull:`44`).
+Thanks to `uralbash`_ for these contributions.
+
+.. _uralbash: https://github.com/uralbash
