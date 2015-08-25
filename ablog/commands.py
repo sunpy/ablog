@@ -261,7 +261,6 @@ def ablog_post(filename, title=None, **kwargs):
 '''
     from datetime import date
     from os import path
-    from shutil import rmtree
 
     #Generate basic post params.
     today = date.today()
@@ -303,6 +302,8 @@ def ablog_post(filename, title=None, **kwargs):
 def ablog_deploy(website, message=None, github_pages=None,
     push_quietly=False, github_token=None, **kwargs):
 
+    from shutil import rmtree
+
     confdir = find_confdir()
     conf = read_conf(confdir)
 
@@ -342,7 +343,7 @@ def ablog_deploy(website, message=None, github_pages=None,
                     try:
                         os.renames(fn, fnnew)
                     except OSError:
-                        if path.isdir(fnnew):
+                        if os.path.isdir(fnnew):
                             shutil.rmtree(fnnew)
                         else:
                             os.remove(fnnew)
