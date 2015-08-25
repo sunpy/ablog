@@ -113,3 +113,18 @@ and filename escaping issue when committing changes using
 Thanks to `uralbash`_ for these contributions.
 
 .. _uralbash: https://github.com/uralbash
+
+
+ABlog v0.7.9 released
+---------------------
+
+.. post:: August 25 2015
+   :author: Ahmet
+   :category: Release
+   :location: SF
+
+ABlog v0.7.9 is released to Windows specific file renaming issue in
+:ref:`ablog deploy <deploy>` command (:issue:`46`). Thanks to `Velimir`_
+for reporting the fix.
+
+.. _Velimir: https://github.com/montyvesselinov
