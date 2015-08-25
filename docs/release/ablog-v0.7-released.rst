@@ -125,6 +125,6 @@ ABlog v0.7.9 released
 
 ABlog v0.7.9 is released to Windows specific file renaming issue in
 :ref:`ablog deploy <deploy>` command (:issue:`46`). Thanks to `Velimir`_
-for reporting the fix.
+for the fix.
 
 .. _Velimir: https://github.com/montyvesselinov
