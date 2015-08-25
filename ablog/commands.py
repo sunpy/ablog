@@ -261,6 +261,7 @@ def ablog_post(filename, title=None, **kwargs):
 '''
     from datetime import date
     from os import path
+    from shutil import rmtree
 
     #Generate basic post params.
     today = date.today()
@@ -338,7 +339,15 @@ def ablog_deploy(website, message=None, github_pages=None,
                 for filename in filenames:
                     fn = os.path.join(root, filename)
                     fnnew = fn.replace(website, gitdir)
-                    os.renames(fn, fnnew)
+                    try:
+                        os.renames(fn, fnnew)
+                    except OSError:
+                        if path.isdir(fnnew):
+                            shutil.rmtree(fnnew)
+                        else:
+                            os.remove(fnnew)
+                        os.renames(fn, fnnew)
+
                     git_add.append(fnnew)
         print('Moved {} files to {}.github.io'
             .format(len(git_add), github_pages))
