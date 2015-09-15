@@ -336,17 +336,14 @@ def process_posts(app, doctree):
             env.ablog_posts[docname] = []
         env.ablog_posts[docname].append(postinfo)
 
-
-        non_html = 'html' not in app.builder.name
-
         # instantiate catalogs and collections here
         #  so that references are created and no warnings are issued
-        if non_html:
+        if app.builder.format == 'html':
+            stdlabel = env.domains['std'].data['labels']
+        else:
             stdlabel = env.intersphinx_inventory.setdefault('std:label', {})
             baseurl = getattr(env.config, 'blog_baseurl').rstrip('/') + '/'
             project, version = env.config.project, text_type(env.config.version)
-        else:
-            stdlabel = env.domains['std'].data['labels']
 
         for key in ['tags', 'author', 'category', 'location', 'language']:
             catalog = blog.catalogs[key]
@@ -480,7 +477,7 @@ def generate_archive_pages(app):
     """Generate archive pages for all posts, categories, tags, authors, and
     drafts."""
 
-    if not ablog.build_safe(app):
+    if not ablog.builder_support(app):
         return
 
     blog = Blog(app)
@@ -562,7 +559,7 @@ def generate_atom_feeds(app):
     """Generate archive pages for all posts, categories, tags, authors, and
     drafts."""
 
-    if not ablog.build_safe(app):
+    if not ablog.builder_support(app):
         return
 
     blog = Blog(app)

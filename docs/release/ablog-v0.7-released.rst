@@ -123,8 +123,20 @@ ABlog v0.7.9 released
    :category: Release
    :location: SF
 
-ABlog v0.7.9 is released to Windows specific file renaming issue in
+ABlog v0.7.9 is released to fix Windows specific file renaming issue in
 :ref:`ablog deploy <deploy>` command (:issue:`46`). Thanks to `Velimir`_
 for the fix.
 
 .. _Velimir: https://github.com/montyvesselinov
+
+
+ABlog v0.7.10 released
+---------------------
+
+.. post:: Sep 14, 2015
+   :author: Ahmet
+   :category: Release
+   :location: SF
+
+ABlog v0.7.10 is released to resolve Sphinx JSON/Pickle builder issues
+related to serialization.
