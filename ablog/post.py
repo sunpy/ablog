@@ -648,7 +648,7 @@ def generate_atom_feeds(app):
 def register_posts(app):
     """Register posts found in the Sphinx build environment."""
 
-    blog = Blog()
+    blog = Blog(app)
     for docname, posts in getattr(app.env, 'ablog_posts', {}).items():
         for postinfo in posts:
             blog.register(docname, postinfo)
