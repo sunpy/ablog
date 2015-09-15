@@ -131,7 +131,7 @@ for the fix.
 
 
 ABlog v0.7.10 released
----------------------
+----------------------
 
 .. post:: Sep 14, 2015
    :author: Ahmet
