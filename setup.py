@@ -44,7 +44,7 @@ setup(
     license='MIT License',
     keywords=('Sphinx, extension, blogging, atom feeds'),
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 3 - Alpha',
         'Topic :: Software Development :: Documentation',
         'License :: OSI Approved :: MIT License',
         'Operating System :: MacOS',
@@ -66,9 +66,6 @@ setup(
         'console_scripts': [
             'ablog = ablog.commands:ablog_main',
             'ablog%s = ablog.commands:ablog_main' % sys.version_info[0],
-            ],
-        'distutils.commands': [
-            'ablog = ablog.commands:ablog_main',
             ],
         },
 )
