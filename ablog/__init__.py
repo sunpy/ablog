@@ -33,7 +33,7 @@ def builder_support(builder):
 
 def html_page_context(app, pagename, templatename, context, doctree):
 
-    if build_support(app):
+    if builder_support(app):
         context['ablog'] = Blog(app)
         context['anchor'] = anchor
 
