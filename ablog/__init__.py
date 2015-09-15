@@ -22,8 +22,9 @@ def anchor(post):
 
 def html_page_context(app, pagename, templatename, context, doctree):
 
-    context['ablog'] = Blog(app)
-    context['anchor'] = anchor
+    if app.builder.name in {'html', 'dirhtml'}:
+        context['ablog'] = Blog(app)
+        context['anchor'] = anchor
 
 
 def setup(app):

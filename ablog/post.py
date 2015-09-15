@@ -361,7 +361,7 @@ def process_postlist(app, doctree, docname):
     """Replace `PostList` nodes with lists of posts. Also, register all posts
     if they have not been registered yet."""
 
-    blog = Blog()
+    blog = Blog(app)
     if not blog:
         register_posts(app)
 
@@ -480,6 +480,9 @@ def generate_archive_pages(app):
     """Generate archive pages for all posts, categories, tags, authors, and
     drafts."""
 
+    if app.builder.name not in {'html', 'dirhtml'}:
+        return
+
     blog = Blog(app)
     for post in blog.posts:
         for redirect in post.redirect:
@@ -558,6 +561,9 @@ def generate_archive_pages(app):
 def generate_atom_feeds(app):
     """Generate archive pages for all posts, categories, tags, authors, and
     drafts."""
+
+    if app.builder.name not in {'html', 'dirhtml'}:
+        return
 
     blog = Blog(app)
 
