@@ -8,7 +8,7 @@ from .post import (PostDirective, PostListDirective, UpdateDirective,
                    generate_archive_pages, generate_atom_feeds,
                    missing_reference)
 
-__version__ = '0.7.9'
+__version__ = '0.7.10'
 
 
 def anchor(post):
@@ -19,20 +19,21 @@ def anchor(post):
     else:
         return ''
 
-def build_safe(builder):
-    """Return True when builder is expected to be safe. Safe builders are
-    HTML builders, excluding `PickleHTMLBuilder` and `JSONHTMLBuilder`
-    which run into issues when trying to serialize blog objects."""
+def builder_support(builder):
+    """Return True when builder is supported. Supported builders output in
+    html format, but exclude `PickleHTMLBuilder` and `JSONHTMLBuilder`,
+    which run into issues when serializing blog objects."""
 
     if hasattr(builder, 'builder'):
         builder = builder.builder
 
-    return builder.format == 'html' and not builder.name in {'json', 'pickle'}
+    not_supported = {'json', 'pickle'}
+    return builder.format == 'html' and not builder.name in not_supported
 
 
 def html_page_context(app, pagename, templatename, context, doctree):
 
-    if build_safe(app):
+    if build_support(app):
         context['ablog'] = Blog(app)
         context['anchor'] = anchor
 
