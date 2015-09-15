@@ -19,10 +19,20 @@ def anchor(post):
     else:
         return ''
 
+def build_safe(builder):
+    """Return True when builder is expected to be safe. Safe builders are
+    HTML builders, excluding `PickleHTMLBuilder` and `JSONHTMLBuilder`
+    which run into issues when trying to serialize blog objects."""
+
+    if hasattr(builder, 'builder');
+        builder = builder.builder
+
+    return builder.format == 'html' and not builder.name in {'json', 'pickle'}
+
 
 def html_page_context(app, pagename, templatename, context, doctree):
 
-    if app.builder.name in {'html', 'dirhtml'}:
+    if build_safe(app):
         context['ablog'] = Blog(app)
         context['anchor'] = anchor
 
