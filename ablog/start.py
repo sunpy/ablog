@@ -31,9 +31,8 @@ if sys.version_info >= (3, 0):
     ABLOG_CONF = u'#!/usr/bin/env python3\n'
 
 
-ABLOG_CONF += u'''
-# -*- coding: utf-8 -*-
-#
+ABLOG_CONF += u'''# -*- coding: utf-8 -*-
+
 # %(project)s build configuration file, created by
 # `ablog start` on %(now)s.
 #
