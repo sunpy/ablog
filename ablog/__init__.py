@@ -24,7 +24,7 @@ def build_safe(builder):
     HTML builders, excluding `PickleHTMLBuilder` and `JSONHTMLBuilder`
     which run into issues when trying to serialize blog objects."""
 
-    if hasattr(builder, 'builder');
+    if hasattr(builder, 'builder'):
         builder = builder.builder
 
     return builder.format == 'html' and not builder.name in {'json', 'pickle'}

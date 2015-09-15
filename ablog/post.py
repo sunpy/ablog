@@ -18,7 +18,6 @@ from docutils.parsers.rst import directives
 from docutils.utils import relative_path
 
 import ablog
-from . import build_safe
 from .blog import Blog, slugify, os_path_join, revise_pending_xrefs
 
 if sys.version_info >= (3, 0):
@@ -481,7 +480,7 @@ def generate_archive_pages(app):
     """Generate archive pages for all posts, categories, tags, authors, and
     drafts."""
 
-    if not build_safe(app):
+    if not ablog.build_safe(app):
         return
 
     blog = Blog(app)
@@ -563,7 +562,7 @@ def generate_atom_feeds(app):
     """Generate archive pages for all posts, categories, tags, authors, and
     drafts."""
 
-    if not build_safe(app):
+    if not ablog.build_safe(app):
         return
 
     blog = Blog(app)
