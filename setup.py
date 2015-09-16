@@ -65,7 +65,7 @@ setup(
     entry_points = {
         'console_scripts': [
             'ablog = ablog.commands:ablog_main',
-            'ablog%s = ablog.commands:ablog_main' % sys.version_info[0],
+            'ablog{} = ablog.commands:ablog_main'.format(sys.version_info[0]),
             ],
         },
 )
