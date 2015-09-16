@@ -140,3 +140,14 @@ ABlog v0.7.10 released
 
 ABlog v0.7.10 is released to resolve Sphinx JSON/Pickle builder issues
 related to serialization.
+
+
+ABlog v0.7.12 released
+----------------------
+
+.. post:: Sep 15, 2015
+   :author: Ahmet
+   :category: Release
+   :location: SF
+
+ABlog v0.7.12 (and also v0.7.11) maintenance release are available.
