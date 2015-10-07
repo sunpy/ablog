@@ -73,21 +73,23 @@ Running ``ablog build`` in your project folder builds your website HTML pages.
 ::
 
   $ ablog build -h
-  usage: ablog build [-h] [-b BUILDER] [-d DOCTREES] [-s SOURCEDIR] [-w WEBSITE]
-                     [-T]
+  usage: ablog build [-h] [-a] [-b BUILDER] [-s SOURCEDIR] [-w WEBSITE]
+                     [-d DOCTREES] [-T] [-P]
 
   Path options can be set in conf.py. Default values of paths are relative to
   conf.py.
 
   optional arguments:
     -h, --help    show this help message and exit
+    -a            write all files; default is to only write new and changed
+                  files
     -b BUILDER    builder to use, default `ablog_builder` or dirhtml
-    -d DOCTREES   path for the cached environment and doctree files, default
-                  .doctrees when `ablog_doctrees` is not set in conf.py
     -s SOURCEDIR  root path for source files, default is path to the folder that
                   contains conf.py
     -w WEBSITE    path for website, default is _website when `ablog_website` is
                   not set in conf.py
+    -d DOCTREES   path for the cached environment and doctree files, default
+                  .doctrees when `ablog_doctrees` is not set in conf.py
     -T            show full traceback on exception
     -P            run pdb on exception
 
