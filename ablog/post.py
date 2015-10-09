@@ -182,9 +182,12 @@ def _get_update_dates(section, docname, post_date_format):
         try:
             update = datetime.strptime(update_node['date'], post_date_format)
         except ValueError:
-            raise ValueError('invalid post update date (%s) in: %s Expected format: %s' % (update_node['date'], docname, post_date_format))
-
-        substitute = nodes.title(u'', update_node[0][0].astext() + u' ' + update.strftime(post_date_format))
+            raise ValueError('invalid post update date (%s) in %s. '
+                             'Expected format: %s' %
+                             (update_node['date'], docname, post_date_format))
+        substitute = nodes.title(u'',
+                                 update_node[0][0].astext() + u' ' +
+                                 update.strftime(post_date_format))
         update_node[0].replace_self(substitute)
         # for now, let updates look like note
         update_node['classes'] = ['note', 'update']
@@ -274,7 +277,9 @@ def process_posts(app, doctree):
                     except ValueError:
                         raise ValueError('invalid post date in: ' + docname)
                 else:
-                    raise ValueError('invalid post date (%s) in: ' % (date) + docname +" expected format=%s" % post_date_format)
+                    raise ValueError('invalid post date (%s) in ' % (date) +
+                                     docname +
+                                     ". Expected format: %s" % post_date_format)
 
         else:
             date = None
@@ -570,9 +575,9 @@ def generate_atom_feeds(app):
     try:
         from werkzeug.contrib.atom import AtomFeed
     except ImportError:
-        app.warn("Can't import werkzeug's AtomFeed. Continue without atom/rss/feeds support")
+        app.warn("werkzeug is not found, continue without atom feeds support.")
         return
-    
+
     feed_path = os.path.join(app.builder.outdir, blog.blog_path, 'atom.xml')
 
     feeds = [(blog.posts,

@@ -187,17 +187,15 @@ is set:
 
    The value is used as URL; so set it to a valid value!
 
-   .. _Bootstrap CDN: http://www.bootstrapcdn.com/#fontawesome_tab
+   .. _Bootstrap CDN: http://www.bootstrapcdn.com/fontawesome/
 
 .. update:: Jul 29, 2015
 
-   This parameter used to be a ``Boolean``; where the url was hardcode (in the
-   page.html-template). Is has become a ``string``: to make it possible to configure the
-   correct/lastest/older version of `Font Awesome`_
-
-   To get the old behaviour, set it to
-   ‘http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css’ (which is a bit
-   old) 
+   :confval:`fontawesome_link_cdn` was a *boolean* option, and now became a
+   *string* to enable using desired version of `Font Awesome`_.
+   To get the old behavior, use
+   ``‘http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css'``.
+   
 
 .. confval:: fontawesome_included
 
@@ -287,4 +285,3 @@ Command Options
 
    GitHub user name used by ``ablog deploy`` command. See :ref:`deploy`
    and :ref:`deploy-to-github-pages` for more information.
-
