@@ -12,6 +12,7 @@ demo/
 # Sphinx documentation
 docs/_*
 docs/.*
+docs/tmp/
 
 .DS_Store
 
