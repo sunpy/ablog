@@ -92,7 +92,7 @@ class UpdateDirective(Directive):
 
     has_content = True
     required_arguments = 1
-    optional_arguments = 0#1
+    optional_arguments = 0
     final_argument_whitespace = True
     option_spec = {}
 
@@ -182,10 +182,12 @@ def _get_update_dates(section, docname, post_date_format):
         try:
             update = datetime.strptime(update_node['date'], post_date_format)
         except ValueError:
-            raise ValueError('invalid post update date in: ' + docname)
-
+            raise ValueError('invalid post update date (%s) in %s. '
+                             'Expected format: %s' %
+                             (update_node['date'], docname, post_date_format))
         substitute = nodes.title(u'',
-            update_node[0][0].astext() + u' ' + update.strftime(post_date_format))
+                                 update_node[0][0].astext() + u' ' +
+                                 update.strftime(post_date_format))
         update_node[0].replace_self(substitute)
         # for now, let updates look like note
         update_node['classes'] = ['note', 'update']
@@ -275,7 +277,9 @@ def process_posts(app, doctree):
                     except ValueError:
                         raise ValueError('invalid post date in: ' + docname)
                 else:
-                    raise ValueError('invalid post date in: ' + docname)
+                    raise ValueError('invalid post date (%s) in ' % (date) +
+                                     docname +
+                                     ". Expected format: %s" % post_date_format)
 
         else:
             date = None
@@ -386,7 +390,7 @@ def process_postlist(app, doctree, docname):
         fmts = list(Formatter().parse(node.attributes['format']))
         for text, key, __, __ in fmts:
             if key not in {'date', 'title', 'author', 'location', 'language',
-                'category', 'tags'}:
+                'category', 'tags', None}:
                 raise KeyError('{} is not recognized in postlist format'
                     .format(key))
 
@@ -404,6 +408,8 @@ def process_postlist(app, doctree, docname):
             for text, key, __, __ in fmts:
                 if text:
                     par.append(nodes.Text(text))
+                if key is None:
+                    continue
                 if key == 'date':
                     par.append(nodes.Text(post.date.strftime(date_format)))
                 else:
@@ -422,9 +428,7 @@ def process_postlist(app, doctree, docname):
                             ref['classes'] = []
                             ref['names'] = []
                             ref['internal'] = True
-                            emp = nodes.emphasis()
-                            ref.append(emp)
-                            emp.append(nodes.Text(text_type(item)))
+                            ref.append(nodes.Text(text_type(item)))
                         else:
                             ref = _missing_reference(app, item.xref, docname)
                         par.append(ref)
@@ -437,7 +441,6 @@ def process_postlist(app, doctree, docname):
                     app.env.resolve_references(enode, docname, app.builder)
                     enode.parent = bli.parent
                     bli.append(enode)
-                bli.append(nodes.line())
 
         node.replace_self(bl)
 
@@ -569,7 +572,12 @@ def generate_atom_feeds(app):
     if not url:
         raise StopIteration
 
-    from werkzeug.contrib.atom import AtomFeed
+    try:
+        from werkzeug.contrib.atom import AtomFeed
+    except ImportError:
+        app.warn("werkzeug is not found, continue without atom feeds support.")
+        return
+
     feed_path = os.path.join(app.builder.outdir, blog.blog_path, 'atom.xml')
 
     feeds = [(blog.posts,

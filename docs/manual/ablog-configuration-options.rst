@@ -175,18 +175,27 @@ Font awesome
 ------------
 
 ABlog templates will use of `Font Awesome`_ icons if one of the following
-is ``True``:
+is set:
 
 .. _Font Awesome: http://fontawesome.io/
 
 
 .. confval:: fontawesome_link_cdn
 
-   Link to `Font Awesome`_ at `Bootstrap CDN`_ and use icons in sidebars
-   and post footers.  Default: ``False``
+   URL to `Font Awesome`_ at `Bootstrap CDN`_ and use icons in sidebars
+   and post footers.  Default: ``False`` (unset)
 
+   The value is used as URL; so set it to a valid value!
 
-   .. _Bootstrap CDN: http://www.bootstrapcdn.com/#fontawesome_tab
+   .. _Bootstrap CDN: http://www.bootstrapcdn.com/fontawesome/
+
+.. update:: Jul 29, 2015
+
+   :confval:`fontawesome_link_cdn` was a *boolean* option, and now became a
+   *string* to enable using desired version of `Font Awesome`_.
+   To get the old behavior, use
+   ``‘http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css'``.
+   
 
 .. confval:: fontawesome_included
 
@@ -276,4 +285,3 @@ Command Options
 
    GitHub user name used by ``ablog deploy`` command. See :ref:`deploy`
    and :ref:`deploy-to-github-pages` for more information.
-

@@ -108,11 +108,13 @@ cmd(ablog_start, name='start', help='start a new blog project',
         "default is path to the folder that contains conf.py")
 @arg('-b', dest='builder', type=str,
     help="builder to use, default `ablog_builder` or dirhtml")
+@arg('-a', dest='allfiles',     action='store_true', default=False,
+    help="write all files; default is to only write new and changed files")
 @cmd(name='build', help='build your blog project',
     description="Path options can be set in conf.py. "
     "Default values of paths are relative to conf.py.")
 def ablog_build(builder=None, sourcedir=None, website=None, doctrees=None,
-    traceback=False, runpdb=False, **kwargs):
+    traceback=False, runpdb=False, allfiles=False, **kwargs):
 
     confdir = find_confdir()
     conf = read_conf(confdir)
@@ -128,6 +130,8 @@ def ablog_build(builder=None, sourcedir=None, website=None, doctrees=None,
         argv.extend(['-T'])
     if runpdb:
         argv.extend(['-P'])
+    if allfiles:
+        argv.extend(['-a'])
     argv.extend([sourcedir, website])
 
     from sphinx import main
