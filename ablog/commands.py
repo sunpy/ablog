@@ -296,6 +296,8 @@ def ablog_post(filename, title=None, **kwargs):
     help="environment variable name storing GitHub access token")
 @arg('--push-quietly', dest='push_quietly', action='store_true', default=False,
     help="be more quiet when pushing changes")
+@arg('-f', dest='push_force', action='store_true', default=False,
+    help="owerwrites last commit, as 'commit --amend' and 'push -f'")
 @arg('-m', dest='message', type=str, help="commit message")
 @arg('-g', dest='github_pages', type=str,
     help="GitHub username for deploying to GitHub pages")
@@ -304,9 +306,7 @@ def ablog_post(filename, title=None, **kwargs):
     description="Path options can be set in conf.py. "
     "Default values of paths are relative to conf.py.")
 def ablog_deploy(website, message=None, github_pages=None,
-    push_quietly=False, github_token=None, **kwargs):
-
-    from shutil import rmtree
+    push_quietly=False, push_force=False, github_token=None, **kwargs):
 
     confdir = find_confdir()
     conf = read_conf(confdir)
@@ -365,7 +365,10 @@ def ablog_deploy(website, message=None, github_pages=None,
             open('.nojekyll', 'w')
             run("git add -f .nojekyll")
 
-        run('git commit -m "{}"'.format(message or 'Updates.', echo=True))
+        commit = 'git commit -m "{}"'.format(message or 'Updates.')
+        if push_force:
+            commit += ' --amend'
+        run(commit, echo=True)
 
         if github_token:
             with open(os.path.join(gitdir, '.git/credentials'), 'w') as out:
@@ -375,6 +378,8 @@ def ablog_deploy(website, message=None, github_pages=None,
         push = 'git push'
         if push_quietly:
             push += ' -q'
+        if push_force:
+            push += ' -f'
         push += ' origin master'
         run(push, echo=True)
 
