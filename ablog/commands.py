@@ -297,7 +297,7 @@ def ablog_post(filename, title=None, **kwargs):
 @arg('--push-quietly', dest='push_quietly', action='store_true', default=False,
     help="be more quiet when pushing changes")
 @arg('-f', dest='push_force', action='store_true', default=False,
-    help="owerwrites last commit, as 'commit --amend' and 'push -f'")
+    help="owerwrite last commit, i.e. `commit --amend; push -f`")
 @arg('-m', dest='message', type=str, help="commit message")
 @arg('-g', dest='github_pages', type=str,
     help="GitHub username for deploying to GitHub pages")
