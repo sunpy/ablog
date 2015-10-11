@@ -301,12 +301,15 @@ def ablog_post(filename, title=None, **kwargs):
 @arg('-m', dest='message', type=str, help="commit message")
 @arg('-g', dest='github_pages', type=str,
     help="GitHub username for deploying to GitHub pages")
+@arg('-p', dest='gitdir', type=str,
+    help="path to the location of repository, default is location of `conf.py`")
 @arg_website
 @cmd(name='deploy', help='deploy your website build files',
     description="Path options can be set in conf.py. "
     "Default values of paths are relative to conf.py.")
 def ablog_deploy(website, message=None, github_pages=None,
-    push_quietly=False, push_force=False, github_token=None, **kwargs):
+    push_quietly=False, push_force=False, github_token=None, gitdir=None,
+    **kwargs):
 
     confdir = find_confdir()
     conf = read_conf(confdir)
@@ -330,13 +333,14 @@ def ablog_deploy(website, message=None, github_pages=None,
 
     if github_pages:
 
-        gitdir = os.path.join(confdir, "{0}.github.io".format(github_pages))
+        if gitdir is None:
+            gitdir = os.path.join(confdir, "{0}.github.io".format(github_pages))
         if os.path.isdir(gitdir):
             os.chdir(gitdir)
             run("git pull", echo=True)
         else:
-            run("git clone https://github.com/{0}/{0}.github.io.git"
-                .format(github_pages), echo=True)
+            run("git clone https://github.com/{0}/{0}.github.io.git {1}"
+                .format(github_pages, gitdir), echo=True)
 
         git_add = []
         for tm in tomove:
