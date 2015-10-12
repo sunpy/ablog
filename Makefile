@@ -1,4 +1,4 @@
-.PHONY: demo install rebuild release test
+.PHONY: demo install rebuild release test docs
 
 demo:
 	rm -rf demo
@@ -6,6 +6,9 @@ demo:
 
 install:
 	pip install -U --no-deps --force-reinstall .
+
+docs:
+	cd docs; ablog build -a
 
 rebuild:
 	cd docs; watchmedo shell-command --patterns='*.rst' --command='ablog build' --recursive
