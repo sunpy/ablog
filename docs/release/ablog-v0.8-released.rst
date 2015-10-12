@@ -25,6 +25,9 @@ ABlog v0.8.0 is released with additions and changes:
     linking to desired version of `Font Awesome`_. Thanks to `Albert Mietus`_
     for this contribution.
 
+  * Post lists font style is now controlled through CSS. Thanks to
+    `Albert Mietus`_ for this contribution as well.
+
   * Fixed internal link resolution issue that affected atom feeds of
     collections, i.e. feeds of posts under a category, tag, or author.
 
