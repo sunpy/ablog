@@ -10,9 +10,14 @@ install:
 script:
   - make test
 deploy:
-  _ git checkout --orphan gh-pages
-  _ rm $(git ls-files)
-  _ git rm --cached $(git ls-files)
-  _ git add .
-  _ git commit
-  _ git push origin gh-pages
+  - git clean -f
+  - git config --global user.name "Ahmet Bakan"
+  - git config --global user.email "lordnapi@gmail.com"
+  - git config --global push.default simple
+  - ablog deploy --push-quietly --github-token=ABLOG_KEY -m="`git log -1 --pretty=%B`"
+  - git checkout --orphan gh-pages
+  - rm $(git ls-files)
+  - git rm --cached $(git ls-files)
+  - git add .
+  - git commit
+  - git push origin gh-pages
