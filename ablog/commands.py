@@ -315,7 +315,7 @@ def ablog_deploy(website, message=None, github_pages=None,
     confdir = find_confdir()
     conf = read_conf(confdir)
 
-    github_pages = (github_pages or getattr(conf, 'github_pages') or None)
+    github_pages = (github_pages or getattr(conf, 'github_pages', None))
 
     website = (website or
         os.path.join(confdir, getattr(conf, 'ablog_builddir', '_website')))
