@@ -38,7 +38,7 @@ setup(
     license='MIT License',
     keywords=('Sphinx, extension, blogging, atom feeds'),
     classifiers=[
-        'Development Status :: 3 - Beta',
+        'Development Status :: 4 - Beta',
         'Topic :: Software Development :: Documentation',
         'License :: OSI Approved :: MIT License',
         'Operating System :: MacOS',
