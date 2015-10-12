@@ -9,15 +9,3 @@ install:
   - pip install .
 script:
   - make test
-after_success:
-  - git clean -f
-  - git config --global user.name "Ahmet Bakan"
-  - git config --global user.email "lordnapi@gmail.com"
-  - git config --global push.default simple
-  - ablog deploy --push-quietly --github-token=ABLOG_KEY -m="`git log -1 --pretty=%B`"
-  - git checkout --orphan gh-pages
-  - rm $(git ls-files)
-  - git rm --cached $(git ls-files)
-  - git add .
-  - git commit
-  - git push origin gh-pages
