@@ -581,6 +581,7 @@ def generate_atom_feeds(app):
     feed_path = os.path.join(app.builder.outdir, blog.blog_path, 'atom.xml')
 
     feeds = [(blog.posts,
+             blog.blog_path,
              feed_path,
              blog.blog_title,
              os_path_join(url, blog.blog_path, 'atom.xml'))]
@@ -604,15 +605,17 @@ def generate_atom_feeds(app):
                     os.makedirs(folder)
 
                 feeds.append((coll,
-                          os.path.join(folder, 'atom.xml'),
-                          blog.blog_title + u' - ' + header + u' ' + text_type(coll),
-                          os_path_join(url, coll.path, 'atom.xml')))
+                              coll.path,
+                              os.path.join(folder, 'atom.xml'),
+                              blog.blog_title + u' - ' + header +
+                                                u' ' + text_type(coll),
+                              os_path_join(url, coll.path, 'atom.xml')))
 
     # Config options
     feed_length = blog.blog_feed_length
     feed_fulltext = blog.blog_feed_fulltext
 
-    for feed_posts, feed_path, feed_title, feed_url in feeds:
+    for feed_posts, pagename, feed_path, feed_title, feed_url in feeds:
 
         feed = AtomFeed(feed_title,
                         title_type='text',
@@ -632,8 +635,7 @@ def generate_atom_feeds(app):
             if blog.blog_feed_titles:
                 content = None
             else:
-                content = post.to_html(blog.blog_path, fulltext=feed_fulltext)
-
+                content = post.to_html(pagename, fulltext=feed_fulltext)
             feed.add(post.title,
                      content=content,
                      title_type='text',
