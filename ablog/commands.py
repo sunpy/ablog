@@ -301,14 +301,15 @@ def ablog_post(filename, title=None, **kwargs):
 @arg('-m', dest='message', type=str, help="commit message")
 @arg('-g', dest='github_pages', type=str,
     help="GitHub username for deploying to GitHub pages")
-@arg('-p', dest='gitdir', type=str,
-    help="path to the location of repository, default is location of `conf.py`")
+@arg('-p', dest='repodir', type=str,
+    help="path to the location of repository to be deployed, e.g. "
+         "`../username.github.io`, default is folder containing `conf.py`")
 @arg_website
 @cmd(name='deploy', help='deploy your website build files',
     description="Path options can be set in conf.py. "
     "Default values of paths are relative to conf.py.")
 def ablog_deploy(website, message=None, github_pages=None,
-    push_quietly=False, push_force=False, github_token=None, gitdir=None,
+    push_quietly=False, push_force=False, github_token=None, repodir=None,
     **kwargs):
 
     confdir = find_confdir()
@@ -333,21 +334,21 @@ def ablog_deploy(website, message=None, github_pages=None,
 
     if github_pages:
 
-        if gitdir is None:
-            gitdir = os.path.join(confdir, "{0}.github.io".format(github_pages))
-        if os.path.isdir(gitdir):
-            os.chdir(gitdir)
+        if repodir is None:
+            repodir = os.path.join(confdir, "{0}.github.io".format(github_pages))
+        if os.path.isdir(repodir):
+            os.chdir(repodir)
             run("git pull", echo=True)
         else:
             run("git clone https://github.com/{0}/{0}.github.io.git {1}"
-                .format(github_pages, gitdir), echo=True)
+                .format(github_pages, repodir), echo=True)
 
         git_add = []
         for tm in tomove:
             for root, dirnames, filenames in os.walk(website):
                 for filename in filenames:
                     fn = os.path.join(root, filename)
-                    fnnew = fn.replace(website, gitdir)
+                    fnnew = fn.replace(website, repodir)
                     try:
                         os.renames(fn, fnnew)
                     except OSError:
@@ -361,7 +362,7 @@ def ablog_deploy(website, message=None, github_pages=None,
         print('Moved {} files to {}.github.io'
             .format(len(git_add), github_pages))
 
-        os.chdir(gitdir)
+        os.chdir(repodir)
 
         run("git add -f " + " ".join(['"{}"'.format(os.path.relpath(p))
                                       for p in git_add]), echo=True)
@@ -375,7 +376,7 @@ def ablog_deploy(website, message=None, github_pages=None,
         run(commit, echo=True)
 
         if github_token:
-            with open(os.path.join(gitdir, '.git/credentials'), 'w') as out:
+            with open(os.path.join(repodir, '.git/credentials'), 'w') as out:
                 out.write('https://{}:@github.com'
                     .format(os.environ[github_token]))
             run('git config credential.helper "store --file=.git/credentials"')

@@ -44,8 +44,8 @@ and viewing blog pages, as well as starting a new blog.
 
 .. _start:
 
-Start a Project
----------------
+Start a New Project
+-------------------
 
 ``ablog start`` command is for quickly setting up a blog project. See
 :ref:`quick-start` for how it works and what it prepares for you.
@@ -93,8 +93,8 @@ Running ``ablog build`` in your project folder builds your website HTML pages.
     -T            show full traceback on exception
     -P            run pdb on exception
 
-Serve and View
---------------
+Serve and View Locally
+----------------------
 
 Running ``ablog serve``, after building your website, will start a Python
 server and open up browser tab to view your website.
@@ -118,16 +118,17 @@ server and open up browser tab to view your website.
 
 .. _deploy:
 
-Deploy Website
---------------
+Deploy to GitHub Pages
+----------------------
 
 Running ``ablog deploy`` will push your website to GitHub.
 
 ::
 
   $ ablog deploy -h
-  usage: ablog deploy [-h] [-w WEBSITE] [-g GITHUB_PAGES] [-m MESSAGE] [-f]
-                      [--push-quietly] [--github-token GITHUB_TOKEN]
+  usage: ablog deploy [-h] [-w WEBSITE] [-p REPODIR] [-g GITHUB_PAGES]
+                      [-m MESSAGE] [-f] [--push-quietly]
+                      [--github-token GITHUB_TOKEN]
 
   Path options can be set in conf.py. Default values of paths are relative to
   conf.py.
@@ -136,12 +137,16 @@ Running ``ablog deploy`` will push your website to GitHub.
     -h, --help            show this help message and exit
     -w WEBSITE            path for website, default is _website when
                           `ablog_website` is not set in conf.py
+    -p REPODIR            path to the location of repository to be deployed,
+                          e.g. `../username.github.io`, default is folder
+                          containing `conf.py`
     -g GITHUB_PAGES       GitHub username for deploying to GitHub pages
     -m MESSAGE            commit message
     -f                    owerwrite last commit, i.e. `commit --amend; push -f`
     --push-quietly        be more quiet when pushing changes
     --github-token GITHUB_TOKEN
                           environment variable name storing GitHub access token
+
 
 Create a Post
 -------------
@@ -160,8 +165,9 @@ Finally, ``ablog post`` will make a new post template file.
     -h, --help  show this help message and exit
     -t TITLE    post title; default is formed from filename
 
-Clean Files
------------
+
+Clean Build Files
+-----------------
 
 In case you needed, running ``ablog clean`` will remove build files and
 do a deep clean with ``-D`` option.
