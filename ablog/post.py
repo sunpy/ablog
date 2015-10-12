@@ -398,6 +398,7 @@ def process_postlist(app, doctree, docname):
         date_format = node.attributes['date'] or _(blog.post_date_format_short)
         bl = nodes.bullet_list()
         bl.attributes['classes'].append('post-list-style-' + node['list-style'])
+        bl.attributes['classes'].append('postlist')
         for post in posts:
             bli = nodes.list_item()
             bl.append(bli)
