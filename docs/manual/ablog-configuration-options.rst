@@ -182,10 +182,8 @@ is set:
 
 .. confval:: fontawesome_link_cdn
 
-   URL to `Font Awesome`_ at `Bootstrap CDN`_ and use icons in sidebars
-   and post footers.  Default: ``False`` (unset)
-
-   The value is used as URL; so set it to a valid value!
+   URL to `Font Awesome`_ :file:`.css` hosted at `Bootstrap CDN`_ or anywhere
+   else.  Default: ``None``
 
    .. _Bootstrap CDN: http://www.bootstrapcdn.com/fontawesome/
 
@@ -195,7 +193,7 @@ is set:
    *string* to enable using desired version of `Font Awesome`_.
    To get the old behavior, use
    ``‘http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css'``.
-   
+
 
 .. confval:: fontawesome_included
 

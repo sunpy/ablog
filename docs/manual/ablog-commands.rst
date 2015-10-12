@@ -36,13 +36,12 @@ and viewing blog pages, as well as starting a new blog.
   See 'ablog <command> -h' for more information on a specific command.
 
 
-
-
 .. contents:: Here are all the things you can do:
    :local:
    :backlinks: top
 
 .. _start:
+
 
 Start a New Project
 -------------------
@@ -61,6 +60,7 @@ Start a New Project
 
   optional arguments:
     -h, --help  show this help message and exit
+
 
 .. _build:
 
@@ -93,6 +93,7 @@ Running ``ablog build`` in your project folder builds your website HTML pages.
     -T            show full traceback on exception
     -P            run pdb on exception
 
+
 Serve and View Locally
 ----------------------
 
@@ -115,6 +116,7 @@ server and open up browser tab to view your website.
     -n          do not open website in a new browser tab
     -r          rebuild when a file matching patterns change or get added
     --patterns  patterns for triggering rebuilds
+
 
 .. _deploy:
 

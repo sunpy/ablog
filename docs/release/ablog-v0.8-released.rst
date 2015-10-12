@@ -1,13 +1,33 @@
 ABlog v0.8 released
 ===================
 
-.. post::
+.. post:: Oct 12, 2015
+   :author: Ahmet
+   :category: Release
+   :location: SF
 
 
-ABlog v0.8.0 is released
+ABlog v0.8.0 is released with additions and changes:
 
-  * Added ``-a`` argument to :ref:`ablog build <build>` command.
+  * Added ``-a`` argument to :ref:`ablog build <build>` command, with which
+    you can force rewriting all pages when rebuilding your project. Default is
+    writing only pages that have changed.
 
-  * Added ``-f`` argument to :ref:`ablog deploy <deploy>` command.
+  * Added ``-f`` argument to :ref:`ablog deploy <deploy>` command, with which
+    you can amend to latest commit to keep GitHub pages repository small.
+    Thanks to `uralbash`_ for this contribution.
 
-  * Added ``-p`` argument to :ref:`ablog deploy <deploy>` command.
+  * Added ``-p`` argument to :ref:`ablog deploy <deploy>` command, with which
+    you can specify the path to your GitHub pages repository, i.e.
+    ``username.github.io``.
+
+  * Changed :confval:`fontawesome_link_cdn` to be a string argument to enable
+    linking to desired version of `Font Awesome`_. Thanks to `Albert Mietus`_
+    for this contribution.
+
+  * Fixed internal link resolution issue that affected atom feeds of
+    collections, i.e. feeds of posts under a category, tag, or author.
+
+.. _Font Awesome: https://fortawesome.github.io/Font-Awesome/
+.. _Albert Mietus: https://github.com/AlbertMietus
+.. _uralbash: https://github.com/uralbash
