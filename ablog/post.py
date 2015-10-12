@@ -647,7 +647,7 @@ def generate_atom_feeds(app):
                      updated=post.update, published=post.date)
 
         with open(feed_path, 'w') as out:
-            feed_str = feed.to_string()
+            feed_str = text_type(feed.to_string())
             try:
                 out.write(feed_str.encode('utf-8'))
             except TypeError:
