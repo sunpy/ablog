@@ -8,7 +8,7 @@ install:
 	pip install -U --no-deps --force-reinstall .
 
 docs:
-	cd docs; ablog build -a
+	export PYTHONPATH="$(shell pwd)"; echo $$PYTHONPATH; cd docs; ablog build -a -P
 
 rebuild:
 	cd docs; watchmedo shell-command --patterns='*.rst' --command='ablog build' --recursive
