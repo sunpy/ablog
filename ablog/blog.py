@@ -88,8 +88,23 @@ def revise_pending_xrefs(doctree, docname):
     for node in doctree.traverse(addnodes.pending_xref):
         node['refdoc'] = docname
 
+from collections.abc import Container
 
-class Blog(object):
+
+def link_posts(posts):
+    """Link posts after sorting them post by published date."""
+
+    from operator import attrgetter
+    posts = filter(attrgetter("order"), posts)
+    posts = sorted(posts)
+    posts[0].prev = posts[-1].next = None
+    for i in range(1, len(posts)):
+        post = posts[i]
+        posts[i - 1].next = post
+        post.prev = posts[i - 1]
+
+
+class Blog(Container):
 
     """Handle blog operations."""
 
@@ -205,7 +220,7 @@ class Blog(object):
     def feed_path(self):
         """RSS feed page name."""
 
-        return os_path_join(self.blog_path, 'rss.xml')
+        return os_path_join(self.blog_path, 'atom.xml')
 
     def register(self, docname, info):
         """Register post *docname*."""
@@ -231,18 +246,6 @@ class Blog(object):
                 return
             yield post
 
-    def link_posts(self):
-        """Link posts after sorting them post by published date."""
-
-        if not getattr(self, '_posts_sorted', False):
-            posts = [post for post in self.posts if post.order == 1]
-            posts.sort()
-            posts[0].prev = posts[-1].next = None
-            for i in range(1, len(posts)):
-                post = posts[i]
-                posts[i - 1].next = post
-                post.prev = posts[i - 1]
-            self._posts_sorted = True
 
     def page_id(self, pagename):
         """Page identifier for Disqus."""
@@ -279,14 +282,35 @@ def html_builder_write_doc(self, docname, doctree):
     return self.docwriter.parts['fragment']
 
 
-class Post(object):
+class BlogPageMixin(object):
+
+
+    def __str__(self):
+        return self.title
+
+
+    def __repr__(self):
+
+        return str(self) + ' <' + text_type(self.docname) + '>'
+
+    @property
+    def blog(self):
+        """Reference to :class:`~ablog.blog.Blog` object."""
+
+        return self._blog
+
+    @property
+    def title(self):
+
+        return getattr(self, 'name', getattr(self, '_title'))
+
+class Post(BlogPageMixin):
 
     """Handle post metadata."""
 
-    def __init__(self, ablog, docname, info):
+    def __init__(self, blog, docname, info):
 
-
-        self.ablog = ablog
+        self._blog = blog
         self.docname = docname
         self.section = info['section']
         self.order = info['order']
@@ -294,7 +318,7 @@ class Post(object):
         self.update = info['update']
         self.published = date and date < TOMORROW
         self.draft = not self.published
-        self.title = info['title']
+        self._title = info['title']
         self.excerpt = info['excerpt']
         self.doctree = info['doctree']
         self._next = self._prev = -1
@@ -303,7 +327,7 @@ class Post(object):
         #self.language = info.get('language')
 
         # archives
-        self.blog = []
+        # self.blog = []
         if self.published:
             self.tags = info.get('tags')
             self.author = info.get('author')
@@ -311,14 +335,14 @@ class Post(object):
             self.location = info.get('location')
             self.language = info.get('language')
 
-            if not self.author and ablog.blog_default_author:
-                self.author = ablog.blog_default_author
-            if not self.location and ablog.blog_default_location:
-                self.location = ablog.blog_default_location
-            if not self.language and ablog.blog_default_language:
-                self.language = ablog.blog_default_language
+            if not self.author and blog.blog_default_author:
+                self.author = blog.blog_default_author
+            if not self.location and blog.blog_default_location:
+                self.location = blog.blog_default_location
+            if not self.language and blog.blog_default_language:
+                self.language = blog.blog_default_language
 
-            self.archive = self.ablog.archive[self.date.year]
+            self.archive = self._blog.archive[self.date.year]
             self.archive.add(self)
 
         else:
@@ -332,9 +356,6 @@ class Post(object):
         self.redirect = info.get('redirect')
 
         self.options = info
-
-    def __str__(self):
-        return self.title
 
     def __lt__(self, other):
         return (self._computed_date, self.title) < (other._computed_date, other.title)
@@ -356,7 +377,7 @@ class Post(object):
             doctree = nodes.document({}, dummy_reporter)
             for node in self.excerpt:
                 doctree.append(node.deepcopy())
-        app = self.ablog.app
+        app = self._blog.app
 
         revise_pending_xrefs(doctree, pagename)
         app.env.resolve_references(doctree, pagename, app.builder)
@@ -377,7 +398,7 @@ class Post(object):
         """Next published post in chronological order."""
 
         if self._next == -1:
-            self.ablog.link_posts()
+            link_posts(self._blog.posts)
         return self._next
 
     @next.setter
@@ -391,7 +412,7 @@ class Post(object):
         """Previous published post in chronological order."""
 
         if self._prev == -1:
-            self.ablog.link_posts()
+            link_posts(self._blog.posts)
         return self._prev
 
     @prev.setter
@@ -401,13 +422,13 @@ class Post(object):
         self._prev = post
 
 
-class Catalog(object):
+class Catalog(BlogPageMixin):
 
     """Handles collections of posts."""
 
     def __init__(self, blog, name, xref, path, reverse=False):
 
-        self.blog = blog
+        self._blog = blog
         self.name = name
         self.xref = xref # for creating labels, e.g. `tag-python`
         self.collections = {}
@@ -420,6 +441,10 @@ class Catalog(object):
         self._coll_lens = None
         self._min_max = None
         self._reverse = reverse
+
+    def __str__(self):
+
+        return text_type(self.name)
 
     def __getitem__(self, name):
 
@@ -470,13 +495,14 @@ class Catalog(object):
         return self._min_max
 
 
-class Collection(object):
+class Collection(BlogPageMixin):
 
     """Posts sharing a label, i.e. tag, category, author, or location."""
 
     def __init__(self, catalog, label, name=None, href=None, path=None, page=0):
 
-        self.catalog = catalog
+        self._catalog = catalog
+        self._blog = catalog.blog
         self.label = label
         self.name = name or self.label
         self.href = href
@@ -488,7 +514,7 @@ class Collection(object):
         self._slug = None
         self._html = None
 
-        self.catalog.blog.references[self.xref] = (self.docname, self.name)
+        self._catalog.blog.references[self.xref] = (self.docname, self.name)
 
     def __str__(self):
 
@@ -523,6 +549,12 @@ class Collection(object):
     def __contains__(self, item):
 
         return item in self._posts
+
+    @property
+    def catalog(self):
+        """:class:`~ablog.blog.Catalog` that the collection belongs to."""
+
+        return self._catalog
 
     def add(self, post):
         """Add post to the collection."""
