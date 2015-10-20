@@ -88,7 +88,10 @@ def revise_pending_xrefs(doctree, docname):
     for node in doctree.traverse(addnodes.pending_xref):
         node['refdoc'] = docname
 
-from collections.abc import Container
+try:
+    from collections.abc import Container
+except ImportError:
+    from collections import Container
 
 
 def link_posts(posts):
