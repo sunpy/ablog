@@ -251,7 +251,8 @@ class Blog(Container):
 
 
     def page_id(self, pagename):
-        """Page identifier for Disqus."""
+        """Return pagename, trimming :file:`index` from end when found.
+        Return value is used as disqus page identifier."""
 
         if self.config['blog_baseurl']:
             if pagename.endswith('index'):
@@ -260,7 +261,9 @@ class Blog(Container):
             return '/' + pagename + ('/' if pagename else '')
 
     def page_url(self, pagename):
-        """Page url for Disqus."""
+        """Return page URL when :confval:`blog_baseurl` is set, otherwise
+        ``None``. When found, :file:`index.html` is trimmed from the end
+        of the URL."""
 
         if self.config['blog_baseurl']:
             url = urljoin(self.config['blog_baseurl'], pagename)
