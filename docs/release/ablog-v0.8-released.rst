@@ -34,3 +34,15 @@ ABlog v0.8.0 is released with additions and changes:
 .. _Font Awesome: https://fortawesome.github.io/Font-Awesome/
 .. _Albert Mietus: https://github.com/AlbertMietus
 .. _uralbash: https://github.com/uralbash
+
+
+
+ABlog v0.8.1 released
+---------------------
+
+.. post:: Oct 24, 2015
+   :author: Ahmet
+   :category: Release
+   :location: SF
+
+ABlog v0.8.1 is released to atom feed linking issue (:issue:`54`).
