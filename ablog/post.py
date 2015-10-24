@@ -510,8 +510,6 @@ def generate_archive_pages(app):
             'header': header,
             'catalog': catalog,
             'summary': True,
-            'atom_feed': atom_feed,
-            'feed_path': blog_path,
         }
         yield (catalog.docname, context, 'catalog.html')
 
@@ -525,10 +523,10 @@ def generate_archive_pages(app):
                 'header': header,
                 'collection': collection,
                 'summary': True,
-                'atom_feed': atom_feed,
                 'feed_path': collection.path if feed_archives else blog_path,
                 'archive_feed': atom_feed and feed_archives
             }
+            context['feed_title'] = context['title']
             yield (collection.docname, context, 'collection.html')
 
 

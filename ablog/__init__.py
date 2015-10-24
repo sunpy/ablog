@@ -34,8 +34,13 @@ def builder_support(builder):
 def html_page_context(app, pagename, templatename, context, doctree):
 
     if builder_support(app):
-        context['ablog'] = Blog(app)
+        context['ablog'] = blog = Blog(app)
         context['anchor'] = anchor
+        # following is already available for archive pages
+        if blog.blog_baseurl and 'feed_path' not in context:
+            context['feed_path'] = blog.blog_path
+            context['feed_title'] = blog.blog_title
+
 
 
 def setup(app):
