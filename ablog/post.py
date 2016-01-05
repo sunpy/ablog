@@ -182,9 +182,15 @@ def _get_update_dates(section, docname, post_date_format):
         try:
             update = datetime.strptime(update_node['date'], post_date_format)
         except ValueError:
-            raise ValueError('invalid post update date (%s) in %s. '
-                             'Expected format: %s' %
-                             (update_node['date'], docname, post_date_format))
+            if date_parser:
+                try:
+                    update = date_parser(update_node['date'])
+                except ValueError:
+                    raise ValueError('invalid post date in: ' + docname)
+            else:
+                raise ValueError('invalid post date (%s) in ' % (date) +
+                                 docname +
+                                 ". Expected format: %s" % post_date_format)
         substitute = nodes.title(u'',
                                  update_node[0][0].astext() + u' ' +
                                  update.strftime(post_date_format))
