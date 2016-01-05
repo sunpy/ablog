@@ -520,7 +520,7 @@ def generate_archive_pages(app):
                 continue
             context = {
                 'parents': [],
-                'title': u'{} {}'.format(header, collection),
+                'title': u'{0} {1}'.format(header, collection),
                 'header': header,
                 'collection': collection,
                 'summary': True,
