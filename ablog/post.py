@@ -388,9 +388,10 @@ def process_postlist(app, doctree, docname):
             posts.sort() # in reverse chronological order, so no reverse=True
 
         fmts = list(Formatter().parse(node.attributes['format']))
+        not_in = set(['date', 'title', 'author', 'location', 'language',
+                      'category', 'tags', None])
         for text, key, __, __ in fmts:
-            if key not in {'date', 'title', 'author', 'location', 'language',
-                'category', 'tags', None}:
+            if key not in not_in:
                 raise KeyError('{} is not recognized in postlist format'
                     .format(key))
 
