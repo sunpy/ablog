@@ -46,3 +46,16 @@ ABlog v0.8.1 released
    :location: SF
 
 ABlog v0.8.1 is released to fix atom feed linking in HTML header (:issue:`54`).
+
+
+
+ABlog v0.8.2 released
+---------------------
+
+.. post:: Jan 6, 2016
+   :author: Ahmet
+   :category: Release
+   :location: SF
+
+ABlog v0.8.2 is released to fix date parsing (:issue:`58`) and Python 2.6
+installation (:issue:`59`) issues.
