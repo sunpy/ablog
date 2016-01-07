@@ -182,9 +182,15 @@ def _get_update_dates(section, docname, post_date_format):
         try:
             update = datetime.strptime(update_node['date'], post_date_format)
         except ValueError:
-            raise ValueError('invalid post update date (%s) in %s. '
-                             'Expected format: %s' %
-                             (update_node['date'], docname, post_date_format))
+            if date_parser:
+                try:
+                    update = date_parser(update_node['date'])
+                except ValueError:
+                    raise ValueError('invalid post date in: ' + docname)
+            else:
+                raise ValueError('invalid post date (%s) in ' % (date) +
+                                 docname +
+                                 ". Expected format: %s" % post_date_format)
         substitute = nodes.title(u'',
                                  update_node[0][0].astext() + u' ' +
                                  update.strftime(post_date_format))
@@ -388,9 +394,10 @@ def process_postlist(app, doctree, docname):
             posts.sort() # in reverse chronological order, so no reverse=True
 
         fmts = list(Formatter().parse(node.attributes['format']))
+        not_in = set(['date', 'title', 'author', 'location', 'language',
+                      'category', 'tags', None])
         for text, key, __, __ in fmts:
-            if key not in {'date', 'title', 'author', 'location', 'language',
-                'category', 'tags', None}:
+            if key not in not_in:
                 raise KeyError('{} is not recognized in postlist format'
                     .format(key))
 
@@ -519,7 +526,7 @@ def generate_archive_pages(app):
                 continue
             context = {
                 'parents': [],
-                'title': u'{} {}'.format(header, collection),
+                'title': u'{0} {1}'.format(header, collection),
                 'header': header,
                 'collection': collection,
                 'summary': True,

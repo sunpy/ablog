@@ -27,7 +27,7 @@ def builder_support(builder):
     if hasattr(builder, 'builder'):
         builder = builder.builder
 
-    not_supported = {'json', 'pickle'}
+    not_supported = set(['json', 'pickle'])
     return builder.format == 'html' and not builder.name in not_supported
 
 
