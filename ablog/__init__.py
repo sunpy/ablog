@@ -73,6 +73,8 @@ def setup(app):
     locale_dir = os.path.join(pkgdir, 'locale')
     app.config.locale_dirs.append(locale_dir)
 
+    return {'version': __version__}   # identifies the version of our extension
+
 
 def get_html_templates_path():
     """Return path to ABlog templates folder."""
