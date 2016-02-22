@@ -497,6 +497,7 @@ def generate_archive_pages(app):
             yield (redirect, {'redirect': post.docname, 'post': post},
                    'redirect.html')
 
+    found_docs = app.env.found_docs
     atom_feed = bool(blog.blog_baseurl)
     feed_archives = blog.blog_feed_archives
     blog_path = blog.blog_path
@@ -518,7 +519,8 @@ def generate_archive_pages(app):
             'catalog': catalog,
             'summary': True,
         }
-        yield (catalog.docname, context, 'catalog.html')
+        if catalog.docname not in found_docs:
+            yield (catalog.docname, context, 'catalog.html')
 
         for collection in catalog:
 
@@ -534,7 +536,8 @@ def generate_archive_pages(app):
                 'archive_feed': atom_feed and feed_archives
             }
             context['feed_title'] = context['title']
-            yield (collection.docname, context, 'collection.html')
+            if collection.docname not in found_docs:
+                yield (collection.docname, context, 'collection.html')
 
 
     #ppp = 5
