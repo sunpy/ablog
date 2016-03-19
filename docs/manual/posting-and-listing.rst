@@ -29,6 +29,7 @@ following directive:
         :redirect: blog/old-page-name-for-the-post
         :excerpt: 2
         :image: 1
+        :nocoments:
 
 
    **Drafts & Posts**
@@ -67,6 +68,11 @@ following directive:
    using ``:redirect:`` option.  It takes a comma separated list of paths,
    relative to the root folder.  The redirect page waits for
    :confval:`post_redirect_refresh` seconds before redirection occurs.
+
+   **Disable comments**
+
+   You can disable comments for the current post using the ``:nocomment:``
+   option. Currently there is no way to disable comments in a specific page.
 
    **Excerpts & Images**
 

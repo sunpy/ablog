@@ -80,9 +80,9 @@ CONFIG = [
     ('post_redirect_refresh', 5, True),
     ('post_always_section', False, True),
 
-    ('disqus_shortname', None, True),
-    ('disqus_drafts', False, True),
-    ('disqus_pages', False, True),
+    ('ablog_disqus_shortname', None, True),
+    ('ablog_disqus_drafts', False, True),
+    ('ablog_disqus_pages', False, True),
 ]
 
 
@@ -329,6 +329,7 @@ class Post(BlogPageMixin):
         self.order = info['order']
         self.date = date = info['date']
         self.update = info['update']
+        self.nocomments = info['nocomments']
         self.published = date and date < TOMORROW
         self.draft = not self.published
         self._title = info['title']
