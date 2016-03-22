@@ -64,6 +64,7 @@ class PostDirective(Directive):
         'image': int,
         'excerpt': int,
         'exclude': directives.flag,
+        'nocomments': directives.flag,
     }
 
     def run(self):
@@ -85,6 +86,7 @@ class PostDirective(Directive):
         node['image'] = self.options.get('image', None)
         node['excerpt'] = self.options.get('excerpt', None)
         node['exclude'] = 'exclude' in self.options
+        node['nocomments'] = 'nocomments' in self.options
         return [node]
 
 
@@ -337,6 +339,7 @@ def process_posts(app, doctree):
             'location': node['location'],
             'language': node['language'],
             'redirect': node['redirect'],
+            'nocomments': node['nocomments'],
             'image': node['image'],
             'exclude': node['exclude'],
             'doctree': section_copy

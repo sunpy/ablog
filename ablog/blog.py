@@ -329,6 +329,7 @@ class Post(BlogPageMixin):
         self.order = info['order']
         self.date = date = info['date']
         self.update = info['update']
+        self.nocomments = info['nocomments']
         self.published = date and date < TOMORROW
         self.draft = not self.published
         self._title = info['title']
