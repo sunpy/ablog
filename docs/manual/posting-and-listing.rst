@@ -71,7 +71,7 @@ following directive:
 
    **Disable comments**
 
-   You can disable comments for the current post using the ``:nocomment:``
+   You can disable comments for the current post using the ``:nocomments:``
    option. Currently there is no way to disable comments in a specific page.
 
    **Excerpts & Images**
