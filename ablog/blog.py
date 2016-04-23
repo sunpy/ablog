@@ -71,7 +71,7 @@ CONFIG = [
 
     ('fontawesome_link_cdn', False, True),
     ('fontawesome_included', False, True),
-    ('fontawesome_css_file', False, True),
+    ('fontawesome_css_file', '', True),
 
     ('post_date_format', '%b %d, %Y', True),
     ('post_date_format_short', '%b %d', True),
