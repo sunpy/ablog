@@ -29,7 +29,7 @@ following directive:
         :redirect: blog/old-page-name-for-the-post
         :excerpt: 2
         :image: 1
-        :nocoments:
+        :nocomments:
 
 
    **Drafts & Posts**

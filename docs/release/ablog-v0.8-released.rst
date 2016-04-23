@@ -59,3 +59,24 @@ ABlog v0.8.2 released
 
 ABlog v0.8.2 is released to fix date parsing (:issue:`58`) and Python 2.6
 installation (:issue:`59`) issues.
+
+
+ABlog v0.8.3 released
+---------------------
+
+.. post:: Apr 23, 2016
+   :author: Ahmet
+   :category: Release
+   :location: SF
+
+ABlog v0.8.3 is released to bring you recent enhancements:
+
+  * `ninmesara`_ added ``:nocomments:`` argument to :rst:dir:`post` directive
+    to disable comments per post.
+
+  * `José Carlos García`_ added Spanish translations.
+
+
+
+.. _ninmesara: https://github.com/ninmesara
+.. _José Carlos García: https://github.com/quobit
