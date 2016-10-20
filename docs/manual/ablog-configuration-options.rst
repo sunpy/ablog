@@ -134,7 +134,7 @@ Post related
 Blog feeds
 ----------
 
-Turn feeds by setting :confval:`blog_baseurl` configuration variable.
+Turn feeds on by setting :confval:`blog_baseurl` configuration variable.
 
 .. confval:: blog_feed_archives
 
