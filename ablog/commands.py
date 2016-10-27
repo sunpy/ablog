@@ -199,6 +199,9 @@ def ablog_serve(website=None, port=8000, view=True, rebuild=False,
 
     import webbrowser
 
+    # to allow restarting the server in short succession
+    socketserver.TCPServer.allow_reuse_address = True
+
     Handler = server.SimpleHTTPRequestHandler
     httpd = socketserver.TCPServer(("", port), Handler)
 
