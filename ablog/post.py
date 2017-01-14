@@ -168,10 +168,10 @@ def _get_section_title(section):
     """Return section title as text."""
 
     for title in section.traverse(nodes.title):
-        break
+        return title.astext()
+    raise Exception("Missing title")
     # A problem with the following is that title may contain pending
     # references, e.g. :ref:`tag-tips`
-    return title.astext()
 
 
 def _get_update_dates(section, docname, post_date_format):
