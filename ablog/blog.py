@@ -69,7 +69,7 @@ CONFIG = [
     ('blog_languages', {}, True),
     ('blog_default_language', None, True),
 
-    ('fontawesome_link_cdn', False, True),
+    ('fontawesome_link_cdn', None, True),
     ('fontawesome_included', False, True),
     ('fontawesome_css_file', '', True),
 
