@@ -5,6 +5,9 @@ import ablog
 import shutil
 import argparse
 
+BUILDDIR = '_website'
+DOCTREES = '.doctrees'
+
 
 def find_confdir():
     """Return path to current directory or its parent that contains conf.py"""
@@ -77,15 +80,16 @@ def arg(*args, **kwargs):
 def arg_website(func):
 
     arg(func, '-w', dest='website', type=str,
-        help="path for website, default is _website when `ablog_website` "
-            "is not set in conf.py")
+        help="path for website, default is %s when `ablog_website` "
+            "is not set in conf.py" % BUILDDIR)
     return func
 
 def arg_doctrees(func):
 
-    arg(func, '-d', dest='doctrees', type=str, default='.doctrees',
+    arg(func, '-d', dest='doctrees', type=str,
         help="path for the cached environment and doctree files, "
-            "default .doctrees when `ablog_doctrees` is not set in conf.py")
+            "default %s when `ablog_doctrees` is not set in conf.py" %
+            BUILDDIR)
     return func
 
 
@@ -108,7 +112,7 @@ cmd(ablog_start, name='start', help='start a new blog project',
         "default is path to the folder that contains conf.py")
 @arg('-b', dest='builder', type=str,
     help="builder to use, default `ablog_builder` or dirhtml")
-@arg('-a', dest='allfiles',     action='store_true', default=False,
+@arg('-a', dest='allfiles', action='store_true', default=False,
     help="write all files; default is to only write new and changed files")
 @cmd(name='build', help='build your blog project',
     description="Path options can be set in conf.py. "
@@ -119,9 +123,9 @@ def ablog_build(builder=None, sourcedir=None, website=None, doctrees=None,
     confdir = find_confdir()
     conf = read_conf(confdir)
     website = (website or
-        os.path.join(confdir, getattr(conf, 'ablog_builddir', '_website')))
+        os.path.join(confdir, getattr(conf, 'ablog_builddir', BUILDDIR)))
     doctrees = (doctrees or
-        os.path.join(confdir, getattr(conf, 'ablog_doctrees', '.doctrees')))
+        os.path.join(confdir, getattr(conf, 'ablog_doctrees', DOCTREES)))
     sourcedir = (sourcedir or confdir)
     argv = sys.argv[:1]
     argv.extend(['-b', builder or getattr(conf, 'ablog_builder', 'dirhtml')])
@@ -151,10 +155,10 @@ def ablog_clean(website=None, doctrees=None, deep=False, **kwargs):
     conf = read_conf(confdir)
 
     website = (website or
-        os.path.join(confdir, getattr(conf, 'ablog_builddir', '_website')))
+        os.path.join(confdir, getattr(conf, 'ablog_builddir', BUILDDIR)))
 
     doctrees = (doctrees or
-        os.path.join(confdir, getattr(conf, 'ablog_doctrees', '.doctrees')))
+        os.path.join(confdir, getattr(conf, 'ablog_doctrees', DOCTREES)))
 
     nothing = True
     if glob.glob(os.path.join(website, '*')):
