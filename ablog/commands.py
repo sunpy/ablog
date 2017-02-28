@@ -22,7 +22,7 @@ def find_confdir():
 
     conf = join(confdir, 'conf.py')
 
-    if isfile(conf) and 'ablog' in open(conf).read():
+    if isfile(conf) and 'ablog' in open(conf, 'r', encoding='utf-8').read():
         return confdir
     else:
         sys.exit("Current directory and its parents doesn't "
