@@ -15,19 +15,14 @@ from sphinx.locale import _
 from sphinx.util.nodes import set_source_info
 from sphinx.util.compat import Directive
 # DeprecationWarning: make_admonition is deprecated, use docutils.parsers.rst.directives.admonitions.BaseAdmonition instead
-from docutils.parsers.rst.directives.admonitions import BaseAdmonition as make_admonition
+try:
+    from sphinx.util.compat import make_admonition
+except ImportError:
+    from docutils.parsers.rst.directives.admonitions import BaseAdmonition as make_admonition
 from docutils.parsers.rst import directives
-from docutils.utils import relative_path
 
 import ablog
 from .blog import Blog, slugify, os_path_join, revise_pending_xrefs
-
-
-
-
-
-
-
 
 if sys.version_info >= (3, 0):
     text_type = str
