@@ -20,6 +20,7 @@ try:
 except ImportError:
     from docutils.parsers.rst.directives.admonitions import BaseAdmonition as make_admonition
 from docutils.parsers.rst import directives
+from docutils.utils import relative_path
 
 import ablog
 from .blog import Blog, slugify, os_path_join, revise_pending_xrefs
