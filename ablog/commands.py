@@ -89,7 +89,7 @@ def arg_doctrees(func):
     arg(func, '-d', dest='doctrees', type=str,
         help="path for the cached environment and doctree files, "
             "default %s when `ablog_doctrees` is not set in conf.py" %
-            BUILDDIR)
+            DOCTREES)
     return func
 
 
