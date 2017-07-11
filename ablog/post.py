@@ -13,7 +13,12 @@ except ImportError:
 from docutils import nodes
 from sphinx.locale import _
 from sphinx.util.nodes import set_source_info
-from sphinx.util.compat import Directive, make_admonition
+from sphinx.util.compat import Directive
+# DeprecationWarning: make_admonition is deprecated, use docutils.parsers.rst.directives.admonitions.BaseAdmonition instead
+try:
+    from sphinx.util.compat import make_admonition
+except ImportError:
+    from docutils.parsers.rst.directives.admonitions import BaseAdmonition as make_admonition
 from docutils.parsers.rst import directives
 from docutils.utils import relative_path
 
