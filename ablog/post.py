@@ -13,13 +13,8 @@ except ImportError:
 from docutils import nodes
 from sphinx.locale import _
 from sphinx.util.nodes import set_source_info
-from sphinx.util.compat import Directive
-# DeprecationWarning: make_admonition is deprecated, use docutils.parsers.rst.directives.admonitions.BaseAdmonition instead
-try:
-    from sphinx.util.compat import make_admonition
-except ImportError:
-    from docutils.parsers.rst.directives.admonitions import BaseAdmonition as make_admonition
-from docutils.parsers.rst import directives
+from docutils.parsers.rst import directives, Directive
+from docutils.parsers.rst.directives.admonitions import BaseAdmonition
 from docutils.utils import relative_path
 
 import ablog
@@ -43,7 +38,7 @@ class PostList(nodes.General, nodes.Element):
     pass
 
 
-class UpdateNode(nodes.Admonition, nodes.Element):
+class UpdateNode(nodes.admonition):
     """Represent ``update`` directive."""
 
     pass
@@ -95,22 +90,15 @@ class PostDirective(Directive):
         return [node]
 
 
-class UpdateDirective(Directive):
+class UpdateDirective(BaseAdmonition):
 
-    has_content = True
     required_arguments = 1
-    optional_arguments = 0
-    final_argument_whitespace = True
-    option_spec = {}
+    node_class = UpdateNode
 
     def run(self):
 
-        ad = make_admonition(UpdateNode, self.name, [_('Updated on')],
-                             self.options,
-                             self.content, self.lineno, self.content_offset,
-                             self.block_text, self.state, self.state_machine)
+        ad = super(UpdateDirective, self).run(self)
         ad[0]['date'] = self.arguments[0] if self.arguments else ''
-        set_source_info(self, ad[0])
         return ad
 
 

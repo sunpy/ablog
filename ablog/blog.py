@@ -15,10 +15,10 @@ from unicodedata import normalize
 
 from docutils import nodes
 from docutils.io import StringOutput
+from docutils.utils import new_document
 
 from sphinx import addnodes
 from sphinx.util.osutil import relative_uri
-from sphinx.environment import dummy_reporter
 
 if sys.version_info >= (3, 0):
     text_type = str
@@ -380,15 +380,14 @@ class Post(BlogPageMixin):
         from the output. More than one can be dropped by setting *drop_h1*
         to the desired number of tags to be dropped."""
 
+        doctree = new_document('')
         if fulltext:
-            doctree = nodes.document({}, dummy_reporter)
             deepcopy = self.doctree.deepcopy()
             if isinstance(deepcopy, nodes.document):
                 doctree.extend(deepcopy.children)
             else:
                 doctree.append(deepcopy)
         else:
-            doctree = nodes.document({}, dummy_reporter)
             for node in self.excerpt:
                 doctree.append(node.deepcopy())
         app = self._blog.app
