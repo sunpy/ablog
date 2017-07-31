@@ -650,6 +650,10 @@ def generate_atom_feeds(app):
                      id=post_url,
                      updated=post.update, published=post.date)
 
+        parent_dir = os.path.dirname(feed_path)
+        if not os.path.isdir(parent_dir):
+            os.makedirs(parent_dir)
+
         with open(feed_path, 'w') as out:
             feed_str = feed.to_string()
             try:

@@ -89,7 +89,7 @@ def arg_doctrees(func):
     arg(func, '-d', dest='doctrees', type=str,
         help="path for the cached environment and doctree files, "
             "default %s when `ablog_doctrees` is not set in conf.py" %
-            BUILDDIR)
+            DOCTREES)
     return func
 
 
@@ -105,6 +105,21 @@ cmd(ablog_start, name='start', help='start a new blog project',
 @arg('-T', dest='traceback',
     action='store_true', default=False,
     help="show full traceback on exception")
+@arg('-W', dest='werror',
+    action='store_true', default=False,
+    help='turn warnings into errors')
+@arg('-N', dest='no_colors',
+    action='store_true', default=False,
+    help='do not emit colored output')
+@arg('-Q', dest='extra_quiet',
+    action='store_true', default=False,
+    help='no output at all, not even warnings')
+@arg('-q', dest='quiet',
+    action='store_true', default=False,
+    help='no output on stdout, just warnings on stderr')
+@arg('-v', dest='verbosity',
+    action='count', default=0,
+    help='increase verbosity (can be repeated)')
 @arg_doctrees
 @arg_website
 @arg('-s', dest='sourcedir', type=str,
@@ -118,7 +133,8 @@ cmd(ablog_start, name='start', help='start a new blog project',
     description="Path options can be set in conf.py. "
     "Default values of paths are relative to conf.py.")
 def ablog_build(builder=None, sourcedir=None, website=None, doctrees=None,
-    traceback=False, runpdb=False, allfiles=False, **kwargs):
+    traceback=False, runpdb=False, allfiles=False, werror=False, verbosity=0,
+    quiet=False, extra_quiet=False, no_colors=False, **kwargs):
 
     confdir = find_confdir()
     conf = read_conf(confdir)
@@ -136,6 +152,16 @@ def ablog_build(builder=None, sourcedir=None, website=None, doctrees=None,
         argv.extend(['-P'])
     if allfiles:
         argv.extend(['-a'])
+    if werror:
+        argv.extend(['-W'])
+    if verbosity > 0:
+        argv.extend(['-v']*verbosity)
+    if quiet:
+        argv.extend(['-q'])
+    if extra_quiet:
+        argv.extend(['-Q'])
+    if no_colors:
+        argv.extend(['-N'])
     argv.extend([sourcedir, website])
 
     from sphinx import main
