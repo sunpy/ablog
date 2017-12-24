@@ -171,7 +171,7 @@ def ablog_clean(website=None, doctrees=None, deep=False, **kwargs):
         print('Nothing to clean.')
 
 
-@arg('--patterns', dest='rebuild', action='store_false', default='*.rst;*.txt',
+@arg('--patterns', dest='patterns', default='*.rst;*.txt',
     help="patterns for triggering rebuilds")
 @arg('-r', dest='rebuild', action='store_true', default=False,
     help="rebuild when a file matching patterns change or get added")
