@@ -479,21 +479,22 @@ def generate(d, overwrite=True, silent=False):
         d[key + '_str'] = d[key].replace('\\', '\\\\').replace("'", "\\'")
 
     if not path.isdir(d['path']):
-        mkdir_p(d['path'])
+        ensuredir(d['path'])
 
     srcdir = d['sep'] and path.join(d['path'], 'source') or d['path']
 
-    mkdir_p(srcdir)
+    ensuredir(srcdir)
     d['exclude_patterns'] = ''
+    # TODO: Work if we want this.
     # if d['sep']:
     #    builddir = path.join(d['path'], 'build')
     #
     # else:
     #    builddir = path.join(srcdir, d['dot'] + 'build')
     #    d['exclude_patterns'] = repr(d['dot'] + 'build')
-    # mkdir_p(builddir)
-    mkdir_p(path.join(srcdir, d['dot'] + 'templates'))
-    mkdir_p(path.join(srcdir, d['dot'] + 'static'))
+    # ensuredir(builddir)
+    ensuredir(path.join(srcdir, d['dot'] + 'templates'))
+    ensuredir(path.join(srcdir, d['dot'] + 'static'))
 
     def write_file(fpath, content, newline=None):
         if overwrite or not path.isfile(fpath):
