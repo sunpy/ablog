@@ -17,3 +17,4 @@ docs/tmp/
 .DS_Store
 
 *~
+.vscode

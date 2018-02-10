@@ -8,7 +8,7 @@ from .post import (PostDirective, PostListDirective, UpdateDirective,
                    generate_archive_pages, generate_atom_feeds,
                    missing_reference)
 
-__version__ = '0.8.4'
+__version__ = '0.8.5'
 
 
 def anchor(post):

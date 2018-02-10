@@ -14,8 +14,8 @@ ABlog for Sphinx
 A Sphinx extension that converts any documentation or personal website project
 into a full-fledged blog. See http://ablog.readthedocs.org for details.
 
-.. image:: https://secure.travis-ci.org/abakan/ablog.png?branch=devel
-   :target: http://travis-ci.org/#!/abakan/ablog
+.. image:: https://secure.travis-ci.org/sunpy/ablog.png?branch=devel
+   :target: http://travis-ci.org/#!/sunpy/ablog
 
 .. image:: https://readthedocs.org/projects/ablog/badge/?version=latest
    :target: http://ablog.readthedocs.org/
@@ -25,7 +25,7 @@ setup(
     name='ablog',
     version=__version__,
     author='Ahmet Bakan',
-    author_email='lordnapi@gmail.com',
+    author_email='nabil.freij@gmail.com',
     description='ABlog for blogging with Sphinx',
     long_description=long_description,
     url='http://ablog.readthedocs.org/',
