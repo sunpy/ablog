@@ -394,7 +394,6 @@ class Post(BlogPageMixin):
         app = self._blog.app
 
         revise_pending_xrefs(doctree, pagename)
-        # TODO: This should not be commented out, but it breaks it.
         app.env.resolve_references(doctree, pagename, app.builder)
 
         add_permalinks, app.builder.add_permalinks = (
