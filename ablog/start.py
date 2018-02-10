@@ -16,7 +16,7 @@ else:
 
 from ablog import __version__
 from sphinx.util import texescape
-from sphinx.quickstart import do_prompt, is_path, mkdir_p
+from sphinx.quickstart import do_prompt, is_path, ensuredir
 from sphinx.util.console import bold, nocolor, color_terminal
 from sphinx.util.osutil import make_filename
 
