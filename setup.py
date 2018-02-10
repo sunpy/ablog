@@ -47,19 +47,19 @@ setup(
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 3',
-        ],
+    ],
     provides=['ablog ({0:s})'.format(__version__)],
     install_requires=['Werkzeug', 'Sphinx', 'alabaster', 'invoke', 'python-dateutil'],
     message_extractors={
         'ablog': [
             ('**.html', 'jinja2', None),
-            ('**.py',   'python', None),
+            ('**.py', 'python', None),
         ]
     },
-    entry_points = {
+    entry_points={
         'console_scripts': [
             'ablog = ablog.commands:ablog_main',
             'ablog{0} = ablog.commands:ablog_main'.format(sys.version_info[0]),
-            ],
-        },
+        ],
+    },
 )

@@ -79,11 +79,11 @@ fontawesome_css_file = 'css/font-awesome.css'
 html_style = 'alabaster.css'
 html_theme = 'alabaster'
 html_sidebars = {
-   '**': ['about.html',
-          'postcard.html', 'recentposts.html',
-          'tagcloud.html', 'categories.html',
-          'archives.html',
-          'searchbox.html']
+    '**': ['about.html',
+           'postcard.html', 'recentposts.html',
+           'tagcloud.html', 'categories.html',
+           'archives.html',
+           'searchbox.html']
 }
 html_theme_path = [alabaster.get_path()]
 html_theme_options = {
@@ -121,6 +121,7 @@ from sphinx import addnodes
 
 
 event_sig_re = re.compile(r'([a-zA-Z-]+)\s*\((.*)\)')
+
 
 def parse_event(env, sig, signode):
     m = event_sig_re.match(sig)

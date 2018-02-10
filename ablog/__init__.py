@@ -19,6 +19,7 @@ def anchor(post):
     else:
         return ''
 
+
 def builder_support(builder):
     """Return True when builder is supported. Supported builders output in
     html format, but exclude `PickleHTMLBuilder` and `JSONHTMLBuilder`,
@@ -40,7 +41,6 @@ def html_page_context(app, pagename, templatename, context, doctree):
         if blog.blog_baseurl and 'feed_path' not in context:
             context['feed_path'] = blog.blog_path
             context['feed_title'] = blog.blog_title
-
 
 
 def setup(app):
@@ -66,7 +66,7 @@ def setup(app):
                  html=(lambda s, n: s.visit_admonition(n),
                        lambda s, n: s.depart_admonition(n)),
                  latex=(lambda s, n: s.visit_admonition(n),
-                       lambda s, n: s.depart_admonition(n)),
+                        lambda s, n: s.depart_admonition(n)),
                  )
 
     pkgdir = os.path.abspath(os.path.dirname(__file__))

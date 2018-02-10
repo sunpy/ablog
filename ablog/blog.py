@@ -30,6 +30,7 @@ else:
     text_type = unicode
     re_flag = re.UNICODE
 
+
 def slugify(string):
     """Slugify *s*."""
 
@@ -42,6 +43,7 @@ def slugify(string):
     else:
         string = re.sub(r'[^\w\s-]', '', string, flags=re_flag).strip().lower()
         return re.sub(r'[-\s]+', '-', string, flags=re_flag)
+
 
 def os_path_join(path, *paths):
 
@@ -94,6 +96,7 @@ def revise_pending_xrefs(doctree, docname):
 
     for node in doctree.traverse(addnodes.pending_xref):
         node['refdoc'] = docname
+
 
 try:
     from collections.abc import Container
@@ -164,19 +167,19 @@ class Blog(Container):
         refs['blog-tags'] = (self.tags.docname, 'Tags')
 
         self.author = cat['author'] = Catalog(self, 'author',
-            'author', 'author')
+                                              'author', 'author')
         refs['blog-authors'] = (self.author.docname, 'Authors')
 
         self.location = cat['location'] = Catalog(self, 'location',
-            'location',  'location')
+                                                  'location', 'location')
         refs['blog-locations'] = (self.location.docname, 'Locations')
 
         self.language = cat['language'] = Catalog(self, 'language',
-            'language',  'language')
+                                                  'language', 'language')
         refs['blog-languages'] = (self.language.docname, 'Languages')
 
         self.category = cat['category'] = Catalog(self, 'category',
-            'category', 'category')
+                                                  'category', 'category')
         refs['blog-categories'] = (self.category.docname, 'Categories')
 
         for catname in ['author', 'location', 'language']:
@@ -186,9 +189,9 @@ class Blog(Container):
                 catalog[label] = Collection(catalog, label, name, link)
 
         self.posts = self.blog['post'] = Collection(self.blog, 'post',
-            'Posts', path=self.blog_path)
+                                                    'Posts', path=self.blog_path)
         self.drafts = self.blog['draft'] = Collection(self.blog, 'draft',
-            'Drafts', path=os_path_join(self.blog_path, 'drafts'))
+                                                      'Drafts', path=os_path_join(self.blog_path, 'drafts'))
 
         # add references to posts and drafts
         # e.g. :ref:`blog-posts`
@@ -256,7 +259,6 @@ class Blog(Container):
                 return
             yield post
 
-
     def page_id(self, pagename):
         """Return pagename, trimming :file:`index` from end when found.
         Return value is used as disqus page identifier."""
@@ -297,10 +299,8 @@ def html_builder_write_doc(self, docname, doctree):
 
 class BlogPageMixin(object):
 
-
     def __str__(self):
         return self.title
-
 
     def __repr__(self):
 
@@ -316,6 +316,7 @@ class BlogPageMixin(object):
     def title(self):
 
         return getattr(self, 'name', getattr(self, '_title'))
+
 
 class Post(BlogPageMixin):
 
@@ -444,7 +445,7 @@ class Catalog(BlogPageMixin):
 
         self._blog = blog
         self.name = name
-        self.xref = xref # for creating labels, e.g. `tag-python`
+        self.xref = xref  # for creating labels, e.g. `tag-python`
         self.collections = {}
 
         if path:
@@ -502,9 +503,9 @@ class Catalog(BlogPageMixin):
         """Return minimum and maximum sizes of collections."""
 
         if (self._coll_lens is None or
-            len(self._coll_lens) != len(self.collections)):
+                len(self._coll_lens) != len(self.collections)):
             self._coll_lens = [len(coll) for coll in self.collections.values()
-                          if len(coll)]
+                               if len(coll)]
             self._min_max = min(self._coll_lens), max(self._coll_lens)
         return self._min_max
 
