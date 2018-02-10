@@ -97,7 +97,7 @@ class UpdateDirective(BaseAdmonition):
 
     def run(self):
 
-        ad = super(UpdateDirective, self).run(self)
+        ad = super(UpdateDirective, self).run()
         ad[0]['date'] = self.arguments[0] if self.arguments else ''
         return ad
 
