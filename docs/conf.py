@@ -16,8 +16,6 @@ extensions = [
     'sphinx.ext.todo',
     'sphinx.ext.ifconfig',
     'sphinx.ext.extlinks',
-    #'IPython.sphinxext.ipython_directive',
-    #'IPython.sphinxext.ipython_console_highlighting',
     'alabaster',
     'ablog'
 ]
@@ -28,7 +26,7 @@ extensions = [
 
 version = release = ablog.__version__
 project = u'ABlog'
-copyright = u'2014-2015, ABlog Team'
+copyright = u'2014-2018, ABlog Team'
 master_doc = 'index'
 source_suffix = '.rst'
 exclude_patterns = ['_build']

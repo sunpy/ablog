@@ -15,7 +15,6 @@ from sphinx.locale import _
 from sphinx.util.nodes import set_source_info
 from docutils.parsers.rst import directives, Directive
 from docutils.parsers.rst.directives.admonitions import BaseAdmonition
-from docutils.utils import relative_path
 
 import ablog
 from .blog import Blog, slugify, os_path_join, revise_pending_xrefs
