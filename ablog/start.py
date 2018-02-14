@@ -4,23 +4,30 @@ import sys
 import time
 import datetime
 
+from distutils.version import LooseVersion
 from os import path
 from io import open
 from docutils.utils import column_width
+from textwrap import wrap
+
+from sphinx import __version__
+from sphinx.util import texescape
+from sphinx.util.console import bold, nocolor, color_terminal
+from sphinx.util.osutil import make_filename
+
+SPHINX_LT_17 = LooseVersion(__version__) < LooseVersion('1.7')
+
+if SPHINX_LT_17:
+    from sphinx.quickstart import do_prompt, is_path, ensuredir
+else:
+    from sphinx.cmd.quickstart import do_prompt, is_path, ensuredir
+
+from ablog import __version__
 
 if sys.version_info >= (3, 0):
     text_type = str
 else:
     text_type = unicode
-
-
-from ablog import __version__
-from sphinx.util import texescape
-from sphinx.quickstart import do_prompt, is_path, ensuredir
-from sphinx.util.console import bold, nocolor, color_terminal
-from sphinx.util.osutil import make_filename
-
-from textwrap import wrap
 
 w = lambda t, ls=80: '\n'.join(wrap(t, ls))
 
