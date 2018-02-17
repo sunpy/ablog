@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 """ABlog for Sphinx"""
+
+from __future__ import absolute_import, division, print_function
 import os
 
 from .blog import Blog, CONFIG
@@ -8,7 +10,9 @@ from .post import (PostDirective, PostListDirective, UpdateDirective,
                    generate_archive_pages, generate_atom_feeds,
                    missing_reference)
 
-__version__ = '0.8.4'
+__version__ = '0.9.0'
+
+__all__ = ['setup']
 
 
 def anchor(post):
@@ -18,6 +22,7 @@ def anchor(post):
         return '#' + post.section
     else:
         return ''
+
 
 def builder_support(builder):
     """Return True when builder is supported. Supported builders output in
@@ -40,7 +45,6 @@ def html_page_context(app, pagename, templatename, context, doctree):
         if blog.blog_baseurl and 'feed_path' not in context:
             context['feed_path'] = blog.blog_path
             context['feed_title'] = blog.blog_title
-
 
 
 def setup(app):
@@ -66,7 +70,7 @@ def setup(app):
                  html=(lambda s, n: s.visit_admonition(n),
                        lambda s, n: s.depart_admonition(n)),
                  latex=(lambda s, n: s.visit_admonition(n),
-                       lambda s, n: s.depart_admonition(n)),
+                        lambda s, n: s.depart_admonition(n)),
                  )
 
     pkgdir = os.path.abspath(os.path.dirname(__file__))

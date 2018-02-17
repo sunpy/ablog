@@ -33,7 +33,7 @@ signing up for Travis CI using your GitHub account:
 
 Once you login, go to :guilabel:`Accounts` page and flick the switch on for your
 source repository for GitHub pages. In the below example, **website** is the
-source repository and *abakan.github.io* contains HTML output from builds:
+source repository and *sunpy.github.io* contains HTML output from builds:
 
 .. figure:: images/TravisCI_accounts.png
    :scale: 80 %
@@ -44,7 +44,7 @@ Deploy key setup
 ----------------
 
 To have builds pushed from Travis CI to GitHub, you will need a *personal access
-token*. Go to GitHub :menuselection:`Settings --> Personal access tokens` page to 
+token*. Go to GitHub :menuselection:`Settings --> Personal access tokens` page to
 generate a new token. You need only *public repo* access checked for this purpose:
 
 .. figure:: images/GitHub_token.png
@@ -53,7 +53,7 @@ generate a new token. You need only *public repo* access checked for this purpos
 
 Then, you need to set this access token as an environment variable, e.g.
 ``DEPLOY_KEY``, under :menuselection:`Settings --> Environment Variables`.
-Keep the :guilabel:Display value in build logs` switch off. 
+Keep the :guilabel:Display value in build logs` switch off.
 
 .. figure:: images/TravisCI_settings.png
    :scale: 80 %

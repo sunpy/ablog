@@ -110,8 +110,8 @@ can find more about configuring and using ABlog:
 
 .. only:: html
 
-   .. image:: https://secure.travis-ci.org/abakan/ablog.png?branch=devel
-      :target: http://travis-ci.org/#!/abakan/ablog
+   .. image:: https://secure.travis-ci.org/sunpy/ablog.png?branch=devel
+      :target: http://travis-ci.org/#!/sunpy/ablog
 
    .. image:: https://readthedocs.org/projects/ablog/badge/?version=latest
       :target: http://ablog.readthedocs.org/

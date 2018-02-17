@@ -32,8 +32,8 @@ ABlog v0.3.1 released
 ABlog v0.3.1 is a minor release to fix two issues in templates:
 
   * Links to collection (archive) feeds is displayed only on collection page
-    (e.g. :ref:`category-manual`), not on a catalog page that lists posts
-    for multiple collections (e.g. :ref:`blog-categories`).
+    (e.g. `:ref:`category-manual``), not on a catalog page that lists posts
+    for multiple collections (e.g. `:ref:`blog-categories``).
 
   * Links to collection feeds is displayed only when they are generated
     (see :confval:`blog_feed_archives`). Previously, links would be generated

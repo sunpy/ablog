@@ -1,10 +1,10 @@
   {% if post.published and post.date != post.update %}
-  <li>{% if fa %}<i class="fa fa-pencil-square-o"></i>{% else %}{{ gettext('Update') }}:{% endif %}
+  <li id="published" ><span>{% if fa %}<i class="fa fa-pencil-square-o"></i>{% else %}{{ gettext('Update') }}:</span>{% endif %}
     {{ post.update.strftime(gettext(ablog.post_date_format)) }}</li>
   {% endif %}
 
   {% if post.author %}
-  <li>{% if fa %}<i class="fa-fw fa fa-user"></i>{% else %}{{ gettext('Author') }}:{% endif %}
+  <li id="author"><span>{% if fa %}<i class="fa-fw fa fa-user"></i>{% else %}{{ gettext('Author') }}:</span>{% endif %}
     {% for coll in post.author %}
       {% if coll|length %}
       <a href="{{ pathto(coll.docname) }}">{{ coll }}</a>{% if loop.index < post.author|length %},{% endif %}
@@ -13,7 +13,7 @@
   {% endif %}
 
   {% if post.location %}
-  <li>{% if fa %}<i class="fa-fw fa fa-location-arrow"></i>{% else %}{{ gettext('Location') }}:{% endif %}
+  <li id="location"><span>{% if fa %}<i class="fa-fw fa fa-location-arrow"></i>{% else %}{{ gettext('Location') }}:</span>{% endif %}
     {% for coll in post.location %}
       {% if coll|length %}
       <a href="{{ pathto(coll.docname) }}">{{ coll }}</a>{% if loop.index < post.location|length %},{% endif %}
@@ -22,7 +22,7 @@
   {% endif %}
 
   {% if post.language %}
-  <li>{% if fa %}<i class="fa-fw fa fa-language"></i>{% else %}{{ gettext('Language') }}:{% endif %}
+  <li id="language"><span>{% if fa %}<i class="fa-fw fa fa-language"></i>{% else %}{{ gettext('Language') }}:</span>{% endif %}
     {% for coll in post.language %}
       {% if coll|length %}
       <a href="{{ pathto(coll.docname) }}">{{ coll }}</a>{% if loop.index < post.language|length %},{% endif %}
@@ -31,7 +31,7 @@
   {% endif %}
 
   {% if post.category %}
-  <li>{% if fa %}<i class="fa-fw fa fa-folder-open"></i>{% else %}{{ gettext('Category') }}:{% endif %}
+  <li id="category"><span>{% if fa %}<i class="fa-fw fa fa-folder-open"></i>{% else %}{{ gettext('Category') }}:</span>{% endif %}
     {% for coll in post.category %}
       {% if coll|length %}
       <a href="{{ pathto(coll.docname) }}">{{ coll }}</a>{% if loop.index < post.category|length %},{% endif %}
@@ -40,16 +40,16 @@
   {% endif %}
 
   {% if post.tags %}
-  <li>{% if post.tags|length > 1 %}{% if fa %}<i class="fa-fw fa fa-tags"></i>{% else %}{{ gettext('Tags') }}:{% endif %}
+  <li id="tags"><span>{% if post.tags|length > 1 %}{% if fa %}<i class="fa-fw fa fa-tags"></i>{% else %}{{ gettext('Tags') }}:</span>{% endif %}
       {% else %}{% if fa %}<i class="fa-fw fa fa-tag"></i>{% else %}{{ gettext('Tag') }}:{% endif %}{% endif %}
     {% for coll in post.tags %}
       {% if coll|length %}
-      <a href="{{ pathto(coll.docname) }}">{{ coll }}</a>{% if loop.index < post.tags|length %},{% endif %}
-      {% else %}{{ coll }}{% if loop.index < post.tags|length %},{% endif %}{% endif %}
+      <a href="{{ pathto(coll.docname) }}">{{ coll }}</a>{% if loop.index < post.tags|length %}{% endif %}
+      {% else %}{{ coll }}{% if loop.index < post.tags|length %}{% endif %}{% endif %}
     {% endfor %}</li>
   {% endif %}
   {% if ablog.disqus_shortname and (ablog[pagename].published or ablog.disqus_drafts) %}
-  <li>
+  <li id="comments">
     <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
     var disqus_shortname = '{{ ablog.disqus_shortname }}'; // required: replace example with your forum shortname
@@ -63,6 +63,6 @@
     }());
     </script>
     {% if fa %}<i class="fa-fw fa fa-comments"></i>{% endif %}
-    <a href="{% if pagename != post.docname%}{{ pathto(post.docname) }}{% endif %}#disqus_thread" data-disqus-identifier="/{{post.docname}}/"> {% if not fa %}comment(s){% endif %}</a>
+    <a href="{% if pagename != post.docname%}{{ pathto(post.docname) }}{% endif %}#disqus_thread" data-disqus-identifier="/{{post.docname}}/"> {% if not fa %}Comments{% endif %}</a>
   </li>
   {% endif %}

@@ -1,8 +1,9 @@
 ABlog for Sphinx
 ================
 
-ABlog is a Sphinx extension that converts any documentation or personal
-website project into a full-fledged blog with:
+Please note that is an official continuation of `Eric Holscher's Ablog Sphinx extension <https://github.com/abakan/ablog/>`_.
+
+ABlog is a Sphinx extension that converts any documentation or personal website project into a full-fledged blog with:
 
   * `Atom feeds`_
   * `Archive pages`_
@@ -27,15 +28,12 @@ You can install ABlog using pip_::
 
     pip install -U ablog
 
-This will also install `Sphinx <http://sphinx-doc.org/>`_, Alabaster_,
-Werkzeug_, and Invoke_ respectively required for building your website,
-making it look good, generating feeds, and running deploy commands.
+This will also install `Sphinx <http://sphinx-doc.org/>`_, Alabaster_, Werkzeug_, and Invoke_ respectively required for building your website, making it look good, generating feeds, and running deploy commands.
 
 .. _pip: https://pip.pypa.io
 .. _Werkzeug: http://werkzeug.pocoo.org/
 .. _Alabaster: https://github.com/bitprophet/alabaster
 .. _Invoke: http://www.pyinvoke.org/
-
 
 Getting Started
 ---------------
@@ -63,14 +61,11 @@ If you already have a project, enable blogging by making following changes in ``
 
 .. _ABlog Quick Start: http://ablog.readthedocs.org/manual/ablog-quick-start
 
-
 How it works
 ------------
 
-If you are new to Sphinx_ and reStructuredText markup language,
-you might find `reStructuredText Primer`_ useful. Once you have
-content (in ``.rst`` files), you can post *any page* using the
-``post`` directive as follows:
+If you are new to Sphinx_ and reStructuredText markup language, you might find `reStructuredText Primer`_ useful.
+Once you have content (in ``.rst`` files), you can post *any page* using the ``post`` directive as follows:
 
 .. code-block:: rst
 
@@ -81,8 +76,7 @@ content (in ``.rst`` files), you can post *any page* using the
      :location: SF
      :language: en
 
-ABlog will index all files posted as above and list them in archives and feeds
-specified in ``:tag:``, ``:category:``, etc. options.
+ABlog will index all files posted as above and list them in archives and feeds specified in ``:tag:``, ``:category:``, etc. options.
 
 You can also include a list of posts using ``postlist`` directive:
 
@@ -94,8 +88,7 @@ You can also include a list of posts using ``postlist`` directive:
      :format: {title}
      :sort:
 
-For ABlog documentation, this converts to the following where you
-can find more about configuring and using ABlog:
+For ABlog documentation, this converts to the following where you can find more about configuring and using ABlog:
 
 .. postlist::
    :category: Manual
@@ -106,15 +99,13 @@ can find more about configuring and using ABlog:
 
 .. _reStructuredText Primer: http://sphinx-doc.org/rest.html
 
-
 .. only:: html
 
-   .. image:: https://secure.travis-ci.org/abakan/ablog.png?branch=devel
-      :target: http://travis-ci.org/#!/abakan/ablog
+   .. image:: https://secure.travis-ci.org/sunpy/ablog.png?branch=devel
+      :target: http://travis-ci.org/#!/sunpy/ablog
 
    .. image:: https://readthedocs.org/projects/ablog/badge/?version=latest
       :target: http://ablog.readthedocs.org/
-
 
 .. toctree::
    :hidden:

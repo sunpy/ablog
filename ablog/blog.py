@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Classes for handling posts and archives."""
 
+from __future__ import absolute_import, division, print_function
 import os
 import re
 import sys
@@ -15,10 +16,10 @@ from unicodedata import normalize
 
 from docutils import nodes
 from docutils.io import StringOutput
+from docutils.utils import new_document
 
 from sphinx import addnodes
 from sphinx.util.osutil import relative_uri
-from sphinx.environment import dummy_reporter
 
 if sys.version_info >= (3, 0):
     text_type = str
@@ -29,6 +30,9 @@ elif sys.version_info < (2, 7):
 else:
     text_type = unicode
     re_flag = re.UNICODE
+
+__all__ = ['Blog', 'Post', 'Collection']
+
 
 def slugify(string):
     """Slugify *s*."""
@@ -42,6 +46,7 @@ def slugify(string):
     else:
         string = re.sub(r'[^\w\s-]', '', string, flags=re_flag).strip().lower()
         return re.sub(r'[-\s]+', '-', string, flags=re_flag)
+
 
 def os_path_join(path, *paths):
 
@@ -69,12 +74,12 @@ CONFIG = [
     ('blog_languages', {}, True),
     ('blog_default_language', None, True),
 
-    ('fontawesome_link_cdn', False, True),
+    ('fontawesome_link_cdn', None, True),
     ('fontawesome_included', False, True),
     ('fontawesome_css_file', '', True),
 
-    ('post_date_format', '%b %d, %Y', True),
-    ('post_date_format_short', '%b %d', True),
+    ('post_date_format', '%-d %B %Y', True),
+    ('post_date_format_short', '%-d %B', True),
     ('post_auto_image', 0, True),
     ('post_auto_excerpt', 1, True),
     ('post_redirect_refresh', 5, True),
@@ -94,6 +99,7 @@ def revise_pending_xrefs(doctree, docname):
 
     for node in doctree.traverse(addnodes.pending_xref):
         node['refdoc'] = docname
+
 
 try:
     from collections.abc import Container
@@ -164,19 +170,19 @@ class Blog(Container):
         refs['blog-tags'] = (self.tags.docname, 'Tags')
 
         self.author = cat['author'] = Catalog(self, 'author',
-            'author', 'author')
+                                              'author', 'author')
         refs['blog-authors'] = (self.author.docname, 'Authors')
 
         self.location = cat['location'] = Catalog(self, 'location',
-            'location',  'location')
+                                                  'location', 'location')
         refs['blog-locations'] = (self.location.docname, 'Locations')
 
         self.language = cat['language'] = Catalog(self, 'language',
-            'language',  'language')
+                                                  'language', 'language')
         refs['blog-languages'] = (self.language.docname, 'Languages')
 
         self.category = cat['category'] = Catalog(self, 'category',
-            'category', 'category')
+                                                  'category', 'category')
         refs['blog-categories'] = (self.category.docname, 'Categories')
 
         for catname in ['author', 'location', 'language']:
@@ -186,9 +192,9 @@ class Blog(Container):
                 catalog[label] = Collection(catalog, label, name, link)
 
         self.posts = self.blog['post'] = Collection(self.blog, 'post',
-            'Posts', path=self.blog_path)
+                                                    'Posts', path=self.blog_path)
         self.drafts = self.blog['draft'] = Collection(self.blog, 'draft',
-            'Drafts', path=os_path_join(self.blog_path, 'drafts'))
+                                                      'Drafts', path=os_path_join(self.blog_path, 'drafts'))
 
         # add references to posts and drafts
         # e.g. :ref:`blog-posts`
@@ -256,7 +262,6 @@ class Blog(Container):
                 return
             yield post
 
-
     def page_id(self, pagename):
         """Return pagename, trimming :file:`index` from end when found.
         Return value is used as disqus page identifier."""
@@ -297,10 +302,8 @@ def html_builder_write_doc(self, docname, doctree):
 
 class BlogPageMixin(object):
 
-
     def __str__(self):
         return self.title
-
 
     def __repr__(self):
 
@@ -316,6 +319,7 @@ class BlogPageMixin(object):
     def title(self):
 
         return getattr(self, 'name', getattr(self, '_title'))
+
 
 class Post(BlogPageMixin):
 
@@ -380,15 +384,14 @@ class Post(BlogPageMixin):
         from the output. More than one can be dropped by setting *drop_h1*
         to the desired number of tags to be dropped."""
 
+        doctree = new_document('')
         if fulltext:
-            doctree = nodes.document({}, dummy_reporter)
             deepcopy = self.doctree.deepcopy()
             if isinstance(deepcopy, nodes.document):
                 doctree.extend(deepcopy.children)
             else:
                 doctree.append(deepcopy)
         else:
-            doctree = nodes.document({}, dummy_reporter)
             for node in self.excerpt:
                 doctree.append(node.deepcopy())
         app = self._blog.app
@@ -444,7 +447,7 @@ class Catalog(BlogPageMixin):
 
         self._blog = blog
         self.name = name
-        self.xref = xref # for creating labels, e.g. `tag-python`
+        self.xref = xref  # for creating labels, e.g. `tag-python`
         self.collections = {}
 
         if path:
@@ -502,9 +505,9 @@ class Catalog(BlogPageMixin):
         """Return minimum and maximum sizes of collections."""
 
         if (self._coll_lens is None or
-            len(self._coll_lens) != len(self.collections)):
+                len(self._coll_lens) != len(self.collections)):
             self._coll_lens = [len(coll) for coll in self.collections.values()
-                          if len(coll)]
+                               if len(coll)]
             self._min_max = min(self._coll_lens), max(self._coll_lens)
         return self._min_max
 

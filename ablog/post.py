@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """post and postlist directives."""
 
+from __future__ import absolute_import, division, print_function
 import os
 import sys
 from string import Formatter
@@ -13,9 +14,8 @@ except ImportError:
 from docutils import nodes
 from sphinx.locale import _
 from sphinx.util.nodes import set_source_info
-from sphinx.util.compat import Directive, make_admonition
-from docutils.parsers.rst import directives
-from docutils.utils import relative_path
+from docutils.parsers.rst import directives, Directive
+from docutils.parsers.rst.directives.admonitions import BaseAdmonition
 
 import ablog
 from .blog import Blog, slugify, os_path_join, revise_pending_xrefs
@@ -25,6 +25,10 @@ if sys.version_info >= (3, 0):
 else:
     text_type = unicode
 
+__all__ = ['PostNode', 'PostList', 'UpdateNode', 'PostDirective',
+           'UpdateDirective', 'PostListDirective', 'purge_posts',
+           'process_posts', 'process_postlist', 'generate_archive_pages',
+           'generate_atom_feeds', 'register_posts']
 
 class PostNode(nodes.Element):
     """Represent ``post`` directive content and options in document tree."""
@@ -38,7 +42,7 @@ class PostList(nodes.General, nodes.Element):
     pass
 
 
-class UpdateNode(nodes.Admonition, nodes.Element):
+class UpdateNode(nodes.admonition):
     """Represent ``update`` directive."""
 
     pass
@@ -47,7 +51,7 @@ class UpdateNode(nodes.Admonition, nodes.Element):
 class PostDirective(Directive):
     """Handle ``post`` directives."""
 
-    _split = lambda a: [s.strip() for s in (a or '').split(',') if s.strip()]
+    def _split(a): return [s.strip() for s in (a or '').split(',') if s.strip()]
 
     has_content = True
     required_arguments = 0
@@ -90,29 +94,22 @@ class PostDirective(Directive):
         return [node]
 
 
-class UpdateDirective(Directive):
+class UpdateDirective(BaseAdmonition):
 
-    has_content = True
     required_arguments = 1
-    optional_arguments = 0
-    final_argument_whitespace = True
-    option_spec = {}
+    node_class = UpdateNode
 
     def run(self):
 
-        ad = make_admonition(UpdateNode, self.name, [_('Updated on')],
-                             self.options,
-                             self.content, self.lineno, self.content_offset,
-                             self.block_text, self.state, self.state_machine)
+        ad = super(UpdateDirective, self).run()
         ad[0]['date'] = self.arguments[0] if self.arguments else ''
-        set_source_info(self, ad[0])
         return ad
 
 
 class PostListDirective(Directive):
     """Handle ``postlist`` directives."""
 
-    _split = lambda a: set(s.strip() for s in a.split(','))
+    def _split(a): return set(s.strip() for s in a.split(','))
     has_content = False
     required_arguments = 0
     optional_arguments = 1
@@ -168,15 +165,14 @@ def _get_section_title(section):
     """Return section title as text."""
 
     for title in section.traverse(nodes.title):
-        break
+        return title.astext()
+    raise Exception("Missing title")
     # A problem with the following is that title may contain pending
     # references, e.g. :ref:`tag-tips`
-    return title.astext()
 
 
 def _get_update_dates(section, docname, post_date_format):
     """Return list of dates of updates found section."""
-
 
     update_nodes = list(section.traverse(UpdateNode))
     update_dates = []
@@ -292,7 +288,6 @@ def process_posts(app, doctree):
         else:
             date = None
 
-
         # if docname ends with `index` use folder name to reference the document
         # a potential problem here is that there may be files/folders with the
         #   same name, so issuing a warning when that's the case may be a good idea
@@ -304,8 +299,8 @@ def process_posts(app, doctree):
 
         section_name = ''
         if multi_post and section.parent is not doctree:
-                section_name = section.attributes['ids'][0]
-                label += '-' + section_name
+            section_name = section.attributes['ids'][0]
+            label += '-' + section_name
         else:
             # create a reference for the post
             # if it is posting the document
@@ -323,7 +318,6 @@ def process_posts(app, doctree):
                 nn.replace_self([])
             else:
                 nn.replace_self(node.children)
-
 
         postinfo = {
             'docname': docname,
@@ -391,10 +385,10 @@ def process_postlist(app, doctree, docname):
             posts = posts[:node.attributes['length']]
         else:
             posts = list(blog.recent(node.attributes['length'], docname,
-                                          **node.attributes))
+                                     **node.attributes))
 
         if node.attributes['sort']:
-            posts.sort() # in reverse chronological order, so no reverse=True
+            posts.sort()  # in reverse chronological order, so no reverse=True
 
         fmts = list(Formatter().parse(node.attributes['format']))
         not_in = set(['date', 'title', 'author', 'location', 'language',
@@ -402,7 +396,7 @@ def process_postlist(app, doctree, docname):
         for text, key, __, __ in fmts:
             if key not in not_in:
                 raise KeyError('{} is not recognized in postlist format'
-                    .format(key))
+                               .format(key))
 
         excerpts = node.attributes['excerpts']
         date_format = node.attributes['date'] or _(blog.post_date_format_short)
@@ -414,7 +408,6 @@ def process_postlist(app, doctree, docname):
             bl.append(bli)
             par = nodes.paragraph()
             bli.append(par)
-
 
             for text, key, __, __ in fmts:
                 if text:
@@ -462,6 +455,7 @@ def missing_reference(app, env, node, contnode):
     return _missing_reference(app, target, node['refdoc'],
                               contnode, node['refexplicit'])
 
+
 def _missing_reference(app, target, refdoc, contnode=None, refexplicit=False):
 
     blog = Blog(app)
@@ -475,7 +469,6 @@ def _missing_reference(app, target, refdoc, contnode=None, refexplicit=False):
             internal = False
             uri = blog.blog_baseurl + '/' + docname
 
-
         newnode = nodes.reference('', '', internal=internal, refuri=uri,
                                   reftitle=dispname)
         if refexplicit:
@@ -486,6 +479,7 @@ def _missing_reference(app, target, refdoc, contnode=None, refexplicit=False):
             emp.append(nodes.Text(text_type(dispname)))
 
         return newnode
+
 
 def generate_archive_pages(app):
     """Generate archive pages for all posts, categories, tags, authors, and
@@ -504,13 +498,13 @@ def generate_archive_pages(app):
     atom_feed = bool(blog.blog_baseurl)
     feed_archives = blog.blog_feed_archives
     blog_path = blog.blog_path
-    for title, header, catalog  in [
+    for title, header, catalog in [
         (_('Authors'), _('Posts by'), blog.author),
         (_('Locations'), _('Posts from'), blog.location),
         (_('Languages'), _('Posts in'), blog.language),
         (_('Categories'), _('Posts in'), blog.category),
         (_('All posts'), _('Posted in'), blog.archive),
-        (_('Tags'), _('Posts tagged'), blog.tags),]:
+            (_('Tags'), _('Posts tagged'), blog.tags), ]:
 
         if not catalog:
             continue
@@ -542,9 +536,8 @@ def generate_archive_pages(app):
             if collection.docname not in found_docs:
                 yield (collection.docname, context, 'collection.html')
 
-
     #ppp = 5
-    #for page, i in enumerate(range(0, len(blog.posts), ppp)):
+    # for page, i in enumerate(range(0, len(blog.posts), ppp)):
     if 1:
         context = {
             'parents': [],
@@ -556,10 +549,9 @@ def generate_archive_pages(app):
             'feed_path': blog.blog_path,
         }
         docname = blog.posts.docname
-        #if page:
+        # if page:
         #    docname += '/' + str(page)
         yield (docname, context, 'collection.html')
-
 
     context = {
         'parents': [],
@@ -579,7 +571,6 @@ def generate_atom_feeds(app):
 
     blog = Blog(app)
 
-
     url = blog.blog_baseurl
     if not url:
         raise StopIteration
@@ -593,10 +584,10 @@ def generate_atom_feeds(app):
     feed_path = os.path.join(app.builder.outdir, blog.blog_path, 'atom.xml')
 
     feeds = [(blog.posts,
-             blog.blog_path,
-             feed_path,
-             blog.blog_title,
-             os_path_join(url, blog.blog_path, 'atom.xml'))]
+              blog.blog_path,
+              feed_path,
+              blog.blog_title,
+              os_path_join(url, blog.blog_path, 'atom.xml'))]
 
     if blog.blog_feed_archives:
 
@@ -606,7 +597,7 @@ def generate_atom_feeds(app):
             (_('Posts in'), blog.language),
             (_('Posts in'), blog.category),
             (_('Posted in'), blog.archive),
-            (_('Posts tagged'), blog.tags),]:
+                (_('Posts tagged'), blog.tags), ]:
 
             for coll in catalog:
                 # skip collections containing only drafts
@@ -656,6 +647,10 @@ def generate_atom_feeds(app):
                      url=post_url,
                      id=post_url,
                      updated=post.update, published=post.date)
+
+        parent_dir = os.path.dirname(feed_path)
+        if not os.path.isdir(parent_dir):
+            os.makedirs(parent_dir)
 
         with open(feed_path, 'w') as out:
             feed_str = feed.to_string()

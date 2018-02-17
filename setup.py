@@ -11,11 +11,14 @@ long_description = '''
 ABlog for Sphinx
 ================
 
+Please note that is an official continuation of
+`Eric Holscher's Ablog Sphinx extension <https://github.com/abakan/ablog/>`_.
+
 A Sphinx extension that converts any documentation or personal website project
 into a full-fledged blog. See http://ablog.readthedocs.org for details.
 
-.. image:: https://secure.travis-ci.org/abakan/ablog.png?branch=devel
-   :target: http://travis-ci.org/#!/abakan/ablog
+.. image:: https://secure.travis-ci.org/sunpy/ablog.png?branch=devel
+   :target: http://travis-ci.org/#!/sunpy/ablog
 
 .. image:: https://readthedocs.org/projects/ablog/badge/?version=latest
    :target: http://ablog.readthedocs.org/
@@ -24,9 +27,9 @@ into a full-fledged blog. See http://ablog.readthedocs.org for details.
 setup(
     name='ablog',
     version=__version__,
-    author='Ahmet Bakan',
-    author_email='lordnapi@gmail.com',
-    description='ABlog for blogging with Sphinx',
+    author='SunPy Developers',
+    author_email='nabil.freij@gmail.com',
+    description='ABlog allows you to blog with Sphinx',
     long_description=long_description,
     url='http://ablog.readthedocs.org/',
     packages=['ablog'],
@@ -47,19 +50,19 @@ setup(
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 3',
-        ],
+    ],
     provides=['ablog ({0:s})'.format(__version__)],
-    install_requires=['Werkzeug', 'Sphinx', 'alabaster', 'invoke', 'python-dateutil'],
+    install_requires=['werkzeug', 'sphinx>=1.6', 'alabaster', 'invoke', 'python-dateutil', 'sphinx-automodapi'],
     message_extractors={
         'ablog': [
             ('**.html', 'jinja2', None),
-            ('**.py',   'python', None),
+            ('**.py', 'python', None),
         ]
     },
-    entry_points = {
+    entry_points={
         'console_scripts': [
             'ablog = ablog.commands:ablog_main',
             'ablog{0} = ablog.commands:ablog_main'.format(sys.version_info[0]),
-            ],
-        },
+        ],
+    },
 )

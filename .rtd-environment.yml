@@ -1,0 +1,9 @@
+name: ablog-rtd
+dependencies:
+- pip:
+    - werkzeug
+    - sphinx
+    - alabaster
+    - invoke
+    - python-dateutil
+    - sphinx-automodapi

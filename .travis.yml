@@ -1,13 +1,40 @@
-language: python
+# We set the language to c because python isn't supported on the MacOS X nodes
+# on Travis. However, the language ends up being irrelevant anyway, since we
+# install Python ourselves using conda.
+language: c
+
+os:
+    - linux
+
+# Setting sudo to false opts in to Travis-CI container-based builds.
 sudo: false
-python:
-  - 2.6
-  - 2.7
-  - 3.4
-  - 3.5
-before_install:
-  - pip install Sphinx Werkzeug alabaster invoke
+
+env:
+  matrix:
+    - PYTHON_VERSION=2.7 SPHINX_VERSION=1.6
+    - PYTHON_VERSION=2.7
+    - PYTHON_VERSION=3.5 SPHINX_VERSION=1.6
+    - PYTHON_VERSION=3.5
+    - PYTHON_VERSION=3.6 SPHINX_VERSION=1.6
+    - PYTHON_VERSION=3.6
+    - PYTHON_VERSION=3.6 SPHINX_VERSION=dev
+
+  global:
+    - LOCALE=default
+    - CONDA_CHANNELS="conda-forge"
+    - CONDA_DEPENDENCIES="sphinx werkzeug alabaster invoke graphviz"
+    - PIP_DEPENDENCIES="sphinx-automodapi coveralls"
+
 install:
-  - pip install .
+    - git clone git://github.com/astropy/ci-helpers.git
+    - source ci-helpers/travis/setup_conda.sh
+    - if [[ $SPHINX_VERSION == dev ]]; then
+        pip install git+https://github.com/sphinx-doc/sphinx.git;
+      fi
+    - pip install -e .
+
 script:
-  - make test
+    - make test
+
+after_success:
+    - coveralls

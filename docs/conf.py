@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from __future__ import absolute_import, division, print_function
 import os
 import sys
 
@@ -16,8 +17,7 @@ extensions = [
     'sphinx.ext.todo',
     'sphinx.ext.ifconfig',
     'sphinx.ext.extlinks',
-    #'IPython.sphinxext.ipython_directive',
-    #'IPython.sphinxext.ipython_console_highlighting',
+    'sphinx_automodapi.automodapi',
     'alabaster',
     'ablog'
 ]
@@ -28,7 +28,7 @@ extensions = [
 
 version = release = ablog.__version__
 project = u'ABlog'
-copyright = u'2014-2015, ABlog Team'
+copyright = u'2014-2018, ABlog Team'
 master_doc = 'index'
 source_suffix = '.rst'
 exclude_patterns = ['_build']
@@ -79,16 +79,16 @@ fontawesome_css_file = 'css/font-awesome.css'
 html_style = 'alabaster.css'
 html_theme = 'alabaster'
 html_sidebars = {
-   '**': ['about.html',
-          'postcard.html', 'recentposts.html',
-          'tagcloud.html', 'categories.html',
-          'archives.html',
-          'searchbox.html']
+    '**': ['about.html',
+           'postcard.html', 'recentposts.html',
+           'tagcloud.html', 'categories.html',
+           'archives.html',
+           'searchbox.html']
 }
 html_theme_path = [alabaster.get_path()]
 html_theme_options = {
     'travis_button': True,
-    'github_user': 'abakan',
+    'github_user': 'sunpy',
     'github_repo': 'ablog',
     'description': 'ABlog for blogging with Sphinx',
     'logo': 'ablog.png',
@@ -102,15 +102,15 @@ intersphinx_mapping = {
 }
 extlinks = {
     'wiki': ('http://en.wikipedia.org/wiki/%s', ''),
-    'issue': ('https://github.com/abakan/ablog/issues/%s', 'issue '),
-    'pull': ('https://github.com/abakan/ablog/pull/%s', 'pull request '),
+    'issue': ('https://github.com/sunpy/ablog/issues/%s', 'issue '),
+    'pull': ('https://github.com/sunpy/ablog/pull/%s', 'pull request '),
 }
 
 rst_epilog = '''
 .. _Sphinx: http://sphinx-doc.org/
 .. _Python: http://python.org
 .. _Disqus: http://disqus.com/
-.. _GitHub: https://github.com/abakan/ablog
+.. _GitHub: https://github.com/sunpy/ablog
 .. _PyPI: https://pypi.python.org/pypi/ablog
 .. _Read The Docs: https://readthedocs.org/
 .. _Alabaster: https://github.com/bitprophet/alabaster
@@ -121,6 +121,7 @@ from sphinx import addnodes
 
 
 event_sig_re = re.compile(r'([a-zA-Z-]+)\s*\((.*)\)')
+
 
 def parse_event(env, sig, signode):
     m = event_sig_re.match(sig)
