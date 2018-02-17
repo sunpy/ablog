@@ -151,9 +151,9 @@ A list of posts can be displayed in any page using the following directive:
         :sort:
 
    This will result in a bullet list of up to 5 posts (default is all)
-   authored by :ref:`author-ahmet` in :ref:`language-en` when he was in
-   :ref:`location-pittsburgh` and posted in :ref:`category-manual`
-   with tags :ref:`tag-tips`. Posts will be in ``:sort:``\ed to appear in
+   authored by `:ref:`author-ahmet`` in `:ref:`language-en`` when he was in
+   `:ref:`location-pittsburgh`` and posted in `:ref:`category-manual``
+   with tags `:ref:`tag-tips``. Posts will be in ``:sort:``\ed to appear in
    chronological order and listed with their ``:excerpts:``.
    Here are those posts:
 

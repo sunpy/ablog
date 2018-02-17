@@ -17,6 +17,7 @@ extensions = [
     'sphinx.ext.todo',
     'sphinx.ext.ifconfig',
     'sphinx.ext.extlinks',
+    'sphinx_automodapi.automodapi',
     'alabaster',
     'ablog'
 ]
@@ -87,7 +88,7 @@ html_sidebars = {
 html_theme_path = [alabaster.get_path()]
 html_theme_options = {
     'travis_button': True,
-    'github_user': 'abakan',
+    'github_user': 'sunpy',
     'github_repo': 'ablog',
     'description': 'ABlog for blogging with Sphinx',
     'logo': 'ablog.png',
@@ -101,15 +102,15 @@ intersphinx_mapping = {
 }
 extlinks = {
     'wiki': ('http://en.wikipedia.org/wiki/%s', ''),
-    'issue': ('https://github.com/abakan/ablog/issues/%s', 'issue '),
-    'pull': ('https://github.com/abakan/ablog/pull/%s', 'pull request '),
+    'issue': ('https://github.com/sunpy/ablog/issues/%s', 'issue '),
+    'pull': ('https://github.com/sunpy/ablog/pull/%s', 'pull request '),
 }
 
 rst_epilog = '''
 .. _Sphinx: http://sphinx-doc.org/
 .. _Python: http://python.org
 .. _Disqus: http://disqus.com/
-.. _GitHub: https://github.com/abakan/ablog
+.. _GitHub: https://github.com/sunpy/ablog
 .. _PyPI: https://pypi.python.org/pypi/ablog
 .. _Read The Docs: https://readthedocs.org/
 .. _Alabaster: https://github.com/bitprophet/alabaster

@@ -11,6 +11,9 @@ long_description = '''
 ABlog for Sphinx
 ================
 
+Please note that is an official continuation of
+`Eric Holscher's Ablog Sphinx extension <https://github.com/abakan/ablog/>`_.
+
 A Sphinx extension that converts any documentation or personal website project
 into a full-fledged blog. See http://ablog.readthedocs.org for details.
 
@@ -49,7 +52,7 @@ setup(
         'Programming Language :: Python :: 3',
     ],
     provides=['ablog ({0:s})'.format(__version__)],
-    install_requires=['Werkzeug', 'Sphinx>=1.6', 'alabaster', 'invoke', 'python-dateutil'],
+    install_requires=['Werkzeug', 'Sphinx>=1.6', 'alabaster', 'invoke', 'python-dateutil', 'sphinx-automodapi'],
     message_extractors={
         'ablog': [
             ('**.html', 'jinja2', None),
