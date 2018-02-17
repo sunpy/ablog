@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+from __future__ import absolute_import, division, print_function
 import sys
 import time
 import datetime
@@ -559,7 +559,10 @@ def ask_user(d):
         print(bold('Selected root path: %s' % d['path']))
     else:
         print('Enter the root path for your blog project.')
-        do_prompt(d, 'path', 'Root path for your project', '.', is_path)
+        if SPHINX_LT_17:
+            do_prompt(d, 'path', 'Root path for your project', '.', is_path)
+        else:
+            d['path'] = do_prompt('Root path for your project', '.', is_path)
 
     while path.isfile(path.join(d['path'], 'conf.py')) or \
             path.isfile(path.join(d['path'], 'source', 'conf.py')):
@@ -568,8 +571,10 @@ def ask_user(d):
                      'selected root path.')))
         print('ablog start will not overwrite existing Sphinx projects.')
         print('')
-        do_prompt(d, 'path',
-                  'Please enter a new root path (or just Enter to exit)', '', is_path)
+        if SPHINX_LT_17:
+            do_prompt(d, 'path','Please enter a new root path (or just Enter to exit)', '', is_path)
+        else:
+            d['path'] = do_prompt('Please enter a new root path (or just Enter to exit)', '', is_path)
         if not d['path']:
             sys.exit(1)
 
@@ -579,14 +584,20 @@ def ask_user(d):
                 'including blog archive pages and atom feeds. Later, you can '
                 'set separate names for different parts of the website in '
                 'configuration file.'))
-        do_prompt(d, 'project', 'Project name')
+        if SPHINX_LT_17:
+            do_prompt(d, 'project', 'Project name')
+        else:
+            d['project'] = do_prompt('Project name')
 
     if 'author' not in d:
         print(w('This of author as the copyright holder of the content. '
                 'If your blog has multiple authors, you might want to enter '
                 'a team name here. Later, you can specify individual authors '
                 'using `blog_authors` configuration option.'))
-        do_prompt(d, 'author', 'Author name(s)')
+        if SPHINX_LT_17:
+            do_prompt(d, 'author', 'Author name(s)')
+        else:
+            d['author'] = do_prompt('Author name(s)')
 
     d['release'] = d['version'] = ''
 
@@ -597,16 +608,22 @@ def ask_user(d):
                      'selected root path.' % (d['master'] + d['suffix']))))
         print('ablog-start will not overwrite the existing file.')
         print('')
-        do_prompt(d, 'master', w('Please enter a new file name, or rename the '
-                                 'existing file and press Enter'), d['master'])
+        if SPHINX_LT_17:
+            do_prompt(d, 'master', w('Please enter a new file name, or rename the '
+                      'existing file and press Enter'), d['master'])
+        else:
+            d['master'] = do_prompt(w('Please enter a new file name, or rename the '
+                                    'existing file and press Enter'), d['master'])
 
     if 'blog_baseurl' not in d:
         print('')
         print(w('Please enter the base URL for your project. Blog feeds will '
                 'be generated relative to this URL. If you don\'t have one yet, '
                 'you can set it in configuration file later.'))
-        do_prompt(d, 'blog_baseurl', 'Base URL for your project',
-                  None, lambda x: True)
+        if SPHINX_LT_17:
+            do_prompt(d, 'blog_baseurl', 'Base URL for your project', None, lambda x: True)
+        else:
+            d['blog_baseurl'] = do_prompt('Base URL for your project', None, lambda x: True)
 
     print('')
 

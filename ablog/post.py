@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """post and postlist directives."""
 
+from __future__ import absolute_import, division, print_function
 import os
 import sys
 from string import Formatter

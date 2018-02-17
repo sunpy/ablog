@@ -1,13 +1,17 @@
+from __future__ import absolute_import, division, print_function
 import os
 import sys
 import glob
 import ablog
 import shutil
 import argparse
+from distutils.version import LooseVersion
+
+from sphinx import __version__
 
 BUILDDIR = '_website'
 DOCTREES = '.doctrees'
-
+SPHINX_LT_17 = LooseVersion(__version__) < LooseVersion('1.7')
 
 def find_confdir():
     """Return path to current directory or its parent that contains conf.py"""
@@ -139,7 +143,6 @@ cmd(ablog_start, name='start', help='start a new blog project',
 def ablog_build(builder=None, sourcedir=None, website=None, doctrees=None,
                 traceback=False, runpdb=False, allfiles=False, werror=False, verbosity=0,
                 quiet=False, extra_quiet=False, no_colors=False, **kwargs):
-
     confdir = find_confdir()
     conf = read_conf(confdir)
     website = (website or
@@ -168,8 +171,14 @@ def ablog_build(builder=None, sourcedir=None, website=None, doctrees=None,
         argv.extend(['-N'])
     argv.extend([sourcedir, website])
 
-    from sphinx import main
-    main(argv)
+    if SPHINX_LT_17:
+        from sphinx import main
+        main(argv)
+    else:
+        from sphinx.cmd.build import main
+        # srcdir, confdir, outdir, doctreedir, buildername is the order now
+        argv = []
+        main(argv)
 
 
 @arg('-D', dest='deep', action='store_true', default=False,
