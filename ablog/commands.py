@@ -170,15 +170,12 @@ def ablog_build(builder=None, sourcedir=None, website=None, doctrees=None,
     if no_colors:
         argv.extend(['-N'])
     argv.extend([sourcedir, website])
-
     if SPHINX_LT_17:
         from sphinx import main
-        main(argv)
     else:
         from sphinx.cmd.build import main
-        # srcdir, confdir, outdir, doctreedir, buildername is the order now
-        argv = []
-        main(argv)
+    print(argv)
+    main(argv)
 
 
 @arg('-D', dest='deep', action='store_true', default=False,

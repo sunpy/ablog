@@ -1,12 +1,51 @@
 language: python
+
+os:
+    - linux
+
+# Setting sudo to false opts in to Travis-CI container-based builds.
 sudo: false
-python:
-  - 2.7
-  - 3.5
-  - 3.6
-before_install:
-  - pip install Sphinx Werkzeug alabaster invoke
-install:
-  - pip install .
+
+# Configure the build environment. Global varibles are defined for all configurations.
+
+env:
+    global:
+        - COLUMNS=180
+        - MAIN_CMD='make'
+        - SETUP_CMD='test'
+        - CONDA_CHANNELS='conda-forge'
+        - EVENT_TYPE='push pull_request cron'
+
+matrix:
+
+    # Don't wait for allowed failures
+    fast_finish: true
+
+    include:
+         - python: 2.7
+           env: PIP_DEPENDENCIES='sphinx werkzeug alabaster invoke'
+
+         - python: 3.5
+           env: PIP_DEPENDENCIES='sphinx werkzeug alabaster invoke'
+
+         - python: 3.6
+           env: PIP_DEPENDENCIES='sphinx werkzeug alabaster invoke'
+
+         - python: 2.7
+           env: CONDA_DEPENDENCIES='sphinx werkzeug alabaster invoke'
+
+         - python: 3.5
+           env: CONDA_DEPENDENCIES='sphinx werkzeug alabaster invoke'
+
+         - python: 3.6
+           env: CONDA_DEPENDENCIES='sphinx werkzeug alabaster invoke'
+
+ install:
+    - git clone git://github.com/astropy/ci-helpers.git
+    - source ci-helpers/travis/setup_conda.sh
+
 script:
-  - make test
+    - $MAIN_CMD $SETUP_CMD
+
+after_success:
+    - coveralls
