@@ -1,7 +1,10 @@
 ABlog for Sphinx
 ================
 
-Please note that is an official continuation of `Eric Holscher's Ablog Sphinx extension <https://github.com/abakan/ablog/>`_.
+.. image:: https://travis-ci.org/sunpy/ablog.svg?branch=master
+    :target: https://travis-ci.org/sunpy/ablog
+    
+**Please note that is an official continuation of `Eric Holscher's Ablog Sphinx extension <https://github.com/abakan/ablog/>`_.**
 
 ABlog is a Sphinx extension that converts any documentation or personal website project into a full-fledged blog with:
 
