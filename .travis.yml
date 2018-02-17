@@ -1,65 +1,62 @@
-#language: python
-#sudo: false
-#python:
-#  - 2.7
-#  - 3.5
-#  - 3.6
-#before_install:
-#  - pip install sphinx werkzeug alabaster invoke
-#install:
-#  - pip install .
-#script:
-#  - make test
-
-language: python
+# We set the language to c because python isn't supported on the MacOS X nodes
+# on Travis. However, the language ends up being irrelevant anyway, since we
+# install Python ourselves using conda.
+language: c
 
 os:
+    - osx
     - linux
 
 # Setting sudo to false opts in to Travis-CI container-based builds.
 sudo: false
 
-# Configure the build environment. Global varibles are defined for all configurations.
+# The apt packages below are needed for sphinx builds, which can no longer
+# be installed with sudo apt-get.
+addons:
+    apt:
+        packages:
+            - graphviz
 
 env:
-    global:
-        - COLUMNS=180
-        - MAIN_CMD='make'
-        - SETUP_CMD='test'
-        - CONDA_CHANNELS='conda-forge'
-        - EVENT_TYPE='push pull_request cron'
+  matrix:
+    - PYTHON_VERSION=2.7 SPHINX_VERSION=1.6
+    - PYTHON_VERSION=2.7
+    - PYTHON_VERSION=3.5 SPHINX_VERSION=1.6
+    - PYTHON_VERSION=3.5
+    - PYTHON_VERSION=3.6 SPHINX_VERSION=1.6
+    - PYTHON_VERSION=3.6
+    - PYTHON_VERSION=3.6 SPHINX_VERSION=dev
+    - PYTHON_VERSION=2.7 LOCALE=C
+    - PYTHON_VERSION=3.6 LOCALE=C
+  global:
+    - LOCALE=default
+    - CONDA_CHANNELS="conda-forge"
+    - CONDA_DEPENDENCIES="sphinx werkzeug alabaster invoke"
+    - PIP_DEPENDENCIES="coveralls"
+    - HOMEBREW_NO_AUTO_UPDATE=1
 
-matrix:
+before_install:
 
-    # Don't wait for allowed failures
-    fast_finish: true
+    # Make sure that things work even if the locale is set to C (which effectively means ASCII).
+    # Some of the input rst files have unicode characters and we need to deal with this gracefully.
+    - if [[ $LOCALE == C ]]; then
+        export LC_CTYPE=C;
+        export LC_ALL=C;
+        export LANG=C;
+      fi
 
-    include:
-        - python: 2.7
-          env: PIP_DEPENDENCIES='sphinx werkzeug alabaster invoke'
-
-        - python: 3.5
-          env: PIP_DEPENDENCIES='sphinx==1.6.7 werkzeug alabaster invoke'
-
-        - python: 3.6
-          env: PIP_DEPENDENCIES='sphinx werkzeug alabaster invoke'
-
-        - python: 2.7
-          env: CONDA_DEPENDENCIES='sphinx werkzeug alabaster invoke'
-
-        - python: 3.5
-          env: CONDA_DEPENDENCIES='sphinx==1.6.7 werkzeug alabaster invoke'
-
-        - python: 3.6
-          env: CONDA_DEPENDENCIES='sphinx werkzeug alabaster invoke'
+    - if [[ $TRAVIS_OS_NAME == osx ]]; then brew install graphviz; fi
 
 install:
     - git clone git://github.com/astropy/ci-helpers.git
     - source ci-helpers/travis/setup_conda.sh
+    - if [[ $SPHINX_VERSION == dev ]]; then
+        pip install git+https://github.com/sphinx-doc/sphinx.git;
+      fi
     - pip install -e .
 
 script:
-    - $MAIN_CMD $SETUP_CMD
+    - make test
 
-after_success:
-    - coveralls
+#after_success:
+#    - coveralls
