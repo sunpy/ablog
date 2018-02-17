@@ -52,7 +52,7 @@ setup(
         'Programming Language :: Python :: 3',
     ],
     provides=['ablog ({0:s})'.format(__version__)],
-    install_requires=['Werkzeug', 'Sphinx>=1.6', 'alabaster', 'invoke', 'python-dateutil', 'sphinx-automodapi'],
+    install_requires=['werkzeug', 'sphinx>=1.6', 'alabaster', 'invoke', 'python-dateutil', 'sphinx-automodapi'],
     message_extractors={
         'ablog': [
             ('**.html', 'jinja2', None),
