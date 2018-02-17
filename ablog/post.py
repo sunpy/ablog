@@ -95,14 +95,17 @@ class PostDirective(Directive):
 
 
 class UpdateDirective(BaseAdmonition):
-
     required_arguments = 1
     node_class = UpdateNode
 
     def run(self):
-
-        ad = super(UpdateDirective, self).run()
-        ad[0]['date'] = self.arguments[0] if self.arguments else ''
+        date_arg = self.arguments[0] if self.arguments else ''
+        self.arguments = [_('Updated on ' + date_arg), ]
+        # The following line is needed to trick the BaseAdmonition class into thinking we have a title.
+        # There almost certainly has to be a better way, but I don't see it naturally from the docutils source
+        self.node_class = nodes.admonition
+        ad = super(UpdateDirective, self).run()  # For Python3, it is run(), not run(self)
+        del self.node_class  # Undo our tricksy hack from a few lines ago
         return ad
 
 

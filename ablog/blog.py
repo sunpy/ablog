@@ -92,6 +92,7 @@ CONFIG = [
 
 
 TOMORROW = datetime.today() + dtmod.timedelta(1)
+TOMORROW = TOMORROW.replace(hour=0, minute=0, second=0, microsecond=0)
 FUTURE = datetime(9999, 12, 31)
 
 
