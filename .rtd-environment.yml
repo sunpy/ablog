@@ -1,9 +1,10 @@
 name: ablog-rtd
+channels:
+- conda-forge
 dependencies:
-- pip:
-    - werkzeug
-    - sphinx
-    - alabaster
-    - invoke
-    - python-dateutil
-    - sphinx-automodapi
+- werkzeug
+- sphinx
+- alabaster
+- invoke
+- python-dateutil
+- sphinx-automodapi
