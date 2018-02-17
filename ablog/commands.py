@@ -172,10 +172,11 @@ def ablog_build(builder=None, sourcedir=None, website=None, doctrees=None,
     argv.extend([sourcedir, website])
     if SPHINX_LT_17:
         from sphinx import main
+        main(argv)
     else:
         from sphinx.cmd.build import main
-    print(argv)
-    main(argv)
+        # As of Sphinx 1.7, the first argument is now no longer ignored
+        main(argv[1:])
 
 
 @arg('-D', dest='deep', action='store_true', default=False,
