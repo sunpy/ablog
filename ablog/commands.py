@@ -13,6 +13,9 @@ BUILDDIR = '_website'
 DOCTREES = '.doctrees'
 SPHINX_LT_17 = LooseVersion(__version__) < LooseVersion('1.7')
 
+__all__ = ['ablog_build', 'ablog_clean',
+           'ablog_serve', 'ablog_deploy', 'ablog_main']
+
 def find_confdir():
     """Return path to current directory or its parent that contains conf.py"""
 
@@ -435,13 +438,9 @@ def ablog_deploy(website, message=None, github_pages=None,
 
 
 def ablog_main():
-
+    "Ablog Main"
     if len(sys.argv) == 1:
         parser.print_help()
     else:
         namespace = parser.parse_args()
         namespace.func(**namespace.__dict__)
-
-
-if __name__ == '__main__':
-    ablog_main()

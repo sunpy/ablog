@@ -31,6 +31,8 @@ else:
 
 w = lambda t, ls=80: '\n'.join(wrap(t, ls))
 
+__all__ = ['generate', 'ask_user', 'ablog_start']
+
 ABLOG_CONF = u''
 
 # prevents that the file is checked for being written in Python 2.x syntax

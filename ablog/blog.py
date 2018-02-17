@@ -31,6 +31,8 @@ else:
     text_type = unicode
     re_flag = re.UNICODE
 
+__all__ = ['Blog', 'Post', 'Collection']
+
 
 def slugify(string):
     """Slugify *s*."""

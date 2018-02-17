@@ -25,6 +25,10 @@ if sys.version_info >= (3, 0):
 else:
     text_type = unicode
 
+__all__ = ['PostNode', 'PostList', 'UpdateNode', 'PostDirective',
+           'UpdateDirective', 'PostListDirective', 'purge_posts',
+           'process_posts', 'process_postlist', 'generate_archive_pages',
+           'generate_atom_feeds', 'register_posts']
 
 class PostNode(nodes.Element):
     """Represent ``post`` directive content and options in document tree."""

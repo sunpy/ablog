@@ -12,6 +12,8 @@ from .post import (PostDirective, PostListDirective, UpdateDirective,
 
 __version__ = '0.9.0'
 
+__all__ = ['setup']
+
 
 def anchor(post):
     """Return anchor string for posts that arepage sections."""

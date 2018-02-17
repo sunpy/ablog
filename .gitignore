@@ -13,6 +13,7 @@ demo/
 docs/_*
 docs/.*
 docs/tmp/
+docs/api/
 
 .DS_Store
 
