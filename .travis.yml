@@ -4,18 +4,10 @@
 language: c
 
 os:
-    - osx
     - linux
 
 # Setting sudo to false opts in to Travis-CI container-based builds.
 sudo: false
-
-# The apt packages below are needed for sphinx builds, which can no longer
-# be installed with sudo apt-get.
-addons:
-    apt:
-        packages:
-            - graphviz
 
 env:
   matrix:
@@ -26,26 +18,14 @@ env:
     - PYTHON_VERSION=3.6 SPHINX_VERSION=1.6
     - PYTHON_VERSION=3.6
     - PYTHON_VERSION=3.6 SPHINX_VERSION=dev
-    - PYTHON_VERSION=2.7 LOCALE=C
-    - PYTHON_VERSION=3.6 LOCALE=C
+    - env: osx
+        PYTHON_VERSION=3.6
+
   global:
     - LOCALE=default
     - CONDA_CHANNELS="conda-forge"
     - CONDA_DEPENDENCIES="sphinx werkzeug alabaster invoke"
     - PIP_DEPENDENCIES="coveralls"
-    - HOMEBREW_NO_AUTO_UPDATE=1
-
-before_install:
-
-    # Make sure that things work even if the locale is set to C (which effectively means ASCII).
-    # Some of the input rst files have unicode characters and we need to deal with this gracefully.
-    - if [[ $LOCALE == C ]]; then
-        export LC_CTYPE=C;
-        export LC_ALL=C;
-        export LANG=C;
-      fi
-
-    - if [[ $TRAVIS_OS_NAME == osx ]]; then brew install graphviz; fi
 
 install:
     - git clone git://github.com/astropy/ci-helpers.git
