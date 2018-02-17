@@ -18,8 +18,9 @@ env:
     - PYTHON_VERSION=3.6 SPHINX_VERSION=1.6
     - PYTHON_VERSION=3.6
     - PYTHON_VERSION=3.6 SPHINX_VERSION=dev
-    - os: osx
-      env: PYTHON_VERSION=3.6
+    include:
+      - os: osx
+        env: PYTHON_VERSION=3.6
 
   global:
     - LOCALE=default
