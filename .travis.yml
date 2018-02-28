@@ -23,7 +23,7 @@ env:
     - LOCALE=default
     - CONDA_CHANNELS="conda-forge"
     - CONDA_DEPENDENCIES="sphinx werkzeug alabaster invoke graphviz"
-    - PIP_DEPENDENCIES="sphinx-automodapi coveralls"
+    - PIP_DEPENDENCIES="sphinx-automodapi"
 
 install:
     - git clone git://github.com/astropy/ci-helpers.git
@@ -35,6 +35,3 @@ install:
 
 script:
     - make test
-
-after_success:
-    - coveralls
