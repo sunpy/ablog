@@ -29,7 +29,7 @@ Installation
 
 You can install ABlog using pip_::
 
-    pip install -U ablog
+    pip install https://github.com/sunpy/ablog/archive/v0.9.0.zip
 
 This will also install `Sphinx <http://sphinx-doc.org/>`_, Alabaster_, Werkzeug_, and Invoke_ respectively required for building your website, making it look good, generating feeds, and running deploy commands.
 
