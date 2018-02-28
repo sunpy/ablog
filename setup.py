@@ -51,7 +51,7 @@ setup(
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 3',
     ],
-    provides=['ablog ({0:s})'.format(__version__)],
+    provides=['ablog'],
     install_requires=['werkzeug', 'sphinx>=1.6', 'alabaster', 'invoke', 'python-dateutil', 'sphinx-automodapi'],
     message_extractors={
         'ablog': [
