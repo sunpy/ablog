@@ -30,3 +30,13 @@ from `rayalan <https://github.com/rayalan>`_.
 
 .. _Abakan: https://github.com/abakan/ablog
 .. _SunPy: https://github.com/sunpy/ablog
+
+ABlog v0.9.1 released
+=====================
+
+.. post:: March 2, 2018
+   :author: Nabil
+   :category: Release
+   :location: World
+
+Minor update to remove Ablog{}.format(python_number) exes
