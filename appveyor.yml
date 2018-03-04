@@ -30,10 +30,23 @@ install:
     - "powershell ci-helpers/appveyor/install-miniconda.ps1"
     - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
     - "activate test"
+    - "pip install -e ."
 
-# Not a .NET project, we build SunPy in the install step instead
+# Not a .NET project, we build Ablog in the install step instead
 build: false
 
 test_script:
-    - "%CMD_IN_ENV% pip install -e ."
-    - "%CMD_IN_ENV% make test"
+    - ps: cd docs
+    - ablog build -T
+    - ablog build -b latex -T -d .doctrees -w _latex
+    - ablog build -T -b json
+    - ablog build -T -b pickle
+#    - ps: mkdir test
+#    - ps: cd test
+#    - ps: echo "ABlog" ABlog Team" "http://ablog.readthedocs.org" | ablog start
+#    - ablog build
+#    - ps: mkdir -p test
+#    - ps: cd test
+#    - ps: echo "ablog" "ABlog" "ABlog Team" "http://ablog.readthedocs.org" | ablog start
+#    - ps: cd ablog
+#    - ablog build

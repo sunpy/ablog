@@ -40,3 +40,13 @@ ABlog v0.9.1 released
    :location: World
 
 Minor update to remove Ablog{}.format(python_number) exes
+
+ABlog v0.9.2 released
+=====================
+
+.. post:: March 4, 2018
+   :author: Nabil
+   :category: Release
+   :location: World
+
+Fixed Windows String issue
