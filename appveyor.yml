@@ -10,9 +10,9 @@ environment:
       # /E:ON and /V:ON options are not enabled in the batch script intepreter
       # See: http://stackoverflow.com/a/13751649/163740
       CMD_IN_ENV: "cmd /E:ON /V:ON /C .\\ci-helpers\\appveyor\\windows_sdk.cmd"
-      CONDA_CHANNELS: "conda-forge "
-      CONDA_DEPENDENCIES="sphinx werkzeug alabaster invoke graphviz"
-      PIP_DEPENDENCIES="sphinx-automodapi"
+      CONDA_CHANNELS: "conda-forge"
+      CONDA_DEPENDENCIES: "sphinx werkzeug alabaster invoke graphviz"
+      PIP_DEPENDENCIES: "sphinx-automodapi"
 
   matrix:
       - PYTHON_VERSION: "2.7"
