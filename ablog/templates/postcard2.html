@@ -1,10 +1,10 @@
   {% if post.published and post.date != post.update %}
-  <li id="published" ><span>{% if fa %}<i class="fa fa-pencil-square-o"></i>{% else %}{{ gettext('Update') }}:</span>{% endif %}
+  <li id="published" ><span>{% if fa %}<i class="fa fa-pencil-square-o"></i>{% else %}{{ gettext('Update') }}:{% endif %}</span>
     {{ post.update.strftime(gettext(ablog.post_date_format)) }}</li>
   {% endif %}
 
   {% if post.author %}
-  <li id="author"><span>{% if fa %}<i class="fa-fw fa fa-user"></i>{% else %}{{ gettext('Author') }}:</span>{% endif %}
+  <li id="author"><span>{% if fa %}<i class="fa-fw fa fa-user"></i>{% else %}{{ gettext('Author') }}:{% endif %}</span>
     {% for coll in post.author %}
       {% if coll|length %}
       <a href="{{ pathto(coll.docname) }}">{{ coll }}</a>{% if loop.index < post.author|length %},{% endif %}
@@ -13,7 +13,7 @@
   {% endif %}
 
   {% if post.location %}
-  <li id="location"><span>{% if fa %}<i class="fa-fw fa fa-location-arrow"></i>{% else %}{{ gettext('Location') }}:</span>{% endif %}
+  <li id="location"><span>{% if fa %}<i class="fa-fw fa fa-location-arrow"></i>{% else %}{{ gettext('Location') }}:{% endif %}</span>
     {% for coll in post.location %}
       {% if coll|length %}
       <a href="{{ pathto(coll.docname) }}">{{ coll }}</a>{% if loop.index < post.location|length %},{% endif %}
@@ -22,7 +22,7 @@
   {% endif %}
 
   {% if post.language %}
-  <li id="language"><span>{% if fa %}<i class="fa-fw fa fa-language"></i>{% else %}{{ gettext('Language') }}:</span>{% endif %}
+  <li id="language"><span>{% if fa %}<i class="fa-fw fa fa-language"></i>{% else %}{{ gettext('Language') }}:{% endif %}</span>
     {% for coll in post.language %}
       {% if coll|length %}
       <a href="{{ pathto(coll.docname) }}">{{ coll }}</a>{% if loop.index < post.language|length %},{% endif %}
@@ -31,7 +31,7 @@
   {% endif %}
 
   {% if post.category %}
-  <li id="category"><span>{% if fa %}<i class="fa-fw fa fa-folder-open"></i>{% else %}{{ gettext('Category') }}:</span>{% endif %}
+  <li id="category"><span>{% if fa %}<i class="fa-fw fa fa-folder-open"></i>{% else %}{{ gettext('Category') }}:{% endif %}</span>
     {% for coll in post.category %}
       {% if coll|length %}
       <a href="{{ pathto(coll.docname) }}">{{ coll }}</a>{% if loop.index < post.category|length %},{% endif %}
@@ -40,8 +40,8 @@
   {% endif %}
 
   {% if post.tags %}
-  <li id="tags"><span>{% if post.tags|length > 1 %}{% if fa %}<i class="fa-fw fa fa-tags"></i>{% else %}{{ gettext('Tags') }}:</span>{% endif %}
-      {% else %}{% if fa %}<i class="fa-fw fa fa-tag"></i>{% else %}{{ gettext('Tag') }}:{% endif %}{% endif %}
+  <li id="tags"><span>{% if post.tags|length > 1 %}{% if fa %}<i class="fa-fw fa fa-tags"></i>{% else %}{{ gettext('Tags') }}:{% endif %}
+      {% else %}{% if fa %}<i class="fa-fw fa fa-tag"></i>{% else %}{{ gettext('Tag') }}:{% endif %}{% endif %}</span>
     {% for coll in post.tags %}
       {% if coll|length %}
       <a href="{{ pathto(coll.docname) }}">{{ coll }}</a>{% if loop.index < post.tags|length %}{% endif %}
