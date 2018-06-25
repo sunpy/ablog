@@ -655,7 +655,7 @@ def generate_atom_feeds(app):
         if not os.path.isdir(parent_dir):
             os.makedirs(parent_dir)
 
-        with open(feed_path, 'w') as out:
+        with open(feed_path, 'w', encoding='utf-8') as out:
             feed_str = feed.to_string()
             try:
                 out.write(feed_str.encode('utf-8'))
