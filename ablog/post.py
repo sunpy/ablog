@@ -2,6 +2,7 @@
 """post and postlist directives."""
 
 from __future__ import absolute_import, division, print_function
+import io
 import os
 import sys
 from string import Formatter
@@ -655,7 +656,7 @@ def generate_atom_feeds(app):
         if not os.path.isdir(parent_dir):
             os.makedirs(parent_dir)
 
-        with open(feed_path, 'w', encoding='utf-8') as out:
+        with io.open(feed_path, 'w', encoding='utf-8') as out:
             feed_str = feed.to_string()
             try:
                 out.write(feed_str.encode('utf-8'))

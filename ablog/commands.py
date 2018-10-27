@@ -1,5 +1,6 @@
 from __future__ import absolute_import, division, print_function
 import os
+import io
 import sys
 import glob
 import ablog
@@ -175,11 +176,11 @@ def ablog_build(builder=None, sourcedir=None, website=None, doctrees=None,
     argv.extend([sourcedir, website])
     if SPHINX_LT_17:
         from sphinx import main
-        main(argv)
+        sys.exit(main(argv))
     else:
         from sphinx.cmd.build import main
         # As of Sphinx 1.7, the first argument is now no longer ignored
-        main(argv[1:])
+        sys.exit(main(argv[1:]))
 
 
 @arg('-D', dest='deep', action='store_true', default=False,
@@ -331,7 +332,7 @@ def ablog_post(filename, title=None, **kwargs):
         # read the file, and add post directive
         # and save it
     else:
-        with open(filename, 'w', encoding='utf-8') as out:
+        with io.open(filename, 'w', encoding='utf-8') as out:
             post_text = POST_TEMPLATE % pars
             out.write(post_text)
 

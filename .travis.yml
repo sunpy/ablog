@@ -12,32 +12,28 @@ sudo: false
 env:
   matrix:
     - PYTHON_VERSION=2.7 SPHINX_VERSION=1.6
-    - PYTHON_VERSION=2.7 SPHINX_VERSION=1.7
     - PYTHON_VERSION=2.7 SPHINX_VERSION=1.8
+
     - PYTHON_VERSION=3.5 SPHINX_VERSION=1.6
-    - PYTHON_VERSION=3.5 SPHINX_VERSION=1.7
     - PYTHON_VERSION=3.5 SPHINX_VERSION=1.8
+
     - PYTHON_VERSION=3.6 SPHINX_VERSION=1.6
-    - PYTHON_VERSION=3.6 SPHINX_VERSION=1.7
     - PYTHON_VERSION=3.6 SPHINX_VERSION=1.8
+
     - PYTHON_VERSION=3.7 SPHINX_VERSION=1.6
     - PYTHON_VERSION=3.7 SPHINX_VERSION=1.7
     - PYTHON_VERSION=3.7 SPHINX_VERSION=1.8
-    - PYTHON_VERSION=3.7 SPHINX_VERSION=dev
 
   global:
     - LOCALE=default
     - CONDA_CHANNELS="conda-forge"
-    - CONDA_DEPENDENCIES="sphinx werkzeug alabaster invoke graphviz"
+    - CONDA_DEPENDENCIES="sphinx werkzeug alabaster invoke graphviz nbsphinx"
     - PIP_DEPENDENCIES="sphinx-automodapi"
 
 install:
     - git clone git://github.com/astropy/ci-helpers.git
     - source ci-helpers/travis/setup_conda.sh
-    - if [[ $SPHINX_VERSION == dev ]]; then
-        pip install git+https://github.com/sphinx-doc/sphinx.git;
-      fi
     - pip install -e .
 
 script:
-    - make test
+    - make tests

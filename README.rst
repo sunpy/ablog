@@ -22,7 +22,7 @@ ABlog is a Sphinx extension that converts any documentation or personal website 
 .. _Disqus integration: http://ablog.readthedocs.org/manual/ablog-configuration-options/#disqus-integration
 .. _Font-Awesome integration: http://ablog.readthedocs.org/manual/ablog-configuration-options/#fa
 .. _Easy GitHub Pages deploys: http://ablog.readthedocs.org/manual/deploy-to-github-pages/
-.. _Jupiter Notebook Support for blog posts: http://ablog.readthedocs.org/manual/deploy-to-github-pages/
+.. _Jupiter Notebook Support for blog posts: http://ablog.readthedocs.org/manual/notebook_support/
 
 .. _installation:
 
