@@ -2,7 +2,7 @@ apt-run: &apt-install
   name: Install apt packages
   command: |
     apt update
-    apt install -y graphviz build-essential
+    apt install -y graphviz build-essential pandoc
 
 docs-install: &docs-install
   name: Install Python dependencies
