@@ -48,7 +48,7 @@ jobs:
       - checkout
       - run: *apt-install
       - run: *docs-install
-      - run: python setup.py build_sphinx -w
+      - run: python setup.py build_sphinx
       - store_artifacts:
           path: build/sphinx/html/index.html
 
