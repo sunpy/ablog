@@ -3,6 +3,8 @@ ABlog for Sphinx
 
 .. image:: https://travis-ci.org/sunpy/ablog.svg?branch=master
     :target: https://travis-ci.org/sunpy/ablog
+.. image:: https://circleci.com/gh/sunpy/ablog.svg?style=svg
+    :target: https://circleci.com/gh/sunpy/ablog
 
 **Please note that is an official continuation of** `Ahmet Bakan's Ablog Sphinx extension <https://github.com/abakan/ablog/>`_.
 
