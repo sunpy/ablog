@@ -73,6 +73,8 @@ you might find `reStructuredText Primer`_ useful. Once you have
 content (in ``.rst`` files), you can post *any page* using the
 :rst:dir:`post` directive as follows:
 
+.. _reStructuredText Primer: http://sphinx-doc.org/rest.html
+
 .. code-block:: rst
 
   .. post:: Apr 15, 2014
@@ -103,10 +105,6 @@ can find more about configuring and using ABlog:
    :list-style: circle
    :format: {title}
    :sort:
-
-
-.. _reStructuredText Primer: http://sphinx-doc.org/rest.html
-
 
 .. only:: html
 

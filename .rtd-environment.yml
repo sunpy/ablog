@@ -8,3 +8,5 @@ dependencies:
 - invoke
 - python-dateutil
 - sphinx-automodapi
+- nbsphinx
+- ipython

@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 MANIFEST
+docs/manual/.ipynb_checkpoints/*
 
 # Distribution / packaging
 build/

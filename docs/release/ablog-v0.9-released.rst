@@ -50,3 +50,14 @@ ABlog v0.9.2 released
    :location: World
 
 Fixed Windows String issue
+
+ABlog v0.9.3 released
+=====================
+
+.. post:: October 30, 2018
+   :author: Nabil
+   :category: Release
+   :location: World
+
+Added example on how to use writing blog posts in Jupyter notebooks.
+Several fixes provived by `anzawatta`, sorry I was late to release these!
