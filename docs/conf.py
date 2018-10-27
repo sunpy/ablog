@@ -19,6 +19,7 @@ extensions = [
     'sphinx.ext.extlinks',
     'sphinx_automodapi.automodapi',
     'alabaster',
+    'nbsphinx',
     'ablog'
 ]
 
@@ -105,6 +106,8 @@ extlinks = {
     'issue': ('https://github.com/sunpy/ablog/issues/%s', 'issue '),
     'pull': ('https://github.com/sunpy/ablog/pull/%s', 'pull request '),
 }
+
+exclude_patterns = ['docs/manual/.ipynb_checkpoints/*']
 
 rst_epilog = '''
 .. _Sphinx: http://sphinx-doc.org/

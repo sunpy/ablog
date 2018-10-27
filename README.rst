@@ -3,7 +3,7 @@ ABlog for Sphinx
 
 .. image:: https://travis-ci.org/sunpy/ablog.svg?branch=master
     :target: https://travis-ci.org/sunpy/ablog
-    
+
 **Please note that is an official continuation of** `Ahmet Bakan's Ablog Sphinx extension <https://github.com/abakan/ablog/>`_.
 
 ABlog is a Sphinx extension that converts any documentation or personal website project into a full-fledged blog with:
@@ -14,6 +14,7 @@ ABlog is a Sphinx extension that converts any documentation or personal website 
   * `Disqus integration`_
   * `Font-Awesome integration`_
   * `Easy GitHub Pages deploys`_
+  * `Jupiter Notebook Support for blog posts`_
 
 .. _Atom feeds: http://ablog.readthedocs.org/blog/atom.xml
 .. _Archive pages: http://ablog.readthedocs.org/blog/
@@ -21,6 +22,7 @@ ABlog is a Sphinx extension that converts any documentation or personal website 
 .. _Disqus integration: http://ablog.readthedocs.org/manual/ablog-configuration-options/#disqus-integration
 .. _Font-Awesome integration: http://ablog.readthedocs.org/manual/ablog-configuration-options/#fa
 .. _Easy GitHub Pages deploys: http://ablog.readthedocs.org/manual/deploy-to-github-pages/
+.. _Jupiter Notebook Support for blog posts: http://ablog.readthedocs.org/manual/notebook_support/
 
 .. _installation:
 
@@ -31,9 +33,14 @@ You can install ABlog using pip_::
 
     pip install -U ablog
 
+or anaconda_::
+    conda config --add channels conda-forge
+    conda install ablog
+
 This will also install `Sphinx <http://sphinx-doc.org/>`_, Alabaster_, Werkzeug_, and Invoke_ respectively required for building your website, making it look good, generating feeds, and running deploy commands.
 
 .. _pip: https://pip.pypa.io
+.. _anaconda: https://www.anaconda.com/
 .. _Werkzeug: http://werkzeug.pocoo.org/
 .. _Alabaster: https://github.com/bitprophet/alabaster
 .. _Invoke: http://www.pyinvoke.org/

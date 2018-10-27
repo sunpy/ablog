@@ -53,6 +53,7 @@ setup(
     ],
     provides=['ablog'],
     install_requires=['werkzeug', 'sphinx>=1.6', 'alabaster', 'invoke', 'python-dateutil', 'sphinx-automodapi'],
+    extra_requires=['nbsphinx'],
     message_extractors={
         'ablog': [
             ('**.html', 'jinja2', None),

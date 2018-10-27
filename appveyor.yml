@@ -11,19 +11,25 @@ environment:
       # See: http://stackoverflow.com/a/13751649/163740
       CMD_IN_ENV: "cmd /E:ON /V:ON /C .\\ci-helpers\\appveyor\\windows_sdk.cmd"
       CONDA_CHANNELS: "conda-forge"
-      CONDA_DEPENDENCIES: "sphinx werkzeug alabaster invoke graphviz"
+      CONDA_DEPENDENCIES: "sphinx werkzeug alabaster invoke graphviz nbsphinx"
       PIP_DEPENDENCIES: "sphinx-automodapi"
 
   matrix:
       - PYTHON_VERSION: "2.7"
       - PYTHON_VERSION: "3.5"
       - PYTHON_VERSION: "3.6"
+      - PYTHON_VERSION: "3.7"
 
 matrix:
     fast_finish: true
 
 platform:
     - x64
+
+before_test:
+    - cinst pandoc
+    - cinst graphviz
+    - set PATH="%PATH%;C:\Program Files (x86)\Pandoc\"
 
 install:
     - "git clone git://github.com/astropy/ci-helpers.git"
@@ -41,12 +47,3 @@ test_script:
     - ablog build -b latex -T -d .doctrees -w _latex
     - ablog build -T -b json
     - ablog build -T -b pickle
-#    - ps: mkdir test
-#    - ps: cd test
-#    - ps: echo "ABlog" ABlog Team" "http://ablog.readthedocs.org" | ablog start
-#    - ablog build
-#    - ps: mkdir -p test
-#    - ps: cd test
-#    - ps: echo "ablog" "ABlog" "ABlog Team" "http://ablog.readthedocs.org" | ablog start
-#    - ps: cd ablog
-#    - ablog build
