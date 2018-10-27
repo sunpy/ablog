@@ -42,7 +42,6 @@ install:
 build: false
 
 test_script:
-    - "%PYTHON% setup.py build_sphinx"
     - ps: cd docs
     - ablog build -T
     - ablog build -b latex -T -d .doctrees -w _latex
