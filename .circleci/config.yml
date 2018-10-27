@@ -46,7 +46,6 @@ jobs:
     steps:
 
       - checkout
-      - run: *skip-check
       - run: *apt-install
       - run: *docs-install
       - run: python setup.py build_sphinx -w
