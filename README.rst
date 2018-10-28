@@ -5,8 +5,12 @@ ABlog for Sphinx
     :target: https://travis-ci.org/sunpy/ablog
 .. image:: https://circleci.com/gh/sunpy/ablog.svg?style=svg
     :target: https://circleci.com/gh/sunpy/ablog
+.. image:: https://ci.appveyor.com/api/projects/status/cmmiadqoy5lx7l78?svg=true)
+    :target: https://ci.appveyor.com/project/sunpy/ablog
 
-**Please note that is an official continuation of** `Ahmet Bakan's Ablog Sphinx extension <https://github.com/abakan/ablog/>`_.
+** Please note that is an official new home of** `Ahmet Bakan's Ablog Sphinx extension <https://github.com/abakan/ablog/>`_.
+** This version is maintined and tested with various verisons of Python and Sphinx. **
+** New features are  unlikely. **
 
 ABlog is a Sphinx extension that converts any documentation or personal website project into a full-fledged blog with:
 
