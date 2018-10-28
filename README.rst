@@ -36,6 +36,7 @@ You can install ABlog using pip_::
     pip install -U ablog
 
 or anaconda_::
+
     conda config --add channels conda-forge
     conda install ablog
 
