@@ -456,8 +456,8 @@ def process_postlist(app, doctree, docname):
 def missing_reference(app, env, node, contnode):
 
     target = node['reftarget']
-    return _missing_reference(app, target, node['refdoc'],
-                              contnode, node['refexplicit'])
+    return _missing_reference(app, target, node.get('refdoc'),
+                              contnode, node.get('refexplicit'))
 
 
 def _missing_reference(app, target, refdoc, contnode=None, refexplicit=False):

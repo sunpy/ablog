@@ -1,24 +1,25 @@
-# AppVeyor.com is a Continuous Integration service to build and run tests under
-# Windows
+# AppVeyor.com is a Continuous Integration service to build and run tests under Windows
 
 environment:
 
-  global:
-      PYTHON: "C:\\conda"
-      MINICONDA_VERSION: "latest"
-      # SDK v7.0 MSVC Express 2008's SetEnv.cmd script will fail if the
-      # /E:ON and /V:ON options are not enabled in the batch script intepreter
-      # See: http://stackoverflow.com/a/13751649/163740
-      CMD_IN_ENV: "cmd /E:ON /V:ON /C .\\ci-helpers\\appveyor\\windows_sdk.cmd"
-      CONDA_CHANNELS: "conda-forge"
-      CONDA_DEPENDENCIES: "sphinx werkzeug alabaster invoke graphviz nbsphinx"
-      PIP_DEPENDENCIES: "sphinx-automodapi"
+    global:
+        PYTHON: "C:\\conda"
+        MINICONDA_VERSION: "latest"
+        CMD_IN_ENV: "cmd /E:ON /V:ON /C .\\ci-helpers\\appveyor\\windows_sdk.cmd"
+        PYTHON_ARCH: "64" # needs to be set for CMD_IN_ENV to succeed. If a mix
+                          # of 32 bit and 64 bit builds are needed, move this
+                          # to the matrix section.
+        CONDA_CHANNELS: "conda-forge"
+        CONDA_DEPENDENCIES: "sphinx werkzeug alabaster invoke graphviz nbsphinx"
+        PIP_DEPENDENCIES: "sphinx-automodapi"
 
-  matrix:
-      - PYTHON_VERSION: "2.7"
-      - PYTHON_VERSION: "3.5"
-      - PYTHON_VERSION: "3.6"
-      - PYTHON_VERSION: "3.7"
+    matrix:
+        - PYTHON_VERSION: "2.7"
+        - PYTHON_VERSION: "3.5"
+        - PYTHON_VERSION: "3.6"
+        - PYTHON_VERSION: "3.7"
+
+build: false
 
 matrix:
     fast_finish: true
@@ -26,22 +27,24 @@ matrix:
 platform:
     - x64
 
-before_test:
-    - cinst pandoc
-    - cinst graphviz
-    - set PATH="%PATH%;C:\Program Files (x86)\Pandoc\"
+os: Visual Studio 2017
 
 install:
-    - "git clone git://github.com/astropy/ci-helpers.git"
-    - "powershell ci-helpers/appveyor/install-miniconda.ps1"
-    - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
-    - "activate test"
-    - "pip install -e ."
+    - ps: >-
+        if (-Not (Test-Path "C:\Program Files\Pandoc\")) {
+          cinst pandoc --no-progress
+          cinst graphviz --no-progress
+        }
+    - ps: $env:Path += ";C:\Program Files\Pandoc\"
+    - git clone git://github.com/astropy/ci-helpers.git
+    - powershell ci-helpers/appveyor/install-miniconda.ps1
+    - SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%
+    - activate test
+    - pip install -e .
 
-# Not a .NET project, we build Ablog in the install step instead
-build: false
 
 test_script:
+    - python setup.py build_sphinx
     - ps: cd docs
     - ablog build -T
     - ablog build -b latex -T -d .doctrees -w _latex

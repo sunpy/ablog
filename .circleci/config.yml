@@ -50,7 +50,7 @@ jobs:
       - run: *docs-install
       - run: python setup.py build_sphinx
       - store_artifacts:
-          path: build/sphinx/html/index.html
+          path: build/sphinx/html/
 
       - run:
           name: "Built documentation is available at:"
