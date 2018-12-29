@@ -8,8 +8,15 @@ ABlog for Sphinx
 .. image:: https://ci.appveyor.com/api/projects/status/cmmiadqoy5lx7l78?svg=true
     :target: https://ci.appveyor.com/project/sunpy/ablog
 
+
+Note
+----
+
 Please note that is an official new home of `Ahmet Bakan's Ablog Sphinx extension <https://github.com/abakan/ablog/>`_. This version is maintined with the aim to keep it working for SunPy's website and thus new features are unlikely.
- 
+
+ABlog
+-----
+
 ABlog is a Sphinx extension that converts any documentation or personal website project into a full-fledged blog with:
 
   * `Atom feeds`_
@@ -44,7 +51,7 @@ or anaconda_::
 
 This will also install `Sphinx <http://sphinx-doc.org/>`_, Alabaster_, Werkzeug_, and Invoke_ respectively required for building your website, making it look good, generating feeds, and running deploy commands.
 
-.. _pip: https://pip.pypa.io
+.. _pip: https://pip.pypa.io 
 .. _anaconda: https://www.anaconda.com/
 .. _Werkzeug: http://werkzeug.pocoo.org/
 .. _Alabaster: https://github.com/bitprophet/alabaster
