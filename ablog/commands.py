@@ -17,11 +17,12 @@ SPHINX_LT_17 = LooseVersion(__version__) < LooseVersion('1.7')
 __all__ = ['ablog_build', 'ablog_clean',
            'ablog_serve', 'ablog_deploy', 'ablog_main']
 
-def find_confdir():
+
+def find_confdir(sourcedir=None):
     """Return path to current directory or its parent that contains conf.py"""
 
     from os.path import isfile, join, abspath
-    confdir = os.getcwd()
+    confdir = (sourcedir or os.getcwd())
 
     def parent(d): return abspath(join(d, '..'))
 
@@ -147,10 +148,10 @@ cmd(ablog_start, name='start', help='start a new blog project',
 def ablog_build(builder=None, sourcedir=None, website=None, doctrees=None,
                 traceback=False, runpdb=False, allfiles=False, werror=False, verbosity=0,
                 quiet=False, extra_quiet=False, no_colors=False, **kwargs):
-    confdir = find_confdir()
+    confdir = find_confdir(sourcedir)
     conf = read_conf(confdir)
     website = (website or
-               os.path.join(confdir, getattr(conf, 'ablog_builddir', BUILDDIR)))
+               os.path.join(confdir, getattr(conf, 'ablog_website', BUILDDIR)))
     doctrees = (doctrees or
                 os.path.join(confdir, getattr(conf, 'ablog_doctrees', DOCTREES)))
     sourcedir = (sourcedir or confdir)
@@ -196,7 +197,7 @@ def ablog_clean(website=None, doctrees=None, deep=False, **kwargs):
     conf = read_conf(confdir)
 
     website = (website or
-               os.path.join(confdir, getattr(conf, 'ablog_builddir', BUILDDIR)))
+               os.path.join(confdir, getattr(conf, 'ablog_website', BUILDDIR)))
 
     doctrees = (doctrees or
                 os.path.join(confdir, getattr(conf, 'ablog_doctrees', DOCTREES)))
@@ -255,7 +256,7 @@ def ablog_serve(website=None, port=8000, view=True, rebuild=False,
     print("Quit the server with Control-C.")
 
     website = (website or
-               os.path.join(confdir, getattr(conf, 'ablog_builddir', '_website')))
+               os.path.join(confdir, getattr(conf, 'ablog_website', '_website')))
 
     os.chdir(website)
 
@@ -266,7 +267,7 @@ def ablog_serve(website=None, port=8000, view=True, rebuild=False,
         from watchdog.tricks import ShellCommandTrick
         patterns = patterns.split(';')
         ignore_patterns = [os.path.join(website, '*')]
-        handler = ShellCommandTrick(shell_command='ablog build',
+        handler = ShellCommandTrick(shell_command='ablog build -s ' + confdir,
                                     patterns=patterns,
                                     ignore_patterns=ignore_patterns,
                                     ignore_directories=False,
