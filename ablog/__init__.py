@@ -10,7 +10,7 @@ from .post import (PostDirective, PostListDirective, UpdateDirective,
                    generate_archive_pages, generate_atom_feeds,
                    missing_reference)
 
-__version__ = '0.9.2'
+__version__ = '0.9.4'
 
 __all__ = ['setup']
 
