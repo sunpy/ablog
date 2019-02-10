@@ -1,6 +1,6 @@
   {% if post.published and post.date != post.update %}
   <li id="published" ><span>{% if fa %}<i class="fa fa-pencil-square-o"></i>{% else %}{{ gettext('Update') }}:{% endif %}</span>
-    {{ post.update.strftime(gettext(ablog.post_date_format)) }}</li>
+    {{ post.update.strftime(ablog.post_date_format) }}</li>
   {% endif %}
 
   {% if post.author %}

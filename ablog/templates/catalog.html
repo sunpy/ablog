@@ -13,7 +13,7 @@
       <p>
       {% if fa %}{% endif %}
       {% if post.published %}
-        {{ post.date.strftime(gettext(ablog.post_date_format)) }}
+        {{ post.date.strftime(ablog.post_date_format) }}
       {% else %}
         Draft
       {% endif %}
