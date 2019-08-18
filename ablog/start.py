@@ -329,9 +329,6 @@ html_static_path = ['%(dot)sstatic']
 # typographically correct entities.
 #html_use_smartypants = True
 
-# Custom sidebar templates, maps document names to template names.
-#html_sidebars = {}
-
 # Additional templates that should be rendered to pages, maps page names to
 # template names.
 #html_additional_pages = {}
@@ -623,9 +620,10 @@ def ask_user(d):
                 'be generated relative to this URL. If you don\'t have one yet, '
                 'you can set it in configuration file later.'))
         if SPHINX_LT_17:
+            # APR: Not sure how do_prompt() worked prior to Sphinx 1.7; likely to be `lambda x: x` here too
             do_prompt(d, 'blog_baseurl', 'Base URL for your project', None, lambda x: True)
         else:
-            d['blog_baseurl'] = do_prompt('Base URL for your project', None, lambda x: True)
+            d['blog_baseurl'] = do_prompt('Base URL for your project', None, lambda x: x)
 
     print('')
 
