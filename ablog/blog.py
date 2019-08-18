@@ -82,6 +82,7 @@ CONFIG = [
     ('post_date_format_short', '%d %B', True),
     ('post_auto_image', 0, True),
     ('post_auto_excerpt', 1, True),
+    ('post_auto_orphan', True, True),
     ('post_redirect_refresh', 5, True),
     ('post_always_section', False, True),
 
