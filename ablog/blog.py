@@ -19,6 +19,7 @@ from docutils.io import StringOutput
 from docutils.utils import new_document
 
 from sphinx import addnodes
+from sphinx.errors import ConfigError
 from sphinx.util.osutil import relative_uri
 
 if sys.version_info >= (3, 0):
@@ -53,13 +54,64 @@ def os_path_join(path, *paths):
     return os.path.join(path, *paths).replace(os.path.sep, '/')
 
 
+def require_config_type(type_, is_optional=True):
+    def verify_fn(key, value, config):
+        if isinstance(value, type_) or (is_optional and value is None):
+            return value
+        # Historically, we're pretty sloppy on whether None or False is the default for omission
+        # so accept them both.
+        if value is False and is_optional:
+            return None
+        raise ConfigError(key + ' must be a ' + type_.__name__ + (' or omitted' if is_optional else ''))
+    return verify_fn
+
+
+def require_config_str_or_list_lookup(lookup_config_key, is_optional=True):
+    """
+    The default values can be a string or list of strings that match entries in a comprehensive
+    list -- for example, the default authors are one or more of all the authors.
+    """
+    def verify_fn(key, value, config):
+        if is_optional and value is None:
+            return value
+        if isinstance(value, str):
+            value = [value]
+        if not isinstance(value, list):
+            raise ConfigError(key + ' must be a str or list')
+
+        allowed_values = config[lookup_config_key]
+        for v in value:
+            if v not in allowed_values:
+                raise ConfigError(str(v) + 'must be a key of ' + lookup_config_key)
+        return value
+    return verify_fn
+
+
+def require_config_full_name_link_dict(is_link_optional=True):
+    """
+    The definition for authors and similar entries is to map a short name to a (full name, link)
+    tuple.
+    """
+    def verify_fn(key, value, config):
+        for full_name, link in value.values():
+            if not isinstance(full_name, str):
+                raise ConfigError(key + ' must have full name entries that are strings')
+            is_link_valid = isinstance(link, str) or (is_link_optional and link is None)
+            if not is_link_valid:
+                raise ConfigError(key + ' links must be a string' +
+                                  (' or omitted' if is_link_optional else ''))
+        return value
+    return verify_fn
+
+
 DEBUG = True
 CONFIG = [
-    # name, default, rebuild
-    ('blog_path', 'blog', True),
-    ('blog_title', 'Blog', True),
-    ('blog_baseurl', None, True),
-    ('blog_archive_titles', None, False),
+    # name, default, rebuild, verify_fn
+    # where verify_fn is (key, value, app.config) --> value, throwing a ConfigError if the value isn't right
+    ('blog_path', 'blog', True, require_config_type(str)),
+    ('blog_title', 'Blog', True, require_config_type(str)),
+    ('blog_baseurl', None, True, require_config_type(str)),
+    ('blog_archive_titles', None, False, require_config_type(bool)),
 
     ('blog_feed_archives', False, True),
     ('blog_feed_fulltext', False, True),
@@ -67,16 +119,16 @@ CONFIG = [
     ('blog_feed_titles', None, False),
     ('blog_feed_length', None, None),
 
-    ('blog_authors', {}, True),
-    ('blog_default_author', None, True),
-    ('blog_locations', {}, True),
-    ('blog_default_location', None, True),
-    ('blog_languages', {}, True),
-    ('blog_default_language', None, True),
+    ('blog_authors', {}, True, require_config_full_name_link_dict()),
+    ('blog_default_author', None, True, require_config_str_or_list_lookup('blog_authors')),
+    ('blog_locations', {}, True, require_config_full_name_link_dict()),
+    ('blog_default_location', None, True, require_config_str_or_list_lookup('blog_locations')),
+    ('blog_languages', {}, True, require_config_full_name_link_dict()),
+    ('blog_default_language', None, True, require_config_str_or_list_lookup('blog_languages')),
 
-    ('fontawesome_link_cdn', None, True),
-    ('fontawesome_included', False, True),
-    ('fontawesome_css_file', '', True),
+    ('fontawesome_link_cdn', False, True, require_config_type(str)),
+    ('fontawesome_included', False, True, require_config_type(bool)),
+    ('fontawesome_css_file', '', True, require_config_type(str)),
 
     ('post_date_format', '%d %B %Y', True),
     ('post_date_format_short', '%d %B', True),
@@ -144,19 +196,13 @@ class Blog(Container):
 
         # get configuration from Sphinx app
         for opt in CONFIG:
-            self.config[opt[0]] = getattr(app.config, opt[0])
-
-        opt = self.config['blog_default_author']
-        if opt is not None and not isinstance(opt, list):
-            self.config['blog_default_author'] = [opt]
-
-        opt = self.config['blog_default_location']
-        if opt is not None and not isinstance(opt, list):
-            self.config['blog_default_location'] = [opt]
-
-        opt = self.config['blog_default_language']
-        if opt is not None and not isinstance(opt, list):
-            self.config['blog_default_language'] = [opt]
+            try:
+                key, _, _, verify_fn = opt
+            except ValueError:
+                key, _, _ = opt
+                verify_fn = None
+            value = verify_fn(key, getattr(app.config, key), app.config) if verify_fn else getattr(app.config, opt[0])
+            self.config[opt[0]] = value
 
         # blog catalog contains all posts
         self.blog = Catalog(self, 'blog', 'blog', None)

@@ -51,7 +51,7 @@ def setup(app):
     """Setup ABlog extension."""
 
     for args in CONFIG:
-        app.add_config_value(*args)
+        app.add_config_value(*args[:3])
 
     app.add_directive('post', PostDirective)
     app.add_directive('postlist', PostListDirective)
