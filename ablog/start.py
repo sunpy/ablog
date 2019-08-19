@@ -1,46 +1,22 @@
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import, division, print_function
 import sys
 import time
 import datetime
-
-from distutils.version import LooseVersion
-from os import path
 from io import open
-from docutils.utils import column_width
+from os import path
 from textwrap import wrap
 
-from sphinx import __version__
+from docutils.utils import column_width
+from sphinx.cmd.quickstart import do_prompt, ensuredir, is_path
 from sphinx.util import texescape
-from sphinx.util.console import bold, nocolor, color_terminal
+from sphinx.util.console import bold, color_terminal, nocolor
 from sphinx.util.osutil import make_filename
 
-SPHINX_LT_17 = LooseVersion(__version__) < LooseVersion('1.7')
+w = lambda t, ls=80: "\n".join(wrap(t, ls))
 
-if SPHINX_LT_17:
-    from sphinx.quickstart import do_prompt, is_path, ensuredir
-else:
-    from sphinx.cmd.quickstart import do_prompt, is_path, ensuredir
+__all__ = ["generate", "ask_user", "ablog_start"]
 
-from ablog import __version__
-
-if sys.version_info >= (3, 0):
-    text_type = str
-else:
-    text_type = unicode
-
-w = lambda t, ls=80: '\n'.join(wrap(t, ls))
-
-__all__ = ['generate', 'ask_user', 'ablog_start']
-
-ABLOG_CONF = u''
-
-# prevents that the file is checked for being written in Python 2.x syntax
-if sys.version_info >= (3, 0):
-    ABLOG_CONF = u'#!/usr/bin/env python3\n'
-
-
-ABLOG_CONF += u'''# -*- coding: utf-8 -*-
+ABLOG_CONF = "#!/usr/bin/env python3\n"
+ABLOG_CONF += """# -*- coding: utf-8 -*-
 
 # %(project)s build configuration file, created by
 # `ablog start` on %(now)s.
@@ -383,9 +359,9 @@ html_static_path = ['%(dot)sstatic']
 htmlhelp_basename = '%(project_fn)sdoc'
 
 
-'''
+"""
 
-ABLOG_INDEX = u'''
+ABLOG_INDEX = """
 .. %(project)s index file, created by `ablog start` on %(now)s.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
@@ -414,9 +390,9 @@ Here is a list of most recent posts:
 
    about.rst
 
-'''
+"""
 
-ABLOG_ABOUT = u'''
+ABLOG_ABOUT = """
 .. _about:
 
 About %(author)s
@@ -424,9 +400,9 @@ About %(author)s
 
 The world wants to know more about you.
 
-'''
+"""
 
-ABLOG_POST = u'''
+ABLOG_POST = """
 .. %(project)s post example, created by `ablog start` on %(post_date)s.
 
 .. post:: %(post_date)s
@@ -443,60 +419,68 @@ in `Post Excerpts and Images
 that you can refer to posts by file name, e.g. ``:ref:`first-post``` results
 in :ref:`first-post`. Find out more at `Cross-Referencing Blog Pages
 <http://ablog.readthedocs.org/manual/cross-referencing-blog-pages/>`_.
-'''
+"""
 
 
 CONF_DEFAULTS = {
-    'sep': False,
-    'dot': '_',
-    'language': None,
-    'suffix': '.rst',
-    'master': 'index',
-    'makefile': False,
-    'batchfile': False,
-    'epub': False,
-    'ext_todo': False,
+    "sep": False,
+    "dot": "_",
+    "language": None,
+    "suffix": ".rst",
+    "master": "index",
+    "makefile": False,
+    "batchfile": False,
+    "epub": False,
+    "ext_todo": False,
 }
 
 
 def generate(d, overwrite=True, silent=False):
-    '''Borrowed from Sphinx 1.3b3'''
+    """Borrowed from Sphinx 1.3b3"""
 
     """Generate project based on values in *d*."""
 
     texescape.init()
 
-    if 'mastertoctree' not in d:
-        d['mastertoctree'] = ''
-    if 'mastertocmaxdepth' not in d:
-        d['mastertocmaxdepth'] = 2
+    if "mastertoctree" not in d:
+        d["mastertoctree"] = ""
+    if "mastertocmaxdepth" not in d:
+        d["mastertocmaxdepth"] = 2
 
-    d['project_fn'] = make_filename(d['project'])
-    d['project_manpage'] = d['project_fn'].lower()
-    d['now'] = time.asctime()
-    d['project_underline'] = column_width(d['project']) * '='
+    d["project_fn"] = make_filename(d["project"])
+    d["project_manpage"] = d["project_fn"].lower()
+    d["now"] = time.asctime()
+    d["project_underline"] = column_width(d["project"]) * "="
 
-    d['copyright'] = time.strftime('%Y') + ', ' + d['author']
-    d['author_texescaped'] = text_type(d['author']
-                                       ).translate(texescape.tex_escape_map)
-    d['project_doc'] = d['project'] + ' Documentation'
-    d['project_doc_texescaped'] = text_type(d['project'] + ' Documentation'
-                                            ).translate(texescape.tex_escape_map)
+    d["copyright"] = time.strftime("%Y") + ", " + d["author"]
+    d["author_texescaped"] = str(d["author"]).translate(texescape.tex_escape_map)
+    d["project_doc"] = d["project"] + " Documentation"
+    d["project_doc_texescaped"] = str(d["project"] + " Documentation").translate(
+        texescape.tex_escape_map
+    )
 
     # escape backslashes and single quotes in strings that are put into
     # a Python string literal
-    for key in ('project', 'project_doc', 'project_doc_texescaped',
-                'author', 'author_texescaped', 'copyright',
-                'version', 'release', 'master'):
-        d[key + '_str'] = d[key].replace('\\', '\\\\').replace("'", "\\'")
+    for key in (
+        "project",
+        "project_doc",
+        "project_doc_texescaped",
+        "author",
+        "author_texescaped",
+        "copyright",
+        "version",
+        "release",
+        "master",
+    ):
+        d[key + "_str"] = d[key].replace("\\", "\\\\").replace("'", "\\'")
 
-    if not path.isdir(d['path']):
-        ensuredir(d['path'])
+    if not path.isdir(d["path"]):
+        ensuredir(d["path"])
 
-    srcdir = d['sep'] and path.join(d['path'], 'source') or d['path']
+    srcdir = d["sep"] and path.join(d["path"], "source") or d["path"]
 
     ensuredir(srcdir)
-    d['exclude_patterns'] = ''
+    d["exclude_patterns"] = ""
     # TODO: Work if we want this.
     # if d['sep']:
     #    builddir = path.join(d['path'], 'build')
@@ -505,37 +489,37 @@ def generate(d, overwrite=True, silent=False):
     #    builddir = path.join(srcdir, d['dot'] + 'build')
     #    d['exclude_patterns'] = repr(d['dot'] + 'build')
     # ensuredir(builddir)
-    ensuredir(path.join(srcdir, d['dot'] + 'templates'))
-    ensuredir(path.join(srcdir, d['dot'] + 'static'))
+    ensuredir(path.join(srcdir, d["dot"] + "templates"))
+    ensuredir(path.join(srcdir, d["dot"] + "static"))
 
     def write_file(fpath, content, newline=None):
         if overwrite or not path.isfile(fpath):
-            print('Creating file %s.' % fpath)
-            f = open(fpath, 'wt', encoding='utf-8', newline=newline)
+            print("Creating file %s." % fpath)
+            f = open(fpath, "wt", encoding="utf-8", newline=newline)
             try:
                 f.write(content)
             finally:
                 f.close()
         else:
-            print('File %s already exists, skipping.' % fpath)
+            print("File %s already exists, skipping." % fpath)
 
     conf_text = ABLOG_CONF % d
-    write_file(path.join(srcdir, 'conf.py'), conf_text)
+    write_file(path.join(srcdir, "conf.py"), conf_text)
 
-    masterfile = path.join(srcdir, d['master'] + d['suffix'])
+    masterfile = path.join(srcdir, d["master"] + d["suffix"])
     write_file(masterfile, ABLOG_INDEX % d)
 
-    about = path.join(srcdir, 'about' + d['suffix'])
+    about = path.join(srcdir, "about" + d["suffix"])
     write_file(about, ABLOG_ABOUT % d)
 
-    d['post_date'] = datetime.datetime.today().strftime('%b %d, %Y')
-    firstpost = path.join(srcdir, 'first-post' + d['suffix'])
+    d["post_date"] = datetime.datetime.today().strftime("%b %d, %Y")
+    firstpost = path.join(srcdir, "first-post" + d["suffix"])
     write_file(firstpost, ABLOG_POST % d)
 
     if silent:
         return
 
-    print(bold('Finished: An initial directory structure has been created.'))
+    print(bold("Finished: An initial directory structure has been created."))
 
 
 def ask_user(d):
@@ -554,84 +538,91 @@ def ask_user(d):
 
     d.update(CONF_DEFAULTS)
 
-    print(bold('Welcome to the ABlog %s quick start utility.') % __version__)
-    print('')
-    print(w('Please enter values for the following settings (just press Enter '
-            'to accept a default value, if one is given in brackets).'))
+    print(bold("Welcome to the ABlog %s quick start utility.") % __version__)
+    print("")
+    print(
+        w(
+            "Please enter values for the following settings (just press Enter "
+            "to accept a default value, if one is given in brackets)."
+        )
+    )
 
-    print('')
-    if 'path' in d:
-        print(bold('Selected root path: %s' % d['path']))
+    print("")
+    if "path" in d:
+        print(bold("Selected root path: %s" % d["path"]))
     else:
-        print('Enter the root path for your blog project.')
-        if SPHINX_LT_17:
-            do_prompt(d, 'path', 'Root path for your project', '.', is_path)
-        else:
-            d['path'] = do_prompt('Root path for your project', '.', is_path)
+        print("Enter the root path for your blog project.")
+        d["path"] = do_prompt("Root path for your project", ".", is_path)
 
-    while path.isfile(path.join(d['path'], 'conf.py')) or \
-            path.isfile(path.join(d['path'], 'source', 'conf.py')):
-        print('')
-        print(bold(w('Error: an existing conf.py has been found in the '
-                     'selected root path.')))
-        print('ablog start will not overwrite existing Sphinx projects.')
-        print('')
-        if SPHINX_LT_17:
-            do_prompt(d, 'path','Please enter a new root path (or just Enter to exit)', '', is_path)
-        else:
-            d['path'] = do_prompt('Please enter a new root path (or just Enter to exit)', '', is_path)
-        if not d['path']:
+    while path.isfile(path.join(d["path"], "conf.py")) or path.isfile(
+        path.join(d["path"], "source", "conf.py")
+    ):
+        print("")
+        print(bold(w("Error: an existing conf.py has been found in the " "selected root path.")))
+        print("ablog start will not overwrite existing Sphinx projects.")
+        print("")
+        d["path"] = do_prompt(
+            "Please enter a new root path (or just Enter to exit)", "", is_path
+        )
+        if not d["path"]:
             sys.exit(1)
 
-    if 'project' not in d:
-        print('')
-        print(w('Project name will occur in several places in the website, '
-                'including blog archive pages and atom feeds. Later, you can '
-                'set separate names for different parts of the website in '
-                'configuration file.'))
-        if SPHINX_LT_17:
-            do_prompt(d, 'project', 'Project name')
-        else:
-            d['project'] = do_prompt('Project name')
+    if "project" not in d:
+        print("")
+        print(
+            w(
+                "Project name will occur in several places in the website, "
+                "including blog archive pages and atom feeds. Later, you can "
+                "set separate names for different parts of the website in "
+                "configuration file."
+            )
+        )
+        d["project"] = do_prompt("Project name")
 
-    if 'author' not in d:
-        print(w('This of author as the copyright holder of the content. '
-                'If your blog has multiple authors, you might want to enter '
-                'a team name here. Later, you can specify individual authors '
-                'using `blog_authors` configuration option.'))
-        if SPHINX_LT_17:
-            do_prompt(d, 'author', 'Author name(s)')
-        else:
-            d['author'] = do_prompt('Author name(s)')
+    if "author" not in d:
+        print(
+            w(
+                "This of author as the copyright holder of the content. "
+                "If your blog has multiple authors, you might want to enter "
+                "a team name here. Later, you can specify individual authors "
+                "using `blog_authors` configuration option."
+            )
+        )
+        d["author"] = do_prompt("Author name(s)")
 
-    d['release'] = d['version'] = ''
+    d["release"] = d["version"] = ""
 
-    while path.isfile(path.join(d['path'], d['master'] + d['suffix'])) or \
-            path.isfile(path.join(d['path'], 'source', d['master'] + d['suffix'])):
-        print('')
-        print(bold(w('Error: the master file %s has already been found in the '
-                     'selected root path.' % (d['master'] + d['suffix']))))
-        print('ablog-start will not overwrite the existing file.')
-        print('')
-        if SPHINX_LT_17:
-            do_prompt(d, 'master', w('Please enter a new file name, or rename the '
-                      'existing file and press Enter'), d['master'])
-        else:
-            d['master'] = do_prompt(w('Please enter a new file name, or rename the '
-                                    'existing file and press Enter'), d['master'])
+    while path.isfile(path.join(d["path"], d["master"] + d["suffix"])) or path.isfile(
+        path.join(d["path"], "source", d["master"] + d["suffix"])
+    ):
+        print("")
+        print(
+            bold(
+                w(
+                    "Error: the master file %s has already been found in the "
+                    "selected root path." % (d["master"] + d["suffix"])
+                )
+            )
+        )
+        print("ablog-start will not overwrite the existing file.")
+        print("")
+        d["master"] = do_prompt(
+            w("Please enter a new file name, or rename the " "existing file and press Enter"),
+            d["master"],
+        )
 
-    if 'blog_baseurl' not in d:
-        print('')
-        print(w('Please enter the base URL for your project. Blog feeds will '
-                'be generated relative to this URL. If you don\'t have one yet, '
-                'you can set it in configuration file later.'))
-        if SPHINX_LT_17:
-            # APR: Not sure how do_prompt() worked prior to Sphinx 1.7; likely to be `lambda x: x` here too
-            do_prompt(d, 'blog_baseurl', 'Base URL for your project', None, lambda x: True)
-        else:
-            d['blog_baseurl'] = do_prompt('Base URL for your project', None, lambda x: x)
+    if "blog_baseurl" not in d:
+        print("")
+        print(
+            w(
+                "Please enter the base URL for your project. Blog feeds will "
+                "be generated relative to this URL. If you don't have one yet, "
+                "you can set it in configuration file later."
+            )
+        )
+        d["blog_baseurl"] = do_prompt("Base URL for your project", None, lambda x: x)
 
-    print('')
+    print("")
 
 
 def ablog_start(**kwargs):
@@ -643,8 +634,8 @@ def ablog_start(**kwargs):
     try:
         ask_user(d)
     except (KeyboardInterrupt, EOFError):
-        print('')
-        print('[Interrupted.]')
+        print("")
+        print("[Interrupted.]")
         return
 
     generate(d)

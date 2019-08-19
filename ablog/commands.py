@@ -1,70 +1,74 @@
-from __future__ import absolute_import, division, print_function
 import os
-import io
-import sys
 import glob
-import ablog
 import shutil
 import argparse
-from distutils.version import LooseVersion
 
-from sphinx import __version__
+import ablog
 
-BUILDDIR = '_website'
-DOCTREES = '.doctrees'
-SPHINX_LT_17 = LooseVersion(__version__) < LooseVersion('1.7')
+from .start import ablog_start
 
-__all__ = ['ablog_build', 'ablog_clean',
-           'ablog_serve', 'ablog_deploy', 'ablog_main']
+BUILDDIR = "_website"
+DOCTREES = ".doctrees"
+
+__all__ = ["ablog_build", "ablog_clean", "ablog_serve", "ablog_deploy", "ablog_main"]
 
 
 def find_confdir(sourcedir=None):
     """Return path to current directory or its parent that contains conf.py"""
 
     from os.path import isfile, join, abspath
-    confdir = (sourcedir or os.getcwd())
 
-    def parent(d): return abspath(join(d, '..'))
+    confdir = sourcedir or os.getcwd()
 
-    while not isfile(join(confdir, 'conf.py')) and confdir != parent(confdir):
+    def parent(d):
+        return abspath(join(d, ".."))
+
+    while not isfile(join(confdir, "conf.py")) and confdir != parent(confdir):
         confdir = parent(confdir)
 
-    conf = join(confdir, 'conf.py')
+    conf = join(confdir, "conf.py")
 
-    if isfile(conf) and 'ablog' in open(conf).read():
+    if isfile(conf) and "ablog" in open(conf).read():
         return confdir
     else:
-        sys.exit("Current directory and its parents doesn't "
-                 "contain configuration file (conf.py).")
+        sys.exit(
+            "Current directory and its parents doesn't " "contain configuration file (conf.py)."
+        )
 
 
 def read_conf(confdir):
     """Return conf.py file as a module."""
 
     sys.path.insert(0, confdir)
-    conf = __import__('conf')
+    conf = __import__("conf")
     sys.path.pop(0)
     return conf
 
 
 parser = argparse.ArgumentParser(
     description="ABlog for blogging with Sphinx",
-    epilog="See 'ablog <command> -h' for more information on a specific "
-           "command.")
+    epilog="See 'ablog <command> -h' for more information on a specific " "command.",
+)
 
-parser.add_argument('-v', '--version',
-                    help="print ABlog version and exit",
-                    action='version', version=ablog.__version__)
+parser.add_argument(
+    "-v",
+    "--version",
+    help="print ABlog version and exit",
+    action="version",
+    version=ablog.__version__,
+)
 
 
-commands = ablog_commands = parser.add_subparsers(title='commands')
+commands = ablog_commands = parser.add_subparsers(title="commands")
 
 
 def cmd(func=None, **kwargs):
 
     if func is None:
+
         def cmd_inner(func):
             return cmd(func, **kwargs)
+
         return cmd_inner
     else:
         command = commands.add_parser(**kwargs)
@@ -81,8 +85,10 @@ def arg(*args, **kwargs):
     else:
         func = None
     if func is None:
+
         def arg_inner(func):
             return arg(func, *args, **kwargs)
+
         return arg_inner
     else:
         func.command.add_argument(*args, **kwargs)
@@ -91,146 +97,197 @@ def arg(*args, **kwargs):
 
 def arg_website(func):
 
-    arg(func, '-w', dest='website', type=str,
+    arg(
+        func,
+        "-w",
+        dest="website",
+        type=str,
         help="path for website, default is %s when `ablog_website` "
-        "is not set in conf.py" % BUILDDIR)
+        "is not set in conf.py" % BUILDDIR,
+    )
     return func
 
 
 def arg_doctrees(func):
 
-    arg(func, '-d', dest='doctrees', type=str,
+    arg(
+        func,
+        "-d",
+        dest="doctrees",
+        type=str,
         help="path for the cached environment and doctree files, "
-        "default %s when `ablog_doctrees` is not set in conf.py" %
-        DOCTREES)
+        "default %s when `ablog_doctrees` is not set in conf.py" % DOCTREES,
+    )
     return func
 
 
-from .start import ablog_start
-cmd(ablog_start, name='start', help='start a new blog project',
+cmd(
+    ablog_start,
+    name="start",
+    help="start a new blog project",
     description="Start a new blog project by answering a few questions. "
-    "You will end up with a configuration file and sample pages.")
+    "You will end up with a configuration file and sample pages.",
+)
 
 
-@arg('-P', dest='runpdb',
-     action='store_true', default=False,
-     help="run pdb on exception")
-@arg('-T', dest='traceback',
-     action='store_true', default=False,
-     help="show full traceback on exception")
-@arg('-W', dest='werror',
-     action='store_true', default=False,
-     help='turn warnings into errors')
-@arg('-N', dest='no_colors',
-     action='store_true', default=False,
-     help='do not emit colored output')
-@arg('-Q', dest='extra_quiet',
-     action='store_true', default=False,
-     help='no output at all, not even warnings')
-@arg('-q', dest='quiet',
-     action='store_true', default=False,
-     help='no output on stdout, just warnings on stderr')
-@arg('-v', dest='verbosity',
-     action='count', default=0,
-     help='increase verbosity (can be repeated)')
+@arg("-P", dest="runpdb", action="store_true", default=False, help="run pdb on exception")
+@arg(
+    "-T",
+    dest="traceback",
+    action="store_true",
+    default=False,
+    help="show full traceback on exception",
+)
+@arg("-W", dest="werror", action="store_true", default=False, help="turn warnings into errors")
+@arg("-N", dest="no_colors", action="store_true", default=False, help="do not emit colored output")
+@arg(
+    "-Q",
+    dest="extra_quiet",
+    action="store_true",
+    default=False,
+    help="no output at all, not even warnings",
+)
+@arg(
+    "-q",
+    dest="quiet",
+    action="store_true",
+    default=False,
+    help="no output on stdout, just warnings on stderr",
+)
+@arg("-v", dest="verbosity", action="count", default=0, help="increase verbosity (can be repeated)")
 @arg_doctrees
 @arg_website
-@arg('-s', dest='sourcedir', type=str,
-     help="root path for source files, "
-     "default is path to the folder that contains conf.py")
-@arg('-b', dest='builder', type=str,
-     help="builder to use, default `ablog_builder` or dirhtml")
-@arg('-a', dest='allfiles', action='store_true', default=False,
-     help="write all files; default is to only write new and changed files")
-@cmd(name='build', help='build your blog project',
-     description="Path options can be set in conf.py. "
-     "Default values of paths are relative to conf.py.")
-def ablog_build(builder=None, sourcedir=None, website=None, doctrees=None,
-                traceback=False, runpdb=False, allfiles=False, werror=False, verbosity=0,
-                quiet=False, extra_quiet=False, no_colors=False, **kwargs):
+@arg(
+    "-s",
+    dest="sourcedir",
+    type=str,
+    help="root path for source files, " "default is path to the folder that contains conf.py",
+)
+@arg("-b", dest="builder", type=str, help="builder to use, default `ablog_builder` or dirhtml")
+@arg(
+    "-a",
+    dest="allfiles",
+    action="store_true",
+    default=False,
+    help="write all files; default is to only write new and changed files",
+)
+@cmd(
+    name="build",
+    help="build your blog project",
+    description="Path options can be set in conf.py. "
+    "Default values of paths are relative to conf.py.",
+)
+def ablog_build(
+    builder=None,
+    sourcedir=None,
+    website=None,
+    doctrees=None,
+    traceback=False,
+    runpdb=False,
+    allfiles=False,
+    werror=False,
+    verbosity=0,
+    quiet=False,
+    extra_quiet=False,
+    no_colors=False,
+    **kwargs,
+):
     confdir = find_confdir(sourcedir)
     conf = read_conf(confdir)
-    website = (website or
-               os.path.join(confdir, getattr(conf, 'ablog_website', BUILDDIR)))
-    doctrees = (doctrees or
-                os.path.join(confdir, getattr(conf, 'ablog_doctrees', DOCTREES)))
-    sourcedir = (sourcedir or confdir)
+    website = website or os.path.join(confdir, getattr(conf, "ablog_website", BUILDDIR))
+    doctrees = doctrees or os.path.join(confdir, getattr(conf, "ablog_doctrees", DOCTREES))
+    sourcedir = sourcedir or confdir
     argv = sys.argv[:1]
-    argv.extend(['-b', builder or getattr(conf, 'ablog_builder', 'dirhtml')])
-    argv.extend(['-d', doctrees])
+    argv.extend(["-b", builder or getattr(conf, "ablog_builder", "dirhtml")])
+    argv.extend(["-d", doctrees])
     if traceback:
-        argv.extend(['-T'])
+        argv.extend(["-T"])
     if runpdb:
-        argv.extend(['-P'])
+        argv.extend(["-P"])
     if allfiles:
-        argv.extend(['-a'])
+        argv.extend(["-a"])
     if werror:
-        argv.extend(['-W'])
+        argv.extend(["-W"])
     if verbosity > 0:
-        argv.extend(['-v'] * verbosity)
+        argv.extend(["-v"] * verbosity)
     if quiet:
-        argv.extend(['-q'])
+        argv.extend(["-q"])
     if extra_quiet:
-        argv.extend(['-Q'])
+        argv.extend(["-Q"])
     if no_colors:
-        argv.extend(['-N'])
+        argv.extend(["-N"])
     argv.extend([sourcedir, website])
-    if SPHINX_LT_17:
-        from sphinx import main
-        sys.exit(main(argv))
-    else:
-        from sphinx.cmd.build import main
-        # As of Sphinx 1.7, the first argument is now no longer ignored
-        sys.exit(main(argv[1:]))
+
+    from sphinx.cmd.build import main
+
+    sys.exit(main(argv[1:]))
 
 
-@arg('-D', dest='deep', action='store_true', default=False,
-     help="deep clean, remove cached environment and doctree files")
+@arg(
+    "-D",
+    dest="deep",
+    action="store_true",
+    default=False,
+    help="deep clean, remove cached environment and doctree files",
+)
 @arg_doctrees
 @arg_website
-@cmd(name='clean', help='clean your blog build files',
-     description="Path options can be set in conf.py. "
-     "Default values of paths are relative to conf.py.")
+@cmd(
+    name="clean",
+    help="clean your blog build files",
+    description="Path options can be set in conf.py. "
+    "Default values of paths are relative to conf.py.",
+)
 def ablog_clean(website=None, doctrees=None, deep=False, **kwargs):
 
     confdir = find_confdir()
     conf = read_conf(confdir)
 
-    website = (website or
-               os.path.join(confdir, getattr(conf, 'ablog_website', BUILDDIR)))
+    website = website or os.path.join(confdir, getattr(conf, "ablog_website", BUILDDIR))
 
-    doctrees = (doctrees or
-                os.path.join(confdir, getattr(conf, 'ablog_doctrees', DOCTREES)))
+    doctrees = doctrees or os.path.join(confdir, getattr(conf, "ablog_doctrees", DOCTREES))
 
     nothing = True
-    if glob.glob(os.path.join(website, '*')):
+    if glob.glob(os.path.join(website, "*")):
         shutil.rmtree(website)
-        print('Removed {}.'.format(os.path.relpath(website)))
+        print("Removed {}.".format(os.path.relpath(website)))
         nothing = False
 
-    if deep and glob.glob(os.path.join(doctrees, '*')):
+    if deep and glob.glob(os.path.join(doctrees, "*")):
         shutil.rmtree(doctrees)
-        print('Removed {}.'.format(os.path.relpath(doctrees)))
+        print("Removed {}.".format(os.path.relpath(doctrees)))
         nothing = False
 
     if nothing:
-        print('Nothing to clean.')
+        print("Nothing to clean.")
 
 
-@arg('--patterns', dest='patterns', default='*.rst;*.txt',
-     help="patterns for triggering rebuilds")
-@arg('-r', dest='rebuild', action='store_true', default=False,
-     help="rebuild when a file matching patterns change or get added")
-@arg('-n', dest='view', action='store_false', default=True,
-     help="do not open website in a new browser tab")
-@arg('-p', dest='port', type=int, default=8000,
-     help='port number for HTTP server; default is 8000')
+@arg("--patterns", dest="patterns", default="*.rst;*.txt", help="patterns for triggering rebuilds")
+@arg(
+    "-r",
+    dest="rebuild",
+    action="store_true",
+    default=False,
+    help="rebuild when a file matching patterns change or get added",
+)
+@arg(
+    "-n",
+    dest="view",
+    action="store_false",
+    default=True,
+    help="do not open website in a new browser tab",
+)
+@arg("-p", dest="port", type=int, default=8000, help="port number for HTTP server; default is 8000")
 @arg_website
-@cmd(name='serve', help='serve and view your project',
-     description="Serve options can be set in conf.py. "
-     "Default values of paths are relative to conf.py.")
-def ablog_serve(website=None, port=8000, view=True, rebuild=False,
-                patterns='*.rst;*.txt', **kwargs):
+@cmd(
+    name="serve",
+    help="serve and view your project",
+    description="Serve options can be set in conf.py. "
+    "Default values of paths are relative to conf.py.",
+)
+def ablog_serve(
+    website=None, port=8000, view=True, rebuild=False, patterns="*.rst;*.txt", **kwargs
+):
 
     confdir = find_confdir()
     conf = read_conf(confdir)
@@ -252,35 +309,36 @@ def ablog_serve(website=None, port=8000, view=True, rebuild=False,
     httpd = socketserver.TCPServer(("", port), Handler)
 
     ip, port = httpd.socket.getsockname()
-    print("Serving HTTP on {}:{}.".format(ip, port))
+    print(f"Serving HTTP on {ip}:{port}.")
     print("Quit the server with Control-C.")
 
-    website = (website or
-               os.path.join(confdir, getattr(conf, 'ablog_website', '_website')))
+    website = website or os.path.join(confdir, getattr(conf, "ablog_website", "_website"))
 
     os.chdir(website)
 
     if rebuild:
 
-        #from watchdog.watchmedo import observe_with
+        # from watchdog.watchmedo import observe_with
         from watchdog.observers import Observer
         from watchdog.tricks import ShellCommandTrick
-        patterns = patterns.split(';')
-        ignore_patterns = [os.path.join(website, '*')]
-        handler = ShellCommandTrick(shell_command='ablog build -s ' + confdir,
-                                    patterns=patterns,
-                                    ignore_patterns=ignore_patterns,
-                                    ignore_directories=False,
-                                    wait_for_process=True,
-                                    drop_during_process=False)
+
+        patterns = patterns.split(";")
+        ignore_patterns = [os.path.join(website, "*")]
+        handler = ShellCommandTrick(
+            shell_command="ablog build -s " + confdir,
+            patterns=patterns,
+            ignore_patterns=ignore_patterns,
+            ignore_directories=False,
+            wait_for_process=True,
+            drop_during_process=False,
+        )
 
         observer = Observer(timeout=1)
         observer.schedule(handler, confdir, recursive=True)
         observer.start()
         try:
             if view:
-                (webbrowser.open_new_tab('http://127.0.0.1:{}'.format(port)) and
-                 httpd.serve_forever())
+                (webbrowser.open_new_tab(f"http://127.0.0.1:{port}") and httpd.serve_forever())
             else:
                 httpd.serve_forever()
         except KeyboardInterrupt:
@@ -289,20 +347,17 @@ def ablog_serve(website=None, port=8000, view=True, rebuild=False,
 
     else:
         if view:
-            (webbrowser.open_new_tab('http://127.0.0.1:{}'.format(port)) and
-             httpd.serve_forever())
+            (webbrowser.open_new_tab(f"http://127.0.0.1:{port}") and httpd.serve_forever())
         else:
             httpd.serve_forever()
 
 
-@arg('-t', dest='title', type=str,
-     help='post title; default is formed from filename')
-@arg(dest='filename', type=str,
-     help='filename, e.g. my-nth-post (.rst appended)')
-@cmd(name='post', help='create a blank post',)
+@arg("-t", dest="title", type=str, help="post title; default is formed from filename")
+@arg(dest="filename", type=str, help="filename, e.g. my-nth-post (.rst appended)")
+@cmd(name="post", help="create a blank post")
 def ablog_post(filename, title=None, **kwargs):
 
-    POST_TEMPLATE = u'''
+    POST_TEMPLATE = """
 %(title)s
 %(equal)s
 
@@ -310,85 +365,111 @@ def ablog_post(filename, title=None, **kwargs):
    :tags:
    :category:
 
-'''
+"""
     from datetime import date
     from os import path
 
     # Generate basic post params.
     today = date.today()
-    if not filename.lower().endswith('.rst'):
-        filename += '.rst'
+    if not filename.lower().endswith(".rst"):
+        filename += ".rst"
 
     today = today.strftime("%b %d, %Y")
     if not title:
-        title = filename[:-4].replace('-', ' ').title()
+        title = filename[:-4].replace("-", " ").title()
 
-    pars = {'date': today,
-            'title': title,
-            'equal': '=' * len(title)
-            }
+    pars = {"date": today, "title": title, "equal": "=" * len(title)}
 
     if path.isfile(filename):
         pass
         # read the file, and add post directive
         # and save it
     else:
-        with io.open(filename, 'w', encoding='utf-8') as out:
+        with open(filename, "w", encoding="utf-8") as out:
             post_text = POST_TEMPLATE % pars
             out.write(post_text)
 
-        print('Blog post created: %s' % filename)
+        print("Blog post created: %s" % filename)
 
 
-@arg('--github-token', dest='github_token', type=str,
-     help="environment variable name storing GitHub access token")
-@arg('--push-quietly', dest='push_quietly', action='store_true', default=False,
-     help="be more quiet when pushing changes")
-@arg('-f', dest='push_force', action='store_true', default=False,
-     help="owerwrite last commit, i.e. `commit --amend; push -f`")
-@arg('-m', dest='message', type=str, help="commit message")
-@arg('-g', dest='github_pages', type=str,
-     help="GitHub username for deploying to GitHub pages")
-@arg('-p', dest='repodir', type=str,
-     help="path to the location of repository to be deployed, e.g. "
-     "`../username.github.io`, default is folder containing `conf.py`")
+@arg(
+    "--github-token",
+    dest="github_token",
+    type=str,
+    help="environment variable name storing GitHub access token",
+)
+@arg(
+    "--push-quietly",
+    dest="push_quietly",
+    action="store_true",
+    default=False,
+    help="be more quiet when pushing changes",
+)
+@arg(
+    "-f",
+    dest="push_force",
+    action="store_true",
+    default=False,
+    help="owerwrite last commit, i.e. `commit --amend; push -f`",
+)
+@arg("-m", dest="message", type=str, help="commit message")
+@arg("-g", dest="github_pages", type=str, help="GitHub username for deploying to GitHub pages")
+@arg(
+    "-p",
+    dest="repodir",
+    type=str,
+    help="path to the location of repository to be deployed, e.g. "
+    "`../username.github.io`, default is folder containing `conf.py`",
+)
 @arg_website
-@cmd(name='deploy', help='deploy your website build files',
-     description="Path options can be set in conf.py. "
-     "Default values of paths are relative to conf.py.")
-def ablog_deploy(website, message=None, github_pages=None,
-                 push_quietly=False, push_force=False, github_token=None, repodir=None,
-                 **kwargs):
+@cmd(
+    name="deploy",
+    help="deploy your website build files",
+    description="Path options can be set in conf.py. "
+    "Default values of paths are relative to conf.py.",
+)
+def ablog_deploy(
+    website,
+    message=None,
+    github_pages=None,
+    push_quietly=False,
+    push_force=False,
+    github_token=None,
+    repodir=None,
+    **kwargs,
+):
 
     confdir = find_confdir()
     conf = read_conf(confdir)
 
-    github_pages = (github_pages or getattr(conf, 'github_pages', None))
+    github_pages = github_pages or getattr(conf, "github_pages", None)
 
-    website = (website or
-               os.path.join(confdir, getattr(conf, 'ablog_builddir', '_website')))
+    website = website or os.path.join(confdir, getattr(conf, "ablog_builddir", "_website"))
 
-    tomove = glob.glob(os.path.join(website, '*'))
+    tomove = glob.glob(os.path.join(website, "*"))
     if not tomove:
-        print('Nothing to deploy, build first.')
+        print("Nothing to deploy, build first.")
         return
 
     try:
         from invoke import run
     except ImportError:
-        raise ImportError("invoke is required by deploy command, "
-                          "run `pip install invoke`")
+        raise ImportError("invoke is required by deploy command, " "run `pip install invoke`")
 
     if github_pages:
 
         if repodir is None:
-            repodir = os.path.join(confdir, "{0}.github.io".format(github_pages))
+            repodir = os.path.join(confdir, f"{github_pages}.github.io")
         if os.path.isdir(repodir):
             os.chdir(repodir)
             run("git pull", echo=True)
         else:
-            run("git clone https://github.com/{0}/{0}.github.io.git {1}"
-                .format(github_pages, repodir), echo=True)
+            run(
+                "git clone https://github.com/{0}/{0}.github.io.git {1}".format(
+                    github_pages, repodir
+                ),
+                echo=True,
+            )
 
         git_add = []
         for tm in tomove:
@@ -406,37 +487,37 @@ def ablog_deploy(website, message=None, github_pages=None,
                         os.renames(fn, fnnew)
 
                     git_add.append(fnnew)
-        print('Moved {} files to {}.github.io'
-              .format(len(git_add), github_pages))
+        print("Moved {} files to {}.github.io".format(len(git_add), github_pages))
 
         os.chdir(repodir)
 
-        run("git add -f " + " ".join(['"{}"'.format(os.path.relpath(p))
-                                      for p in git_add]), echo=True)
-        if not os.path.isfile('.nojekyll'):
-            open('.nojekyll', 'w')
+        run(
+            "git add -f " + " ".join(['"{}"'.format(os.path.relpath(p)) for p in git_add]),
+            echo=True,
+        )
+        if not os.path.isfile(".nojekyll"):
+            open(".nojekyll", "w")
             run("git add -f .nojekyll")
 
-        commit = 'git commit -m "{}"'.format(message or 'Updates.')
+        commit = 'git commit -m "{}"'.format(message or "Updates.")
         if push_force:
-            commit += ' --amend'
+            commit += " --amend"
         run(commit, echo=True)
 
         if github_token:
-            with open(os.path.join(repodir, '.git/credentials'), 'w') as out:
-                out.write('https://{}:@github.com'
-                          .format(os.environ[github_token]))
+            with open(os.path.join(repodir, ".git/credentials"), "w") as out:
+                out.write("https://{}:@github.com".format(os.environ[github_token]))
             run('git config credential.helper "store --file=.git/credentials"')
-        push = 'git push'
+        push = "git push"
         if push_quietly:
-            push += ' -q'
+            push += " -q"
         if push_force:
-            push += ' -f'
-        push += ' origin master'
+            push += " -f"
+        push += " origin master"
         run(push, echo=True)
 
     else:
-        print('No place to deploy.')
+        print("No place to deploy.")
 
 
 def ablog_main():
