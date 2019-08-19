@@ -100,13 +100,8 @@ class UpdateDirective(BaseAdmonition):
     node_class = UpdateNode
 
     def run(self):
-        date_arg = self.arguments[0] if self.arguments else ''
-        self.arguments = [_('Updated on ' + date_arg), ]
-        # The following line is needed to trick the BaseAdmonition class into thinking we have a title.
-        # There almost certainly has to be a better way, but I don't see it naturally from the docutils source
-        self.node_class = nodes.admonition
-        ad = super(UpdateDirective, self).run()  # For Python3, it is run(), not run(self)
-        del self.node_class  # Undo our tricksy hack from a few lines ago
+        ad = super(UpdateDirective, self).run()
+        ad[0]['date'] = self.arguments[0] if self.arguments else ''
         return ad
 
 
@@ -193,11 +188,12 @@ def _get_update_dates(section, docname, post_date_format):
                 raise ValueError('invalid post date (%s) in ' % (date) +
                                  docname +
                                  ". Expected format: %s" % post_date_format)
+        # Insert a new title element which contains the `Updated on {date}` logic.
         substitute = nodes.title(u'',
-                                 update_node[0][0].astext() + u' ' +
-                                 update.strftime(post_date_format))
-        update_node[0].replace_self(substitute)
-        # for now, let updates look like note
+                                 'Updated on '
+                                 + update.strftime(post_date_format)
+                                )
+        update_node.insert(0, substitute)
         update_node['classes'] = ['note', 'update']
 
         update_dates.append(update)
