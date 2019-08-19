@@ -41,4 +41,4 @@ to get published:
 
 Let us know how this works for you!
 
-.. _Jekyll: http://jekyllrb.com/
+.. _Jekyll: https://jekyllrb.com/

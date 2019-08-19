@@ -12,7 +12,8 @@ ABlog for Sphinx
 Note
 ----
 
-Please note that is an official new home of `Ahmet Bakan's Ablog Sphinx extension <https://github.com/abakan/ablog/>`_. This version is maintined with the aim to keep it working for SunPy's website and thus new features are unlikely.
+Please note that is an official new home of `Ahmet Bakan's Ablog Sphinx extension <https://github.com/abakan/ablog/>`__.
+This version is maintined with the aim to keep it working for SunPy's website and thus new features are unlikely.
 
 ABlog
 -----
@@ -27,15 +28,13 @@ ABlog is a Sphinx extension that converts any documentation or personal website 
   * `Easy GitHub Pages deploys`_
   * `Jupiter Notebook Support for blog posts`_
 
-.. _Atom feeds: http://ablog.readthedocs.org/blog/atom.xml
-.. _Archive pages: http://ablog.readthedocs.org/blog/
-.. _Blog sidebars: http://ablog.readthedocs.org/manual/ablog-configuration-options/#sidebars
-.. _Disqus integration: http://ablog.readthedocs.org/manual/ablog-configuration-options/#disqus-integration
-.. _Font-Awesome integration: http://ablog.readthedocs.org/manual/ablog-configuration-options/#fa
-.. _Easy GitHub Pages deploys: http://ablog.readthedocs.org/manual/deploy-to-github-pages/
-.. _Jupiter Notebook Support for blog posts: http://ablog.readthedocs.org/manual/notebook_support/
-
-.. _installation:
+.. _Atom feeds: https://ablog.readthedocs.org/blog/atom.xml
+.. _Archive pages: https://ablog.readthedocs.org/blog/
+.. _Blog sidebars: https://ablog.readthedocs.org/manual/ablog-configuration-options/#sidebars
+.. _Disqus integration: https://ablog.readthedocs.org/manual/ablog-configuration-options/#disqus-integration
+.. _Font-Awesome integration: https://ablog.readthedocs.org/manual/ablog-configuration-options/#fa
+.. _Easy GitHub Pages deploys: https://ablog.readthedocs.org/manual/deploy-to-github-pages/
+.. _Jupiter Notebook Support for blog posts: https://ablog.readthedocs.org/manual/notebook_support/
 
 Installation
 ------------
@@ -49,13 +48,13 @@ or anaconda_::
     conda config --add channels conda-forge
     conda install ablog
 
-This will also install `Sphinx <http://sphinx-doc.org/>`_, Alabaster_, Werkzeug_, and Invoke_ respectively required for building your website, making it look good, generating feeds, and running deploy commands.
+This will also install `Sphinx <http://sphinx-doc.org/>`__, Alabaster_, Werkzeug_, and Invoke_ respectively required for building your website, making it look good, generating feeds, and running deploy commands.
 
-.. _pip: https://pip.pypa.io 
+.. _pip: https://pip.pypa.io
 .. _anaconda: https://www.anaconda.com/
-.. _Werkzeug: http://werkzeug.pocoo.org/
+.. _Werkzeug: https://werkzeug.pocoo.org/
 .. _Alabaster: https://github.com/bitprophet/alabaster
-.. _Invoke: http://www.pyinvoke.org/
+.. _Invoke: https://www.pyinvoke.org/
 
 Getting Started
 ---------------
@@ -81,12 +80,12 @@ If you already have a project, enable blogging by making following changes in ``
   # 2b. if `templates_path` is defined
   templates_path.append(ablog.get_html_templates_path())
 
-.. _ABlog Quick Start: http://ablog.readthedocs.org/manual/ablog-quick-start
+.. _ABlog Quick Start: https://ablog.readthedocs.org/manual/ablog-quick-start
 
 How it works
 ------------
 
-If you are new to Sphinx_ and reStructuredText markup language, you might find `reStructuredText Primer`_ useful.
+If you are new to Sphinx and reStructuredText markup language, you might find `reStructuredText Primer`_ useful.
 Once you have content (in ``.rst`` files), you can post *any page* using the ``post`` directive as follows:
 
 .. code-block:: rst
@@ -110,27 +109,4 @@ You can also include a list of posts using ``postlist`` directive:
      :format: {title}
      :sort:
 
-For ABlog documentation, this converts to the following where you can find more about configuring and using ABlog:
-
-.. postlist::
-   :category: Manual
-   :list-style: circle
-   :format: {title}
-   :sort:
-
-
 .. _reStructuredText Primer: http://sphinx-doc.org/rest.html
-
-.. only:: html
-
-   .. image:: https://secure.travis-ci.org/sunpy/ablog.png?branch=devel
-      :target: http://travis-ci.org/#!/sunpy/ablog
-
-   .. image:: https://readthedocs.org/projects/ablog/badge/?version=latest
-      :target: http://ablog.readthedocs.org/
-
-.. toctree::
-   :hidden:
-   :glob:
-
-   */*

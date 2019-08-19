@@ -11,12 +11,12 @@ website project into a full-fledged blog with:
   * `Font-Awesome integration`_
   * `Easy GitHub Pages deploys`_
 
-.. _Atom feeds: http://ablog.readthedocs.org/blog/atom.xml
-.. _Archive pages: http://ablog.readthedocs.org/blog/
-.. _Blog sidebars: http://ablog.readthedocs.org/manual/ablog-configuration-options/#sidebars
-.. _Disqus integration: http://ablog.readthedocs.org/manual/ablog-configuration-options/#disqus-integration
-.. _Font-Awesome integration: http://ablog.readthedocs.org/manual/ablog-configuration-options/#fa
-.. _Easy GitHub Pages deploys: http://ablog.readthedocs.org/manual/deploy-to-github-pages/
+.. _Atom feeds: https://ablog.readthedocs.org/blog/atom.xml
+.. _Archive pages: https://ablog.readthedocs.org/blog/
+.. _Blog sidebars: https://ablog.readthedocs.org/manual/ablog-configuration-options/#sidebars
+.. _Disqus integration: https://ablog.readthedocs.org/manual/ablog-configuration-options/#disqus-integration
+.. _Font-Awesome integration: https://ablog.readthedocs.org/manual/ablog-configuration-options/#fa
+.. _Easy GitHub Pages deploys: https://ablog.readthedocs.org/manual/deploy-to-github-pages/
 
 .. _installation:
 
@@ -33,9 +33,9 @@ making it look good, generating feeds, running deploy commands, and parsing
 dates.
 
 .. _pip: https://pip.pypa.io
-.. _Werkzeug: http://werkzeug.pocoo.org/
+.. _Werkzeug: https://werkzeug.pocoo.org/
 .. _Alabaster: https://github.com/bitprophet/alabaster
-.. _Invoke: http://www.pyinvoke.org/
+.. _Invoke: https://www.pyinvoke.org/
 .. _dateutil: https://pypi.python.org/pypi/python-dateutil
 
 Getting Started
@@ -62,7 +62,7 @@ If you already have a project, enable blogging by making following changes in ``
   # 2b. if `templates_path` is defined
   templates_path.append(ablog.get_html_templates_path())
 
-.. _ABlog Quick Start: http://ablog.readthedocs.org/manual/ablog-quick-start
+.. _ABlog Quick Start: https://ablog.readthedocs.org/manual/ablog-quick-start
 
 
 How it works
@@ -109,10 +109,10 @@ can find more about configuring and using ABlog:
 .. only:: html
 
    .. image:: https://secure.travis-ci.org/sunpy/ablog.png?branch=devel
-      :target: http://travis-ci.org/#!/sunpy/ablog
+      :target: https://travis-ci.org/#!/sunpy/ablog
 
    .. image:: https://readthedocs.org/projects/ablog/badge/?version=latest
-      :target: http://ablog.readthedocs.org/
+      :target: https://ablog.readthedocs.org/
 
 
 .. toctree::
