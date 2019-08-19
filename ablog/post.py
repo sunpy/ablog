@@ -216,11 +216,15 @@ def process_posts(app, doctree):
     if not post_nodes:
         return
     post_date_format = app.config['post_date_format']
+    should_auto_orphan = app.config['post_auto_orphan']
     docname = env.docname
 
-    # mark the post as 'orphan' so that
-    #   "document isn't included in any toctree" warning is not issued
-    app.env.metadata[docname]['orphan'] = True
+    if should_auto_orphan:
+        # mark the post as 'orphan' so that
+        #   "document isn't included in any toctree" warning is not issued
+        # We do not simply assign to should_auto_orphan because if auto-orphan
+        # is false, we still want to respect the per-post :rst:dir`orphan` setting
+        app.env.metadata[docname]['orphan'] = True
 
     blog = Blog(app)
     auto_excerpt = blog.post_auto_excerpt

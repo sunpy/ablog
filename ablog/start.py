@@ -124,6 +124,12 @@ blog_authors = {
 # is ``False``.
 #post_always_section = False
 
+# When ``False``, the :rst:dir:`orphan` directive is not automatically set
+# for each post. Without this directive, Sphinx will warn about posts that
+# are not explicitly referenced via another document. :rst:dir:`orphan` can
+# be set on a per-post basis as well if this is false. Default is ``True``.
+#post_auto_orphan = True
+
 # -- ABlog Sidebars -------------------------------------------------------
 
 # There are seven sidebars you can include in your HTML output.
