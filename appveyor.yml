@@ -1,23 +1,9 @@
 # AppVeyor.com is a Continuous Integration service to build and run tests under Windows
 
 environment:
-
-    global:
-        PYTHON: "C:\\conda"
-        MINICONDA_VERSION: "latest"
-        CMD_IN_ENV: "cmd /E:ON /V:ON /C .\\ci-helpers\\appveyor\\windows_sdk.cmd"
-        PYTHON_ARCH: "64" # needs to be set for CMD_IN_ENV to succeed. If a mix
-                          # of 32 bit and 64 bit builds are needed, move this
-                          # to the matrix section.
-        CONDA_CHANNELS: "conda-forge"
-        CONDA_DEPENDENCIES: "sphinx werkzeug alabaster invoke graphviz nbsphinx"
-        PIP_DEPENDENCIES: "sphinx-automodapi"
-
-    matrix:
-        - PYTHON_VERSION: "2.7"
-        - PYTHON_VERSION: "3.5"
-        - PYTHON_VERSION: "3.6"
-        - PYTHON_VERSION: "3.7"
+  matrix:
+    - PY_MAJOR_VER: 3
+      PYTHON_ARCH: "x86_64"
 
 build: false
 
@@ -36,12 +22,16 @@ install:
           cinst graphviz --no-progress
         }
     - ps: $env:Path += ";C:\Program Files\Pandoc\"
-    - git clone git://github.com/astropy/ci-helpers.git
-    - powershell ci-helpers/appveyor/install-miniconda.ps1
-    - SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%
-    - activate test
-    - pip install -e .
-
+    - ps: Start-FileDownload "https://repo.continuum.io/miniconda/Miniconda$env:PY_MAJOR_VER-latest-Windows-$env:PYTHON_ARCH.exe" C:\Miniconda.exe; echo "Finished downloading miniconda"
+    - cmd: C:\Miniconda.exe /S /D=C:\Py
+    - cmd: SET PATH=C:\Py;C:\Py\Scripts;C:\Py\Library\bin;%PATH%
+    - cmd: conda config --set always_yes yes
+    - cmd: conda update conda --quiet
+    - cmd: conda config --add channels conda-forge
+    - cmd: conda config --set channel_priority strict
+    - cmd: conda install sphinx werkzeug alabaster invoke graphviz nbsphinx --quiet
+    - cmd: python -m pip install --upgrade pip
+    - cmd: pip install -e .[all]
 
 test_script:
     - python setup.py build_sphinx

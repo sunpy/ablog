@@ -12,7 +12,7 @@ Automate GitHub Pages Deploys
 If being away from your personal computer is holding you back from blogging, keep
 reading. This post will show you how to automate builds and deploys using
 Travis CI. Once you set this up, all you need to do post an article will be
-pushing to GitHub or creating a new file on `GitHub.com <http://github.com>`_
+pushing to GitHub or creating a new file on `GitHub.com <https://github.com>`_
 from any computer!
 
 For this to work, you need to be hosting your website on GitHub pages.
@@ -108,4 +108,4 @@ See :ref:`deploy-to-github-pages` and :ref:`commands` to find out more about
 deploy options.
 
 Finally, you can find out more about :file:`.travis.yml` file and customizing your built on
-Travis CI `user documentation <http://docs.travis-ci.com/user/customizing-the-build/>`_.
+Travis CI `user documentation <https://docs.travis-ci.com/user/customizing-the-build/>`_.

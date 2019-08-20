@@ -49,7 +49,7 @@ Authors, languages, & locations
      blog_authors = {
          'Ahmet': ('Ahmet Bakan', 'http://ahmetbakan.com'),
          'Durden': ('Tyler Durden',
-                    'http://en.wikipedia.org/wiki/Tyler_Durden'),
+                    'https://en.wikipedia.org/wiki/Tyler_Durden'),
      }
 
 .. confval:: blog_languages
@@ -177,7 +177,7 @@ Font awesome
 ABlog templates will use of `Font Awesome`_ icons if one of the following
 is set:
 
-.. _Font Awesome: http://fontawesome.io/
+.. _Font Awesome: https://fontawesome.io/
 
 
 .. confval:: fontawesome_link_cdn
@@ -185,14 +185,14 @@ is set:
    URL to `Font Awesome`_ :file:`.css` hosted at `Bootstrap CDN`_ or anywhere
    else.  Default: ``None``
 
-   .. _Bootstrap CDN: http://www.bootstrapcdn.com/fontawesome/
+   .. _Bootstrap CDN: https://www.bootstrapcdn.com/fontawesome/
 
 .. update:: Jul 29, 2015
 
    :confval:`fontawesome_link_cdn` was a *boolean* option, and now became a
    *string* to enable using desired version of `Font Awesome`_.
    To get the old behavior, use
-   ``‘http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css'``.
+   ``‘https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css'``.
 
 
 .. confval:: fontawesome_included
