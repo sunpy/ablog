@@ -404,6 +404,12 @@ def ablog_post(filename, title=None, **kwargs):
     help="environment variable name storing GitHub access token",
 )
 @arg(
+    "--github-ssh",
+    dest="github_is_http",
+    action="store_true",
+    help="use ssh when cloning website",
+)
+@arg(
     "--push-quietly",
     dest="push_quietly",
     action="store_true",
@@ -440,10 +446,10 @@ def ablog_deploy(
     push_quietly=False,
     push_force=False,
     github_token=None,
+    github_is_http=True,
     repodir=None,
     **kwargs,
 ):
-
     confdir = find_confdir()
     conf = read_conf(confdir)
 
@@ -470,7 +476,8 @@ def ablog_deploy(
             run("git pull", echo=True)
         else:
             run(
-                "git clone https://github.com/{0}/{0}.github.io.git {1}".format(
+                "git clone " + ("https://github.com/" if github_is_http else "git@github.com:") +
+                "{0}/{0}.github.io.git {1}".format(
                     github_pages, repodir
                 ),
                 echo=True,
