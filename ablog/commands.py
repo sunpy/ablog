@@ -511,7 +511,13 @@ def ablog_deploy(
             open(".nojekyll", "w")
             run("git add -f .nojekyll")
 
-        commit = 'git commit -m "{}"'.format(message or "Updates.")
+        # Check to see if anything has actually been committed
+        result = run('git diff --cached --name-status HEAD')
+        if (not result.stdout):
+            print('Nothing changed from last deployment')
+            return
+
+        commit = 'git commit -m "{}"'.format(message or 'Updates.')
         if push_force:
             commit += " --amend"
         run(commit, echo=True)
