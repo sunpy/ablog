@@ -8,6 +8,8 @@ import socketserver
 from http import server
 
 from invoke import run
+from watchdog.observers import Observer
+from watchdog.tricks import ShellCommandTrick
 
 import ablog
 
@@ -288,10 +290,6 @@ def ablog_serve(website=None, port=8000, view=True, rebuild=False, patterns="*.r
 
     if rebuild:
 
-        # from watchdog.watchmedo import observe_with
-        from watchdog.observers import Observer
-        from watchdog.tricks import ShellCommandTrick
-
         patterns = patterns.split(";")
         ignore_patterns = [os.path.join(website, "*")]
         handler = ShellCommandTrick(
@@ -368,12 +366,7 @@ def ablog_post(filename, title=None, **kwargs):
     type=str,
     help="environment variable name storing GitHub access token",
 )
-@arg(
-    "--github-ssh",
-    dest="github_is_http",
-    action="store_true",
-    help="use ssh when cloning website",
-)
+@arg("--github-ssh", dest="github_is_http", action="store_true", help="use ssh when cloning website")
 @arg(
     "--push-quietly",
     dest="push_quietly",
@@ -436,10 +429,9 @@ def ablog_deploy(
             run("git pull", echo=True)
         else:
             run(
-                "git clone " + ("https://github.com/" if github_is_http else "git@github.com:") +
-                "{0}/{0}.github.io.git {1}".format(
-                    github_pages, repodir
-                ),
+                "git clone "
+                + ("https://github.com/" if github_is_http else "git@github.com:")
+                + "{0}/{0}.github.io.git {1}".format(github_pages, repodir),
                 echo=True,
             )
 
@@ -469,12 +461,12 @@ def ablog_deploy(
             run("git add -f .nojekyll")
 
         # Check to see if anything has actually been committed
-        result = run('git diff --cached --name-status HEAD')
-        if (not result.stdout):
-            print('Nothing changed from last deployment')
+        result = run("git diff --cached --name-status HEAD")
+        if not result.stdout:
+            print("Nothing changed from last deployment")
             return
 
-        commit = 'git commit -m "{}"'.format(message or 'Updates.')
+        commit = 'git commit -m "{}"'.format(message or "Updates.")
         if push_force:
             commit += " --amend"
         run(commit, echo=True)

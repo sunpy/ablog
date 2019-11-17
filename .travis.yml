@@ -1,21 +1,21 @@
-# We set the language to c because python isn't supported on the MacOS X nodes
-# on Travis. However, the language ends up being irrelevant anyway, since we
-# install Python ourselves using conda.
 language: c
 
 os:
     - linux
 
-# Setting sudo to false opts in to Travis-CI container-based builds.
 sudo: false
 
 env:
   matrix:
     - PYTHON_VERSION=3.6 SPHINX_VERSION=2.0
     - PYTHON_VERSION=3.6 SPHINX_VERSION=2.1
+    - PYTHON_VERSION=3.6 SPHINX_VERSION=2.1
 
     - PYTHON_VERSION=3.7 SPHINX_VERSION=2.0
     - PYTHON_VERSION=3.7 SPHINX_VERSION=2.1
+    - PYTHON_VERSION=3.7 SPHINX_VERSION=2.1
+
+    - PYTHON_VERSION=3.8 SPHINX_VERSION=latest
 
   global:
     - LOCALE=default

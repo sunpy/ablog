@@ -8,21 +8,21 @@ rebuild:
 	cd docs; watchmedo shell-command --patterns='*.rst' --command='ablog build' --recursive
 
 test:
-	cd docs; ablog build -T
+	set -e; cd docs; ablog build -T; cd ..
 
 test1:
-	cd docs; ablog build -b latex -T -d .doctrees -w _latex
+	set -e; cd docs; ablog build -b latex -T -d .doctrees -w _latex; cd ..
 
 test2:
-	cd docs; ablog build -T -b json
+	set -e; cd docs; ablog build -T -b json; cd ..
 
 test3:
-	cd docs; ablog build -T -b pickle
+	set -e; cd docs; ablog build -T -b pickle; cd ..
 
 test4:
-	mkdir -p test; cd test; printf "\nABlog\nABlog Team\nhttps://ablog.readthedocs.org" | ablog start; ablog build
+	set -e; mkdir -p test; cd test; printf "\nABlog\nABlog Team\nhttps://ablog.readthedocs.org" | ablog start; ablog build; cd ..; rm -rf test
 
 test5:
-	mkdir -p test; cd test; printf "ablog\nABlog\nABlog Team\nhttps://ablog.readthedocs.org" | ablog start; cd ablog; ablog build
+	set -e; mkdir -p testablog; printf "testablog\nABlog\nABlog Team\nhttps://ablog.readthedocs.org" | ablog start; cd testablog; ablog build; cd ../..; rm -rf test
 
-tests: test test1 test2 test3 test4 test5
+tests: test test1 test2 test3 test4 test5 demo
