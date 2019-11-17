@@ -5,32 +5,17 @@ Classes for handling posts and archives.
 
 import os
 import re
-import sys
 import datetime as dtmod
 from datetime import datetime
 from unicodedata import normalize
+from urllib.parse import urljoin
+from collections.abc import Container
 
 from docutils import nodes
 from docutils.io import StringOutput
 from docutils.utils import new_document
 from sphinx import addnodes
 from sphinx.util.osutil import relative_uri
-
-try:
-    from urlparse import urljoin
-except ImportError:
-    from urllib.parse import urljoin
-
-
-if sys.version_info >= (3, 0):
-    text_type = str
-    re_flag = 0
-elif sys.version_info < (2, 7):
-    text_type = unicode
-    re_flag = None
-else:
-    text_type = unicode
-    re_flag = re.UNICODE
 
 __all__ = ["Blog", "Post", "Collection"]
 
@@ -40,15 +25,9 @@ def slugify(string):
     Slugify *s*.
     """
 
-    string = text_type(string)
-    string = normalize("NFKD", string)
-
-    if re_flag is None:
-        string = re.sub(r"[^\w\s-]", "", string).strip().lower()
-        return re.sub(r"[-\s]+", "-", string)
-    else:
-        string = re.sub(r"[^\w\s-]", "", string, flags=re_flag).strip().lower()
-        return re.sub(r"[-\s]+", "-", string, flags=re_flag)
+    string = normalize("NFKD", str(string))
+    string = re.sub(r"[^\w\s-]", "", string).strip().lower()
+    return re.sub(r"[-\s]+", "-", string)
 
 
 def os_path_join(path, *paths):
@@ -56,32 +35,87 @@ def os_path_join(path, *paths):
     return os.path.join(path, *paths).replace(os.path.sep, "/")
 
 
+def require_config_type(type_, is_optional=True):
+    def verify_fn(key, value, config):
+        if isinstance(value, type_) or (is_optional and value is None):
+            return value
+        # Historically, we're pretty sloppy on whether None or False is the default for omission
+        # so accept them both.
+        if value is False and is_optional:
+            return None
+        raise KeyError(key + " must be a " + type_.__name__ + (" or omitted" if is_optional else ""))
+
+    return verify_fn
+
+
+def require_config_str_or_list_lookup(lookup_config_key, is_optional=True):
+    """
+    The default values can be a string or list of strings that match entries in a comprehensive
+    list -- for example, the default authors are one or more of all the authors.
+    """
+
+    def verify_fn(key, value, config):
+        if is_optional and value is None:
+            return value
+        if isinstance(value, str):
+            value = [value]
+        if not isinstance(value, list):
+            raise KeyError(key + " must be a str or list")
+
+        allowed_values = config[lookup_config_key]
+        for v in value:
+            if v not in allowed_values:
+                raise KeyError(str(v) + "must be a key of " + lookup_config_key)
+        return value
+
+    return verify_fn
+
+
+def require_config_full_name_link_dict(is_link_optional=True):
+    """
+    The definition for authors and similar entries is to map a short name to a
+    (full name, link) tuple.
+    """
+
+    def verify_fn(key, value, config):
+        for full_name, link in value.values():
+            if not isinstance(full_name, str):
+                raise KeyError(key + " must have full name entries that are strings")
+            is_link_valid = isinstance(link, str) or (is_link_optional and link is None)
+            if not is_link_valid:
+                raise KeyError(key + " links must be a string" + (" or omitted" if is_link_optional else ""))
+        return value
+
+    return verify_fn
+
+
 DEBUG = True
 CONFIG = [
-    # name, default, rebuild
-    ("blog_path", "blog", True),
-    ("blog_title", "Blog", True),
-    ("blog_baseurl", None, True),
-    ("blog_archive_titles", None, False),
+    # name, default, rebuild, verify_fn
+    # where verify_fn is (key, value, app.config) --> value, throwing a KeyError if the value isn't right
+    ("blog_path", "blog", True, require_config_type(str)),
+    ("blog_title", "Blog", True, require_config_type(str)),
+    ("blog_baseurl", "", True, require_config_type(str)),
+    ("blog_archive_titles", None, False, require_config_type(bool)),
     ("blog_feed_archives", False, True),
     ("blog_feed_fulltext", False, True),
     ("blog_feed_subtitle", None, True),
     ("blog_feed_titles", None, False),
     ("blog_feed_length", None, None),
-    ("blog_authors", {}, True),
-    ("blog_default_author", None, True),
-    ("blog_locations", {}, True),
-    ("blog_default_location", None, True),
-    ("blog_languages", {}, True),
-    ("blog_default_language", None, True),
+    ("blog_authors", {}, True, require_config_full_name_link_dict()),
+    ("blog_default_author", None, True, require_config_str_or_list_lookup("blog_authors")),
+    ("blog_locations", {}, True, require_config_full_name_link_dict()),
+    ("blog_default_location", None, True, require_config_str_or_list_lookup("blog_locations")),
+    ("blog_languages", {}, True, require_config_full_name_link_dict()),
+    ("blog_default_language", None, True, require_config_str_or_list_lookup("blog_languages")),
     ("fontawesome_link_cdn", None, True),
-    ("fontawesome_included", False, True),
-    ("fontawesome_css_file", "", True),
-    ("post_date_format", "%d %B %Y", True),
-    ("post_date_format_short", "%d %B", True),
+    ("fontawesome_included", False, True, require_config_type(bool)),
+    ("fontawesome_css_file", "", True, require_config_type(str)),
+    ("post_date_format", "%d %B %Y", True, require_config_type(str)),
+    ("post_date_format_short", "%d %B", True, require_config_type(str)),
+    ("post_auto_orphan", True, True, require_config_type(bool)),
     ("post_auto_image", 0, True),
     ("post_auto_excerpt", 1, True),
-    ("post_auto_orphan", True, True),
     ("post_redirect_refresh", 5, True),
     ("post_always_section", False, True),
     ("disqus_shortname", None, True),
@@ -99,12 +133,6 @@ def revise_pending_xrefs(doctree, docname):
 
     for node in doctree.traverse(addnodes.pending_xref):
         node["refdoc"] = docname
-
-
-try:
-    from collections.abc import Container
-except ImportError:
-    from collections import Container
 
 
 def link_posts(posts):
@@ -150,19 +178,17 @@ class Blog(Container):
 
         # get configuration from Sphinx app
         for opt in CONFIG:
-            self.config[opt[0]] = getattr(app.config, opt[0])
-
-        opt = self.config["blog_default_author"]
-        if opt is not None and not isinstance(opt, list):
-            self.config["blog_default_author"] = [opt]
-
-        opt = self.config["blog_default_location"]
-        if opt is not None and not isinstance(opt, list):
-            self.config["blog_default_location"] = [opt]
-
-        opt = self.config["blog_default_language"]
-        if opt is not None and not isinstance(opt, list):
-            self.config["blog_default_language"] = [opt]
+            try:
+                key, _, _, verify_fn = opt
+            except ValueError:
+                key, _, _ = opt
+                verify_fn = None
+            value = (
+                verify_fn(key, getattr(app.config, key), app.config)
+                if verify_fn
+                else getattr(app.config, opt[0])
+            )
+            self.config[opt[0]] = value
 
         # blog catalog contains all posts
         self.blog = Catalog(self, "blog", "blog", None)
@@ -203,10 +229,7 @@ class Blog(Container):
         # e.g. :ref:`blog-posts`
         refs["blog-posts"] = (os_path_join(self.config["blog_path"], "index"), "Posts")
         refs["blog-drafts"] = (os_path_join(self.config["blog_path"], "drafts", "index"), "Drafts")
-        refs["blog-feed"] = (
-            os_path_join(self.config["blog_path"], "atom.xml"),
-            self.blog_title + " Feed",
-        )
+        refs["blog-feed"] = (os_path_join(self.config["blog_path"], "atom.xml"), self.blog_title + " Feed")
 
         # set some internal configuration options
         self.config["fontawesome"] = (
@@ -328,7 +351,7 @@ class BlogPageMixin:
 
     def __repr__(self):
 
-        return str(self) + " <" + text_type(self.docname) + ">"
+        return str(self) + " <" + str(self.docname) + ">"
 
     @property
     def blog(self):
@@ -499,7 +522,7 @@ class Catalog(BlogPageMixin):
 
     def __str__(self):
 
-        return text_type(self.name)
+        return str(self.name)
 
     def __getitem__(self, name):
 
@@ -577,7 +600,7 @@ class Collection(BlogPageMixin):
 
     def __str__(self):
 
-        return text_type(self.name)
+        return str(self.name)
 
     def __len__(self):
 
@@ -589,7 +612,7 @@ class Collection(BlogPageMixin):
 
     def __unicode__(self):
 
-        return text_type(self.name)
+        return str(self.name)
 
     def __iter__(self):
 

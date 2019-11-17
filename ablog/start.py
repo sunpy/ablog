@@ -6,7 +6,6 @@ from os import path
 from textwrap import wrap
 
 from docutils.utils import column_width
-from pkg_resources import DistributionNotFound, get_distribution
 from sphinx.cmd.quickstart import do_prompt, ensuredir, is_path
 from sphinx.util import texescape
 from sphinx.util.console import bold, color_terminal, nocolor
@@ -76,11 +75,10 @@ blog_authors = {
 #    'Earth': ('The Blue Planet', 'https://en.wikipedia.org/wiki/Earth),
 #}
 
-
 # -- Blog Post Related --------------------------------------------------------
 
-# post_date_format = '%%b %%d, %%Y'
-
+# Format date for a post.
+#post_date_format = '%%b %%d, %%Y'
 
 # Number of paragraphs (default is ``1``) that will be displayed as an excerpt
 # from the post. Setting this ``0`` will result in displaying no post excerpt
@@ -152,8 +150,8 @@ html_sidebars = {
 # is ``True``
 
 # Link to `Font Awesome`_ at `Bootstrap CDN`_ and use icons in sidebars
-# and post footers.  Default: ``False``
-fontawesome_link_cdn = True
+# and post footers.  Default: ``None``
+#fontawesome_link_cdn = None
 
 # Sphinx_ theme already links to `Font Awesome`_.  Default: ``False``
 #fontawesome_included = False
@@ -460,9 +458,7 @@ def generate(d, overwrite=True, silent=False):
     d["copyright"] = time.strftime("%Y") + ", " + d["author"]
     d["author_texescaped"] = str(d["author"]).translate(texescape.tex_escape_map)
     d["project_doc"] = d["project"] + " Documentation"
-    d["project_doc_texescaped"] = str(d["project"] + " Documentation").translate(
-        texescape.tex_escape_map
-    )
+    d["project_doc_texescaped"] = str(d["project"] + " Documentation").translate(texescape.tex_escape_map)
 
     # escape backslashes and single quotes in strings that are put into
     # a Python string literal
@@ -557,8 +553,8 @@ def ask_user(d):
     if "path" in d:
         print(bold("Selected root path: %s" % d["path"]))
     else:
-        print("Enter the root path for your blog project.")
-        d["path"] = do_prompt("Root path for your project", ".", is_path)
+        print("Enter the root path for your blog project (path has to exist).")
+        d["path"] = do_prompt("Root path for your project (path has to exist)", ".", is_path)
 
     while path.isfile(path.join(d["path"], "conf.py")) or path.isfile(
         path.join(d["path"], "source", "conf.py")
@@ -567,7 +563,7 @@ def ask_user(d):
         print(bold(w("Error: an existing conf.py has been found in the " "selected root path.")))
         print("ablog start will not overwrite existing Sphinx projects.")
         print("")
-        d["path"] = do_prompt("Please enter a new root path (or just Enter to exit)", "", is_path)
+        d["path"] = do_prompt("Please enter a new root path (or just Enter to exit)", ".", is_path)
         if not d["path"]:
             sys.exit(1)
 
@@ -611,8 +607,7 @@ def ask_user(d):
         print("ablog-start will not overwrite the existing file.")
         print("")
         d["master"] = do_prompt(
-            w("Please enter a new file name, or rename the " "existing file and press Enter"),
-            d["master"],
+            w("Please enter a new file name, or rename the " "existing file and press Enter"), d["master"]
         )
 
     if "blog_baseurl" not in d:

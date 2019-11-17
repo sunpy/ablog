@@ -3,6 +3,13 @@ import sys
 import glob
 import shutil
 import argparse
+import webbrowser
+import socketserver
+from http import server
+
+from invoke import run
+from watchdog.observers import Observer
+from watchdog.tricks import ShellCommandTrick
 
 import ablog
 
@@ -34,9 +41,7 @@ def find_confdir(sourcedir=None):
     if isfile(conf) and "ablog" in open(conf).read():
         return confdir
     else:
-        sys.exit(
-            "Current directory and its parents doesn't " "contain configuration file (conf.py)."
-        )
+        sys.exit("Current directory and its parents doesn't " "contain configuration file (conf.py).")
 
 
 def read_conf(confdir):
@@ -56,11 +61,7 @@ parser = argparse.ArgumentParser(
 )
 
 parser.add_argument(
-    "-v",
-    "--version",
-    help="print ABlog version and exit",
-    action="version",
-    version=ablog.__version__,
+    "-v", "--version", help="print ABlog version and exit", action="version", version=ablog.__version__
 )
 
 
@@ -107,8 +108,7 @@ def arg_website(func):
         "-w",
         dest="website",
         type=str,
-        help="path for website, default is %s when `ablog_website` "
-        "is not set in conf.py" % BUILDDIR,
+        help="path for website, default is %s when `ablog_website` " "is not set in conf.py" % BUILDDIR,
     )
     return func
 
@@ -136,22 +136,10 @@ cmd(
 
 
 @arg("-P", dest="runpdb", action="store_true", default=False, help="run pdb on exception")
-@arg(
-    "-T",
-    dest="traceback",
-    action="store_true",
-    default=False,
-    help="show full traceback on exception",
-)
+@arg("-T", dest="traceback", action="store_true", default=False, help="show full traceback on exception")
 @arg("-W", dest="werror", action="store_true", default=False, help="turn warnings into errors")
 @arg("-N", dest="no_colors", action="store_true", default=False, help="do not emit colored output")
-@arg(
-    "-Q",
-    dest="extra_quiet",
-    action="store_true",
-    default=False,
-    help="no output at all, not even warnings",
-)
+@arg("-Q", dest="extra_quiet", action="store_true", default=False, help="no output at all, not even warnings")
 @arg(
     "-q",
     dest="quiet",
@@ -179,8 +167,7 @@ cmd(
 @cmd(
     name="build",
     help="build your blog project",
-    description="Path options can be set in conf.py. "
-    "Default values of paths are relative to conf.py.",
+    description="Path options can be set in conf.py. " "Default values of paths are relative to conf.py.",
 )
 def ablog_build(
     builder=None,
@@ -240,8 +227,7 @@ def ablog_build(
 @cmd(
     name="clean",
     help="clean your blog build files",
-    description="Path options can be set in conf.py. "
-    "Default values of paths are relative to conf.py.",
+    description="Path options can be set in conf.py. " "Default values of paths are relative to conf.py.",
 )
 def ablog_clean(website=None, doctrees=None, deep=False, **kwargs):
 
@@ -275,37 +261,18 @@ def ablog_clean(website=None, doctrees=None, deep=False, **kwargs):
     default=False,
     help="rebuild when a file matching patterns change or get added",
 )
-@arg(
-    "-n",
-    dest="view",
-    action="store_false",
-    default=True,
-    help="do not open website in a new browser tab",
-)
+@arg("-n", dest="view", action="store_false", default=True, help="do not open website in a new browser tab")
 @arg("-p", dest="port", type=int, default=8000, help="port number for HTTP server; default is 8000")
 @arg_website
 @cmd(
     name="serve",
     help="serve and view your project",
-    description="Serve options can be set in conf.py. "
-    "Default values of paths are relative to conf.py.",
+    description="Serve options can be set in conf.py. " "Default values of paths are relative to conf.py.",
 )
-def ablog_serve(
-    website=None, port=8000, view=True, rebuild=False, patterns="*.rst;*.txt", **kwargs
-):
+def ablog_serve(website=None, port=8000, view=True, rebuild=False, patterns="*.rst;*.txt", **kwargs):
 
     confdir = find_confdir()
     conf = read_conf(confdir)
-
-    try:
-        import SimpleHTTPServer as server
-    except ImportError:
-        from http import server
-        import socketserver
-    else:
-        import SocketServer as socketserver
-
-    import webbrowser
 
     # to allow restarting the server in short succession
     socketserver.TCPServer.allow_reuse_address = True
@@ -322,10 +289,6 @@ def ablog_serve(
     os.chdir(website)
 
     if rebuild:
-
-        # from watchdog.watchmedo import observe_with
-        from watchdog.observers import Observer
-        from watchdog.tricks import ShellCommandTrick
 
         patterns = patterns.split(";")
         ignore_patterns = [os.path.join(website, "*")]
@@ -403,6 +366,7 @@ def ablog_post(filename, title=None, **kwargs):
     type=str,
     help="environment variable name storing GitHub access token",
 )
+@arg("--github-ssh", dest="github_is_http", action="store_true", help="use ssh when cloning website")
 @arg(
     "--push-quietly",
     dest="push_quietly",
@@ -430,8 +394,7 @@ def ablog_post(filename, title=None, **kwargs):
 @cmd(
     name="deploy",
     help="deploy your website build files",
-    description="Path options can be set in conf.py. "
-    "Default values of paths are relative to conf.py.",
+    description="Path options can be set in conf.py. " "Default values of paths are relative to conf.py.",
 )
 def ablog_deploy(
     website,
@@ -440,6 +403,7 @@ def ablog_deploy(
     push_quietly=False,
     push_force=False,
     github_token=None,
+    github_is_http=True,
     repodir=None,
     **kwargs,
 ):
@@ -456,11 +420,6 @@ def ablog_deploy(
         print("Nothing to deploy, build first.")
         return
 
-    try:
-        from invoke import run
-    except ImportError:
-        raise ImportError("invoke is required by deploy command, " "run `pip install invoke`")
-
     if github_pages:
 
         if repodir is None:
@@ -470,9 +429,9 @@ def ablog_deploy(
             run("git pull", echo=True)
         else:
             run(
-                "git clone https://github.com/{0}/{0}.github.io.git {1}".format(
-                    github_pages, repodir
-                ),
+                "git clone "
+                + ("https://github.com/" if github_is_http else "git@github.com:")
+                + "{0}/{0}.github.io.git {1}".format(github_pages, repodir),
                 echo=True,
             )
 
@@ -496,13 +455,16 @@ def ablog_deploy(
 
         os.chdir(repodir)
 
-        run(
-            "git add -f " + " ".join(['"{}"'.format(os.path.relpath(p)) for p in git_add]),
-            echo=True,
-        )
+        run("git add -f " + " ".join(['"{}"'.format(os.path.relpath(p)) for p in git_add]), echo=True)
         if not os.path.isfile(".nojekyll"):
             open(".nojekyll", "w")
             run("git add -f .nojekyll")
+
+        # Check to see if anything has actually been committed
+        result = run("git diff --cached --name-status HEAD")
+        if not result.stdout:
+            print("Nothing changed from last deployment")
+            return
 
         commit = 'git commit -m "{}"'.format(message or "Updates.")
         if push_force:
