@@ -85,7 +85,7 @@ Analytics
 ABlog uses Alabaster_ theme by default. You can use theme options to set
 your `Google Analytics`_ identifier to enable tracking.
 
-.. _Google Analytics: http://www.google.com/analytics/
+.. _Google Analytics: https://www.google.com/analytics/
 
 Configuration
 -------------
@@ -121,5 +121,3 @@ not mention yet. Here they are:
   * :file:`.doctree` folder, created after build command is called, is
     where Sphinx_ stores the state of your project. Files in this folder
     saves time when you rebuild your project.
-
-
