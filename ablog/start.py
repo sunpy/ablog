@@ -6,7 +6,6 @@ from os import path
 from textwrap import wrap
 
 from docutils.utils import column_width
-from pkg_resources import DistributionNotFound, get_distribution
 from sphinx.cmd.quickstart import do_prompt, ensuredir, is_path
 from sphinx.util import texescape
 from sphinx.util.console import bold, color_terminal, nocolor
@@ -460,9 +459,7 @@ def generate(d, overwrite=True, silent=False):
     d["copyright"] = time.strftime("%Y") + ", " + d["author"]
     d["author_texescaped"] = str(d["author"]).translate(texescape.tex_escape_map)
     d["project_doc"] = d["project"] + " Documentation"
-    d["project_doc_texescaped"] = str(d["project"] + " Documentation").translate(
-        texescape.tex_escape_map
-    )
+    d["project_doc_texescaped"] = str(d["project"] + " Documentation").translate(texescape.tex_escape_map)
 
     # escape backslashes and single quotes in strings that are put into
     # a Python string literal
@@ -611,8 +608,7 @@ def ask_user(d):
         print("ablog-start will not overwrite the existing file.")
         print("")
         d["master"] = do_prompt(
-            w("Please enter a new file name, or rename the " "existing file and press Enter"),
-            d["master"],
+            w("Please enter a new file name, or rename the " "existing file and press Enter"), d["master"]
         )
 
     if "blog_baseurl" not in d:

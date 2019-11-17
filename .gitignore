@@ -227,3 +227,4 @@ docs/_website/
 docs/_latex/
 test/
 *.orig
+.history/

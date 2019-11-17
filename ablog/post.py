@@ -3,27 +3,21 @@
 post and postlist directives.
 """
 
-import io
 import os
-import sys
 from string import Formatter
 from datetime import datetime
 
+from dateutil.parser import parse as date_parser
 from docutils import nodes
 from docutils.parsers.rst import Directive, directives
 from docutils.parsers.rst.directives.admonitions import BaseAdmonition
 from sphinx.locale import _
 from sphinx.util.nodes import set_source_info
+from werkzeug.contrib.atom import AtomFeed
 
 import ablog
 
 from .blog import Blog, os_path_join, revise_pending_xrefs, slugify
-
-try:
-    from dateutil.parser import parse as date_parser
-except ImportError:
-    date_parser = None
-
 
 text_type = str
 
@@ -48,15 +42,11 @@ class PostNode(nodes.Element):
     Represent ``post`` directive content and options in document tree.
     """
 
-    pass
-
 
 class PostList(nodes.General, nodes.Element):
     """
     Represent ``postlist`` directive converted to a list of links.
     """
-
-    pass
 
 
 class UpdateNode(nodes.admonition):
@@ -64,15 +54,13 @@ class UpdateNode(nodes.admonition):
     Represent ``update`` directive.
     """
 
-    pass
-
 
 class PostDirective(Directive):
     """
     Handle ``post`` directives.
     """
 
-    def _split(a):
+    def _split(a):  # NOQA
         return [s.strip() for s in (a or "").split(",") if s.strip()]
 
     has_content = True
@@ -130,7 +118,7 @@ class PostListDirective(Directive):
     Handle ``postlist`` directives.
     """
 
-    def _split(a):
+    def _split(a):  # NOQA
         return {s.strip() for s in a.split(",")}
 
     has_content = False
@@ -215,9 +203,9 @@ def _get_update_dates(section, docname, post_date_format):
                     raise ValueError("invalid post date in: " + docname)
             else:
                 raise ValueError(
-                    "invalid post date (%s) in " % (date)
+                    f"invalid post date ({update_node['date']}) in "
                     + docname
-                    + ". Expected format: %s" % post_date_format
+                    + f". Expected format: {post_date_format}"
                 )
         # Insert a new title element which contains the `Updated on {date}` logic.
         substitute = nodes.title("", "Updated on " + update.strftime(post_date_format))
@@ -382,19 +370,19 @@ def process_posts(app, doctree):
         # instantiate catalogs and collections here
         #  so that references are created and no warnings are issued
         if app.builder.format == "html":
-            stdlabel = env.domains["std"].data["labels"]
+            stdlabel = env.domains["std"].data["labels"]  # NOQA
         else:
-            stdlabel = env.intersphinx_inventory.setdefault("std:label", {})
-            baseurl = getattr(env.config, "blog_baseurl").rstrip("/") + "/"
-            project, version = env.config.project, text_type(env.config.version)
+            stdlabel = env.intersphinx_inventory.setdefault("std:label", {})  # NOQA
+            baseurl = getattr(env.config, "blog_baseurl").rstrip("/") + "/"  # NOQA
+            project, version = env.config.project, text_type(env.config.version)  # NOQA
 
         for key in ["tags", "author", "category", "location", "language"]:
             catalog = blog.catalogs[key]
             for label in postinfo[key]:
-                coll = catalog[label]
+                coll = catalog[label]  # NOQA
 
         if postinfo["date"]:
-            coll = blog.archive[postinfo["date"].year]
+            coll = blog.archive[postinfo["date"].year]  # NOQA
 
 
 def process_postlist(app, doctree, docname):
@@ -545,13 +533,7 @@ def generate_archive_pages(app):
         if not catalog:
             continue
 
-        context = {
-            "parents": [],
-            "title": title,
-            "header": header,
-            "catalog": catalog,
-            "summary": True,
-        }
+        context = {"parents": [], "title": title, "header": header, "catalog": catalog, "summary": True}
         if catalog.docname not in found_docs:
             yield (catalog.docname, context, "catalog.html")
 
@@ -607,12 +589,6 @@ def generate_atom_feeds(app):
     url = blog.blog_baseurl
     if not url:
         raise StopIteration
-
-    try:
-        from werkzeug.contrib.atom import AtomFeed
-    except ImportError:
-        app.warn("werkzeug is not found, continue without atom feeds support.")
-        return
 
     feed_path = os.path.join(app.builder.outdir, blog.blog_path, "atom.xml")
 

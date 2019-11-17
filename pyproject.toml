@@ -3,7 +3,7 @@ requires = ["setuptools", "setuptools_scm", "wheel"]
 build-backend = 'setuptools.build_meta'
 
 [tool.black]
-line-length = 100
+line-length = 110
 include = '\.pyi?$'
 exclude = '''
 (
@@ -19,6 +19,7 @@ exclude = '''
     | dist
     | astropy_helpers
     | docs
+    | .history
   )/
   | ah_bootstrap.py
 )

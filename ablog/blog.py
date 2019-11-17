@@ -5,32 +5,17 @@ Classes for handling posts and archives.
 
 import os
 import re
-import sys
 import datetime as dtmod
 from datetime import datetime
+from urlparse import urljoin
 from unicodedata import normalize
+from collections.abc import Container
 
 from docutils import nodes
 from docutils.io import StringOutput
 from docutils.utils import new_document
 from sphinx import addnodes
 from sphinx.util.osutil import relative_uri
-
-try:
-    from urlparse import urljoin
-except ImportError:
-    from urllib.parse import urljoin
-
-
-if sys.version_info >= (3, 0):
-    text_type = str
-    re_flag = 0
-elif sys.version_info < (2, 7):
-    text_type = unicode
-    re_flag = None
-else:
-    text_type = unicode
-    re_flag = re.UNICODE
 
 __all__ = ["Blog", "Post", "Collection"]
 
@@ -40,15 +25,9 @@ def slugify(string):
     Slugify *s*.
     """
 
-    string = text_type(string)
     string = normalize("NFKD", string)
-
-    if re_flag is None:
-        string = re.sub(r"[^\w\s-]", "", string).strip().lower()
-        return re.sub(r"[-\s]+", "-", string)
-    else:
-        string = re.sub(r"[^\w\s-]", "", string, flags=re_flag).strip().lower()
-        return re.sub(r"[-\s]+", "-", string, flags=re_flag)
+    string = re.sub(r"[^\w\s-]", "", string).strip().lower()
+    return re.sub(r"[-\s]+", "-", string)
 
 
 def os_path_join(path, *paths):
@@ -64,9 +43,7 @@ def require_config_type(type_, is_optional=True):
         # so accept them both.
         if value is False and is_optional:
             return None
-        raise ConfigError(
-            key + " must be a " + type_.__name__ + (" or omitted" if is_optional else "")
-        )
+        raise KeyError(key + " must be a " + type_.__name__ + (" or omitted" if is_optional else ""))
 
     return verify_fn
 
@@ -83,12 +60,12 @@ def require_config_str_or_list_lookup(lookup_config_key, is_optional=True):
         if isinstance(value, str):
             value = [value]
         if not isinstance(value, list):
-            raise ConfigError(key + " must be a str or list")
+            raise KeyError(key + " must be a str or list")
 
         allowed_values = config[lookup_config_key]
         for v in value:
             if v not in allowed_values:
-                raise ConfigError(str(v) + "must be a key of " + lookup_config_key)
+                raise KeyError(str(v) + "must be a key of " + lookup_config_key)
         return value
 
     return verify_fn
@@ -103,12 +80,10 @@ def require_config_full_name_link_dict(is_link_optional=True):
     def verify_fn(key, value, config):
         for full_name, link in value.values():
             if not isinstance(full_name, str):
-                raise ConfigError(key + " must have full name entries that are strings")
+                raise KeyError(key + " must have full name entries that are strings")
             is_link_valid = isinstance(link, str) or (is_link_optional and link is None)
             if not is_link_valid:
-                raise ConfigError(
-                    key + " links must be a string" + (" or omitted" if is_link_optional else "")
-                )
+                raise KeyError(key + " links must be a string" + (" or omitted" if is_link_optional else ""))
         return value
 
     return verify_fn
@@ -117,10 +92,10 @@ def require_config_full_name_link_dict(is_link_optional=True):
 DEBUG = True
 CONFIG = [
     # name, default, rebuild, verify_fn
-    # where verify_fn is (key, value, app.config) --> value, throwing a ConfigError if the value isn't right
+    # where verify_fn is (key, value, app.config) --> value, throwing a KeyError if the value isn't right
     ("blog_path", "blog", True, require_config_type(str)),
     ("blog_title", "Blog", True, require_config_type(str)),
-    ("blog_baseurl", None, True, require_config_type(str)),
+    ("blog_baseurl", "", True, require_config_type(str)),
     ("blog_archive_titles", None, False, require_config_type(bool)),
     ("blog_feed_archives", False, True),
     ("blog_feed_fulltext", False, True),
@@ -157,12 +132,6 @@ def revise_pending_xrefs(doctree, docname):
 
     for node in doctree.traverse(addnodes.pending_xref):
         node["refdoc"] = docname
-
-
-try:
-    from collections.abc import Container
-except ImportError:
-    from collections import Container
 
 
 def link_posts(posts):
@@ -259,10 +228,7 @@ class Blog(Container):
         # e.g. :ref:`blog-posts`
         refs["blog-posts"] = (os_path_join(self.config["blog_path"], "index"), "Posts")
         refs["blog-drafts"] = (os_path_join(self.config["blog_path"], "drafts", "index"), "Drafts")
-        refs["blog-feed"] = (
-            os_path_join(self.config["blog_path"], "atom.xml"),
-            self.blog_title + " Feed",
-        )
+        refs["blog-feed"] = (os_path_join(self.config["blog_path"], "atom.xml"), self.blog_title + " Feed")
 
         # set some internal configuration options
         self.config["fontawesome"] = (

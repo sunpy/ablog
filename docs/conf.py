@@ -1,6 +1,4 @@
-import os
 import re
-import sys
 
 import alabaster
 from pkg_resources import get_distribution
