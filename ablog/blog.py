@@ -7,8 +7,8 @@ import os
 import re
 import datetime as dtmod
 from datetime import datetime
-from urlparse import urljoin
 from unicodedata import normalize
+from urllib.parse import urljoin
 from collections.abc import Container
 
 from docutils import nodes
@@ -25,7 +25,7 @@ def slugify(string):
     Slugify *s*.
     """
 
-    string = normalize("NFKD", string)
+    string = normalize("NFKD", str(string))
     string = re.sub(r"[^\w\s-]", "", string).strip().lower()
     return re.sub(r"[-\s]+", "-", string)
 
@@ -108,11 +108,12 @@ CONFIG = [
     ("blog_default_location", None, True, require_config_str_or_list_lookup("blog_locations")),
     ("blog_languages", {}, True, require_config_full_name_link_dict()),
     ("blog_default_language", None, True, require_config_str_or_list_lookup("blog_languages")),
-    ("fontawesome_link_cdn", False, True, require_config_type(str)),
+    ("fontawesome_link_cdn", None, True),
     ("fontawesome_included", False, True, require_config_type(bool)),
     ("fontawesome_css_file", "", True, require_config_type(str)),
-    ("post_date_format", "%d %B %Y", True),
-    ("post_date_format_short", "%d %B", True),
+    ("post_date_format", "%d %B %Y", True, require_config_type(str)),
+    ("post_date_format_short", "%d %B", True, require_config_type(str)),
+    ("post_auto_orphan", True, True, require_config_type(bool)),
     ("post_auto_image", 0, True),
     ("post_auto_excerpt", 1, True),
     ("post_redirect_refresh", 5, True),
@@ -350,7 +351,7 @@ class BlogPageMixin:
 
     def __repr__(self):
 
-        return str(self) + " <" + text_type(self.docname) + ">"
+        return str(self) + " <" + str(self.docname) + ">"
 
     @property
     def blog(self):
@@ -521,7 +522,7 @@ class Catalog(BlogPageMixin):
 
     def __str__(self):
 
-        return text_type(self.name)
+        return str(self.name)
 
     def __getitem__(self, name):
 
@@ -599,7 +600,7 @@ class Collection(BlogPageMixin):
 
     def __str__(self):
 
-        return text_type(self.name)
+        return str(self.name)
 
     def __len__(self):
 
@@ -611,7 +612,7 @@ class Collection(BlogPageMixin):
 
     def __unicode__(self):
 
-        return text_type(self.name)
+        return str(self.name)
 
     def __iter__(self):
 

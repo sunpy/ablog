@@ -75,11 +75,10 @@ blog_authors = {
 #    'Earth': ('The Blue Planet', 'https://en.wikipedia.org/wiki/Earth),
 #}
 
-
 # -- Blog Post Related --------------------------------------------------------
 
-# post_date_format = '%%b %%d, %%Y'
-
+# Format date for a post.
+#post_date_format = '%%b %%d, %%Y'
 
 # Number of paragraphs (default is ``1``) that will be displayed as an excerpt
 # from the post. Setting this ``0`` will result in displaying no post excerpt
@@ -151,8 +150,8 @@ html_sidebars = {
 # is ``True``
 
 # Link to `Font Awesome`_ at `Bootstrap CDN`_ and use icons in sidebars
-# and post footers.  Default: ``False``
-fontawesome_link_cdn = True
+# and post footers.  Default: ``None``
+#fontawesome_link_cdn = None
 
 # Sphinx_ theme already links to `Font Awesome`_.  Default: ``False``
 #fontawesome_included = False
