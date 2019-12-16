@@ -588,7 +588,7 @@ def generate_atom_feeds(app):
 
     url = blog.blog_baseurl
     if not url:
-        raise StopIteration
+        return
 
     feed_path = os.path.join(app.builder.outdir, blog.blog_path, "atom.xml")
 
