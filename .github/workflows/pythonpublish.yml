@@ -22,5 +22,5 @@ jobs:
         TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
         TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
       run: |
-        python -m pep517.build --binary --out-dir wheelhouse .
+        python -m pep517.build --binary --source --out-dir wheelhouse .
         python -m twine upload --skip-existing wheelhouse/*
