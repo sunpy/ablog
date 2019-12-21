@@ -54,7 +54,6 @@ jobs:
     docker:
       - image: continuumio/miniconda3
     steps:
-
       - checkout
       - run: *apt-install
       - run: *docs-install
@@ -83,7 +82,6 @@ workflows:
   documentation:
     jobs:
       - html-docs
-
 
 notify:
   webhooks:
