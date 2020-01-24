@@ -11,12 +11,12 @@ website project into a full-fledged blog with:
   * `Font-Awesome integration`_
   * `Easy GitHub Pages deploys`_
 
-.. _Atom feeds: https://ablog.readthedocs.org/blog/atom.xml
-.. _Archive pages: https://ablog.readthedocs.org/blog/
-.. _Blog sidebars: https://ablog.readthedocs.org/manual/ablog-configuration-options/#sidebars
-.. _Disqus integration: https://ablog.readthedocs.org/manual/ablog-configuration-options/#disqus-integration
-.. _Font-Awesome integration: https://ablog.readthedocs.org/manual/ablog-configuration-options/#fa
-.. _Easy GitHub Pages deploys: https://ablog.readthedocs.org/manual/deploy-to-github-pages/
+.. _Atom feeds: https://ablog.readthedocs.io/blog/atom.xml
+.. _Archive pages: https://ablog.readthedocs.io/blog/archive.html
+.. _Blog sidebars: https://ablog.readthedocs.io/manual/ablog-configuration-options.html#blog-sidebars
+.. _Disqus integration: https://ablog.readthedocs.io/manual/ablog-configuration-options.html#disqus-integration
+.. _Font-Awesome integration: https://ablog.readthedocs.io/manual/ablog-configuration-options.html#fa
+.. _Easy GitHub Pages deploys: https://ablog.readthedocs.io/manual/auto-github-pages-deploys.html
 
 .. _installation:
 
@@ -32,11 +32,11 @@ Werkzeug_, Invoke_, dateutil_ respectively required for building your website,
 making it look good, generating feeds, running deploy commands, and parsing
 dates.
 
-.. _pip: https://pip.pypa.io
-.. _Werkzeug: https://werkzeug.pocoo.org/
+.. _pip: https://pip.pypa.io/en/stable/
+.. _Werkzeug: https://www.palletsprojects.com/p/werkzeug/
 .. _Alabaster: https://github.com/bitprophet/alabaster
 .. _Invoke: https://www.pyinvoke.org/
-.. _dateutil: https://pypi.python.org/pypi/python-dateutil
+.. _dateutil: https://pypi.org/project/python-dateutil/
 
 Getting Started
 ---------------
@@ -62,7 +62,7 @@ If you already have a project, enable blogging by making following changes in ``
   # 2b. if `templates_path` is defined
   templates_path.append(ablog.get_html_templates_path())
 
-.. _ABlog Quick Start: https://ablog.readthedocs.org/manual/ablog-quick-start
+.. _ABlog Quick Start: https://ablog.readthedocs.io/manual/ablog-quick-start.html
 
 
 How it works
@@ -73,7 +73,7 @@ you might find `reStructuredText Primer`_ useful. Once you have
 content (in ``.rst`` files), you can post *any page* using the
 :rst:dir:`post` directive as follows:
 
-.. _reStructuredText Primer: http://sphinx-doc.org/rest.html
+.. _reStructuredText Primer: http://www.sphinx-doc.org/en/master/
 
 .. code-block:: rst
 
