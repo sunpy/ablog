@@ -7,7 +7,7 @@ apt-run: &apt-install
 docs-install: &docs-install
   name: Install Python dependencies
   command: |
-    pip install werkzeug sphinx alabaster invoke python-dateutil sphinx-automodapi nbsphinx ipython
+    pip install werkzeug==0.16.1 sphinx alabaster invoke python-dateutil sphinx-automodapi nbsphinx==0.4.3 ipython
 
 version: 2
 jobs:

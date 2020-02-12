@@ -20,7 +20,7 @@ env:
   global:
     - LOCALE=default
     - CONDA_CHANNELS="conda-forge"
-    - CONDA_DEPENDENCIES="sphinx werkzeug alabaster invoke graphviz nbsphinx"
+    - CONDA_DEPENDENCIES="sphinx werkzeug==0.16.1 alabaster invoke graphviz nbsphinx==0.4.3"
     - PIP_DEPENDENCIES="sphinx-automodapi"
 
 install:

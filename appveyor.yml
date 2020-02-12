@@ -29,7 +29,7 @@ install:
     - cmd: conda update conda --quiet
     - cmd: conda config --add channels conda-forge
     - cmd: conda config --set channel_priority strict
-    - cmd: conda install sphinx werkzeug alabaster invoke graphviz nbsphinx --quiet
+    - cmd: conda install sphinx werkzeug==0.16.1 alabaster invoke graphviz nbsphinx==0.4.3 --quiet
     - cmd: python -m pip install --upgrade pip
     - cmd: pip install -e .[all]
 
