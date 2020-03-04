@@ -23,6 +23,6 @@ test4:
 	set -e; mkdir -p test; cd test; printf "\nABlog\nABlog Team\nhttps://ablog.readthedocs.org" | ablog start; ablog build; cd ..; rm -rf test
 
 test5:
-	set -e; mkdir -p testablog; printf "testablog\nABlog\nABlog Team\nhttps://ablog.readthedocs.org" | ablog start; cd testablog; ablog build; cd ../..; rm -rf test
+	set -e; mkdir -p testablog; printf "testablog\nABlog\nABlog Team\nhttps://ablog.readthedocs.org" | ablog start; cd testablog; ablog build; cd ..; rm -rf testablog
 
 tests: test test1 test2 test3 test4 test5
