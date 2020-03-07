@@ -65,10 +65,11 @@ If you already have a project, enable blogging by making following changes in ``
 
 .. code-block:: python
 
-  # 1. Add 'ablog' to list of extensions
+  # 1. Add 'ablog' and 'sphinx.ext.intersphinx' to the list of extensions
   extensions = [
       '...',
-      'ablog'
+      'ablog',
+      'sphinx.ext.intersphinx',
   ]
 
   # 2. Add ablog templates path
