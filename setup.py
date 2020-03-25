@@ -17,4 +17,9 @@ ex_extras = dict(filter(lambda i: i[0] not in exclude_keys, extras.items()))
 # Concatenate all the values together for 'all'
 extras["all"] = list(chain.from_iterable(ex_extras.values()))
 
-setup(extras_require=extras, use_scm_version=True)
+setup(extras_require=extras, use_scm_version=True, message_extractors={
+    'ablog': [
+        ('**.py', 'python', None),
+        ('templates/**.html', 'jinja2', None),
+    ],
+})
