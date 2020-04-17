@@ -360,6 +360,13 @@ def ablog_post(filename, title=None, **kwargs):
         print("Blog post created: %s" % filename)
 
 
+@arg("--github-url",
+     dest = "github_url",
+     type = str,
+     default = "git@github.com",
+     help = "Custom GitHub URL. Useful when multiple accounts are configured "
+     "on the same machine. Default is: git@github.com"
+)
 @arg(
     "--github-token",
     dest="github_token",
@@ -404,6 +411,7 @@ def ablog_deploy(
     push_force=False,
     github_token=None,
     github_is_http=True,
+    github_url=None,
     repodir=None,
     **kwargs,
 ):
@@ -412,6 +420,9 @@ def ablog_deploy(
     conf = read_conf(confdir)
 
     github_pages = github_pages or getattr(conf, "github_pages", None)
+
+    github_url = github_url or getattr(conf, "github_url", None)
+    github_url += ":"
 
     website = website or os.path.join(confdir, getattr(conf, "ablog_builddir", "_website"))
 
@@ -430,7 +441,7 @@ def ablog_deploy(
         else:
             run(
                 "git clone "
-                + ("https://github.com/" if github_is_http else "git@github.com:")
+                + ("https://github.com/" if github_is_http else github_url) # "git@github.com-mczakot:")
                 + "{0}/{0}.github.io.git {1}".format(github_pages, repodir),
                 echo=True,
             )
