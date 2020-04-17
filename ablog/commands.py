@@ -441,7 +441,7 @@ def ablog_deploy(
         else:
             run(
                 "git clone "
-                + ("https://github.com/" if github_is_http else github_url) # "git@github.com-mczakot:")
+                + ("https://github.com/" if github_is_http else github_url)
                 + "{0}/{0}.github.io.git {1}".format(github_pages, repodir),
                 echo=True,
             )
