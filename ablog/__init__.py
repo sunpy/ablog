@@ -71,6 +71,7 @@ def setup(app):
     app.add_directive("post", PostDirective)
     app.add_directive("postlist", PostListDirective)
 
+    app.connect("config-inited", config_inited)
     app.connect("doctree-read", process_posts)
 
     app.connect("env-purge-doc", purge_posts)
@@ -92,6 +93,10 @@ def setup(app):
     app.config.locale_dirs.append(locale_dir)
 
     return {"version": __version__}  # identifies the version of our extension
+
+
+def config_inited(app, config):
+    app.config.templates_path.append(get_html_templates_path())
 
 
 def get_html_templates_path():
