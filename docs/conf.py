@@ -56,8 +56,6 @@ html_favicon = "_static/ablog.ico"
 
 # ABLOG
 
-templates_path = [ablog.get_html_templates_path()]
-
 blog_title = "ABlog"
 blog_baseurl = "https://ablog.readthedocs.org"
 blog_locations = {
