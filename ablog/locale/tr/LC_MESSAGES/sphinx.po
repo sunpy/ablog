@@ -113,4 +113,3 @@ msgstr "Sonraki"
 #: ablog/templates/recentposts.html:2
 msgid "Recent Posts"
 msgstr "Yeni Yazılar"
-

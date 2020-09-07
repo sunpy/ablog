@@ -4,7 +4,6 @@ import alabaster
 from pkg_resources import get_distribution
 from sphinx import addnodes
 
-import ablog
 
 ablog_builder = "dirhtml"
 ablog_website = "_website"
@@ -26,17 +25,17 @@ extensions = [
 # language = 'tr'
 # PROJECT
 
-versionmod = get_distribution('ablog')
+versionmod = get_distribution("ablog")
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 # The short X.Y version.
-version = '.'.join(versionmod.version.split('.')[:3])
+version = ".".join(versionmod.version.split(".")[:3])
 # The full version, including alpha/beta/rc tags.
-release = versionmod.version.split('+')[0]
+release = versionmod.version.split("+")[0]
 # Is this version a development release
-is_development = '.dev' in release
+is_development = ".dev" in release
 
 project = "ABlog"
 copyright = "2014-2019, ABlog Team"

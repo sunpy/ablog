@@ -40,4 +40,3 @@ to be discussed as well, but you don't want a draft to be discussed before
 it is published.  By adding :rst:dir:`post` directive without published date
 and keeping configuration variable :confval:`disqus_drafts` as ``False``,
 you can achieve that.
-

@@ -118,4 +118,3 @@ msgstr "Suivant"
 #: ablog/templates/recentposts.html:2
 msgid "Recent Posts"
 msgstr "Billets récents"
-

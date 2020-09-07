@@ -118,4 +118,3 @@ msgstr "下一篇"
 #: ablog/templates/recentposts.html:2
 msgid "Recent Posts"
 msgstr "最近文章"
-

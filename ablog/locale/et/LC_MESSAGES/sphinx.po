@@ -113,4 +113,3 @@ msgstr "Järgmine"
 #: ablog/templates/recentposts.html:2
 msgid "Recent Posts"
 msgstr "Viimased postitused"
-

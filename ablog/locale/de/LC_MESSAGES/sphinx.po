@@ -113,4 +113,3 @@ msgstr "Nächste"
 #: ablog/templates/recentposts.html:2
 msgid "Recent Posts"
 msgstr "Neue Einträge"
-

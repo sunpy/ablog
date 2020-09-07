@@ -360,12 +360,13 @@ def ablog_post(filename, title=None, **kwargs):
         print("Blog post created: %s" % filename)
 
 
-@arg("--github-url",
-     dest = "github_url",
-     type = str,
-     default = "git@github.com",
-     help = "Custom GitHub URL. Useful when multiple accounts are configured "
-     "on the same machine. Default is: git@github.com"
+@arg(
+    "--github-url",
+    dest="github_url",
+    type=str,
+    default="git@github.com",
+    help="Custom GitHub URL. Useful when multiple accounts are configured "
+    "on the same machine. Default is: git@github.com",
 )
 @arg(
     "--github-token",
