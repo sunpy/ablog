@@ -54,14 +54,6 @@ If you already have a project, enable blogging by making following changes in ``
       'sphinx.ext.intersphinx',
   ]
 
-  # 2. Add ablog templates path
-  import ablog
-
-  # 2a. if `templates_path` is not defined
-  templates_path = [ablog.get_html_templates_path()]
-
-  # 2b. if `templates_path` is defined
-  templates_path.append(ablog.get_html_templates_path())
 
 .. _ABlog Quick Start: https://ablog.readthedocs.io/manual/ablog-quick-start.html
 
