@@ -16,6 +16,8 @@ env:
 
   global:
     - LOCALE=default
+    - CONDA_CHANNELS="conda-forge"
+    - CONDA_DEPENDENCIES="pandoc"
 
 install:
     - git clone git://github.com/astropy/ci-helpers.git
