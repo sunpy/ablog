@@ -20,7 +20,7 @@ env:
 install:
     - git clone git://github.com/astropy/ci-helpers.git
     - source ci-helpers/travis/setup_conda.sh
-    - pip install -e .[all]
+    - pip install -e .[all,docs]
 
 script:
     - make tests
