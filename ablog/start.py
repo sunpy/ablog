@@ -19,8 +19,8 @@ def w(t, ls=80):
 
 __all__ = ["generate", "ask_user", "ablog_start"]
 
-ABLOG_CONF = "#!/usr/bin/env python3\n"
-ABLOG_CONF += """# -*- coding: utf-8 -*-
+ABLOG_CONF = "#!/usr/bin/env python\n"
+ABLOG_CONF += """
 
 # %(project)s build configuration file, created by
 # `ablog start` on %(now)s.
