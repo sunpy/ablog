@@ -46,7 +46,7 @@ def builder_support(builder):
         builder = builder.builder
 
     not_supported = {"json", "pickle"}
-    return builder.format == "html" and not builder.name in not_supported
+    return builder.format == "html" and builder.name not in not_supported
 
 
 def html_page_context(app, pagename, templatename, context, doctree):

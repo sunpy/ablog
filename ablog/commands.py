@@ -26,7 +26,7 @@ def find_confdir(sourcedir=None):
     Return path to current directory or its parent that contains conf.py.
     """
 
-    from os.path import isfile, join, abspath
+    from os.path import join, isfile, abspath
 
     confdir = sourcedir or os.getcwd()
 
@@ -334,8 +334,8 @@ def ablog_post(filename, title=None, **kwargs):
    :category:
 
 """
-    from datetime import date
     from os import path
+    from datetime import date
 
     # Generate basic post params.
     today = date.today()

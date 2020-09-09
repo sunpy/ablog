@@ -24,10 +24,8 @@ for details.
 Archive pages
 -------------
 
-
 Archive pages, on the other hand, can be cross-referenced by combining
 archive type and archive name as follows:
-
 
 ==============  ==========================  ===============================
 Archive         Example                     reStructured Text

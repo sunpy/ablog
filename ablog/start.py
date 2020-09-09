@@ -1,7 +1,6 @@
 import sys
 import time
 import datetime
-from io import open
 from os import path
 from textwrap import wrap
 
@@ -13,12 +12,15 @@ from sphinx.util.osutil import make_filename
 
 from .version import version as __version__
 
-w = lambda t, ls=80: "\n".join(wrap(t, ls))
+
+def w(t, ls=80):
+    return "\n".join(wrap(t, ls))
+
 
 __all__ = ["generate", "ask_user", "ablog_start"]
 
-ABLOG_CONF = "#!/usr/bin/env python3\n"
-ABLOG_CONF += """# -*- coding: utf-8 -*-
+ABLOG_CONF = "#!/usr/bin/env python\n"
+ABLOG_CONF += """
 
 # %(project)s build configuration file, created by
 # `ablog start` on %(now)s.
@@ -528,9 +530,7 @@ def ask_user(d):
     Borrowed from Sphinx 1.3b3.
 
     Ask the user for quickstart values missing from *d*.
-
     Values are:
-
     * path:      root path
     * project:   project name
     * author:    author names
