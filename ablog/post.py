@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 """
 post and postlist directives.
 """
-
 import os
+import logging
 from string import Formatter
 from datetime import datetime
 
@@ -11,9 +10,9 @@ from dateutil.parser import parse as date_parser
 from docutils import nodes
 from docutils.parsers.rst import Directive, directives
 from docutils.parsers.rst.directives.admonitions import BaseAdmonition
+from feedgen.feed import FeedGenerator
 from sphinx.locale import _
 from sphinx.util.nodes import set_source_info
-from werkzeug.contrib.atom import AtomFeed
 
 import ablog
 
@@ -474,8 +473,8 @@ def process_postlist(app, doctree, docname):
 
 
 def missing_reference(app, env, node, contnode):
-
     target = node["reftarget"]
+    logging.warning(f"error, missing reference: {target}, {contnode}")
     return _missing_reference(app, target, node.get("refdoc"), contnode, node.get("refexplicit"))
 
 
@@ -637,14 +636,15 @@ def generate_atom_feeds(app):
 
     for feed_posts, pagename, feed_path, feed_title, feed_url in feeds:
 
-        feed = AtomFeed(
-            feed_title,
-            title_type="text",
-            url=url,
-            feed_url=feed_url,
-            subtitle=blog.blog_feed_subtitle,
-            generator=("ABlog", "https://ablog.readthedocs.org", ablog.__version__),
-        )
+        feed = FeedGenerator()
+        feed.id("http://lernfunk.de/media/654321")
+        feed.title(feed_title)
+        feed.link(href=url)
+        feed.subtitle(blog.blog_feed_subtitle)
+        feed.link(href=feed_url)
+        feed.language("en")
+        feed.generator("ABlog", ablog.__version__, "https://ablog.readthedocs.org")
+
         for i, post in enumerate(feed_posts):
             if feed_length and i == feed_length:
                 break
@@ -656,28 +656,23 @@ def generate_atom_feeds(app):
                 content = None
             else:
                 content = post.to_html(pagename, fulltext=feed_fulltext)
-            feed.add(
-                post.title,
-                content=content,
-                title_type="text",
-                content_type="html",
-                author=", ".join(a.name for a in post.author),
-                url=post_url,
-                id=post_url,
-                updated=post.update,
-                published=post.date,
-            )
+
+            feed_entry = feed.add_entry()
+            feed_entry.id(post_url)
+            feed_entry.title(post.title)
+            feed_entry.link(href=post_url)
+            feed_entry.author({"name": author.name for author in post.author})
+            feed_entry.pubDate(post.date.astimezone())
+            feed_entry.updated(post.update.astimezone())
+            feed_entry.content(content=content, type="html")
 
         parent_dir = os.path.dirname(feed_path)
         if not os.path.isdir(parent_dir):
             os.makedirs(parent_dir)
 
         with open(feed_path, "w", encoding="utf-8") as out:
-            feed_str = feed.to_string()
-            try:
-                out.write(feed_str.encode("utf-8"))
-            except TypeError:
-                out.write(feed_str)
+            feed_str = feed.atom_str(pretty=True)
+            out.write(feed_str.decode())
 
     if 0:
         # this is to make the function a generator

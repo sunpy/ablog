@@ -23,20 +23,17 @@ website project into a full-fledged blog with:
 Installation
 ------------
 
-You can install ABlog using pip_::
+You can install ABlog using `pip <https://pip.pypa.io/en/stable/>`__::
 
     pip install -U ablog
 
-This will also install `Sphinx <http://sphinx-doc.org/>`_, Alabaster_,
-Werkzeug_, Invoke_, dateutil_ respectively required for building your website,
-making it look good, generating feeds, running deploy commands, and parsing
-dates.
+or `miniconda <https://docs.conda.io/en/latest/miniconda.html>`__::
 
-.. _pip: https://pip.pypa.io/en/stable/
-.. _Werkzeug: https://www.palletsprojects.com/p/werkzeug/
-.. _Alabaster: https://github.com/bitprophet/alabaster
-.. _Invoke: https://www.pyinvoke.org/
-.. _dateutil: https://pypi.org/project/python-dateutil/
+    conda config --add channels conda-forge
+    conda config --set channel_priority strict
+    conda install ablog
+
+This will also install `Sphinx <http://sphinx-doc.org/>`__, `feedgen <https://github.com/lkiesow/python-feedgen>`__, and `Invoke <https://www.pyinvoke.org/>`__ respectively required for building your website, making it look good, generating feeds, and running deploy commands.
 
 Getting Started
 ---------------
@@ -56,7 +53,6 @@ If you already have a project, enable blogging by making following changes in ``
 
 
 .. _ABlog Quick Start: https://ablog.readthedocs.io/manual/ablog-quick-start.html
-
 
 How it works
 ------------

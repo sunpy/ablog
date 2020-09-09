@@ -4,7 +4,6 @@ import alabaster
 from pkg_resources import get_distribution
 from sphinx import addnodes
 
-
 ablog_builder = "dirhtml"
 ablog_website = "_website"
 
@@ -108,7 +107,7 @@ html_theme_options = {
 
 intersphinx_mapping = {
     "python": ("https://docs.python.org/", None),
-    "sphinx": ("http://www.sphinx-doc.org/en/latest/", None),
+    "sphinx": ("https://www.sphinx-doc.org/en/master/", None),
 }
 
 extlinks = {

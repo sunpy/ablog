@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Classes for handling posts and archives.
 """
@@ -50,8 +49,9 @@ def require_config_type(type_, is_optional=True):
 
 def require_config_str_or_list_lookup(lookup_config_key, is_optional=True):
     """
-    The default values can be a string or list of strings that match entries in a comprehensive
-    list -- for example, the default authors are one or more of all the authors.
+    The default values can be a string or list of strings that match entries in
+    a comprehensive list -- for example, the default authors are one or more of
+    all the authors.
     """
 
     def verify_fn(key, value, config):
@@ -633,7 +633,9 @@ class Collection(BlogPageMixin):
 
     @property
     def catalog(self):
-        """:class:`~ablog.blog.Catalog` that the collection belongs to."""
+        """
+        :class:`~ablog.blog.Catalog` that the collection belongs to.
+        """
 
         return self._catalog
 

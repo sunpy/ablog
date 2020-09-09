@@ -7,21 +7,15 @@ sudo: false
 
 env:
   matrix:
-    - PYTHON_VERSION=3.6 SPHINX_VERSION=2.0
-    - PYTHON_VERSION=3.6 SPHINX_VERSION=2.1
-    - PYTHON_VERSION=3.6 SPHINX_VERSION=2.2
-
-    - PYTHON_VERSION=3.7 SPHINX_VERSION=2.0
-    - PYTHON_VERSION=3.7 SPHINX_VERSION=2.1
-    - PYTHON_VERSION=3.7 SPHINX_VERSION=2.2
-
-    - PYTHON_VERSION=3.8 SPHINX_VERSION=2.2
+    - PYTHON_VERSION=3.6 SPHINX_VERSION=2.4
+    - PYTHON_VERSION=3.6 SPHINX_VERSION=3.2
+    - PYTHON_VERSION=3.7 SPHINX_VERSION=2.4
+    - PYTHON_VERSION=3.7 SPHINX_VERSION=3.2
+    - PYTHON_VERSION=3.8 SPHINX_VERSION=2.4
+    - PYTHON_VERSION=3.8 SPHINX_VERSION=3.2
 
   global:
     - LOCALE=default
-    - CONDA_CHANNELS="conda-forge"
-    - CONDA_DEPENDENCIES="sphinx werkzeug==0.16.1 alabaster invoke graphviz nbsphinx==0.4.3"
-    - PIP_DEPENDENCIES="sphinx-automodapi"
 
 install:
     - git clone git://github.com/astropy/ci-helpers.git
