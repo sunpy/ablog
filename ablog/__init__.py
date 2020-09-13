@@ -3,6 +3,7 @@ ABlog for Sphinx.
 """
 
 import os
+from glob import glob
 
 from .blog import CONFIG, Blog
 from .post import (
@@ -16,6 +17,7 @@ from .post import (
     process_postlist,
     process_posts,
     purge_posts,
+    CheckFrontMatter,
 )
 from .version import version as __version__
 
@@ -81,6 +83,7 @@ def setup(app):
     app.connect("html-collect-pages", generate_atom_feeds)
     app.connect("html-page-context", html_page_context)
 
+    app.add_transform(CheckFrontMatter)
     app.add_directive("update", UpdateDirective)
     app.add_node(
         UpdateNode,
@@ -97,6 +100,8 @@ def setup(app):
 
 def config_inited(app, config):
     app.config.templates_path.append(get_html_templates_path())
+    app.config.matched_blog_posts = [os.path.splitext(ii)[0]
+                                     for ii in glob(config.blog_post_pattern)]
 
 
 def get_html_templates_path():

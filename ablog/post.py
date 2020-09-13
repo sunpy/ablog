@@ -13,6 +13,7 @@ from docutils.parsers.rst.directives.admonitions import BaseAdmonition
 from feedgen.feed import FeedGenerator
 from sphinx.locale import _
 from sphinx.util.nodes import set_source_info
+from sphinx.transforms import SphinxTransform
 
 import ablog
 
@@ -27,6 +28,7 @@ __all__ = [
     "PostDirective",
     "UpdateDirective",
     "PostListDirective",
+    "CheckFrontMatter",
     "purge_posts",
     "process_posts",
     "process_postlist",
@@ -87,18 +89,7 @@ class PostDirective(Directive):
         set_source_info(self, node)
         self.state.nested_parse(self.content, self.content_offset, node, match_titles=1)
 
-        node["date"] = self.arguments[0] if self.arguments else None
-        node["tags"] = self.options.get("tags", [])
-        node["author"] = self.options.get("author", [])
-        node["category"] = self.options.get("category", [])
-        node["location"] = self.options.get("location", [])
-        node["language"] = self.options.get("language", [])
-        node["redirect"] = self.options.get("redirect", [])
-        node["title"] = self.options.get("title", None)
-        node["image"] = self.options.get("image", None)
-        node["excerpt"] = self.options.get("excerpt", None)
-        node["exclude"] = "exclude" in self.options
-        node["nocomments"] = "nocomments" in self.options
+        node = _update_post_node(node, self.options, self.arguments)
         return [node]
 
 
@@ -159,6 +150,58 @@ class PostListDirective(Directive):
         return [node]
 
 
+class CheckFrontMatter(SphinxTransform):
+    """Check the doctree for frontmatter meant for a blog post.
+    
+    This is mutually-exclusive with the PostDirective. Only one much be used."""
+
+    # Priority before 880 so that it runs before the `doctree-read` event
+    default_priority = 800
+
+    def apply(self):
+        # Check if page-level metadata has been given
+        docinfo = list(self.document.traverse(nodes.docinfo))
+        if not docinfo:
+            return None
+        docinfo = docinfo[0]
+
+        # Pull the metadata for the page to check if it is a blog post
+        metadata = {fn.children[0].astext(): fn.children[1].astext() for fn in docinfo.traverse(nodes.field)}
+        if docinfo.traverse(nodes.author):
+            metadata["author"] = list(docinfo.traverse(nodes.author))[0].astext()
+        # These two fields are special-cased in docutils
+        if docinfo.traverse(nodes.date):
+            metadata["date"] = list(docinfo.traverse(nodes.date))[0].astext()
+        if "blogpost" not in metadata and self.env.docname not in self.config.matched_blog_posts:
+            return None
+        if self.document.traverse(PostNode):
+            logging.warning(f"Found blog post front-matter as well as post directive, using post directive.")
+
+        # Iterate through metadata and create a PostNode with relevant fields
+        option_spec = PostDirective.option_spec
+        for key, val in metadata.items():
+            if key in option_spec:
+                if callable(option_spec[key]):
+                    new_val = option_spec[key](val)
+                elif isinstance(option_spec[key], directives.flag):
+                    new_val = True
+                metadata[key] = new_val
+        
+        node = PostNode()
+        node.document = self.document
+        node = _update_post_node(node, metadata, [])
+        node["date"] = metadata.get("date")
+
+        if not metadata.get("excerpt"):
+            blog = Blog(self.app)
+            node["excerpt"] = blog.post_auto_excerpt
+
+        sections = list(self.document.traverse(nodes.section))
+        if sections:
+            sections[0].children.append(node)
+            node.parent = sections[0]
+
+
 def purge_posts(app, env, docname):
     """
     Remove post and reference to it from the standard domain when its document
@@ -170,6 +213,25 @@ def purge_posts(app, env, docname):
 
     filename = os.path.split(docname)[1]
     env.domains["std"].data["labels"].pop(filename, None)
+
+
+def _update_post_node(node, options, arguments):
+    """
+    Extract metadata from options and populate a post node.
+    """
+    node["date"] = arguments[0] if arguments else None
+    node["tags"] = options.get("tags", [])
+    node["author"] = options.get("author", [])
+    node["category"] = options.get("category", [])
+    node["location"] = options.get("location", [])
+    node["language"] = options.get("language", [])
+    node["redirect"] = options.get("redirect", [])
+    node["title"] = options.get("title", None)
+    node["image"] = options.get("image", None)
+    node["excerpt"] = options.get("excerpt", None)
+    node["exclude"] = "exclude" in options
+    node["nocomments"] = "nocomments" in options
+    return node
 
 
 def _get_section_title(section):
