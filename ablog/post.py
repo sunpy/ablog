@@ -12,8 +12,8 @@ from docutils.parsers.rst import Directive, directives
 from docutils.parsers.rst.directives.admonitions import BaseAdmonition
 from feedgen.feed import FeedGenerator
 from sphinx.locale import _
-from sphinx.util.nodes import set_source_info
 from sphinx.transforms import SphinxTransform
+from sphinx.util.nodes import set_source_info
 
 import ablog
 
@@ -152,7 +152,7 @@ class PostListDirective(Directive):
 
 class CheckFrontMatter(SphinxTransform):
     """Check the doctree for frontmatter meant for a blog post.
-    
+
     This is mutually-exclusive with the PostDirective. Only one much be used."""
 
     # Priority before 880 so that it runs before the `doctree-read` event
@@ -186,7 +186,7 @@ class CheckFrontMatter(SphinxTransform):
                 elif isinstance(option_spec[key], directives.flag):
                     new_val = True
                 metadata[key] = new_val
-        
+
         node = PostNode()
         node.document = self.document
         node = _update_post_node(node, metadata, [])
