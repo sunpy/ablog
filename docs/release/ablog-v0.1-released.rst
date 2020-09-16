@@ -1,11 +1,11 @@
+:tags: tips
+:author: Ahmet
+:category: Release
+:location: SF
+:date: May 14, 2014
+
 ABlog v0.1 released
 ===================
-
-.. post:: May 14, 2014
-   :tags: tips
-   :author: Ahmet
-   :category: Release
-   :location: SF
 
 
 ABlog v0.1 is released.

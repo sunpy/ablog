@@ -74,6 +74,7 @@ blog_feed_length = None
 disqus_shortname = "ablogforsphinx"
 disqus_pages = True
 fontawesome_css_file = "css/font-awesome.css"
+blog_post_pattern = "release/ablog-v0.1-released*"
 
 # blog_feed_titles = False
 # blog_archive_titles = False
