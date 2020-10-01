@@ -6,7 +6,9 @@
 :language: English
 :tags: test, blog
 
-Test blog: Markdown support is now available
-============================================
+Test blog: Markdown support is not yet available
+================================================
 
-Markdown support for ``sunpy.org`` docs is now available. For more info, please checkout the manual docs for more information.
+Markdown support for ``sunpy.org`` docs is not yet available.
+But we do support RST format currently with front-matter metadata for the configuration instead of directives.
+For more info, please checkout the manual docs for more information.
