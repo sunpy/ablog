@@ -2,6 +2,8 @@
 blog: true
 date: October 1, 2020
 author: Kris Stern
+location: World
+category: Tests
 language: English
 tags: test, blog
 ---
