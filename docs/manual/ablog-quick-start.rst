@@ -72,12 +72,29 @@ You can convert any page to a post with a :rst:dir:`post` directive.
 ABlog will take care of listing posts in specified archives and sidebars.
 
 
+Blog posts
+^^^^^^^^^^
+
+You can start new blog posts with front-matter rather than a directive using ABlog.
+Simply use something based on the following template as the front-matter::
+
+:blogpost: true
+:date: January 1, 2020
+:author: A. Author
+:location: World
+:category: Blog
+:language: English
+:tags: blog
+
+
+
 Comments
 --------
 
 You can enable comments in your website by creating a Disqus_ account and
 obtaining a unique identifier, i.e. :confval:`disqus_shortname`.
 See :ref:`disqus-integration` for configuration options.
+
 
 Analytics
 ---------
@@ -86,6 +103,7 @@ ABlog uses Alabaster_ theme by default. You can use theme options to set
 your `Google Analytics`_ identifier to enable tracking.
 
 .. _Google Analytics: https://www.google.com/analytics/
+
 
 Configuration
 -------------
