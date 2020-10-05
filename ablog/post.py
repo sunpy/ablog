@@ -213,6 +213,7 @@ def purge_posts(app, env, docname):
 
     filename = os.path.split(docname)[1]
     env.domains["std"].data["labels"].pop(filename, None)
+    env.domains["std"].data["anonlabels"].pop(filename, None)
 
 
 def _update_post_node(node, options, arguments):
@@ -391,6 +392,7 @@ def process_posts(app, doctree):
             # if it is posting the document
             # ! this does not work for sections
             app.env.domains["std"].data["labels"][label] = (docname, label, title)
+            app.env.domains["std"].data["anonlabels"][label] = (docname, label)
 
         if section.parent is doctree:
             section_copy = section[0].deepcopy()
