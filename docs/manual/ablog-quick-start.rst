@@ -86,7 +86,6 @@ Simply use something based on the following template as the front-matter::
 :language: English
 :tags: blog
 
-The above assumes that you will be placing the ``.rst`` file for the blog post inside the ``docs/Blog`` directory.
 
 
 Comments
