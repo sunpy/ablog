@@ -86,7 +86,7 @@ Any page in a Sphinx_ project can be converted to a post using the following dir
 Posting with page front-matter
 ------------------------------
 
-If you'd prefer to use `page front matter <https://www.sphinx-doc.org/en/1.7/markup/misc.html>`_
+If you'd prefer to use `page front matter <https://www.sphinx-doc.org/en/1.7/markup/misc.html>`__
 instead of using a directive, you may mark a page as a "blog post" by adding
 the following front-matter at the top:
 
