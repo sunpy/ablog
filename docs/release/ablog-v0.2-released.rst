@@ -6,7 +6,6 @@ ABlog v0.2 released
    :category: Release
    :location: SF
 
-
 ABlog v0.2 is released. This version comes with several new features:
 
   * You can post a document multiple times, see :ref:`posting-sections`
@@ -24,7 +23,6 @@ ABlog v0.2 is released. This version comes with several new features:
 
   * Recent posts side bar includes month and day of the posts.
 
-
 ABlog v0.2.1 released
 ---------------------
 
@@ -36,7 +34,6 @@ ABlog v0.2.1 released
 ABlog v0.2.1 is a bug fix release that solves duplicated content
 problem in full text atom feeds.
 
-
 ABlog v0.2.2 released
 ---------------------
 
@@ -47,7 +44,6 @@ ABlog v0.2.2 released
 
 ABlog v0.2.2 is a bug fix release that solves broken links problem
 in post lists (:issue:`12`).
-
 
 ABlog v0.2.3 released
 ---------------------

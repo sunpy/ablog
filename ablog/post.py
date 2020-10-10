@@ -151,9 +151,12 @@ class PostListDirective(Directive):
 
 
 class CheckFrontMatter(SphinxTransform):
-    """Check the doctree for frontmatter meant for a blog post.
+    """
+    Check the doctree for frontmatter meant for a blog post.
 
-    This is mutually-exclusive with the PostDirective. Only one much be used."""
+    This is mutually-exclusive with the PostDirective. Only one much be
+    used.
+    """
 
     # Priority before 880 so that it runs before the `doctree-read` event
     default_priority = 800
@@ -538,7 +541,7 @@ def process_postlist(app, doctree, docname):
 
 def missing_reference(app, env, node, contnode):
     target = node["reftarget"]
-    logging.warning(f"error, missing reference: {target}, {contnode}")
+    logging.debug(f"missing reference: {target}, {contnode}")
     return _missing_reference(app, target, node.get("refdoc"), contnode, node.get("refexplicit"))
 
 

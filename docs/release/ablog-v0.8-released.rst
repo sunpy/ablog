@@ -6,7 +6,6 @@ ABlog v0.8 released
    :category: Release
    :location: SF
 
-
 ABlog v0.8.0 is released with additions and changes:
 
   * Added ``-a`` argument to :ref:`ablog build <build>` command, with which
@@ -35,8 +34,6 @@ ABlog v0.8.0 is released with additions and changes:
 .. _Albert Mietus: https://github.com/AlbertMietus
 .. _uralbash: https://github.com/uralbash
 
-
-
 ABlog v0.8.1 released
 ---------------------
 
@@ -46,8 +43,6 @@ ABlog v0.8.1 released
    :location: SF
 
 ABlog v0.8.1 is released to fix atom feed linking in HTML header (:issue:`54`).
-
-
 
 ABlog v0.8.2 released
 ---------------------
@@ -59,7 +54,6 @@ ABlog v0.8.2 released
 
 ABlog v0.8.2 is released to fix date parsing (:issue:`58`) and Python 2.6
 installation (:issue:`59`) issues.
-
 
 ABlog v0.8.3 released
 ---------------------
@@ -73,10 +67,7 @@ ABlog v0.8.3 is released to bring you recent enhancements:
 
   * `ninmesara`_ added ``:nocomments:`` argument to :rst:dir:`post` directive
     to disable comments per post.
-
   * `José Carlos García`_ added Spanish translations.
-
-
 
 .. _ninmesara: https://github.com/ninmesara
 .. _José Carlos García: https://github.com/quobit

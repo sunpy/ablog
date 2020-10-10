@@ -7,25 +7,20 @@ Cross-referencing Blog Pages
    :location: Pittsburgh
    :author: Ahmet
 
-ABlog creates references to all post and archive pages.  Posts can be
-cross-referenced using the name of the file, or when the file is named
-:file:`index`, the name of the folder that contains the file.
+ABlog creates references to all post and archive pages.
+Posts can be cross-referenced using the name of the file, or when the file is named :file:`index`, the name of the folder that contains the file.
 
-This page, :ref:`cross-referencing-blog-pages`, for example is referenced
-as ``:ref:`cross-referencing-blog-pages``` using :rst:role:`ref` role.
+This page, :ref:`cross-referencing-blog-pages`, for example is referenced as ``:ref:`cross-referencing-blog-pages``` using :rst:role:`ref` role.
 
-When posts have long file names, it may be inconvenient to use them repeatedly
-for cross-referencing.  An alternative that Sphinx_ offers is creating your own
-short and unique labels for cross-referencing to posts. See :ref:`xref-syntax`
-for details.
+When posts have long file names, it may be inconvenient to use them repeatedly for cross-referencing.
+An alternative that Sphinx_ offers is creating your own short and unique labels for cross-referencing to posts. See :ref:`xref-syntax` for details.
 
 .. _archives:
 
 Archive pages
 -------------
 
-Archive pages, on the other hand, can be cross-referenced by combining
-archive type and archive name as follows:
+Archive pages, on the other hand, can be cross-referenced by combining archive type and archive name as follows:
 
 ==============  ==========================  ===============================
 Archive         Example                     reStructured Text

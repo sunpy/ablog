@@ -1,36 +1,56 @@
-# Python package
-# Create and test a Python package on multiple Python versions.
-# Add steps that analyze code, save the dist with the build record, publish to a PyPI-compatible index, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/python
+name: $(BuildDefinitionName)_$(Date:yyyyMMdd)$(Rev:.rr)
+
+schedules:
+  - cron: "0 0 * * *"
+    displayName: Daily midnight build
+    branches:
+      include:
+      - master
+    always: true
+
+resources:
+  repositories:
+  - repository: OpenAstronomy
+    type: github
+    endpoint: sunpy
+    name: OpenAstronomy/azure-pipelines-templates
+    ref: master
 
 trigger:
-- master
+  branches:
+    include:
+    - '*'
+    exclude:
+    - '*backport*'
+  tags:
+    include:
+    - 'v*'
+    exclude:
+    - '*dev*'
+    - '*pre*'
+    - '*post*'
 
-pool:
-  vmImage: 'ubuntu-latest'
-strategy:
-  matrix:
-    Python27:
-      python.version: '2.7'
-    Python35:
-      python.version: '3.5'
-    Python36:
-      python.version: '3.6'
-    Python37:
-      python.version: '3.7'
-
-steps:
-- task: UsePythonVersion@0
-  inputs:
-    versionSpec: '$(python.version)'
-  displayName: 'Use Python $(python.version)'
-
-- script: |
-    python -m pip install --upgrade pip
-    pip install -r requirements.txt
-  displayName: 'Install dependencies'
-
-- script: |
-    pip install pytest pytest-azurepipelines
-    pytest
-  displayName: 'pytest'
+jobs:
+- template: run-tox-env.yml@OpenAstronomy
+  parameters:
+    submodules: false
+    coverage: codecov
+    libraries:
+      brew:
+        - pandoc
+      choco:
+        - pandoc
+      apt:
+        - pandoc
+    envs:
+      - macos: py36-sphinx2
+      - windows: py36-sphinx3
+      - linux: codestyle
+        name: python_codestyle
+        pytest: false
+      - linux: py37-sphinx2
+      - linux: py37-sphinx3
+      - linux: py38-sphinx2
+      - linux: py38-sphinx3
+      - linux: py38-devdeps
+      - linux: py38-conda

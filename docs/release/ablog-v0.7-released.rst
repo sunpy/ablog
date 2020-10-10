@@ -6,12 +6,10 @@ ABlog v0.7 released
    :category: Release
    :location: Denizli
 
-
 ABlog v0.7.0 is released to fix the long standing :issue:`1` related to
 pickling of Sphinx build environment on Read The Docs. Improvements
 also resolved issues with using LaTeX builder, improved cross-referencing
 for non-html builders.
-
 
 ABlog v0.7.1 released
 ---------------------
@@ -24,7 +22,6 @@ ABlog v0.7.1 released
 ABlog v0.7.1 is released to fix Python 3 import issues in :command:`ablog serve`
 command.
 
-
 ABlog v0.7.2 released
 ---------------------
 
@@ -36,7 +33,6 @@ ABlog v0.7.2 released
 ABlog v0.7.2 is released to prevent potential issues with Disqus thread URLs
 by requiring :confval:`disqus_shortname` and :confval:`blog_baseurl`
 to be specified together for Disqus integration.
-
 
 ABlog v0.7.3 released
 ---------------------
@@ -53,7 +49,6 @@ for this improvement.
 .. _python-dateutil: https://pypi.python.org/pypi/python-dateutil
 .. _Andy Maloney: https://github.com/amaloney
 
-
 ABlog v0.7.5 released
 ---------------------
 
@@ -64,7 +59,6 @@ ABlog v0.7.5 released
 
 ABlog v0.7.5 is released to fix Windows specific path resolving issue with
 archive pages. Thanks to Peter Mills for reporting this issue.
-
 
 ABlog v0.7.6 released
 ---------------------
@@ -84,7 +78,6 @@ to Peter Mills for reporting this issue. Other minor changes are:
   * ``conf.py`` file created by :ref:`ablog start <start>` updated to include
     ``about.html`` sidebar that comes with Alabaster_ theme.
 
-
 ABlog v0.7.7 released
 ---------------------
 
@@ -96,7 +89,6 @@ ABlog v0.7.7 released
 ABlog v0.7.7 is released to fix path resolving :issue:`41` that arose when
 cross-references were used in post excerpts, and also post redirect
 issue in templates.
-
 
 ABlog v0.7.8 released
 ---------------------
@@ -114,7 +106,6 @@ Thanks to `uralbash`_ for these contributions.
 
 .. _uralbash: https://github.com/uralbash
 
-
 ABlog v0.7.9 released
 ---------------------
 
@@ -129,7 +120,6 @@ for the fix.
 
 .. _Velimir: https://github.com/montyvesselinov
 
-
 ABlog v0.7.10 released
 ----------------------
 
@@ -140,7 +130,6 @@ ABlog v0.7.10 released
 
 ABlog v0.7.10 is released to resolve Sphinx JSON/Pickle builder issues
 related to serialization.
-
 
 ABlog v0.7.12 released
 ----------------------

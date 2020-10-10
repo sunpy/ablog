@@ -6,7 +6,6 @@ ABlog v0.5 released
    :category: Release
    :location: SF
 
-
 ABlog v0.5 is released. This version comes with :ref:`ablog-commands` and
 a :ref:`quick-start` guide.
 

@@ -1,13 +1,6 @@
 ABlog for Sphinx
 ================
 
-.. image:: https://travis-ci.org/sunpy/ablog.svg?branch=master
-    :target: https://travis-ci.org/sunpy/ablog
-.. image:: https://circleci.com/gh/sunpy/ablog.svg?style=svg
-    :target: https://circleci.com/gh/sunpy/ablog
-.. image:: https://ci.appveyor.com/api/projects/status/cmmiadqoy5lx7l78?svg=true
-    :target: https://ci.appveyor.com/project/sunpy/ablog
-
 Note
 ----
 

@@ -6,7 +6,6 @@ from sphinx import addnodes
 
 ablog_builder = "dirhtml"
 ablog_website = "_website"
-
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.doctest",
@@ -17,15 +16,13 @@ extensions = [
     "sphinx_automodapi.automodapi",
     "alabaster",
     "nbsphinx",
+    "myst_parser",
     "ablog",
 ]
 
-# language = 'de'
-# language = 'tr'
 # PROJECT
-
 versionmod = get_distribution("ablog")
-
+myst_update_mathjax = False
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
@@ -35,16 +32,16 @@ version = ".".join(versionmod.version.split(".")[:3])
 release = versionmod.version.split("+")[0]
 # Is this version a development release
 is_development = ".dev" in release
-
 project = "ABlog"
-copyright = "2014-2019, ABlog Team"
+copyright = "2014-2021, ABlog Team"
 master_doc = "index"
-source_suffix = ".rst"
+source_suffix = {
+    ".rst": "restructuredtext",
+    ".md": "markdown",
+}
 exclude_patterns = ["_build"]
 
-
 # HTML OUTPUT
-
 html_title = "ABlog"
 html_static_path = ["_static"]
 html_use_index = True
@@ -53,7 +50,6 @@ html_show_sourcelink = True
 html_favicon = "_static/ablog.ico"
 
 # ABLOG
-
 blog_title = "ABlog"
 blog_baseurl = "https://ablog.readthedocs.org"
 blog_locations = {
@@ -74,14 +70,8 @@ blog_feed_length = None
 disqus_shortname = "ablogforsphinx"
 disqus_pages = True
 fontawesome_css_file = "css/font-awesome.css"
-blog_post_pattern = "release/ablog-v0.1-released*"
-
-# blog_feed_titles = False
-# blog_archive_titles = False
-# post_auto_excerpt = 1
 
 # THEME
-
 html_style = "alabaster.css"
 html_theme = "alabaster"
 html_sidebars = {
@@ -97,7 +87,7 @@ html_sidebars = {
 }
 html_theme_path = [alabaster.get_path()]
 html_theme_options = {
-    "travis_button": True,
+    "travis_button": False,
     "github_user": "sunpy",
     "github_repo": "ablog",
     "description": "ABlog for blogging with Sphinx",
@@ -105,20 +95,16 @@ html_theme_options = {
 }
 
 # SPHINX
-
 intersphinx_mapping = {
     "python": ("https://docs.python.org/", None),
     "sphinx": ("https://www.sphinx-doc.org/en/master/", None),
 }
-
 extlinks = {
     "wiki": ("https://en.wikipedia.org/wiki/%s", ""),
     "issue": ("https://github.com/sunpy/ablog/issues/%s", "issue "),
     "pull": ("https://github.com/sunpy/ablog/pull/%s", "pull request "),
 }
-
 exclude_patterns = ["docs/manual/.ipynb_checkpoints/*"]
-
 rst_epilog = """
 .. _Sphinx: http://sphinx-doc.org/
 .. _Python: https://python.org
@@ -130,10 +116,8 @@ rst_epilog = """
 """
 
 
-event_sig_re = re.compile(r"([a-zA-Z-]+)\s*\((.*)\)")
-
-
 def parse_event(env, sig, signode):
+    event_sig_re = re.compile(r"([a-zA-Z-]+)\s*\((.*)\)")
     m = event_sig_re.match(sig)
     if not m:
         signode += addnodes.desc_name(sig, sig)

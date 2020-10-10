@@ -10,10 +10,7 @@ ABlog Commands
    :location: SF
 
 
-``ablog`` commands are for streamlining blog operations, i.e. building, serving,
-and viewing blog pages, as well as starting a new blog.
-
-::
+``ablog`` commands are for streamlining blog operations, i.e. building, serving, and viewing blog pages, as well as starting a new blog::
 
   $ ablog
   usage: ablog [-h] [-v] {start,build,clean,serve,post,deploy} ...
@@ -35,22 +32,17 @@ and viewing blog pages, as well as starting a new blog.
 
   See 'ablog <command> -h' for more information on a specific command.
 
-
 .. contents:: Here are all the things you can do:
-   :local:
-   :backlinks: top
+  :local:
+  :backlinks: top
 
 .. _start:
-
 
 Start a New Project
 -------------------
 
-``ablog start`` command is for quickly setting up a blog project. See
-:ref:`quick-start` for how it works and what it prepares for you.
-
-
-::
+``ablog start`` command is for quickly setting up a blog project.
+See :ref:`quick-start` for how it works and what it prepares for you::
 
   $ ablog start -h
   usage: ablog start [-h]
@@ -61,16 +53,12 @@ Start a New Project
   optional arguments:
     -h, --help  show this help message and exit
 
-
 .. _build:
 
 Build your Website
 ------------------
 
-
-Running ``ablog build`` in your project folder builds your website HTML pages.
-
-::
+Running ``ablog build`` in your project folder builds your website HTML pages::
 
   $ ablog build -h
   usage: ablog build [-h] [-a] [-b BUILDER] [-s SOURCEDIR] [-w WEBSITE]
@@ -93,14 +81,10 @@ Running ``ablog build`` in your project folder builds your website HTML pages.
     -T            show full traceback on exception
     -P            run pdb on exception
 
-
 Serve and View Locally
 ----------------------
 
-Running ``ablog serve``, after building your website, will start a Python
-server and open up browser tab to view your website.
-
-::
+Running ``ablog serve``, after building your website, will start a Python server and open up browser tab to view your website::
 
   $ ablog serve -h
   usage: ablog serve [-h] [-w WEBSITE] [-p PORT] [-n] [-r] [--patterns]
@@ -117,15 +101,12 @@ server and open up browser tab to view your website.
     -r          rebuild when a file matching patterns change or get added
     --patterns  patterns for triggering rebuilds
 
-
 .. _deploy:
 
 Deploy to GitHub Pages
 ----------------------
 
-Running ``ablog deploy`` will push your website to GitHub.
-
-::
+Running ``ablog deploy`` will push your website to GitHub::
 
   $ ablog deploy -h
   usage: ablog deploy [-h] [-w WEBSITE] [-p REPODIR] [-g GITHUB_PAGES]
@@ -149,13 +130,10 @@ Running ``ablog deploy`` will push your website to GitHub.
     --github-token GITHUB_TOKEN
                           environment variable name storing GitHub access token
 
-
 Create a Post
 -------------
 
-Finally, ``ablog post`` will make a new post template file.
-
-::
+Finally, ``ablog post`` will make a new post template file::
 
   $ ablog post -h
   usage: ablog post [-h] [-t TITLE] filename
@@ -167,14 +145,10 @@ Finally, ``ablog post`` will make a new post template file.
     -h, --help  show this help message and exit
     -t TITLE    post title; default is formed from filename
 
-
 Clean Build Files
 -----------------
 
-In case you needed, running ``ablog clean`` will remove build files and
-do a deep clean with ``-D`` option.
-
-::
+In case you needed, running ``ablog clean`` will remove build files and do a deep clean with ``-D`` option::
 
   $ ablog clean -h
   usage: ablog clean [-h] [-d DOCTREES] [-w WEBSITE] [-D]
@@ -189,7 +163,6 @@ do a deep clean with ``-D`` option.
     -w WEBSITE   path for website, default is _website when `ablog_website` is
                  not set in conf.py
     -D           deep clean, remove cached environment and doctree files
-
 
 .. update:: Apr 7, 2015
 
