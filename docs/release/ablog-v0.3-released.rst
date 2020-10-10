@@ -6,7 +6,6 @@ ABlog v0.3 released
    :category: Release
    :location: SF
 
-
 ABlog v0.3 is released. This version comes with the following core
 improvements:
 
@@ -19,7 +18,6 @@ improvements:
     ``languages.html`` to :confval:`html_sidebars` configuration option.
 
   * :rst:dir:`postlist` directive takes options to filter posts.
-
 
 ABlog v0.3.1 released
 ---------------------

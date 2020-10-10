@@ -6,7 +6,6 @@ ABlog v0.4 released
    :category: Release
    :location: SF
 
-
 ABlog v0.4 is released. This version comes with the following improvements
 and bug fixes:
 

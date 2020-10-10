@@ -1,3 +1,4 @@
+:blogpost: true
 :tags: tips
 :author: Ahmet
 :category: Release
@@ -6,7 +7,6 @@
 
 ABlog v0.1 released
 ===================
-
 
 ABlog v0.1 is released.
 

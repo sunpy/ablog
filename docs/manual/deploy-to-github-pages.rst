@@ -9,16 +9,13 @@ Deploy to GitHub Pages
    :category: Manual
    :location: SF
 
-If you are looking for a place to publish your blog, `GitHub Pages`_ might
-be the place for you.
+If you are looking for a place to publish your blog, `GitHub Pages`_ might be the place for you.
 
 .. _GitHub Pages: https://pages.github.com/
 
-Assuming that you have a GitHub account, here are what you need to do
-to get published:
+Assuming that you have a GitHub account, here are what you need to do to get published:
 
-1. Head over to GitHub_ and create a new repository named ``username.github.io``, where
-   username is your username (or organization name) on GitHub.
+1. Head over to GitHub_ and create a new repository named ``username.github.io``, where username is your username (or organization name) on GitHub.
 
 2. (optional) If you followed the link, you might as well give a star to ABlog ;)
 
