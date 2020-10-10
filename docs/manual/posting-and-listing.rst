@@ -86,26 +86,21 @@ Any page in a Sphinx_ project can be converted to a post using the following dir
 Posting with page front-matter
 ------------------------------
 
-If you'd prefer to use `page front matter <https://www.sphinx-doc.org/en/1.7/markup/misc.html>`__
-instead of using a directive, you may mark a page as a "blog post" by adding
-the following front-matter at the top:
+If you'd prefer to use `page front matter <https://www.sphinx-doc.org/en/1.7/markup/misc.html>`__ instead of using a directive, you may mark a page as a "blog post" by adding the following front-matter at the top:
 
 .. code-block:: rst
 
    :blogpost: true
 
-``ABlog`` will treat any pages with this front-matter as a blog post. All fields that are
-available to the :ref:`posting directive <posting-directive>` can be given as page-level
-front-matter as well.
+``ABlog`` will treat any pages with this front-matter as a blog post.
+All fields that are available to the :ref:`posting directive <posting-directive>` can be given as page-level front-matter as well.
 
 .. admonition:: Automatically detect blog posts with a ``glob`` pattern
    :class: tip
 
-   Instead of adding ``blogpost: true`` to each page, you may also provide
-   a pattern (or list of patterns) in your ``conf.py`` file using the ``blog_post_pattern``
-   option. Any filenames that match this pattern will be treated as blog posts (and page
-   front-matter will be used to classify the blog post). For example, the following configuration
-   would match all rst files in the ``posts/`` folder:
+   Instead of adding ``blogpost: true`` to each page, you may also provide a pattern (or list of patterns) in your ``conf.py`` file using the ``blog_post_pattern`` option.
+   Any filenames that match this pattern will be treated as blog posts (and page front-matter will be used to classify the blog post).
+   For example, the following configuration would match all ``rst`` files in the ``posts/`` folder:
 
    .. code-block:: python
 
