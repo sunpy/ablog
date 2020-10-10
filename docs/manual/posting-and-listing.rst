@@ -98,7 +98,7 @@ the following front-matter at the top:
 available to the :ref:`posting directive <posting-directive>` can be given as page-level
 front-matter as well.
 
-.. admonition:: Automatically detect blog posts with a ``glob`` pattern 
+.. admonition:: Automatically detect blog posts with a ``glob`` pattern
    :class: tip
 
    Instead of adding ``blogpost: true`` to each page, you may also provide
