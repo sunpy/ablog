@@ -117,7 +117,6 @@ front-matter as well.
 
       blog_post_pattern = ["posts/*.rst", "posts/*.md"]
 
-
 .. _posting-sections:
 
 Posting Sections
