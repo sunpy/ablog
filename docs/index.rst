@@ -39,7 +39,7 @@ This will also install `Sphinx <http://sphinx-doc.org/>`__, `feedgen <https://gi
 Getting Started
 ---------------
 
-If you are starting a new project, see `ABlog Quick Start`_ guide.
+If you are starting a new project, see the :ref:`quick-start` guide.
 If you already have a project, enable blogging by making following changes in ``conf.py``:
 
 .. code-block:: python
@@ -50,8 +50,6 @@ If you already have a project, enable blogging by making following changes in ``
       'ablog',
       'sphinx.ext.intersphinx',
   ]
-
-.. _ABlog Quick Start: https://ablog.readthedocs.io/manual/ablog-quick-start.html
 
 How it works
 ------------
