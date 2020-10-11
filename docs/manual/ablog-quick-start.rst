@@ -84,6 +84,8 @@ Simply use something based on the following template as the directive for ABlog:
   :language: English
   :tags: blog
 
+For more information, see :ref:`posting-directive` and :ref:`posting-front-matter`.
+
 Comments
 --------
 

@@ -121,7 +121,7 @@ CONFIG = [
     ("disqus_shortname", None, True),
     ("disqus_drafts", False, True),
     ("disqus_pages", False, True),
-    ("blog_post_pattern", "", True, require_config_type(str)),
+    ("blog_post_pattern", [], True, require_config_type((str, list))),
 ]
 
 

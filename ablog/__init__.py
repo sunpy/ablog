@@ -100,7 +100,14 @@ def setup(app):
 
 def config_inited(app, config):
     app.config.templates_path.append(get_html_templates_path())
-    app.config.matched_blog_posts = [os.path.splitext(ii)[0] for ii in glob(config.blog_post_pattern)]
+
+    # Automatically identify any blog posts if a pattern is specified in the config
+    if isinstance(config.blog_post_pattern, str):
+        config.blog_post_pattern = [config.blog_post_pattern]
+    matched_patterns = []
+    for pattern in config.blog_post_pattern:
+        matched_patterns.extend(os.path.splitext(ii)[0] for ii in glob(pattern, recursive=True))
+    app.config.matched_blog_posts = matched_patterns
 
 
 def get_html_templates_path():
