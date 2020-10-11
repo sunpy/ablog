@@ -141,3 +141,14 @@ Pull Requests merged in:
 `Fix missing reference caused by ref with title <https://github.com/sunpy/ablog/pull/73>`__ from `ykrods <https://github.com/ykrods>`__.
 
 `Add instructions for starting new blog posts with front-matter <https://github.com/sunpy/ablog/pull/71>`__ from `kakirastern <https://github.com/kakirastern>`__.
+
+ABlog v0.10.11 released
+-----------------------
+.. post:: Oct 11, 2020
+   :author: Nabil
+   :category: Release
+   :location: World
+
+Pull Requests merged in:
+
+`improving glob matching and documenting it <https://github.com/sunpy/ablog/pull/79>`__ from `choldgraf <https://github.com/choldgraf>`__.
