@@ -1,10 +1,12 @@
 {% if ablog.archive %}
-  <h3><a href="{{ pathto(ablog.archive.docname) }}">{{ gettext('Archives') }}</a></h3>
-  <ul>
-  {% for coll in ablog.archive %}
-    {% if coll %}
-    <li><a href="{{ pathto(coll.docname) }}">{{ coll }} ({{ coll|length }})</a></li>
-    {% endif %}
-  {% endfor %}
-  </ul>
+<h3>
+  <a href="{{ pathto(ablog.archive.docname) }}">{{ gettext('Archives') }}</a>
+</h3>
+<ul>
+  {% for coll in ablog.archive %} {% if coll %}
+  <li>
+    <a href="{{ pathto(coll.docname) }}">{{ coll }} ({{ coll|length }})</a>
+  </li>
+  {% endif %} {% endfor %}
+</ul>
 {% endif %}

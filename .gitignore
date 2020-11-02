@@ -52,7 +52,6 @@ coverage.xml
 junit/
 
 # Translations
-*.mo
 *.pot
 
 # Django stuff:
