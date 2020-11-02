@@ -390,28 +390,21 @@ class Post(BlogPageMixin):
         self.doctree = info["doctree"]
         self._next = self._prev = -1
         self._computed_date = date or FUTURE
-
-        # self.language = info.get('language')
-
         # archives
-        # self.blog = []
         if self.published:
             self.tags = info.get("tags")
             self.author = info.get("author")
             self.category = info.get("category")
             self.location = info.get("location")
             self.language = info.get("language")
-
             if not self.author and blog.blog_default_author:
                 self.author = blog.blog_default_author
             if not self.location and blog.blog_default_location:
                 self.location = blog.blog_default_location
             if not self.language and blog.blog_default_language:
                 self.language = blog.blog_default_language
-
             self.archive = self._blog.archive[self.date.year]
             self.archive.add(self)
-
         else:
             self.tags = info.get("tags")
             self.author = info.get("author")
@@ -421,7 +414,6 @@ class Post(BlogPageMixin):
             self.archive = []
 
         self.redirect = info.get("redirect")
-
         self.options = info
 
     def __lt__(self, other):
@@ -448,16 +440,11 @@ class Post(BlogPageMixin):
             for node in self.excerpt:
                 doctree.append(node.deepcopy())
         app = self._blog.app
-
         revise_pending_xrefs(doctree, pagename)
         app.env.resolve_references(doctree, pagename, app.builder)
-
         add_permalinks, app.builder.add_permalinks = (app.builder.add_permalinks, False)
-
         html = html_builder_write_doc(app.builder, pagename, doctree)
-
         app.builder.add_permalinks = add_permalinks
-
         if drop_h1:
             html = re.sub("<h1>(.*?)</h1>", "", html, count=abs(int(drop_h1)))
         return html
@@ -511,12 +498,10 @@ class Catalog(BlogPageMixin):
         self.name = name
         self.xref = xref  # for creating labels, e.g. `tag-python`
         self.collections = {}
-
         if path:
             self.path = self.docname = os_path_join(blog.blog_path, path)
         else:
             self.path = self.docname = blog.blog_path
-
         self._coll_lens = None
         self._min_max = None
         self._reverse = reverse
