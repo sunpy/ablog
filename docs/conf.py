@@ -59,6 +59,7 @@ blog_locations = {
 }
 blog_languages = {"en": ("English", None)}
 blog_default_language = "en"
+language = "en"
 blog_authors = {
     "Ahmet": ("Ahmet Bakan", "https://ahmetbakan.com"),
     "Luc": ("Luc Saffre", "https://saffre-rumma.net/luc/"),

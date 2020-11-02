@@ -92,7 +92,7 @@ def setup(app):
     )
 
     pkgdir = os.path.abspath(os.path.dirname(__file__))
-    locale_dir = os.path.join(pkgdir, "locale")
+    locale_dir = os.path.join(pkgdir, "locales")
     app.config.locale_dirs.append(locale_dir)
 
     return {"version": __version__}  # identifies the version of our extension
