@@ -428,7 +428,7 @@ in :ref:`first-post`. Find out more at `Cross-Referencing Blog Pages
 CONF_DEFAULTS = {
     "sep": False,
     "dot": "_",
-    "language": None,
+    "language": "en",
     "suffix": ".rst",
     "master": "index",
     "makefile": False,

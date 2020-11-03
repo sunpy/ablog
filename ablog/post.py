@@ -669,7 +669,6 @@ def generate_atom_feeds(app):
     ]
 
     if blog.blog_feed_archives:
-
         for header, catalog in [
             (_("Posts by"), blog.author),
             (_("Posts from"), blog.location),
@@ -704,12 +703,12 @@ def generate_atom_feeds(app):
     for feed_posts, pagename, feed_path, feed_title, feed_url in feeds:
 
         feed = FeedGenerator()
-        feed.id("http://lernfunk.de/media/654321")
+        feed.id(blog.blog_baseurl)
         feed.title(feed_title)
         feed.link(href=url)
         feed.subtitle(blog.blog_feed_subtitle)
         feed.link(href=feed_url)
-        feed.language("en")
+        feed.language(app.config.language)
         feed.generator("ABlog", ablog.__version__, "https://ablog.readthedocs.org")
 
         for i, post in enumerate(feed_posts):
