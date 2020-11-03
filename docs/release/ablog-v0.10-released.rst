@@ -152,3 +152,15 @@ ABlog v0.10.11 released
 Pull Requests merged in:
 
 `improving glob matching and documenting it <https://github.com/sunpy/ablog/pull/79>`__ from `choldgraf <https://github.com/choldgraf>`__.
+
+
+ABlog v0.10.12 released
+-----------------------
+.. post:: Nov 3, 2020
+   :author: Nabil
+   :category: Release
+   :location: World
+
+Pull Requests merged in:
+
+`id of feed is now blog.blog_baseurl <https://github.com/sunpy/ablog/pull/83>`__.
