@@ -30,12 +30,34 @@ def slugify(string):
 
 
 def os_path_join(path, *paths):
+    """
+    Join os.
+
+    Args:
+        path: (str): write your description
+        paths: (str): write your description
+    """
 
     return os.path.join(path, *paths).replace(os.path.sep, "/")
 
 
 def require_config_type(type_, is_optional=True):
+    """
+    Return the type of a given type.
+
+    Args:
+        type_: (todo): write your description
+        is_optional: (todo): write your description
+    """
     def verify_fn(key, value, config):
+        """
+        Verifies the given key.
+
+        Args:
+            key: (str): write your description
+            value: (todo): write your description
+            config: (dict): write your description
+        """
         if isinstance(value, type_) or (is_optional and value is None):
             return value
         # Historically, we're pretty sloppy on whether None or False is the default for omission
@@ -55,6 +77,14 @@ def require_config_str_or_list_lookup(lookup_config_key, is_optional=True):
     """
 
     def verify_fn(key, value, config):
+        """
+        Verifies the given value.
+
+        Args:
+            key: (str): write your description
+            value: (todo): write your description
+            config: (dict): write your description
+        """
         if is_optional and value is None:
             return value
         if isinstance(value, str):
@@ -78,6 +108,14 @@ def require_config_full_name_link_dict(is_link_optional=True):
     """
 
     def verify_fn(key, value, config):
+        """
+        Verify that a link.
+
+        Args:
+            key: (str): write your description
+            value: (todo): write your description
+            config: (dict): write your description
+        """
         for full_name, link in value.values():
             if not isinstance(full_name, str):
                 raise KeyError(key + " must have full name entries that are strings")
@@ -131,6 +169,13 @@ FUTURE = datetime(9999, 12, 31)
 
 
 def revise_pending_xrefs(doctree, docname):
+    """
+    Revise all pending xrefs associated with the given docname.
+
+    Args:
+        doctree: (todo): write your description
+        docname: (str): write your description
+    """
 
     for node in doctree.traverse(addnodes.pending_xref):
         node["refdoc"] = docname
@@ -162,6 +207,13 @@ class Blog(Container):
     _dict = {}
 
     def __init__(self, app):
+        """
+        Initialize the application.
+
+        Args:
+            self: (todo): write your description
+            app: (todo): write your description
+        """
 
         self.__dict__ = self._dict
         if not self._dict:
@@ -240,6 +292,13 @@ class Blog(Container):
         )
 
     def __getattr__(self, name):
+        """
+        Return the value of a given attribute.
+
+        Args:
+            self: (todo): write your description
+            name: (str): write your description
+        """
 
         try:
             attr = self.config[name]
@@ -248,18 +307,44 @@ class Blog(Container):
         return attr
 
     def __getitem__(self, key):
+        """
+        Return a single item for the key.
+
+        Args:
+            self: (todo): write your description
+            key: (str): write your description
+        """
 
         return self.posts[key] or self.drafts[key]
 
     def __contains__(self, item):
+        """
+        Return true if the given item is contained in the given item.
+
+        Args:
+            self: (todo): write your description
+            item: (str): write your description
+        """
 
         return item in self.posts or item in self.drafts
 
     def __len__(self):
+        """
+        Returns the length of the blog.
+
+        Args:
+            self: (todo): write your description
+        """
 
         return len(self.posts)
 
     def __nonzero__(self):
+        """
+        Returns the number of non - zero elements.
+
+        Args:
+            self: (todo): write your description
+        """
 
         return len(self) > 0
 
@@ -348,9 +433,21 @@ def html_builder_write_doc(self, docname, doctree):
 
 class BlogPageMixin:
     def __str__(self):
+        """
+        Returns a string representation of the string.
+
+        Args:
+            self: (todo): write your description
+        """
         return self.title
 
     def __repr__(self):
+        """
+        Return a repr representation of - repr string.
+
+        Args:
+            self: (todo): write your description
+        """
 
         return str(self) + " <" + str(self.docname) + ">"
 
@@ -364,6 +461,12 @@ class BlogPageMixin:
 
     @property
     def title(self):
+        """
+        The title.
+
+        Args:
+            self: (todo): write your description
+        """
 
         return getattr(self, "name", getattr(self, "_title"))
 
@@ -375,6 +478,15 @@ class Post(BlogPageMixin):
     """
 
     def __init__(self, blog, docname, info):
+        """
+        Create a new blog
+
+        Args:
+            self: (todo): write your description
+            blog: (todo): write your description
+            docname: (str): write your description
+            info: (dict): write your description
+        """
 
         self._blog = blog
         self.docname = docname
@@ -417,6 +529,13 @@ class Post(BlogPageMixin):
         self.options = info
 
     def __lt__(self, other):
+        """
+        Determine whether the difference between two dates.
+
+        Args:
+            self: (todo): write your description
+            other: (todo): write your description
+        """
         return (self._computed_date, self.title) < (other._computed_date, other.title)
 
     def to_html(self, pagename, fulltext=False, drop_h1=True):
@@ -493,6 +612,17 @@ class Catalog(BlogPageMixin):
     """
 
     def __init__(self, blog, name, xref, path, reverse=False):
+        """
+        Initialize a blog.
+
+        Args:
+            self: (todo): write your description
+            blog: (todo): write your description
+            name: (str): write your description
+            xref: (str): write your description
+            path: (str): write your description
+            reverse: (bool): write your description
+        """
 
         self._blog = blog
         self.name = name
@@ -507,10 +637,23 @@ class Catalog(BlogPageMixin):
         self._reverse = reverse
 
     def __str__(self):
+        """
+        Return a string representation of this node.
+
+        Args:
+            self: (todo): write your description
+        """
 
         return str(self.name)
 
     def __getitem__(self, name):
+        """
+        Return an item by name.
+
+        Args:
+            self: (todo): write your description
+            name: (str): write your description
+        """
 
         try:
             return self.collections[name]
@@ -518,18 +661,44 @@ class Catalog(BlogPageMixin):
             return self.collections.setdefault(name, Collection(self, name))
 
     def __setitem__(self, name, item):
+        """
+        Sets an item.
+
+        Args:
+            self: (todo): write your description
+            name: (str): write your description
+            item: (todo): write your description
+        """
 
         self.collections[name] = item
 
     def __len__(self):
+        """
+        The total length of the total length.
+
+        Args:
+            self: (todo): write your description
+        """
 
         return sum(len(coll) for coll in self)
 
     def __nonzero__(self):
+        """
+        Returns the number of non - zero elements.
+
+        Args:
+            self: (todo): write your description
+        """
 
         return len(self) > 0
 
     def __iter__(self):
+        """
+        Return an iterable of ( key / value pairs.
+
+        Args:
+            self: (todo): write your description
+        """
 
         keys = list(self.collections)
         keys.sort(reverse=self._reverse)
@@ -568,6 +737,18 @@ class Collection(BlogPageMixin):
     """
 
     def __init__(self, catalog, label, name=None, href=None, path=None, page=0):
+        """
+        Initialize the html page.
+
+        Args:
+            self: (todo): write your description
+            catalog: (todo): write your description
+            label: (str): write your description
+            name: (str): write your description
+            href: (str): write your description
+            path: (str): write your description
+            page: (int): write your description
+        """
 
         self._catalog = catalog
         self._blog = catalog.blog
@@ -585,22 +766,52 @@ class Collection(BlogPageMixin):
         self._catalog.blog.references[self.xref] = (self.docname, self.name)
 
     def __str__(self):
+        """
+        Return a string representation of this node.
+
+        Args:
+            self: (todo): write your description
+        """
 
         return str(self.name)
 
     def __len__(self):
+        """
+        Return the number of posts.
+
+        Args:
+            self: (todo): write your description
+        """
 
         return len(self._posts)
 
     def __nonzero__(self):
+        """
+        Returns the number of non - zero elements.
+
+        Args:
+            self: (todo): write your description
+        """
 
         return len(self) > 0
 
     def __unicode__(self):
+        """
+        Return the unicode object.
+
+        Args:
+            self: (todo): write your description
+        """
 
         return str(self.name)
 
     def __iter__(self):
+        """
+        Iterate over posts.
+
+        Args:
+            self: (todo): write your description
+        """
 
         if self._posts_iter is None:
             posts = list(self._posts.values())
@@ -610,10 +821,24 @@ class Collection(BlogPageMixin):
         yield from self._posts_iter
 
     def __getitem__(self, key):
+        """
+        Returns the value from the cache.
+
+        Args:
+            self: (todo): write your description
+            key: (str): write your description
+        """
 
         return self._posts.get(key)
 
     def __contains__(self, item):
+        """
+        Determine if item is contained in this node.
+
+        Args:
+            self: (todo): write your description
+            item: (str): write your description
+        """
 
         return item in self._posts
 

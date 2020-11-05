@@ -52,6 +52,16 @@ def builder_support(builder):
 
 
 def html_page_context(app, pagename, templatename, context, doctree):
+    """
+    Called bytestree.
+
+    Args:
+        app: (todo): write your description
+        pagename: (str): write your description
+        templatename: (str): write your description
+        context: (todo): write your description
+        doctree: (str): write your description
+    """
 
     if builder_support(app):
         context["ablog"] = blog = Blog(app)
@@ -99,6 +109,13 @@ def setup(app):
 
 
 def config_inited(app, config):
+    """
+    Add post - config to the given inited.
+
+    Args:
+        app: (todo): write your description
+        config: (dict): write your description
+    """
     app.config.templates_path.append(get_html_templates_path())
 
     # Automatically identify any blog posts if a pattern is specified in the config

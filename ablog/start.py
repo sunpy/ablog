@@ -14,6 +14,13 @@ from .version import version as __version__
 
 
 def w(t, ls=80):
+    """
+    Wrap a string to a given length.
+
+    Args:
+        t: (int): write your description
+        ls: (todo): write your description
+    """
     return "\n".join(wrap(t, ls))
 
 
@@ -498,6 +505,14 @@ def generate(d, overwrite=True, silent=False):
     ensuredir(path.join(srcdir, d["dot"] + "static"))
 
     def write_file(fpath, content, newline=None):
+        """
+        Write a file.
+
+        Args:
+            fpath: (str): write your description
+            content: (str): write your description
+            newline: (bool): write your description
+        """
         if overwrite or not path.isfile(fpath):
             print("Creating file %s." % fpath)
             f = open(fpath, "wt", encoding="utf-8", newline=newline)
@@ -629,6 +644,11 @@ def ask_user(d):
 
 
 def ablog_start(**kwargs):
+    """
+    Generate a new log.
+
+    Args:
+    """
     if not color_terminal():
         nocolor()
 

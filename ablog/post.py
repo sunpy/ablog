@@ -62,6 +62,12 @@ class PostDirective(Directive):
     """
 
     def _split(a):  # NOQA
+        """
+        Split a string into two lists.
+
+        Args:
+            a: (array): write your description
+        """
         return [s.strip() for s in (a or "").split(",") if s.strip()]
 
     has_content = True
@@ -83,6 +89,12 @@ class PostDirective(Directive):
     }
 
     def run(self):
+        """
+        Parse the document.
+
+        Args:
+            self: (todo): write your description
+        """
 
         node = PostNode()
         node.document = self.state.document
@@ -98,6 +110,12 @@ class UpdateDirective(BaseAdmonition):
     node_class = UpdateNode
 
     def run(self):
+        """
+        Run the command.
+
+        Args:
+            self: (todo): write your description
+        """
         ad = super().run()
         ad[0]["date"] = self.arguments[0] if self.arguments else ""
         return ad
@@ -109,6 +127,12 @@ class PostListDirective(Directive):
     """
 
     def _split(a):  # NOQA
+        """
+        Split a string into a list of strings.
+
+        Args:
+            a: (str): write your description
+        """
         return {s.strip() for s in a.split(",")}
 
     has_content = False
@@ -129,6 +153,12 @@ class PostListDirective(Directive):
     }
 
     def run(self):
+        """
+        Run the command line.
+
+        Args:
+            self: (todo): write your description
+        """
 
         node = PostList()
         node.document = self.state.document
@@ -162,6 +192,12 @@ class CheckFrontMatter(SphinxTransform):
     default_priority = 800
 
     def apply(self):
+        """
+        Recursively apply the docinfo
+
+        Args:
+            self: (todo): write your description
+        """
         # Check if page-level metadata has been given
         docinfo = list(self.document.traverse(nodes.docinfo))
         if not docinfo:
@@ -540,12 +576,31 @@ def process_postlist(app, doctree, docname):
 
 
 def missing_reference(app, env, node, contnode):
+    """
+    .. versionadded :: 2016. 3. 0
+
+    Args:
+        app: (todo): write your description
+        env: (todo): write your description
+        node: (todo): write your description
+        contnode: (todo): write your description
+    """
     target = node["reftarget"]
     logging.debug(f"missing reference: {target}, {contnode}")
     return _missing_reference(app, target, node.get("refdoc"), contnode, node.get("refexplicit"))
 
 
 def _missing_reference(app, target, refdoc, contnode=None, refexplicit=False):
+    """
+    Add references ::
+
+    Args:
+        app: (todo): write your description
+        target: (todo): write your description
+        refdoc: (todo): write your description
+        contnode: (todo): write your description
+        refexplicit: (todo): write your description
+    """
 
     blog = Blog(app)
     if target in blog.references:

@@ -118,6 +118,14 @@ rst_epilog = """
 
 
 def parse_event(env, sig, signode):
+    """
+    Parse event
+
+    Args:
+        env: (todo): write your description
+        sig: (todo): write your description
+        signode: (todo): write your description
+    """
     event_sig_re = re.compile(r"([a-zA-Z-]+)\s*\((.*)\)")
     m = event_sig_re.match(sig)
     if not m:
@@ -134,6 +142,12 @@ def parse_event(env, sig, signode):
 
 
 def setup(app):
+    """
+    Required sphinx extension setup function.
+
+    Args:
+        app: (todo): write your description
+    """
     from sphinx.ext.autodoc import cut_lines
     from sphinx.util.docfields import GroupedField
 

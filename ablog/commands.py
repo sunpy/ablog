@@ -31,6 +31,12 @@ def find_confdir(sourcedir=None):
     confdir = sourcedir or os.getcwd()
 
     def parent(d):
+        """
+        Return the parent of d.
+
+        Args:
+            d: (todo): write your description
+        """
         return abspath(join(d, ".."))
 
     while not isfile(join(confdir, "conf.py")) and confdir != parent(confdir):
@@ -69,10 +75,22 @@ commands = ablog_commands = parser.add_subparsers(title="commands")
 
 
 def cmd(func=None, **kwargs):
+    """
+    Decorator to add a command to the command.
+
+    Args:
+        func: (todo): write your description
+    """
 
     if func is None:
 
         def cmd_inner(func):
+            """
+            Decorator to execute a function.
+
+            Args:
+                func: (callable): write your description
+            """
             return cmd(func, **kwargs)
 
         return cmd_inner
@@ -85,6 +103,11 @@ def cmd(func=None, **kwargs):
 
 
 def arg(*args, **kwargs):
+    """
+    Decorator to add a function argument.
+
+    Args:
+    """
     if args and callable(args[0]):
         func = args[0]
         args = args[1:]
@@ -93,6 +116,12 @@ def arg(*args, **kwargs):
     if func is None:
 
         def arg_inner(func):
+            """
+            Decorator that takes a function. arg_inner.
+
+            Args:
+                func: (callable): write your description
+            """
             return arg(func, *args, **kwargs)
 
         return arg_inner
@@ -102,6 +131,12 @@ def arg(*args, **kwargs):
 
 
 def arg_website(func):
+    """
+    Decorator to the function.
+
+    Args:
+        func: (callable): write your description
+    """
 
     arg(
         func,
@@ -114,6 +149,12 @@ def arg_website(func):
 
 
 def arg_doctrees(func):
+    """
+    Arguments : func : argparse. arg_arg )
+
+    Args:
+        func: (todo): write your description
+    """
 
     arg(
         func,
@@ -184,6 +225,23 @@ def ablog_build(
     no_colors=False,
     **kwargs,
 ):
+    """
+    Build a build.
+
+    Args:
+        builder: (todo): write your description
+        sourcedir: (str): write your description
+        website: (str): write your description
+        doctrees: (todo): write your description
+        traceback: (todo): write your description
+        runpdb: (todo): write your description
+        allfiles: (str): write your description
+        werror: (todo): write your description
+        verbosity: (int): write your description
+        quiet: (todo): write your description
+        extra_quiet: (todo): write your description
+        no_colors: (todo): write your description
+    """
     confdir = find_confdir(sourcedir)
     conf = read_conf(confdir)
     website = website or os.path.join(confdir, getattr(conf, "ablog_website", BUILDDIR))
@@ -230,6 +288,14 @@ def ablog_build(
     description="Path options can be set in conf.py. " "Default values of paths are relative to conf.py.",
 )
 def ablog_clean(website=None, doctrees=None, deep=False, **kwargs):
+    """
+    Clean up the website.
+
+    Args:
+        website: (str): write your description
+        doctrees: (todo): write your description
+        deep: (bool): write your description
+    """
 
     confdir = find_confdir()
     conf = read_conf(confdir)
@@ -270,6 +336,16 @@ def ablog_clean(website=None, doctrees=None, deep=False, **kwargs):
     description="Serve options can be set in conf.py. " "Default values of paths are relative to conf.py.",
 )
 def ablog_serve(website=None, port=8000, view=True, rebuild=False, patterns="*.rst;*.txt", **kwargs):
+    """
+    Starts a web browser.
+
+    Args:
+        website: (str): write your description
+        port: (int): write your description
+        view: (todo): write your description
+        rebuild: (todo): write your description
+        patterns: (str): write your description
+    """
 
     confdir = find_confdir()
     conf = read_conf(confdir)
@@ -324,6 +400,13 @@ def ablog_serve(website=None, port=8000, view=True, rebuild=False, patterns="*.r
 @arg(dest="filename", type=str, help="filename, e.g. my-nth-post (.rst appended)")
 @cmd(name="post", help="create a blank post")
 def ablog_post(filename, title=None, **kwargs):
+    """
+    Ablog post post
+
+    Args:
+        filename: (str): write your description
+        title: (str): write your description
+    """
 
     POST_TEMPLATE = """
 %(title)s
@@ -416,6 +499,20 @@ def ablog_deploy(
     repodir=None,
     **kwargs,
 ):
+    """
+    Ablog to github
+
+    Args:
+        website: (todo): write your description
+        message: (str): write your description
+        github_pages: (str): write your description
+        push_quietly: (bool): write your description
+        push_force: (bool): write your description
+        github_token: (str): write your description
+        github_is_http: (todo): write your description
+        github_url: (str): write your description
+        repodir: (str): write your description
+    """
 
     confdir = find_confdir()
     conf = read_conf(confdir)
