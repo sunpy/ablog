@@ -30,27 +30,46 @@ trigger:
     - '*pre*'
     - '*post*'
 
-jobs:
-- template: run-tox-env.yml@OpenAstronomy
-  parameters:
-    submodules: false
-    coverage: codecov
-    libraries:
-      brew:
-        - pandoc
-      choco:
-        - pandoc
-      apt:
-        - pandoc
-    envs:
-      - macos: py36-sphinx2
-      - windows: py36-sphinx3
-      - linux: codestyle
-        name: python_codestyle
-        pytest: false
-      - linux: py37-sphinx2
-      - linux: py37-sphinx3
-      - linux: py38-sphinx2
-      - linux: py38-sphinx3
-      - linux: py38-devdeps
-      - linux: py38-conda
+pr:
+  autoCancel: true
+
+stages:
+  - stage: FirstPhaseTests
+    displayName: Core Tests
+    jobs:
+    - template: run-tox-env.yml@OpenAstronomy
+      parameters:
+        submodules: false
+        coverage: codecov
+        libraries:
+          apt:
+            - pandoc
+        envs:
+          - linux: codestyle
+            name: python_codestyle
+            pytest: false
+          - linux: py38-sphinx3
+
+  - stage: SecondPhaseTests
+    displayName: Stage 2 Tests
+    dependsOn: FirstPhaseTests
+    jobs:
+    - template: run-tox-env.yml@OpenAstronomy
+      parameters:
+        submodules: false
+        coverage: codecov
+        libraries:
+          brew:
+            - pandoc
+          choco:
+            - pandoc
+          apt:
+            - pandoc
+        envs:
+          - macos: py36-sphinx2
+          - windows: py36-sphinx3
+          - linux: py37-sphinx2
+          - linux: py37-sphinx3
+          - linux: py39-sphinx3
+          - linux: py38-devdeps
+          - linux: py38-conda
