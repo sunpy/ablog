@@ -195,4 +195,4 @@ A list of posts can be displayed in any page using the following directive:
 .. update:: Apr 14, 2015
 
    Added ``:list-style:`` option to :rst:dir:`postlist` to control bullet list style.
-   *circle*, *disk*, and *none* (default) are recognized.
+   *circle*, *disc*, and *none* (default) are recognized.
