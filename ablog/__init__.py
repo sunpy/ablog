@@ -108,8 +108,7 @@ def config_inited(app, config):
     for pattern in config.blog_post_pattern:
         pattern = os.path.join(app.srcdir, pattern)
         matched_patterns.extend(
-            os.path.relpath(os.path.splitext(ii)[0], app.srcdir)
-            for ii in glob(pattern, recursive=True)
+            os.path.relpath(os.path.splitext(ii)[0], app.srcdir) for ii in glob(pattern, recursive=True)
         )
     app.config.matched_blog_posts = matched_patterns
 
