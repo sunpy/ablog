@@ -1,4 +1,6 @@
 .. post:: 2020-12-01
 
-post
-=======
+Foo Post Title
+==============
+
+Foo post content.
