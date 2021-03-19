@@ -31,5 +31,11 @@ def test_feed(app, status, warning):
     entry = entries[0]
     title = entry.find("{http://www.w3.org/2005/Atom}title")
     assert title.text == "Foo Post Title", "Wrong Atom feed entry title"
+    summary = entry.find("{http://www.w3.org/2005/Atom}summary")
+    assert summary.text == "Foo post description.", "Wrong Atom feed entry summary"
+    categories = entry.findall("{http://www.w3.org/2005/Atom}category")
+    assert len(categories) == 2, "Wrong number of Atom feed categories"
+    assert categories[0].attrib["label"] == "Foo Tag", "Wrong Atom feed first category"
+    assert categories[1].attrib["label"] == "BarTag", "Wrong Atom feed second category"
     content = entry.find("{http://www.w3.org/2005/Atom}content")
     assert "Foo post content." in content.text, "Wrong Atom feed entry content"

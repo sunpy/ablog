@@ -726,10 +726,13 @@ def generate_atom_feeds(app):
             feed_entry = feed.add_entry()
             feed_entry.id(post_url)
             feed_entry.title(post.title)
+            feed_entry.summary(" ".join(paragraph.astext() for paragraph in post.excerpt[0]))
             feed_entry.link(href=post_url)
             feed_entry.author({"name": author.name for author in post.author})
             feed_entry.pubDate(post.date.astimezone())
             feed_entry.updated(post.update.astimezone())
+            for tag in post.tags:
+                feed_entry.category(dict(term=tag.name, label=tag.label))
             feed_entry.content(content=content, type="html")
 
         parent_dir = os.path.dirname(feed_path)
