@@ -732,7 +732,10 @@ def generate_atom_feeds(app):
             feed_entry.pubDate(post.date.astimezone())
             feed_entry.updated(post.update.astimezone())
             for tag in post.tags:
-                feed_entry.category(dict(term=tag.name, label=tag.label))
+                feed_entry.category(dict(
+                    term=tag.name.strip().replace(" ", ""),
+                    label=tag.label,
+                ))
             feed_entry.content(content=content, type="html")
 
         parent_dir = os.path.dirname(feed_path)

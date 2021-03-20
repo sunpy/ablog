@@ -36,6 +36,8 @@ def test_feed(app, status, warning):
     categories = entry.findall("{http://www.w3.org/2005/Atom}category")
     assert len(categories) == 2, "Wrong number of Atom feed categories"
     assert categories[0].attrib["label"] == "Foo Tag", "Wrong Atom feed first category"
+    assert categories[0].attrib["term"] == "FooTag", "Wrong Atom feed first category"
     assert categories[1].attrib["label"] == "BarTag", "Wrong Atom feed second category"
+    assert categories[1].attrib["term"] == "BarTag", "Wrong Atom feed second category"
     content = entry.find("{http://www.w3.org/2005/Atom}content")
     assert "Foo post content." in content.text, "Wrong Atom feed entry content"
