@@ -142,6 +142,23 @@ html_sidebars = {
 # Choose to feed only post titles, default is ``False``.
 # blog_feed_titles = False
 
+# Specify custom Jinja2 templates for feed entry elements:
+#     `title`, `summary`, or `content`
+# For example, to add an additional feed for posting to social media:
+# blog_feed_templates = {
+#     # Use defaults, no templates
+#     "atom": {},
+#     # Create content text suitable posting to social media
+#     "social": {
+#         # Format tags as hashtags and append to the content
+#         "content": "{{ title }}{% for tag in post.tags %}"
+#         " #{{ tag.name|trim()|replace(' ', '') }}"
+#         "{% endfor %}",
+#     },
+# }
+# Default: Create one `atom.xml` feed without any templates
+# blog_feed_templates = {"atom": {}}
+
 # Specify number of recent posts to include in feeds, default is ``None``
 # for all posts.
 # blog_feed_length = None

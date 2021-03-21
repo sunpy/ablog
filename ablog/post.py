@@ -6,6 +6,7 @@ import logging
 from string import Formatter
 from datetime import datetime
 
+import jinja2
 from dateutil.parser import parse as date_parser
 from docutils import nodes
 from docutils.parsers.rst import Directive, directives
@@ -656,16 +657,16 @@ def generate_atom_feeds(app):
     if not url:
         return
 
-    feed_path = os.path.join(app.builder.outdir, blog.blog_path, "atom.xml")
-
     feeds = [
         (
             blog.posts,
             blog.blog_path,
-            feed_path,
+            os.path.join(app.builder.outdir, blog.blog_path, feed_root + ".xml"),
             blog.blog_title,
-            os_path_join(url, blog.blog_path, "atom.xml"),
+            os_path_join(url, blog.blog_path, feed_root + ".xml"),
+            feed_templates,
         )
+        for feed_root, feed_templates in blog.blog_feed_templates.items()
     ]
 
     if blog.blog_feed_archives:
@@ -686,21 +687,23 @@ def generate_atom_feeds(app):
                 if not os.path.isdir(folder):
                     os.makedirs(folder)
 
-                feeds.append(
-                    (
-                        coll,
-                        coll.path,
-                        os.path.join(folder, "atom.xml"),
-                        blog.blog_title + " - " + header + " " + text_type(coll),
-                        os_path_join(url, coll.path, "atom.xml"),
+                for feed_root, feed_templates in blog.blog_feed_templates.items():
+                    feeds.append(
+                        (
+                            coll,
+                            coll.path,
+                            os.path.join(folder, feed_root + ".xml"),
+                            blog.blog_title + " - " + header + " " + text_type(coll),
+                            os_path_join(url, coll.path, feed_root + ".xml"),
+                            feed_templates,
+                        )
                     )
-                )
 
     # Config options
     feed_length = blog.blog_feed_length
     feed_fulltext = blog.blog_feed_fulltext
 
-    for feed_posts, pagename, feed_path, feed_title, feed_url in feeds:
+    for feed_posts, pagename, feed_path, feed_title, feed_url, feed_templates in feeds:
 
         feed = FeedGenerator()
         feed.id(blog.blog_baseurl)
@@ -725,15 +728,28 @@ def generate_atom_feeds(app):
 
             feed_entry = feed.add_entry()
             feed_entry.id(post_url)
-            feed_entry.title(post.title)
-            feed_entry.summary(" ".join(paragraph.astext() for paragraph in post.excerpt[0]))
             feed_entry.link(href=post_url)
             feed_entry.author({"name": author.name for author in post.author})
             feed_entry.pubDate(post.date.astimezone())
             feed_entry.updated(post.update.astimezone())
             for tag in post.tags:
-                feed_entry.category(dict(term=tag.name, label=tag.label))
-            feed_entry.content(content=content, type="html")
+                feed_entry.category(
+                    dict(
+                        term=tag.name.strip().replace(" ", ""),
+                        label=tag.label,
+                    )
+                )
+
+            # Entry values that support templates
+            title = post.title
+            summary = " ".join(paragraph.astext() for paragraph in post.excerpt[0])
+            template_values = {}
+            for element in ("title", "summary", "content"):
+                if element in feed_templates:
+                    template_values[element] = jinja2.Template(feed_templates[element]).render(**locals())
+            feed_entry.title(template_values.get("title", title))
+            feed_entry.summary(template_values.get("summary", summary))
+            feed_entry.content(content=template_values.get("content", content), type="html")
 
         parent_dir = os.path.dirname(feed_path)
         if not os.path.isdir(parent_dir):
