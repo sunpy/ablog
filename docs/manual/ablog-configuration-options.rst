@@ -140,7 +140,7 @@ Turn feeds on by setting :confval:`blog_baseurl` configuration variable.
 .. confval:: blog_feed_templates
 
    A dictionary of feed filename roots mapping to nested dictionaries of feed entry
-   elements, ``title``, ``summary``, and/or ``content``, and a `Jink2`_ template which will be
+   elements, ``title``, ``summary``, and/or ``content``, and a `Jinja2`_ template which will be
    used to render the value used for that element in that feed.  Templates are rendered
    with the the following context:
    - ``feed_length``
