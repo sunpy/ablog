@@ -101,6 +101,7 @@ CONFIG = [
     ("blog_feed_fulltext", False, True),
     ("blog_feed_subtitle", None, True),
     ("blog_feed_titles", None, False),
+    ("blog_feed_templates", {"atom": {}}, True),
     ("blog_feed_length", None, None),
     ("blog_authors", {}, True, require_config_full_name_link_dict()),
     ("blog_default_author", None, True, require_config_str_or_list_lookup("blog_authors")),

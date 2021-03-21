@@ -41,3 +41,23 @@ def test_feed(app, status, warning):
     assert categories[1].attrib["term"] == "BarTag", "Wrong Atom feed second category"
     content = entry.find("{http://www.w3.org/2005/Atom}content")
     assert "Foo post content." in content.text, "Wrong Atom feed entry content"
+
+    social_path = app.outdir / "blog/social.xml"
+    assert (social_path).exists(), "Social media feed was not built"
+
+    with social_path.open() as social_opened:
+        social_tree = lxml.etree.parse(social_opened)
+    social_entries = social_tree.findall("{http://www.w3.org/2005/Atom}entry")
+    assert len(social_entries) == len(entries), "Wrong number of Social media feed entries"
+
+    social_entry = social_entries[0]
+    title = social_entry.find("{http://www.w3.org/2005/Atom}title")
+    assert title.text == "Foo Post Title", "Wrong Social media feed entry title"
+    summary = social_entry.find("{http://www.w3.org/2005/Atom}summary")
+    assert summary.text == "Foo post description.", "Wrong Social media feed entry summary"
+    categories = social_entry.findall("{http://www.w3.org/2005/Atom}category")
+    assert len(categories) == 2, "Wrong number of Social media feed categories"
+    assert categories[0].attrib["label"] == "Foo Tag", "Wrong Social media feed first category"
+    assert categories[1].attrib["label"] == "BarTag", "Wrong Social media feed second category"
+    content = social_entry.find("{http://www.w3.org/2005/Atom}content")
+    assert "Foo Post Title #FooTag #BarTag" in content.text, "Wrong Social media feed entry content"

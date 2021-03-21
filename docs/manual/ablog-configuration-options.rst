@@ -137,6 +137,42 @@ Turn feeds on by setting :confval:`blog_baseurl` configuration variable.
 
    Choose to feed only post titles, default is ``False``.
 
+.. confval:: blog_feed_templates
+
+   A dictionary of feed filename roots mapping to nested dictionaries of feed entry
+   elements, ``title``, ``summary``, and/or ``content``, and a `Jink2`_ template which will be
+   used to render the value used for that element in that feed.  Templates are rendered
+   with the the following context:
+   - ``feed_length``
+   - ``feed_fulltext``
+   - ``feed_posts``
+   - ``pagename``
+   - ``feed_title``
+   - ``feed_url``
+   - ``feed``
+   - ``post``
+   - ``post_url``
+   - ``content``
+   - ``feed_entry``
+   - ``title``
+   - ``summary``
+   - ``blog``
+   - ``url``
+   - ``app``
+   Default is: ``{"atom": {}}``
+   Example to add an additional feed for posting to social media::
+     blog_feed_templates = {
+         # Use defaults, no templates
+         "atom": {},
+         # Create content text suitable posting to social media
+         "social": {
+             # Format tags as hashtags and append to the content
+             "content": "{{ title }}{% for tag in post.tags %}"
+             " #{{ tag.name|trim()|replace(' ', '') }}"
+             "{% endfor %}",
+         },
+     }
+
 .. confval:: blog_feed_length
 
    Specify number of recent posts to include in feeds, default is ``None`` for all posts.
@@ -149,7 +185,12 @@ Turn feeds on by setting :confval:`blog_baseurl` configuration variable.
 
    Added :confval:`blog_feed_titles`, :confval:`blog_feed_length`, and :confval:`blog_archive_titles` options.
 
+.. update:: Mar 20, 2021
+
+   Added :confval:`blog_feed_templates` option.
+
 .. _fa:
+.. _Jinja2: https://jinja.palletsprojects.com/
 
 Font awesome
 ------------
