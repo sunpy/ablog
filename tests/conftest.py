@@ -9,9 +9,9 @@ pytest_plugins = ["sphinx.testing.fixtures"]
 
 # inspired from sphinx's conftest.py
 def pytest_report_header(config):
-    header = "libraries: Sphinx-%s, docutils-%s" % (sphinx.__display_version__, docutils.__version__)
+    header = f"libraries: Sphinx-{sphinx.__display_version__}, docutils-{docutils.__version__}"
     if hasattr(config, "_tmp_path_factory"):
-        header += "\nbase tempdir: %s" % config._tmp_path_factory.getbasetemp()
+        header += f"\nbase tempdir: {config._tmp_path_factory.getbasetemp()}"
 
     return header
 

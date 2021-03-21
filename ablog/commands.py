@@ -64,7 +64,6 @@ parser.add_argument(
     "-v", "--version", help="print ABlog version and exit", action="version", version=ablog.__version__
 )
 
-
 commands = ablog_commands = parser.add_subparsers(title="commands")
 
 
@@ -108,7 +107,7 @@ def arg_website(func):
         "-w",
         dest="website",
         type=str,
-        help="path for website, default is %s when `ablog_website` " "is not set in conf.py" % BUILDDIR,
+        help=f"path for website, default is {BUILDDIR} when `ablog_website` is not set in conf.py",
     )
     return func
 
@@ -121,7 +120,7 @@ def arg_doctrees(func):
         dest="doctrees",
         type=str,
         help="path for the cached environment and doctree files, "
-        "default %s when `ablog_doctrees` is not set in conf.py" % DOCTREES,
+        f"default {DOCTREES} when `ablog_doctrees` is not set in conf.py",
     )
     return func
 
@@ -241,12 +240,12 @@ def ablog_clean(website=None, doctrees=None, deep=False, **kwargs):
     nothing = True
     if glob.glob(os.path.join(website, "*")):
         shutil.rmtree(website)
-        print("Removed {}.".format(os.path.relpath(website)))
+        print(f"Removed {os.path.relpath(website)}.")
         nothing = False
 
     if deep and glob.glob(os.path.join(doctrees, "*")):
         shutil.rmtree(doctrees)
-        print("Removed {}.".format(os.path.relpath(doctrees)))
+        print(f"Removed {os.path.relpath(doctrees)}.")
         nothing = False
 
     if nothing:
@@ -326,10 +325,10 @@ def ablog_serve(website=None, port=8000, view=True, rebuild=False, patterns="*.r
 def ablog_post(filename, title=None, **kwargs):
 
     POST_TEMPLATE = """
-%(title)s
-%(equal)s
+{title}
+{equal}
 
-.. post:: %(date)s
+.. post:: {date}
    :tags:
    :category:
 
@@ -350,14 +349,14 @@ def ablog_post(filename, title=None, **kwargs):
 
     if path.isfile(filename):
         pass
+    else:
         # read the file, and add post directive
         # and save it
-    else:
         with open(filename, "w", encoding="utf-8") as out:
-            post_text = POST_TEMPLATE % pars
+            post_text = POST_TEMPLATE.format(pars)
             out.write(post_text)
 
-        print("Blog post created: %s" % filename)
+        print(f"Blog post created: {filename}")
 
 
 @arg(
@@ -463,7 +462,7 @@ def ablog_deploy(
                         os.renames(fn, fnnew)
 
                     git_add.append(fnnew)
-        print("Moved {} files to {}.github.io".format(len(git_add), github_pages))
+        print(f"Moved {len(git_add)} files to {github_pages}.github.io")
 
         os.chdir(repodir)
 
@@ -478,14 +477,14 @@ def ablog_deploy(
             print("Nothing changed from last deployment")
             return
 
-        commit = 'git commit -m "{}"'.format(message or "Updates.")
+        commit = f"git commit -m \"{message or 'Updates.'}\""
         if push_force:
             commit += " --amend"
         run(commit, echo=True)
 
         if github_token:
             with open(os.path.join(repodir, ".git/credentials"), "w") as out:
-                out.write("https://{}:@github.com".format(os.environ[github_token]))
+                out.write(f"https://{os.environ[github_token]}:@github.com")
             run('git config credential.helper "store --file=.git/credentials"')
         push = "git push"
         if push_quietly:
