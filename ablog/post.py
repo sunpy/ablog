@@ -370,9 +370,7 @@ def process_posts(app, doctree):
                         raise ValueError("invalid post date in: " + docname)
                 else:
                     raise ValueError(
-                        "invalid post date (%s) in " % (date)
-                        + docname
-                        + ". Expected format: %s" % post_date_format
+                        f"invalid post date ({date}) in " + docname + f". Expected format: {post_date_format}"
                     )
 
         else:
@@ -552,12 +550,13 @@ def _missing_reference(app, target, refdoc, contnode=None, refexplicit=False):
     if target in blog.references:
         docname, dispname = blog.references[target]
 
-        if "html" in app.builder.name:
+        # Avoid adding html to the atom.xml
+        if "html" in app.builder.name and "atom.xml" not in docname:
             internal = True
             uri = app.builder.get_relative_uri(refdoc, docname)
         else:
             internal = False
-            uri = blog.blog_baseurl + "/" + docname
+            uri = blog.blog_baseurl.rstrip("/") + "/" + docname
 
         newnode = nodes.reference("", "", internal=internal, refuri=uri, reftitle=dispname)
         if refexplicit:
@@ -712,7 +711,7 @@ def generate_atom_feeds(app):
         feed.subtitle(blog.blog_feed_subtitle)
         feed.link(href=feed_url)
         feed.language(app.config.language)
-        feed.generator("ABlog", ablog.__version__, "https://ablog.readthedocs.org")
+        feed.generator("ABlog", ablog.__version__, "https://ablog.readthedocs.org/")
 
         for i, post in enumerate(feed_posts):
             if feed_length and i == feed_length:

@@ -125,7 +125,6 @@ CONFIG = [
     ("blog_post_pattern", [], True, require_config_type((str, list))),
 ]
 
-
 TOMORROW = datetime.today() + dtmod.timedelta(1)
 TOMORROW = TOMORROW.replace(hour=0, minute=0, second=0, microsecond=0)
 FUTURE = datetime(9999, 12, 31)
@@ -154,7 +153,6 @@ def link_posts(posts):
 
 
 class Blog(Container):
-
     """
     Handle blog operations.
     """
@@ -245,7 +243,7 @@ class Blog(Container):
         try:
             attr = self.config[name]
         except KeyError:
-            raise AttributeError("ABlog has no configuration option {}".format(repr(name)))
+            raise AttributeError(f"ABlog has no configuration option {repr(name)}")
         return attr
 
     def __getitem__(self, key):
@@ -370,7 +368,6 @@ class BlogPageMixin:
 
 
 class Post(BlogPageMixin):
-
     """
     Handle post metadata.
     """
@@ -488,7 +485,6 @@ class Post(BlogPageMixin):
 
 
 class Catalog(BlogPageMixin):
-
     """
     Handles collections of posts.
     """
@@ -563,7 +559,6 @@ class Catalog(BlogPageMixin):
 
 
 class Collection(BlogPageMixin):
-
     """
     Posts sharing a label, i.e. tag, category, author, or location.
     """

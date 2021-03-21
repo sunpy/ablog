@@ -164,3 +164,30 @@ ABlog v0.10.12 released
 Pull Requests merged in:
 
 `id of feed is now blog.blog_baseurl <https://github.com/sunpy/ablog/pull/83>`__.
+
+ABlog v0.10.13 released
+-----------------------
+.. post:: Jan 19, 2021
+   :author: Nabil
+   :category: Release
+   :location: World
+
+Pull Requests merged in:
+
+`updated CI and py39 tests <https://github.com/sunpy/ablog/pull/86>`__.
+`Add test #87 <https://github.com/sunpy/ablog/pull/87>`__.
+`Some minor fixes <https://github.com/sunpy/ablog/pull/88>`__.
+`Ensure blog_post_pattern are relative to srcdir <https://github.com/sunpy/ablog/pull/89>`__.
+
+ABlog v0.10.14 released
+-----------------------
+.. post:: March 21, 2021
+   :author: Nabil
+   :category: Release
+   :location: World
+
+Pull Requests merged in:
+
+`feat(feeds): Add missing Atom entry metadata <https://github.com/sunpy/ablog/pull/92>`__.
+`feat(feeds): Add entry element template support <https://github.com/sunpy/ablog/pull/93>`__.
+`misc update <https://github.com/sunpy/ablog/pull/94>`__.

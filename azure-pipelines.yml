@@ -66,11 +66,11 @@ stages:
           apt:
             - pandoc
         envs:
-          - macos: py36-sphinx2
+          - macos: py36
           - windows: py36-sphinx3
-          - linux: py37-sphinx2
+          - linux: py37
           - linux: py37-sphinx3
           - linux: py39-sphinx3
           - linux: py38-sphinxdev
           - linux: py38-conda
-          - linux: docs
+          - linux: py39-docs

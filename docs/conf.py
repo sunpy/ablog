@@ -51,7 +51,7 @@ html_favicon = "_static/ablog.ico"
 
 # ABLOG
 blog_title = "ABlog"
-blog_baseurl = "https://ablog.readthedocs.org"
+blog_baseurl = "https://ablog.readthedocs.org/"
 blog_locations = {
     "Pittsburgh": ("Pittsburgh, PA", "https://en.wikipedia.org/wiki/Pittsburgh"),
     "SF": ("San Francisco, CA", "https://en.wikipedia.org/wiki/San_Francisco"),
@@ -68,6 +68,22 @@ blog_authors = {
 blog_feed_archives = True
 blog_feed_fulltext = True
 blog_feed_length = None
+blog_feed_templates = {
+    # Use defaults, no templates
+    "atom": {
+        # Format tags as hashtags and append to the content
+        "content": "{{ title }}{% for tag in post.tags %}"
+        " #{{ tag.name|trim()|replace(' ', '') }}"
+        "{% endfor %}",
+    },
+    # Create content text suitable posting to micro-bogging
+    "social": {
+        # Format tags as hashtags and append to the content
+        "content": "{{ title }}{% for tag in post.tags %}"
+        " #{{ tag.name|trim()|replace(' ', '') }}"
+        "{% endfor %}",
+    },
+}
 disqus_shortname = "ablogforsphinx"
 disqus_pages = True
 fontawesome_css_file = "css/font-awesome.css"

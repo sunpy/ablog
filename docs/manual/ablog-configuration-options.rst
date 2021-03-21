@@ -161,17 +161,18 @@ Turn feeds on by setting :confval:`blog_baseurl` configuration variable.
    - ``app``
    Default is: ``{"atom": {}}``
    Example to add an additional feed for posting to social media::
-     blog_feed_templates = {
-         # Use defaults, no templates
-         "atom": {},
-         # Create content text suitable posting to social media
-         "social": {
-             # Format tags as hashtags and append to the content
-             "content": "{{ title }}{% for tag in post.tags %}"
-             " #{{ tag.name|trim()|replace(' ', '') }}"
-             "{% endfor %}",
-         },
-     }
+
+      blog_feed_templates = {
+            # Use defaults, no templates
+            "atom": {},
+            # Create content text suitable posting to social media
+            "social": {
+               # Format tags as hashtags and append to the content
+               "content": "{{ title }}{% for tag in post.tags %}"
+               " #{{ tag.name|trim()|replace(' ', '') }}"
+               "{% endfor %}",
+            },
+      }
 
 .. confval:: blog_feed_length
 

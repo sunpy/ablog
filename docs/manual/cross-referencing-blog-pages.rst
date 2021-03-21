@@ -27,6 +27,7 @@ Archive         Example                     reStructured Text
 ==============  ==========================  ===============================
 Posts           :ref:`blog-posts`           ``:ref:`blog-posts```
 Drafts          :ref:`blog-drafts`          ``:ref:`blog-drafts```
+Blog Feed       :ref:`blog-feed`            ``:ref:`blog-feed```
 Author          :ref:`author-ahmet`         ``:ref:`author-ahmet```
 Language        :ref:`language-en`          ``:ref:`language-en```
 Location        :ref:`location-pittsburgh`  ``:ref:`location-pittsburgh```
