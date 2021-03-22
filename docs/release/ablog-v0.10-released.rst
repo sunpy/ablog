@@ -191,3 +191,13 @@ Pull Requests merged in:
 `feat(feeds): Add missing Atom entry metadata <https://github.com/sunpy/ablog/pull/92>`__.
 `feat(feeds): Add entry element template support <https://github.com/sunpy/ablog/pull/93>`__.
 `misc update <https://github.com/sunpy/ablog/pull/94>`__.
+
+
+ABlog v0.10.15 released
+-----------------------
+.. post:: March 22, 2021
+   :author: Nabil
+   :category: Release
+   :location: World
+
+Fixed `Index Out of Range with Atom Feeds <https://github.com/sunpy/ablog/issues/96>`__.
