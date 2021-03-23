@@ -1,7 +1,7 @@
 ABlog Internationalization
 ==========================
 
-.. post:: Aug 31, 2014
+.. post:: Aug 30, 2014
    :tags: i18n
    :category: Manual
    :author: Luc, Ahmet
