@@ -177,7 +177,7 @@ A list of posts can be displayed in any page using the following directive:
    When no options are given all posts will be considered and they will be ordered by recency.
    Also, note that if the current post is one of the most recent posts, it will be omitted.
 
-.. update:: Aug 20, 2014
+.. update:: Aug 21, 2014
 
    Added :rst:dir:`update` directive and
    :ref:`posting-sections` section.
