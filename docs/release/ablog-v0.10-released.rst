@@ -201,3 +201,14 @@ ABlog v0.10.15 released
    :location: World
 
 Fixed `Index Out of Range with Atom Feeds <https://github.com/sunpy/ablog/issues/96>`__.
+
+ABlog v0.10.16 released
+-----------------------
+.. post:: March 23, 2021
+   :author: Nabil
+   :category: Release
+   :location: World
+
+Pull Requests merged in:
+
+`fix(feeds): Feed validation, templates regression <https://github.com/sunpy/ablog/pull/97>`__.
