@@ -26,7 +26,7 @@ def test_feed(app, status, warning):
     with feed_path.open() as feed_opened:
         feed_tree = lxml.etree.parse(feed_opened)
     entries = feed_tree.findall("{http://www.w3.org/2005/Atom}entry")
-    assert len(entries) == 1, "Wrong number of Atom feed entries"
+    assert len(entries) == 2, "Wrong number of Atom feed entries"
 
     entry = entries[0]
     title = entry.find("{http://www.w3.org/2005/Atom}title")
@@ -41,6 +41,16 @@ def test_feed(app, status, warning):
     assert categories[1].attrib["term"] == "BarTag", "Wrong Atom feed second category"
     content = entry.find("{http://www.w3.org/2005/Atom}content")
     assert "Foo post content." in content.text, "Wrong Atom feed entry content"
+
+    empty_entry = entries[1]
+    title = empty_entry.find("{http://www.w3.org/2005/Atom}title")
+    assert title.text == "Foo Empty Post", "Wrong Atom feed empty entry title"
+    summary = empty_entry.find("{http://www.w3.org/2005/Atom}summary")
+    assert summary is None, "Atom feed empty entry contains optional summary element"
+    categories = empty_entry.findall("{http://www.w3.org/2005/Atom}category")
+    assert len(categories) == 0, "Atom categories rendered for empty post"
+    content = empty_entry.find("{http://www.w3.org/2005/Atom}content")
+    assert 'id="foo-empty-post"' in content.text, "Atom feed empty entry missing post ID"
 
     social_path = app.outdir / "blog/social.xml"
     assert (social_path).exists(), "Social media feed was not built"

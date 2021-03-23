@@ -747,8 +747,12 @@ def generate_atom_feeds(app):
                 if element in feed_templates:
                     template_values[element] = jinja2.Template(feed_templates[element]).render(**locals())
             feed_entry.title(template_values.get("title", title))
-            feed_entry.summary(template_values.get("summary", summary))
-            feed_entry.content(content=template_values.get("content", content), type="html")
+            summary = template_values.get("summary", summary)
+            if summary:
+                feed_entry.summary(summary)
+            content = template_values.get("content", content)
+            if content:
+                feed_entry.content(content=content, type="html")
 
         parent_dir = os.path.dirname(feed_path)
         if not os.path.isdir(parent_dir):
