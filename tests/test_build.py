@@ -32,7 +32,7 @@ def test_feed(app, status, warning):
     title = entry.find("{http://www.w3.org/2005/Atom}title")
     assert title.text == "Foo Post Title", "Wrong Atom feed entry title"
     summary = entry.find("{http://www.w3.org/2005/Atom}summary")
-    assert summary.text == "Foo post description.", "Wrong Atom feed entry summary"
+    assert summary.text == "Foo post description with link.", "Wrong Atom feed entry summary"
     categories = entry.findall("{http://www.w3.org/2005/Atom}category")
     assert len(categories) == 2, "Wrong number of Atom feed categories"
     assert categories[0].attrib["label"] == "Foo Tag", "Wrong Atom feed first category"
@@ -54,7 +54,7 @@ def test_feed(app, status, warning):
     title = social_entry.find("{http://www.w3.org/2005/Atom}title")
     assert title.text == "Foo Post Title", "Wrong Social media feed entry title"
     summary = social_entry.find("{http://www.w3.org/2005/Atom}summary")
-    assert summary.text == "Foo post description.", "Wrong Social media feed entry summary"
+    assert summary.text == "Foo post description with link.", "Wrong Social media feed entry summary"
     categories = social_entry.findall("{http://www.w3.org/2005/Atom}category")
     assert len(categories) == 2, "Wrong number of Social media feed categories"
     assert categories[0].attrib["label"] == "Foo Tag", "Wrong Social media feed first category"

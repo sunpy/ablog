@@ -741,10 +741,7 @@ def generate_atom_feeds(app):
 
             # Entry values that support templates
             title = post.title
-            if post.excerpt:
-                summary = " ".join(paragraph.astext() for paragraph in post.excerpt[0])
-            else:
-                summary = ""
+            summary = "".join(paragraph.astext() for paragraph in post.excerpt)
             template_values = {}
             for element in ("title", "summary", "content"):
                 if element in feed_templates:

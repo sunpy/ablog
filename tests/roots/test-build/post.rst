@@ -4,6 +4,8 @@
 Foo Post Title
 ==============
 
-    Foo post description.
+    Foo post description `with link`_.
 
 Foo post content.
+
+.. _`with link`: https://example.com
