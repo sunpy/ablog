@@ -228,7 +228,7 @@ class Blog(Container):
         # add references to posts and drafts
         # e.g. :ref:`blog-posts`
         refs["blog-posts"] = (os_path_join(self.config["blog_path"], "index"), "Posts")
-        refs["blog-drafts"] = (os_path_join(self.config["blog_path"], "drafts", "index"), "Drafts")
+        refs["blog-drafts"] = (os_path_join(self.config["blog_path"], "drafts"), "Drafts")
         refs["blog-feed"] = (os_path_join(self.config["blog_path"], "atom.xml"), self.blog_title + " Feed")
 
         # set some internal configuration options
