@@ -5,7 +5,7 @@ Note
 ----
 
 Please note that is an official new home of `Ahmet Bakan's Ablog Sphinx extension <https://github.com/abakan/ablog/>`__.
-This version is maintined with the aim to keep it working for SunPy's website and thus new features are unlikely.
+This version is maintined with the aim to keep it working for SunPy's website and thus new features are **highly unlikely**.
 
 ABlog
 -----
