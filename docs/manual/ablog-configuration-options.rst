@@ -248,7 +248,7 @@ Isso integration
 ----------------
 
 An alternative to Disqus, is `Isso <https://posativ.org/isso/>`__.
-Integration is provided by `sphinxnotes-isso`_ and the instructions there. 
+Integration is provided by `sphinxnotes-isso`_ and the instructions there.
 
 .. _sphinxnotes-isso: https://sphinx-notes.github.io/isso/
 
