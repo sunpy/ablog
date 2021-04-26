@@ -212,3 +212,26 @@ ABlog v0.10.16 released
 Pull Requests merged in:
 
 `fix(feeds): Feed validation, templates regression <https://github.com/sunpy/ablog/pull/97>`__.
+
+ABlog v0.10.17 released
+-----------------------
+.. post:: March 24, 2021
+   :author: Nabil
+   :category: Release
+   :location: World
+
+Pull Requests merged in:
+
+`Correct draft URL <https://github.com/sunpy/ablog/pull/98>`__.
+
+ABlog v0.10.18 released
+-----------------------
+.. post:: April 26, 2021
+   :author: Nabil
+   :category: Release
+   :location: World
+
+Pull Requests merged in:
+
+`Correct posts URL <https://github.com/sunpy/ablog/pull/99>`__.
+`Add isso integration <https://github.com/sunpy/ablog/pull/100>`__.
