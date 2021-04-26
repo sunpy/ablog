@@ -244,6 +244,14 @@ The reason for requiring :confval:`blog_baseurl` to be specified as of v0.7.2 is
 
    Choose to disqus posts that are drafts (without a published date), default is ``False``.
 
+Isso integration
+----------------
+
+An alternative to Disqus, is `Isso <https://posativ.org/isso/>`__.
+Integration is provided by `sphinxnotes-isso`_ and the instructions there. 
+
+.. _sphinxnotes-isso: https://sphinx-notes.github.io/isso/
+
 .. _sidebars:
 
 Blog sidebars
