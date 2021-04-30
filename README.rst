@@ -1,6 +1,11 @@
 ABlog for Sphinx
 ================
 
+|Build Status|
+
+.. |Build Status| image:: https://dev.azure.com/sunpy/ablog/_apis/build/status/sunpy.ablog?repoName=sunpy%2Fablog&branchName=master
+   :target: https://dev.azure.com/sunpy/ablog/_build/latest?definitionId=17&repoName=sunpy%2Fablog&branchName=master
+   
 Note
 ----
 
