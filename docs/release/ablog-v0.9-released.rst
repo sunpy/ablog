@@ -81,6 +81,6 @@ ABlog v0.9.5 released
    :location: World
 
 v0.9.5 is the that supports Python 2 and Sphinx <2.
-v0.10.0 on master now, will not.
+v0.10.0 on main now, will not.
 
 `Define an auto-orphan option <https://github.com/sunpy/ablog/pull/39>`__, `Repair update directive <https://github.com/sunpy/ablog/pull/37>`__ and `Fix sidebar and blog_baseurl misconfig during quick start <https://github.com/sunpy/ablog/pull/36>`__ from `rayalan <https://github.com/rayalan>`__.

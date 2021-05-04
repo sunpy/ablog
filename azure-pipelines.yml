@@ -5,7 +5,7 @@ schedules:
     displayName: Daily midnight build
     branches:
       include:
-      - master
+      - main
     always: true
 
 resources:
@@ -68,7 +68,7 @@ stages:
         envs:
           - macos: py36
           - windows: py36-sphinx3
-          - linux: py37
+          - linux: py37-sphinx2
           - linux: py37-sphinx3
           - linux: py39-sphinx3
           - linux: py38-sphinxdev
