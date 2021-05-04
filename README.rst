@@ -3,14 +3,14 @@ ABlog for Sphinx
 
 |Build Status|
 
-.. |Build Status| image:: https://dev.azure.com/sunpy/ablog/_apis/build/status/sunpy.ablog?repoName=sunpy%2Fablog&branchName=master
-   :target: https://dev.azure.com/sunpy/ablog/_build/latest?definitionId=17&repoName=sunpy%2Fablog&branchName=master
+.. |Build Status| image:: https://dev.azure.com/sunpy/ablog/_apis/build/status/sunpy.ablog?repoName=sunpy%2Fablog&branchName=main
+   :target: https://dev.azure.com/sunpy/ablog/_build/latest?definitionId=17&repoName=sunpy%2Fablog&branchName=main
 
 Note
 ----
 
 Please note that is an official new home of `Ahmet Bakan's Ablog Sphinx extension <https://github.com/abakan/ablog/>`__.
-This version is maintined with the aim to keep it working for SunPy's website and thus new features are **highly unlikely**.
+This version is maintained with the aim to keep it working for SunPy's website and thus new features are **highly unlikely**.
 
 ABlog
 -----
