@@ -127,6 +127,7 @@ class PostListDirective(Directive):
         "sort": directives.flag,
         "excerpts": directives.flag,
         "list-style": lambda a: a.strip(),
+        "expand": directives.unchanged,
     }
 
     def run(self):
@@ -148,6 +149,7 @@ class PostListDirective(Directive):
         node["excerpts"] = "excerpts" in self.options
         node["image"] = "image" in self.options
         node["list-style"] = self.options.get("list-style", "none")
+        node["expand"] = self.options.get("expand", None)
         return [node]
 
 
@@ -488,6 +490,7 @@ def process_postlist(app, doctree, docname):
                 raise KeyError(f"{key} is not recognized in postlist format")
 
         excerpts = node.attributes["excerpts"]
+        expand = node.attributes["expand"]
         date_format = node.attributes["date"] or _(blog.post_date_format_short)
         bl = nodes.bullet_list()
         bl.attributes["classes"].append("postlist-style-" + node["list-style"])
@@ -534,7 +537,14 @@ def process_postlist(app, doctree, docname):
                     app.env.resolve_references(enode, docname, app.builder)
                     enode.parent = bli.parent
                     bli.append(enode)
-
+                if expand:
+                    ref = app.builder.get_relative_uri(docname, post.docname)
+                    enode = nodes.paragraph()
+                    refnode = nodes.reference("", "", internal=True, refuri=ref)
+                    innernode = nodes.emphasis(text=expand)
+                    refnode.append(innernode)
+                    enode.append(refnode)
+                    bli.append(enode)
         node.replace_self(bl)
 
 

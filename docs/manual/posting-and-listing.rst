@@ -156,6 +156,7 @@ A list of posts can be displayed in any page using the following directive:
         :list-style: circle
         :excerpts:
         :sort:
+        :expand: Read more ...
 
    This will result in a bullet list of up to 5 posts (default is all) authored by `:ref:`author-ahmet`` in `:ref:`language-en`` when he was in `:ref:`location-pittsburgh`` and posted in `:ref:`category-manual`` with tags `:ref:`tag-tips``.
    Posts will be in ``:sort:``\ed to appear in chronological order and listed with their ``:excerpts:``.
@@ -172,7 +173,7 @@ A list of posts can be displayed in any page using the following directive:
       :list-style: circle
       :excerpts:
       :sort:
-
+      :expand: Read more ...
 
    When no options are given all posts will be considered and they will be ordered by recency.
    Also, note that if the current post is one of the most recent posts, it will be omitted.
@@ -196,3 +197,7 @@ A list of posts can be displayed in any page using the following directive:
 
    Added ``:list-style:`` option to :rst:dir:`postlist` to control bullet list style.
    *circle*, *disc*, and *none* (default) are recognized.
+
+.. update:: May 25, 2021
+
+   Added ``:expand:`` option to :rst:dir:`postlist` to add a call to action to continue reading the post.
