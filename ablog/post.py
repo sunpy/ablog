@@ -540,7 +540,7 @@ def process_postlist(app, doctree, docname):
                 if expand:
                     ref = app.builder.get_relative_uri(docname, post.docname)
                     enode = nodes.paragraph()
-                    refnode = nodes.reference('', '', internal=True, refuri=ref)
+                    refnode = nodes.reference("", "", internal=True, refuri=ref)
                     innernode = nodes.emphasis(text=expand)
                     refnode.append(innernode)
                     enode.append(refnode)
