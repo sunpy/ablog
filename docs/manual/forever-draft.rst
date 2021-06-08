@@ -24,7 +24,7 @@ You can still label a post you are drafting with tags and categories, but the po
 How can you see a list of drafts?
 ---------------------------------
 
-See :ref:`blog-drafts` archive page, which can be referred to as ``:ref:blog-drafs```.
+See :ref:`blog-drafts` archive page, which can be referred to as ``:ref:`blog-drafts```.
 
 Why would you make a post draft?
 --------------------------------
