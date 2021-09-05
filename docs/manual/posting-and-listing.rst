@@ -28,6 +28,7 @@ Any page in a Sphinx_ project can be converted to a post using the following dir
         :redirect: blog/old-page-name-for-the-post
         :excerpt: 2
         :image: 1
+        :external_link: https://anexternalwebsite.org
         :nocomments:
 
    **Drafts & Posts**
@@ -65,6 +66,10 @@ Any page in a Sphinx_ project can be converted to a post using the following dir
    By default, ABlog uses the first paragraph of a page as post excerpt.
    You can change this behavior and also add an image to the excerpt.
    To find out how, see :ref:`post-excerpts-and-images`.
+
+   **External links**
+
+   If you'd like a post to point to an external website (e.g., if you hose your posts on a blogging platform like Medium but wish to maintain a list of posts on your ``Ablog`` site), use the ``external_link`` parameter and this will be used instead.
 
    **Update Notes**
 

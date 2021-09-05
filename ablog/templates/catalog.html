@@ -1,5 +1,12 @@
 {{ warning("catalog.html is an old template path, that is no longer used by ablog. Please use ablog/catalog.html instead.") }}
 {%- extends "page.html" %}
+{% macro postlink(post) %}
+  {% if post.external_link %}
+    {{- post.external_link -}}
+  {% else %}
+    {{- pathto(post.docname) }}{{ anchor(post) -}}
+  {% endif %}
+{% endmacro %}
 {% block body %}
 {% for collection in catalog %}
 {% if collection %}
@@ -17,7 +24,7 @@
       Draft
       {% endif %}
       -
-      <a href="{{ pathto(post.docname) }}{{ anchor(post) }}"
+      <a href="{{ postlink(post) }}"
         >{{ post.title }}</a
       >
     </p>
