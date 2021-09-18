@@ -53,6 +53,7 @@ junit/
 
 # Translations
 *.pot
+babel-mapping.ini
 
 # Django stuff:
 *.log
