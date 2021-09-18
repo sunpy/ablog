@@ -122,4 +122,3 @@ msgstr "Següent"
 #: ablog/templates/recentposts.html:3
 msgid "Recent Posts"
 msgstr "Publicacions recents"
-
