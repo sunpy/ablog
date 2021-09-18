@@ -276,7 +276,7 @@ def _get_update_dates(section, docname, post_date_format):
                     + f". Expected format: {post_date_format}"
                 )
         # Insert a new title element which contains the `Updated on {date}` logic.
-        substitute = nodes.title("", "Updated on " + update.strftime(post_date_format))
+        substitute = nodes.title("", _("Updated on ") + update.strftime(post_date_format))
         update_node.insert(0, substitute)
         update_node["classes"] = ["note", "update"]
 

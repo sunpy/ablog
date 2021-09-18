@@ -1,0 +1,124 @@
+# Catalan translations for ablog.
+# Copyright (C) 2021 ORGANIZATION
+# This file is distributed under the same license as the ablog project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ablog 0.10.12\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2021-09-18 02:24+0200\n"
+"PO-Revision-Date: 2021-09-18 18:57+0200\n"
+"Last-Translator: Francesc Vilardell Sallés <vilardellsalles@gmail.com>\n"
+"Language: ca\n"
+"Language-Team: ca <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.0\n"
+
+#: ablog/post.py:279
+msgid "Updated on "
+msgstr "Actualitzat el "
+
+#: ablog/post.py:601 ablog/templates/authors.html:2
+msgid "Authors"
+msgstr "Autors"
+
+#: ablog/post.py:601 ablog/post.py:683
+msgid "Posts by"
+msgstr "Publicacions de"
+
+#: ablog/post.py:602 ablog/templates/locations.html:3
+msgid "Locations"
+msgstr "Ubicacions"
+
+#: ablog/post.py:602 ablog/post.py:684
+msgid "Posts from"
+msgstr "Publicacions des de"
+
+#: ablog/post.py:603 ablog/templates/languages.html:3
+msgid "Languages"
+msgstr "Idiomes"
+
+#: ablog/post.py:603 ablog/post.py:604 ablog/post.py:685 ablog/post.py:686
+msgid "Posts in"
+msgstr "Publicacions en"
+
+#: ablog/post.py:604 ablog/templates/categories.html:3
+msgid "Categories"
+msgstr "Categories"
+
+#: ablog/post.py:605
+msgid "All posts"
+msgstr "Totes les publicacions"
+
+#: ablog/post.py:605 ablog/post.py:687
+msgid "Posted in"
+msgstr "Publicat al"
+
+#: ablog/post.py:606 ablog/templates/postcard2.html:57
+#: ablog/templates/tagcloud.html:2
+msgid "Tags"
+msgstr "Etiquetes"
+
+#: ablog/post.py:606 ablog/post.py:688
+msgid "Posts tagged"
+msgstr "Publicacions amb etiqueta"
+
+#: ablog/post.py:638
+msgid "All Posts"
+msgstr "Totes les publicacions"
+
+#: ablog/post.py:639
+msgid "All"
+msgstr "Totes les"
+
+#: ablog/post.py:650
+msgid "Drafts"
+msgstr "Borradors"
+
+#: ablog/templates/archives.html:3
+msgid "Archives"
+msgstr "Arxius"
+
+#: ablog/templates/collection.html:47
+msgid "Read more ..."
+msgstr "Llegir-ne més ..."
+
+#: ablog/templates/postcard2.html:5
+msgid "Update"
+msgstr "Actualització"
+
+#: ablog/templates/postcard2.html:12
+msgid "Author"
+msgstr "Autor"
+
+#: ablog/templates/postcard2.html:24
+msgid "Location"
+msgstr "Ubicació"
+
+#: ablog/templates/postcard2.html:35
+msgid "Language"
+msgstr "Idioma"
+
+#: ablog/templates/postcard2.html:46
+msgid "Category"
+msgstr "Categoria"
+
+#: ablog/templates/postcard2.html:60
+msgid "Tag"
+msgstr "Etiqueta"
+
+#: ablog/templates/postnavy.html:5
+msgid "Previous"
+msgstr "Anterior"
+
+#: ablog/templates/postnavy.html:15
+msgid "Next"
+msgstr "Següent"
+
+#: ablog/templates/recentposts.html:3
+msgid "Recent Posts"
+msgstr "Publicacions recents"
