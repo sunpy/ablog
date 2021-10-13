@@ -353,7 +353,7 @@ def ablog_post(filename, title=None, **kwargs):
         # read the file, and add post directive
         # and save it
         with open(filename, "w", encoding="utf-8") as out:
-            post_text = POST_TEMPLATE.format(pars)
+            post_text = POST_TEMPLATE.format(**pars)
             out.write(post_text)
 
         print(f"Blog post created: {filename}")
