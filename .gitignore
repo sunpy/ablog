@@ -230,4 +230,4 @@ test/
 .history/
 
 # sphinx-intl
-*.mo
+docs/**/*.mo
