@@ -228,6 +228,3 @@ docs/_latex/
 test/
 *.orig
 .history/
-
-# sphinx-intl
-docs/**/*.mo
