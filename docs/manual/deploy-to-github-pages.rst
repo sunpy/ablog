@@ -9,9 +9,9 @@ Deploy to GitHub Pages
    :category: Manual
    :location: SF
 
-If you are looking for a place to publish your blog, `GitHub Pages`_ might be the place for you.
+If you are looking for a place to publish your blog, `GitHub Pages`__ might be the place for you.
 
-.. _GitHub Pages: https://pages.github.com/
+__ https://pages.github.com/
 
 Assuming that you have a GitHub account, here are what you need to do to get published:
 
