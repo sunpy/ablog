@@ -42,12 +42,12 @@ ABlog v0.7.3 released
    :category: Release
    :location: SF
 
-ABlog v0.7.3 makes use of `python-dateutil`_ for parsing post dates, so now you
-can be flexible with the format you use in posts. Thanks to `Andy Maloney`_
+ABlog v0.7.3 makes use of `python-dateutil`__ for parsing post dates, so now you
+can be flexible with the format you use in posts. Thanks to `Andy Maloney`__
 for this improvement.
 
-.. _python-dateutil: https://pypi.python.org/pypi/python-dateutil
-.. _Andy Maloney: https://github.com/amaloney
+__ https://pypi.python.org/pypi/python-dateutil
+__ https://github.com/amaloney
 
 ABlog v0.7.5 released
 ---------------------

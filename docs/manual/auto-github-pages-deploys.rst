@@ -92,4 +92,6 @@ Note that there is no mention of your GitHub Pages repository, i.e. ``username.g
 That is specified in :file:`conf.py` file with :confval:`github_pages`.
 See :ref:`deploy-to-github-pages` and :ref:`commands` to find out more about deploy options.
 
-Finally, you can find out more about :file:`.travis.yml` file and customizing your built on Travis CI `user documentation <https://docs.travis-ci.com/user/customizing-the-build/>`__.
+Finally, you can find out more about :file:`.travis.yml` file and customizing your built on Travis CI `user documentation`__.
+
+__ https://docs.travis-ci.com/user/customizing-the-build/

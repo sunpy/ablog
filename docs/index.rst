@@ -3,21 +3,21 @@ ABlog for Sphinx
 
 ABlog is a Sphinx extension that converts any documentation or personal website project into a full-fledged blog with:
 
-  * `Atom feeds`_
-  * `Archive pages`_
-  * `Blog sidebars`_
-  * `Disqus integration`_
-  * `Font-Awesome integration`_
-  * `Easy GitHub Pages deploys`_
-  * `Markdown support`_
+  * `Atom feeds`__
+  * `Archive pages`__
+  * `Blog sidebars`__
+  * `Disqus integration`__
+  * `Font-Awesome integration`__
+  * `Easy GitHub Pages deploys`__
+  * `Markdown support`__
 
-.. _Atom feeds: https://ablog.readthedocs.io/blog/atom.xml
-.. _Archive pages: https://ablog.readthedocs.io/blog/archive.html
-.. _Blog sidebars: https://ablog.readthedocs.io/manual/ablog-configuration-options.html#blog-sidebars
-.. _Disqus integration: https://ablog.readthedocs.io/manual/ablog-configuration-options.html#disqus-integration
-.. _Font-Awesome integration: https://ablog.readthedocs.io/manual/ablog-configuration-options.html#fa
-.. _Easy GitHub Pages deploys: https://ablog.readthedocs.io/manual/auto-github-pages-deploys.html
-.. _Markdown support: https://ablog.readthedocs.io/manual/markdown.html
+__ https://ablog.readthedocs.io/blog/atom.xml
+__ https://ablog.readthedocs.io/blog/archive.html
+__ https://ablog.readthedocs.io/manual/ablog-configuration-options.html#blog-sidebars
+__ https://ablog.readthedocs.io/manual/ablog-configuration-options.html#disqus-integration
+__ https://ablog.readthedocs.io/manual/ablog-configuration-options.html#fa
+__ https://ablog.readthedocs.io/manual/auto-github-pages-deploys.html
+__ https://ablog.readthedocs.io/manual/markdown.html
 
 .. _installation:
 

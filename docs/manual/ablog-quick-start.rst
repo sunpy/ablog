@@ -43,9 +43,9 @@ Take a look at :file:`index.rst` for some tips on navigation links within the pr
 Write Content
 -------------
 
-If you are new to Sphinx_ and reStructuredText markup language, you might find `reStructuredText Primer`_ useful.
+If you are new to Sphinx_ and reStructuredText markup language, you might find `reStructuredText Primer`__ useful.
 
-.. _reStructuredText Primer: http://sphinx-doc.org/rest.html
+__ http://sphinx-doc.org/rest.html
 
 Pages
 ^^^^^
@@ -95,9 +95,9 @@ See :ref:`disqus-integration` for configuration options.
 Analytics
 ---------
 
-ABlog uses Alabaster_ theme by default. You can use theme options to set your `Google Analytics`_ identifier to enable tracking.
+ABlog uses Alabaster_ theme by default. You can use theme options to set your `Google Analytics`__ identifier to enable tracking.
 
-.. _Google Analytics: https://www.google.com/analytics/
+__ https://www.google.com/analytics/
 
 Configuration
 -------------

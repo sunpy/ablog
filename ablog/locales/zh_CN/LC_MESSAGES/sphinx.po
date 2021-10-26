@@ -40,7 +40,7 @@ msgstr "语言"
 
 #: ablog/post.py:527 ablog/post.py:528 ablog/post.py:610 ablog/post.py:611
 msgid "Posts in"
-msgstr "文章在"
+msgstr "文章："
 
 #: ablog/post.py:528 ablog/templates/categories.html:2
 msgid "Categories"
@@ -52,7 +52,7 @@ msgstr "所有文章"
 
 #: ablog/post.py:529 ablog/post.py:612
 msgid "Posted in"
-msgstr "文章在"
+msgstr "文章："
 
 #: ablog/post.py:530 ablog/templates/postcard2.html:43
 #: ablog/templates/tagcloud.html:2
