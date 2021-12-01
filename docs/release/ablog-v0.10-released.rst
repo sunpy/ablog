@@ -261,3 +261,16 @@ Pull Requests merged in:
 `Fix typo in "extennsion" <https://github.com/sunpy/ablog/pull/109>`__.
 `Catalan translation <https://github.com/sunpy/ablog/pull/113>`__.
 `Fix ablog post <https://github.com/sunpy/ablog/pull/114>`__.
+
+ABlog v0.10.21 released
+-----------------------
+.. post:: Dec 1, 2021
+   :author: Nabil
+   :category: Release
+   :location: World
+
+Pull Requests merged in:
+
+`Fix/multilang feed links <https://github.com/sunpy/ablog/pull/116>`__.
+
+BREAKING CHANGE - DROPPED PYTHON 3.6 SUPPORT
