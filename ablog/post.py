@@ -666,13 +666,17 @@ def generate_atom_feeds(app):
     if not url:
         return
 
+    base_url = url
+    if len(blog.blog_languages) > 1:
+        base_url = os_path_join(url, app.config.language)
+
     feeds = [
         (
             blog.posts,
             blog.blog_path,
             os.path.join(app.builder.outdir, blog.blog_path, feed_root + ".xml"),
             blog.blog_title,
-            os_path_join(url, blog.blog_path, feed_root + ".xml"),
+            os_path_join(base_url, blog.blog_path, feed_root + ".xml"),
             feed_templates,
         )
         for feed_root, feed_templates in blog.blog_feed_templates.items()
@@ -726,7 +730,7 @@ def generate_atom_feeds(app):
         for i, post in enumerate(feed_posts):
             if feed_length and i == feed_length:
                 break
-            post_url = os_path_join(url, app.builder.get_target_uri(post.docname))
+            post_url = os_path_join(base_url, app.builder.get_target_uri(post.docname))
             if post.section:
                 post_url += "#" + post.section
 
