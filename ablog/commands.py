@@ -374,7 +374,13 @@ def ablog_post(filename, title=None, **kwargs):
     help="environment variable name storing GitHub access token",
 )
 @arg("--github-ssh", dest="github_is_http", action="store_true", help="use ssh when cloning website")
-@arg("--github-branch", dest="github_branch", type=str, help="Branch to use. Default is: master.", default="master")
+@arg(
+    "--github-branch",
+    dest="github_branch",
+    type=str,
+    help="Branch to use. Default is: master.",
+    default="master",
+)
 @arg(
     "--push-quietly",
     dest="push_quietly",
