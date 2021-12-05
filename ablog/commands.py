@@ -374,6 +374,7 @@ def ablog_post(filename, title=None, **kwargs):
     help="environment variable name storing GitHub access token",
 )
 @arg("--github-ssh", dest="github_is_http", action="store_true", help="use ssh when cloning website")
+@arg("--github-branch", dest="github_branch", type=str, help="Branch to use. Default is: master.", default="master")
 @arg(
     "--push-quietly",
     dest="push_quietly",
@@ -412,6 +413,7 @@ def ablog_deploy(
     github_token=None,
     github_is_http=True,
     github_url=None,
+    github_branch=None,
     repodir=None,
     **kwargs,
 ):
@@ -423,6 +425,8 @@ def ablog_deploy(
 
     github_url = github_url or getattr(conf, "github_url", None)
     github_url += ":"
+
+    github_branch = github_branch or getattr(conf, "github_branch", "master")
 
     website = website or os.path.join(confdir, getattr(conf, "ablog_builddir", "_website"))
 
@@ -491,7 +495,7 @@ def ablog_deploy(
             push += " -q"
         if push_force:
             push += " -f"
-        push += " origin master"
+        push += f" origin {github_branch}"
         run(push, echo=True)
 
     else:

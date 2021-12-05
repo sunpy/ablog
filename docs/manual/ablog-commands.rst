@@ -111,24 +111,33 @@ Running ``ablog deploy`` will push your website to GitHub::
   $ ablog deploy -h
   usage: ablog deploy [-h] [-w WEBSITE] [-p REPODIR] [-g GITHUB_PAGES]
                       [-m MESSAGE] [-f] [--push-quietly]
-                      [--github-token GITHUB_TOKEN]
+                      [--github-branch GITHUB_BRANCH] [--github-ssh]
+                      [--github-token GITHUB_TOKEN] [--github-url GITHUB_URL]
 
   Path options can be set in conf.py. Default values of paths are relative to
   conf.py.
 
-  optional arguments:
+  options:
     -h, --help            show this help message and exit
     -w WEBSITE            path for website, default is _website when
                           `ablog_website` is not set in conf.py
-    -p REPODIR            path to the location of repository to be deployed,
-                          e.g. `../username.github.io`, default is folder
-                          containing `conf.py`
+    -p REPODIR            path to the location of repository to be deployed, e.g.
+                          `../username.github.io`, default is folder containing
+                          `conf.py`
     -g GITHUB_PAGES       GitHub username for deploying to GitHub pages
     -m MESSAGE            commit message
     -f                    owerwrite last commit, i.e. `commit --amend; push -f`
     --push-quietly        be more quiet when pushing changes
+    --github-branch GITHUB_BRANCH
+                          Branch to use. Default is 'master'.
+    --github-ssh          use ssh when cloning website
     --github-token GITHUB_TOKEN
                           environment variable name storing GitHub access token
+    --github-url GITHUB_URL
+                          Custom GitHub URL. Useful when multiple accounts are
+                          configured on the same machine. Default is:
+                          git@github.com
+
 
 Create a Post
 -------------
