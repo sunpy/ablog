@@ -274,3 +274,14 @@ Pull Requests merged in:
 `Fix/multilang feed links <https://github.com/sunpy/ablog/pull/116>`__.
 
 BREAKING CHANGE - DROPPED PYTHON 3.6 SUPPORT
+
+ABlog v0.10.22 released
+-----------------------
+.. post:: Jan 1, 2022
+   :author: Nabil
+   :category: Release
+   :location: World
+
+Pull Requests merged in:
+
+`Fix tags field for myst_parser <https://github.com/sunpy/ablog/pull/119>`__.
