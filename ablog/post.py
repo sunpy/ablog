@@ -173,14 +173,14 @@ class CheckFrontMatter(SphinxTransform):
 
         # Pull the metadata for the page to check if it is a blog post
         metadata = {fn.children[0].astext(): fn.children[1].astext() for fn in docinfo.traverse(nodes.field)}
-        tags = metadata.get('tags')
+        tags = metadata.get("tags")
         if isinstance(tags, str):
             # myst_parser store front-matter field to TextNode in dict_to_fm_field_list.
             # like ["a", "b", "c"]
             # remove [] and quote
             try:
                 tags = eval(tags)
-                metadata['tags'] = ','.join(tags)
+                metadata["tags"] = ",".join(tags)
             except Exception:
                 logging.warning(f"fail to eval tags: {tags}")
         if docinfo.traverse(nodes.author):
