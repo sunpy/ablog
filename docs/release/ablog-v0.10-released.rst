@@ -285,3 +285,15 @@ ABlog v0.10.22 released
 Pull Requests merged in:
 
 `Fix tags field for myst_parser <https://github.com/sunpy/ablog/pull/119>`__.
+
+ABlog v0.10.23 released
+-----------------------
+.. post:: Jan 3, 2022
+   :author: Nabil
+   :category: Release
+   :location: World
+
+Pull Requests merged in:
+
+`optionally show previous / next links on post page <https://github.com/sunpy/ablog/pull/120>`__.
+`add classes to post elements <https://github.com/sunpy/ablog/pull/121>`__.
