@@ -26,8 +26,8 @@
   </div>
   {% endfor %} {% else %} {% for post in collection %}
 
-  <div class="section">
-    <h2>
+  <div class="section ablog-post">
+    <h2 class="ablog-post-title">
       <a href="{{ pathto(post.docname) }}{{ anchor(post) }}"
         >{{ post.title }}</a
       >
@@ -44,7 +44,7 @@
       {% include "postcard2.html" %}
     </ul>
     {{ post.to_html(collection.docname) }}
-    <p><a href="{{ pathto(post.docname) }}">{{ _("Read more ...") }}</a></p>
+    <p class="ablog-post-expand"><a href="{{ pathto(post.docname) }}"><em>{{ _("Read more ...") }}</em></a></p>
     <hr />
   </div>
   {% endfor %} {% endif %}
