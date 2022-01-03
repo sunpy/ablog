@@ -507,6 +507,7 @@ def process_postlist(app, doctree, docname):
         bl.attributes["classes"].append("postlist")
         for post in posts:
             bli = nodes.list_item()
+            bli.attributes["classes"].append("ablog-post")
             bl.append(bli)
             par = nodes.paragraph()
             bli.append(par)
@@ -535,6 +536,7 @@ def process_postlist(app, doctree, docname):
                             ref["names"] = []
                             ref["internal"] = True
                             ref.append(nodes.Text(text_type(item)))
+                            par.attributes["classes"].append("ablog-post-title")
                         else:
                             ref = _missing_reference(app, item.xref, docname)
                         par.append(ref)
@@ -543,6 +545,7 @@ def process_postlist(app, doctree, docname):
             if excerpts and post.excerpt:
                 for enode in post.excerpt:
                     enode = enode.deepcopy()
+                    enode.attributes["classes"].append("ablog-post-excerpt")
                     revise_pending_xrefs(enode, docname)
                     app.env.resolve_references(enode, docname, app.builder)
                     enode.parent = bli.parent
@@ -550,6 +553,7 @@ def process_postlist(app, doctree, docname):
                 if expand:
                     ref = app.builder.get_relative_uri(docname, post.docname)
                     enode = nodes.paragraph()
+                    enode.attributes["classes"].append("ablog-post-expand")
                     refnode = nodes.reference("", "", internal=True, refuri=ref)
                     innernode = nodes.emphasis(text=expand)
                     refnode.append(innernode)

@@ -436,8 +436,11 @@ class Post(BlogPageMixin):
             else:
                 doctree.append(deepcopy)
         else:
+            excerpt_container = nodes.container()
+            excerpt_container.attributes["classes"].append("ablog-post-excerpt")
             for node in self.excerpt:
-                doctree.append(node.deepcopy())
+                excerpt_container.append(node.deepcopy())
+            doctree.append(excerpt_container)
         app = self._blog.app
         revise_pending_xrefs(doctree, pagename)
         app.env.resolve_references(doctree, pagename, app.builder)
