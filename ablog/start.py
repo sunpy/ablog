@@ -103,7 +103,7 @@ blog_authors = {{
 # is ``False``.
 # post_always_section = False
 
-# When ``True``, links to the previous and next posts will be rendered at the 
+# When ``True``, links to the previous and next posts will be rendered at the
 # bottom of the page.
 # Default is ``True``
 # post_show_prev_next = True
