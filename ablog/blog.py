@@ -119,6 +119,7 @@ CONFIG = [
     ("post_auto_excerpt", 1, True),
     ("post_redirect_refresh", 5, True),
     ("post_always_section", False, True),
+    ("post_show_prev_next", True, True),
     ("disqus_shortname", None, True),
     ("disqus_drafts", False, True),
     ("disqus_pages", False, True),

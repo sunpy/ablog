@@ -116,6 +116,11 @@ Post related
    This is the behavior when :rst:dir:`post` is used multiple times in a document.
    Default is ``False``.
 
+.. confval:: post_show_prev_next
+
+    When ``True``, links to the previous and next posts will be rendered at the bottom of the page.
+    Default is ``True``
+
 Blog feeds
 ----------
 
