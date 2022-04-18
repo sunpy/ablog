@@ -45,10 +45,7 @@ stages:
           apt:
             - pandoc
         envs:
-          - linux: codestyle
-            name: python_codestyle
-            pytest: false
-          - linux: py38-sphinx3
+          - linux: py310-sphinx4
 
   - stage: SecondPhaseTests
     displayName: Stage 2 Tests
@@ -67,8 +64,26 @@ stages:
             - pandoc
         envs:
           - macos: py37-sphinx2
-          - windows: py37-sphinx3
-          - linux: py310-sphinx4
-          - linux: py38-sphinxdev
+          - windows: py37-sphinx2
+          - linux: py38-sphinx2
+          - linux: py39-sphinx3
+
+  - stage: ThirdPhaseTests
+    displayName: Stage 3 Tests
+    dependsOn: SecondPhaseTests
+    jobs:
+    - template: run-tox-env.yml@OpenAstronomy
+      parameters:
+        submodules: false
+        coverage: codecov
+        libraries:
+          brew:
+            - pandoc
+          choco:
+            - pandoc
+          apt:
+            - pandoc
+        envs:
+          - linux: py310-sphinxdev
           - linux: py39-conda
           - linux: py39-docs
