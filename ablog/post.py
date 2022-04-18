@@ -179,7 +179,9 @@ class CheckFrontMatter(SphinxTransform):
             # like ["a", "b", "c"]
             # remove [] and quotes
             tags = tags.strip().lstrip("[").rstrip("]")
-            metadata["tags"] = ",".join([t.strip().lstrip('"').lstrip("'").rstrip('"').rstrip("'") for t in tags.split(',')])
+            metadata["tags"] = ",".join(
+                [t.strip().lstrip('"').lstrip("'").rstrip('"').rstrip("'") for t in tags.split(",")]
+            )
         if docinfo.traverse(nodes.author):
             metadata["author"] = list(docinfo.traverse(nodes.author))[0].astext()
         # These two fields are special-cased in docutils
