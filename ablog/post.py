@@ -177,12 +177,11 @@ class CheckFrontMatter(SphinxTransform):
         if isinstance(tags, str):
             # myst_parser store front-matter field to TextNode in dict_to_fm_field_list.
             # like ["a", "b", "c"]
-            # remove [] and quote
-            try:
-                tags = eval(tags)
-                metadata["tags"] = ",".join(tags)
-            except Exception:
-                logging.warning(f"fail to eval tags: {tags}")
+            # remove [] and quotes
+            tags = tags.strip().lstrip("[").rstrip("]")
+            metadata["tags"] = ",".join(
+                [t.strip().lstrip('"').lstrip("'").rstrip('"').rstrip("'") for t in tags.split(",")]
+            )
         if docinfo.traverse(nodes.author):
             metadata["author"] = list(docinfo.traverse(nodes.author))[0].astext()
         # These two fields are special-cased in docutils
