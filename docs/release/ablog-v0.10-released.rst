@@ -297,3 +297,30 @@ Pull Requests merged in:
 
 `optionally show previous / next links on post page <https://github.com/sunpy/ablog/pull/120>`__.
 `add classes to post elements <https://github.com/sunpy/ablog/pull/121>`__.
+
+
+ABlog v0.10.24 released
+-----------------------
+.. post:: Apr 18, 2022
+   :author: Nabil
+   :category: Release
+   :location: World
+
+Breaking Changes:
+
+Minimum versions of packages increased:
+
+.. code-block:: bash
+
+   feedgen>=0.9.0
+   invoke>=1.6.0
+   python-dateutil>=2.8.0
+   sphinx>=4.0.0
+   watchdog>=2.0.0
+   myst-parser>=0.17.0
+   pytest>=6.0.0
+
+Pull Requests merged in:
+
+`Get rid of eval and fix #128 <https://github.com/sunpy/ablog/pull/131>`__.
+`CI Tweak <https://github.com/sunpy/ablog/pull/132>`__.
