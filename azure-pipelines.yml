@@ -63,10 +63,10 @@ stages:
           apt:
             - pandoc
         envs:
-          - macos: py37-sphinx2
-          - windows: py37-sphinx2
-          - linux: py38-sphinx2
-          - linux: py39-sphinx3
+          - macos: py37-sphinx4
+          - windows: py37-sphinx4
+          - linux: py38-sphinx4
+          - linux: py39-sphinx4
 
   - stage: ThirdPhaseTests
     displayName: Stage 3 Tests
