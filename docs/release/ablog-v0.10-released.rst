@@ -297,3 +297,16 @@ Pull Requests merged in:
 
 `optionally show previous / next links on post page <https://github.com/sunpy/ablog/pull/120>`__.
 `add classes to post elements <https://github.com/sunpy/ablog/pull/121>`__.
+
+
+ABlog v0.10.24 released
+-----------------------
+.. post:: Apr 18, 2022
+   :author: Nabil
+   :category: Release
+   :location: World
+
+Pull Requests merged in:
+
+`Get rid of eval and fix #128 <https://github.com/sunpy/ablog/pull/131>`__.
+`CI Tweak <https://github.com/sunpy/ablog/pull/132>`__.
