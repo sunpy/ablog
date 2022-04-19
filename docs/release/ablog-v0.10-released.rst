@@ -324,3 +324,14 @@ Pull Requests merged in:
 
 `Get rid of eval and fix #128 <https://github.com/sunpy/ablog/pull/131>`__.
 `CI Tweak <https://github.com/sunpy/ablog/pull/132>`__.
+
+ABlog v0.10.25 released
+-----------------------
+.. post:: Apr 19, 2022
+   :author: Nabil
+   :category: Release
+   :location: World
+
+Pull Requests merged in:
+
+`Normalise path to posix as sphinx expects <https://github.com/sunpy/ablog/pull/134>`__.
