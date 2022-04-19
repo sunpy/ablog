@@ -5,6 +5,8 @@ ABlog for Sphinx.
 import os
 from glob import glob
 
+from pathlib import PurePath
+
 from .blog import CONFIG, Blog
 from .post import (
     CheckFrontMatter,
@@ -107,8 +109,10 @@ def config_inited(app, config):
     matched_patterns = []
     for pattern in config.blog_post_pattern:
         pattern = os.path.join(app.srcdir, pattern)
+        # make sure that blog post paths have forward slashes even on windows
         matched_patterns.extend(
-            os.path.relpath(os.path.splitext(ii)[0], app.srcdir) for ii in glob(pattern, recursive=True)
+            PurePath(ii).relative_to(app.srcdir).with_suffix("").as_posix()
+            for ii in glob(pattern, recursive=True)
         )
     app.config.matched_blog_posts = matched_patterns
 
