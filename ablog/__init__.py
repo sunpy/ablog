@@ -4,7 +4,6 @@ ABlog for Sphinx.
 
 import os
 from glob import glob
-
 from pathlib import PurePath
 
 from .blog import CONFIG, Blog
