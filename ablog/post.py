@@ -681,7 +681,13 @@ def generate_atom_feeds(app):
 
     base_url = url
     if len(blog.blog_languages) > 1:
-        base_url = os_path_join(url, app.config.language)
+        lang = (
+            blog.blog_default_language[0]
+            or list(blog.blog_languages.keys())[0]
+            or app.config.language
+            or "en"
+        )
+        base_url = os_path_join(url, lang)
 
     feeds = [
         (
