@@ -33,7 +33,7 @@ release = versionmod.version.split("+")[0]
 # Is this version a development release
 is_development = ".dev" in release
 project = "ABlog"
-copyright = "2014-2021, ABlog Team"
+copyright = "2014-2022, ABlog Team"
 master_doc = "index"
 source_suffix = {
     ".rst": "restructuredtext",
@@ -57,7 +57,11 @@ blog_locations = {
     "SF": ("San Francisco, CA", "https://en.wikipedia.org/wiki/San_Francisco"),
     "Denizli": ("Denizli, Turkey", "https://en.wikipedia.org/wiki/Denizli"),
 }
-blog_languages = {"en": ("English", None)}
+blog_languages = {
+    "en": ("English", None),
+    "nl": ("Nederlands", None),
+    "zh_CN": ("Chinese", None),
+}
 blog_default_language = "en"
 language = "en"
 blog_authors = {

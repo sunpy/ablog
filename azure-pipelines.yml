@@ -44,8 +44,9 @@ stages:
         libraries:
           apt:
             - pandoc
+            - graphviz
         envs:
-          - linux: py310-sphinx4
+          - linux: py310-sphinx5
 
   - stage: SecondPhaseTests
     displayName: Stage 2 Tests
@@ -58,15 +59,18 @@ stages:
         libraries:
           brew:
             - pandoc
+            - graphviz
           choco:
             - pandoc
+            - graphviz
           apt:
             - pandoc
+            - graphviz
         envs:
           - macos: py37-sphinx4
           - windows: py37-sphinx4
-          - linux: py38-sphinx4
-          - linux: py39-sphinx4
+          - linux: py38-sphinx5
+          - linux: py39-sphinx5
 
   - stage: ThirdPhaseTests
     displayName: Stage 3 Tests
@@ -77,13 +81,9 @@ stages:
         submodules: false
         coverage: codecov
         libraries:
-          brew:
-            - pandoc
-          choco:
-            - pandoc
           apt:
             - pandoc
+            - graphviz
         envs:
           - linux: py310-sphinxdev
-          - linux: py39-conda
           - linux: py39-docs
