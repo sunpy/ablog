@@ -675,19 +675,9 @@ def generate_atom_feeds(app):
 
     blog = Blog(app)
 
-    url = blog.blog_baseurl
-    if not url:
+    base_url = blog.blog_baseurl
+    if not base_url:
         return
-
-    base_url = url
-    if len(blog.blog_languages) > 1:
-        lang = (
-            blog.blog_default_language[0]
-            or list(blog.blog_languages.keys())[0]
-            or app.config.language
-            or "en"
-        )
-        base_url = os_path_join(url, lang)
 
     feeds = [
         (
@@ -726,7 +716,7 @@ def generate_atom_feeds(app):
                             coll.path,
                             os.path.join(folder, feed_root + ".xml"),
                             blog.blog_title + " - " + header + " " + text_type(coll),
-                            os_path_join(url, coll.path, feed_root + ".xml"),
+                            os_path_join(base_url, coll.path, feed_root + ".xml"),
                             feed_templates,
                         )
                     )
@@ -740,7 +730,7 @@ def generate_atom_feeds(app):
         feed = FeedGenerator()
         feed.id(blog.blog_baseurl)
         feed.title(feed_title)
-        feed.link(href=url)
+        feed.link(href=base_url)
         feed.subtitle(blog.blog_feed_subtitle)
         feed.link(href=feed_url, rel="self")
         feed.language(app.config.language)
