@@ -117,9 +117,9 @@ intersphinx_mapping = {
     "sphinx": ("https://www.sphinx-doc.org/en/master/", None),
 }
 extlinks = {
-    "wiki": ("https://en.wikipedia.org/wiki/%s", ""),
-    "issue": ("https://github.com/sunpy/ablog/issues/%s", "issue "),
-    "pull": ("https://github.com/sunpy/ablog/pull/%s", "pull request "),
+    "wiki": ("https://en.wikipedia.org/wiki/%s", "%s"),
+    "issue": ("https://github.com/sunpy/ablog/issues/%s", "issue %s"),
+    "pull": ("https://github.com/sunpy/ablog/pull/%s", "pull request %s"),
 }
 exclude_patterns = ["docs/manual/.ipynb_checkpoints/*"]
 rst_epilog = """
