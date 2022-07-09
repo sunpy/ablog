@@ -198,6 +198,8 @@ Turn feeds on by setting :confval:`blog_baseurl` configuration variable.
 .. _fa:
 .. _Jinja2: https://jinja.palletsprojects.com/
 
+.. _font-awesome:
+
 Font awesome
 ------------
 
