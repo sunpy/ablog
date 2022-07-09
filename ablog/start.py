@@ -283,7 +283,7 @@ pygments_style = 'sphinx'
 # keep_warnings = False
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
-todo_include_todos = "{ext_todo:}"
+todo_include_todos = {ext_todo}
 
 
 # -- Options for HTML output ----------------------------------------------

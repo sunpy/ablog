@@ -335,3 +335,16 @@ ABlog v0.10.25 released
 Pull Requests merged in:
 
 `Normalise path to posix as sphinx expects <https://github.com/sunpy/ablog/pull/134>`__.
+
+ABlog v0.10.26 released
+-----------------------
+.. post:: July 8, 2022
+   :author: Nabil
+   :category: Release
+   :location: World
+
+Pull Requests merged in:
+
+`docs: Fix format of sphinx.ext.extlink for Sphinx 5.x <https://github.com/sunpy/ablog/pull/141>`__.
+`docs: Use ref link rather than hardcode link <https://github.com/sunpy/ablog/pull/140>`__.
+`Ci and Warnings Fix <https://github.com/sunpy/ablog/pull/142>`__.
