@@ -5,6 +5,7 @@ ABlog Internationalization
    :tags: i18n
    :category: Manual
    :author: Luc, Ahmet
+   :language: Chinese
 
 ABlog automatically generates certain labels like :ref:`blog-posts` and :ref:`blog-categories`.
 If these labels appear in English on your blog although you specified another language, then this page is for you.
