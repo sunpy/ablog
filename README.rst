@@ -16,3 +16,4 @@ Warning
 Please note that is an new home of `Ahmet Bakan's Ablog Sphinx extension <https://github.com/abakan/ablog/>`__.
 
 **This version is maintained with the aim to keep it working for SunPy's website and thus new features or bugfixes are highly unlikely from the SunPy maintainers**.
+**We strongly encourage users and interested in parties in submitting patches to ablog.** 
