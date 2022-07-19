@@ -22,7 +22,7 @@ msgstr ""
 msgid "Updated on "
 msgstr "Actualitzat el "
 
-#: ablog/post.py:601 ablog/templates/authors.html:2
+#: ablog/post.py:601 ablog/templates/ablog/authors.html:2
 msgid "Authors"
 msgstr "Autors"
 
@@ -30,7 +30,7 @@ msgstr "Autors"
 msgid "Posts by"
 msgstr "Publicacions de"
 
-#: ablog/post.py:602 ablog/templates/locations.html:3
+#: ablog/post.py:602 ablog/templates/ablog/locations.html:3
 msgid "Locations"
 msgstr "Ubicacions"
 
@@ -38,7 +38,7 @@ msgstr "Ubicacions"
 msgid "Posts from"
 msgstr "Publicacions des de"
 
-#: ablog/post.py:603 ablog/templates/languages.html:3
+#: ablog/post.py:603 ablog/templates/ablog/languages.html:3
 msgid "Languages"
 msgstr "Idiomes"
 
@@ -46,7 +46,7 @@ msgstr "Idiomes"
 msgid "Posts in"
 msgstr "Publicacions en"
 
-#: ablog/post.py:604 ablog/templates/categories.html:3
+#: ablog/post.py:604 ablog/templates/ablog/categories.html:3
 msgid "Categories"
 msgstr "Categories"
 
@@ -58,8 +58,8 @@ msgstr "Totes les publicacions"
 msgid "Posted in"
 msgstr "Publicat al"
 
-#: ablog/post.py:606 ablog/templates/postcard2.html:57
-#: ablog/templates/tagcloud.html:2
+#: ablog/post.py:606 ablog/templates/ablog/postcard2.html:57
+#: ablog/templates/ablog/tagcloud.html:2
 msgid "Tags"
 msgstr "Etiquetes"
 
@@ -79,46 +79,46 @@ msgstr "Totes les"
 msgid "Drafts"
 msgstr "Borradors"
 
-#: ablog/templates/archives.html:3
+#: ablog/templates/ablog/archives.html:3
 msgid "Archives"
 msgstr "Arxius"
 
-#: ablog/templates/collection.html:47
+#: ablog/templates/ablog/collection.html:47
 msgid "Read more ..."
 msgstr "Llegir-ne més ..."
 
-#: ablog/templates/postcard2.html:5
+#: ablog/templates/ablog/postcard2.html:5
 msgid "Update"
 msgstr "Actualització"
 
-#: ablog/templates/postcard2.html:12
+#: ablog/templates/ablog/postcard2.html:12
 msgid "Author"
 msgstr "Autor"
 
-#: ablog/templates/postcard2.html:24
+#: ablog/templates/ablog/postcard2.html:24
 msgid "Location"
 msgstr "Ubicació"
 
-#: ablog/templates/postcard2.html:35
+#: ablog/templates/ablog/postcard2.html:35
 msgid "Language"
 msgstr "Idioma"
 
-#: ablog/templates/postcard2.html:46
+#: ablog/templates/ablog/postcard2.html:46
 msgid "Category"
 msgstr "Categoria"
 
-#: ablog/templates/postcard2.html:60
+#: ablog/templates/ablog/postcard2.html:60
 msgid "Tag"
 msgstr "Etiqueta"
 
-#: ablog/templates/postnavy.html:5
+#: ablog/templates/ablog/postnavy.html:5
 msgid "Previous"
 msgstr "Anterior"
 
-#: ablog/templates/postnavy.html:15
+#: ablog/templates/ablog/postnavy.html:15
 msgid "Next"
 msgstr "Següent"
 
-#: ablog/templates/recentposts.html:3
+#: ablog/templates/ablog/recentposts.html:3
 msgid "Recent Posts"
 msgstr "Publicacions recents"

@@ -1,12 +1,16 @@
 {% if ablog.location %}
+<div class="ablog__locations">
 <h3>
   <a href="{{ pathto(ablog.location.path) }}">{{ gettext('Locations') }}</a>
 </h3>
 <ul>
-  {% for coll in ablog.location %} {% if coll %}
+  {% for coll in ablog.location %}
+  {% if coll %}
   <li>
     <a href="{{ pathto(coll.docname) }}">{{ coll }} ({{ coll|length }})</a>
   </li>
-  {% endif %} {% endfor %}
+  {% endif %}
+  {% endfor %}
 </ul>
+</div>
 {% endif %}

@@ -21,7 +21,7 @@ msgstr ""
 msgid "Updated on"
 msgstr "Uuendus"
 
-#: ablog/post.py:387 ablog/templates/authors.html:2
+#: ablog/post.py:387 ablog/templates/ablog/authors.html:2
 msgid "Authors"
 msgstr "Autorid"
 
@@ -29,7 +29,7 @@ msgstr "Autorid"
 msgid "Posts by"
 msgstr "Postitused autorilt"
 
-#: ablog/post.py:388 ablog/templates/locations.html:2
+#: ablog/post.py:388 ablog/templates/ablog/locations.html:2
 msgid "Locations"
 msgstr "Kohad"
 
@@ -37,7 +37,7 @@ msgstr "Kohad"
 msgid "Posts from"
 msgstr ""
 
-#: ablog/post.py:389 ablog/templates/languages.html:2
+#: ablog/post.py:389 ablog/templates/ablog/languages.html:2
 msgid "Languages"
 msgstr "Keeltes"
 
@@ -45,7 +45,7 @@ msgstr "Keeltes"
 msgid "Posts in"
 msgstr ""
 
-#: ablog/post.py:390 ablog/templates/categories.html:2
+#: ablog/post.py:390 ablog/templates/ablog/categories.html:2
 msgid "Categories"
 msgstr "Kategooriad"
 
@@ -57,8 +57,8 @@ msgstr "Kõik postitused"
 msgid "Posted in"
 msgstr "Postitused kategoorias"
 
-#: ablog/post.py:392 ablog/templates/postcard2.html:43
-#: ablog/templates/tagcloud.html:2
+#: ablog/post.py:392 ablog/templates/ablog/postcard2.html:43
+#: ablog/templates/ablog/tagcloud.html:2
 msgid "Tags"
 msgstr "Märksõnad"
 
@@ -70,46 +70,46 @@ msgstr "Postitused märksõnaga"
 msgid "Drafts"
 msgstr "Eelnõu"
 
-#: ablog/templates/archive.html:49
+#: ablog/templates/ablog/archive.html:49
 msgid "Read more ..."
 msgstr "Edasi..."
 
-#: ablog/templates/archives.html:2
+#: ablog/templates/ablog/archives.html:2
 msgid "Archives"
 msgstr "Arhiiv"
 
-#: ablog/templates/postcard2.html:2
+#: ablog/templates/ablog/postcard2.html:2
 msgid "Update"
 msgstr "Ajakohastama"
 
-#: ablog/templates/postcard2.html:7
+#: ablog/templates/ablog/postcard2.html:7
 msgid "Author"
 msgstr "Autor"
 
-#: ablog/templates/postcard2.html:16
+#: ablog/templates/ablog/postcard2.html:16
 msgid "Location"
 msgstr "Koht"
 
-#: ablog/templates/postcard2.html:25
+#: ablog/templates/ablog/postcard2.html:25
 msgid "Language"
 msgstr "Keel"
 
-#: ablog/templates/postcard2.html:34
+#: ablog/templates/ablog/postcard2.html:34
 msgid "Category"
 msgstr "Kategooria"
 
-#: ablog/templates/postcard2.html:44
+#: ablog/templates/ablog/postcard2.html:44
 msgid "Tag"
 msgstr "Märksõna"
 
-#: ablog/templates/postnavy.html:7
+#: ablog/templates/ablog/postnavy.html:7
 msgid "Previous"
 msgstr "Eelmine"
 
-#: ablog/templates/postnavy.html:17
+#: ablog/templates/ablog/postnavy.html:17
 msgid "Next"
 msgstr "Järgmine"
 
-#: ablog/templates/recentposts.html:2
+#: ablog/templates/ablog/recentposts.html:2
 msgid "Recent Posts"
 msgstr "Viimased postitused"

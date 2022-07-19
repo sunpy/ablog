@@ -100,6 +100,10 @@ class UpdateDirective(BaseAdmonition):
         return ad
 
 
+def _split(a):
+    return {s.strip() for s in a.split(",")}
+
+
 class PostListDirective(Directive):
     """
     Handle ``postlist`` directives.
@@ -157,7 +161,7 @@ class CheckFrontMatter(SphinxTransform):
 
     def apply(self):
         # Check if page-level metadata has been given
-        docinfo = list(self.document.traverse(nodes.docinfo))
+        docinfo = list(self.document.findall(nodes.docinfo))
         if not docinfo:
             return None
         docinfo = docinfo[0]

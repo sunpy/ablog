@@ -1,12 +1,16 @@
 {% if ablog.category %}
+<div class="ablog-sidebar-item ablog__category">
 <h3>
   <a href="{{ pathto(ablog.category.path) }}">{{ gettext('Categories') }}</a>
 </h3>
 <ul>
-  {% for coll in ablog.category %} {% if coll %}
+  {% for coll in ablog.category %}
+  {% if coll %}
   <li>
     <a href="{{ pathto(coll.docname) }}">{{ coll }} ({{ coll|length }})</a>
   </li>
-  {% endif %} {% endfor %}
+  {% endif %}
+  {% endfor %}
 </ul>
+</div>
 {% endif %}

@@ -22,12 +22,15 @@ from .post import (
 )
 from .version import version as __version__
 
+PKGDIR = os.path.abspath(os.path.dirname(__file__))
+
+
 __all__ = ["setup"]
 
 
 def anchor(post):
     """
-    Return anchor string for posts that arepage sections.
+    Return anchor string for posts that are page sections.
     """
     if post.section:
         return "#" + post.section

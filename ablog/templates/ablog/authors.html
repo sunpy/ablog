@@ -1,4 +1,5 @@
 {% if ablog.author %}
+<div class="ablog-sidebar-item ablog__authors">
 <h3><a href="{{ pathto(ablog.author.path) }}">{{ gettext('Authors') }}</a></h3>
 <ul>
   {% for coll in ablog.author %} {% if coll %}
@@ -7,4 +8,5 @@
   </li>
   {% endif %} {% endfor %}
 </ul>
+</div>
 {% endif %}

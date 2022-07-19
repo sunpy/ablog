@@ -29,7 +29,7 @@ setup(
     message_extractors={
         "ablog": [
             ("**.py", "python", None),
-            ("templates/**.html", "jinja2", None),
+            ("templates/ablog/**.html", "jinja2", None),
         ],
     },
 )
