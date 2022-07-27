@@ -182,10 +182,10 @@ class CheckFrontMatter(SphinxTransform):
             metadata["tags"] = ",".join(
                 [t.strip().lstrip('"').lstrip("'").rstrip('"').rstrip("'") for t in tags.split(",")]
             )
-        if docinfo.traverse(nodes.author):
+        if list(docinfo.traverse(nodes.author)):
             metadata["author"] = list(docinfo.traverse(nodes.author))[0].astext()
         # These two fields are special-cased in docutils
-        if docinfo.traverse(nodes.date):
+        if list(docinfo.traverse(nodes.date)):
             metadata["date"] = list(docinfo.traverse(nodes.date))[0].astext()
         if "blogpost" not in metadata and self.env.docname not in self.config.matched_blog_posts:
             return None
