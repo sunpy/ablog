@@ -348,3 +348,14 @@ Pull Requests merged in:
 `docs: Fix format of sphinx.ext.extlink for Sphinx 5.x <https://github.com/sunpy/ablog/pull/141>`__.
 `docs: Use ref link rather than hardcode link <https://github.com/sunpy/ablog/pull/140>`__.
 `Ci and Warnings Fix <https://github.com/sunpy/ablog/pull/142>`__.
+
+ABlog v0.10.27 released
+-----------------------
+.. post:: July 26, 2022
+   :author: Nabil
+   :category: Release
+   :location: World
+
+Pull Requests merged in:
+
+`Improve conditional check for author metadata <https://github.com/sunpy/ablog/pull/146>`__.
