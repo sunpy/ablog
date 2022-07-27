@@ -2,7 +2,7 @@ ABlog v0.10 released
 ====================
 
 .. post:: Nov 17, 2019
-   :author: Nabil
+   :author: Nabil Freij
    :category: Release
    :location: World
 
@@ -23,7 +23,7 @@ Pull Requests merged in:
 ABlog v0.10.1 released
 ----------------------
 .. post:: Dec 17, 2019
-   :author: Nabil
+   :author: Nabil Freij
    :category: Release
    :location: World
 
@@ -34,7 +34,7 @@ Pull Requests merged in:
 ABlog v0.10.2 released
 ----------------------
 .. post:: Jan 2, 2020
-   :author: Nabil
+   :author: Nabil Freij
    :category: Release
    :location: World
 
@@ -45,7 +45,7 @@ Pull Requests merged in:
 ABlog v0.10.3 released
 ----------------------
 .. post:: Feb 12, 2020
-   :author: Nabil
+   :author: Nabil Freij
    :category: Release
    :location: World
 
@@ -58,7 +58,7 @@ Pull Requests merged in:
 ABlog v0.10.4 released
 ----------------------
 .. post:: March 24, 2020
-   :author: Nabil
+   :author: Nabil Freij
    :category: Release
    :location: World
 
@@ -73,7 +73,7 @@ Pull Requests merged in:
 ABlog v0.10.5 released
 ----------------------
 .. post:: Apr 18, 2020
-   :author: Nabil
+   :author: Nabil Freij
    :category: Release
    :location: World
 
@@ -84,7 +84,7 @@ Pull Requests merged in:
 ABlog v0.10.6 released
 ----------------------
 .. post:: May 27, 2020
-   :author: Nabil
+   :author: Nabil Freij
    :category: Release
    :location: World
 
@@ -95,7 +95,7 @@ Pull Requests merged in:
 ABlog v0.10.7 released
 ----------------------
 .. post:: Sept 7, 2020
-   :author: Nabil
+   :author: Nabil Freij
    :category: Release
    :location: World
 
@@ -106,7 +106,7 @@ Pull Requests merged in:
 ABlog v0.10.8 released
 ----------------------
 .. post:: Sept 9, 2020
-   :author: Nabil
+   :author: Nabil Freij
    :category: Release
    :location: World
 
@@ -119,7 +119,7 @@ Version pin of nbsphinx has been removed.
 ABlog v0.10.9 released
 ----------------------
 .. post:: Sept 16, 2020
-   :author: Nabil
+   :author: Nabil Freij
    :category: Release
    :location: World
 
@@ -130,7 +130,7 @@ Pull Requests merged in:
 ABlog v0.10.10 released
 -----------------------
 .. post:: Oct 10, 2020
-   :author: Nabil
+   :author: Nabil Freij
    :category: Release
    :location: World
 
@@ -145,7 +145,7 @@ Pull Requests merged in:
 ABlog v0.10.11 released
 -----------------------
 .. post:: Oct 11, 2020
-   :author: Nabil
+   :author: Nabil Freij
    :category: Release
    :location: World
 
@@ -157,7 +157,7 @@ Pull Requests merged in:
 ABlog v0.10.12 released
 -----------------------
 .. post:: Nov 3, 2020
-   :author: Nabil
+   :author: Nabil Freij
    :category: Release
    :location: World
 
@@ -168,7 +168,7 @@ Pull Requests merged in:
 ABlog v0.10.13 released
 -----------------------
 .. post:: Jan 19, 2021
-   :author: Nabil
+   :author: Nabil Freij
    :category: Release
    :location: World
 
@@ -182,7 +182,7 @@ Pull Requests merged in:
 ABlog v0.10.14 released
 -----------------------
 .. post:: March 21, 2021
-   :author: Nabil
+   :author: Nabil Freij
    :category: Release
    :location: World
 
@@ -196,7 +196,7 @@ Pull Requests merged in:
 ABlog v0.10.15 released
 -----------------------
 .. post:: March 22, 2021
-   :author: Nabil
+   :author: Nabil Freij
    :category: Release
    :location: World
 
@@ -205,7 +205,7 @@ Fixed `Index Out of Range with Atom Feeds <https://github.com/sunpy/ablog/issues
 ABlog v0.10.16 released
 -----------------------
 .. post:: March 23, 2021
-   :author: Nabil
+   :author: Nabil Freij
    :category: Release
    :location: World
 
@@ -216,7 +216,7 @@ Pull Requests merged in:
 ABlog v0.10.17 released
 -----------------------
 .. post:: March 24, 2021
-   :author: Nabil
+   :author: Nabil Freij
    :category: Release
    :location: World
 
@@ -227,7 +227,7 @@ Pull Requests merged in:
 ABlog v0.10.18 released
 -----------------------
 .. post:: April 26, 2021
-   :author: Nabil
+   :author: Nabil Freij
    :category: Release
    :location: World
 
@@ -239,7 +239,7 @@ Pull Requests merged in:
 ABlog v0.10.19 released
 -----------------------
 .. post:: May 26, 2021
-   :author: Nabil
+   :author: Nabil Freij
    :category: Release
    :location: World
 
@@ -251,7 +251,7 @@ Pull Requests merged in:
 ABlog v0.10.20 released
 -----------------------
 .. post:: Oct 13, 2021
-   :author: Nabil
+   :author: Nabil Freij
    :category: Release
    :location: World
 
@@ -265,7 +265,7 @@ Pull Requests merged in:
 ABlog v0.10.21 released
 -----------------------
 .. post:: Dec 1, 2021
-   :author: Nabil
+   :author: Nabil Freij
    :category: Release
    :location: World
 
@@ -278,7 +278,7 @@ BREAKING CHANGE - DROPPED PYTHON 3.6 SUPPORT
 ABlog v0.10.22 released
 -----------------------
 .. post:: Jan 1, 2022
-   :author: Nabil
+   :author: Nabil Freij
    :category: Release
    :location: World
 
@@ -289,7 +289,7 @@ Pull Requests merged in:
 ABlog v0.10.23 released
 -----------------------
 .. post:: Jan 3, 2022
-   :author: Nabil
+   :author: Nabil Freij
    :category: Release
    :location: World
 
@@ -302,7 +302,7 @@ Pull Requests merged in:
 ABlog v0.10.24 released
 -----------------------
 .. post:: Apr 18, 2022
-   :author: Nabil
+   :author: Nabil Freij
    :category: Release
    :location: World
 
@@ -328,7 +328,7 @@ Pull Requests merged in:
 ABlog v0.10.25 released
 -----------------------
 .. post:: Apr 19, 2022
-   :author: Nabil
+   :author: Nabil Freij
    :category: Release
    :location: World
 
@@ -339,7 +339,7 @@ Pull Requests merged in:
 ABlog v0.10.26 released
 -----------------------
 .. post:: July 8, 2022
-   :author: Nabil
+   :author: Nabil Freij
    :category: Release
    :location: World
 
@@ -348,3 +348,14 @@ Pull Requests merged in:
 `docs: Fix format of sphinx.ext.extlink for Sphinx 5.x <https://github.com/sunpy/ablog/pull/141>`__.
 `docs: Use ref link rather than hardcode link <https://github.com/sunpy/ablog/pull/140>`__.
 `Ci and Warnings Fix <https://github.com/sunpy/ablog/pull/142>`__.
+
+ABlog v0.10.27 released
+-----------------------
+.. post:: July 26, 2022
+   :author: Nabil Freij
+   :category: Release
+   :location: World
+
+Pull Requests merged in:
+
+`Improve conditional check for author metadata <https://github.com/sunpy/ablog/pull/146>`__.

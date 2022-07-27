@@ -5,7 +5,10 @@ import shutil
 import argparse
 import webbrowser
 import socketserver
+from os import path
 from http import server
+from os.path import join, isfile, abspath
+from datetime import date
 
 from invoke import run
 from watchdog.observers import Observer
@@ -15,19 +18,25 @@ import ablog
 
 from .start import ablog_start
 
+__all__ = ["ablog_build", "ablog_clean", "ablog_serve", "ablog_deploy", "ablog_main"]
+
 BUILDDIR = "_website"
 DOCTREES = ".doctrees"
+POST_TEMPLATE = """
+{title}
+{equal}
 
-__all__ = ["ablog_build", "ablog_clean", "ablog_serve", "ablog_deploy", "ablog_main"]
+.. post:: {date}
+   :tags:
+   :category:
+
+"""
 
 
 def find_confdir(sourcedir=None):
     """
     Return path to current directory or its parent that contains conf.py.
     """
-
-    from os.path import join, isfile, abspath
-
     confdir = sourcedir or os.getcwd()
 
     def parent(d):
@@ -35,9 +44,7 @@ def find_confdir(sourcedir=None):
 
     while not isfile(join(confdir, "conf.py")) and confdir != parent(confdir):
         confdir = parent(confdir)
-
     conf = join(confdir, "conf.py")
-
     if isfile(conf) and "ablog" in open(conf).read():
         return confdir
     else:
@@ -48,7 +55,6 @@ def read_conf(confdir):
     """
     Return conf.py file as a module.
     """
-
     sys.path.insert(0, confdir)
     conf = __import__("conf")
     sys.path.pop(0)
@@ -59,16 +65,13 @@ parser = argparse.ArgumentParser(
     description="ABlog for blogging with Sphinx",
     epilog="See 'ablog <command> -h' for more information on a specific " "command.",
 )
-
 parser.add_argument(
     "-v", "--version", help="print ABlog version and exit", action="version", version=ablog.__version__
 )
-
 commands = ablog_commands = parser.add_subparsers(title="commands")
 
 
 def cmd(func=None, **kwargs):
-
     if func is None:
 
         def cmd_inner(func):
@@ -101,7 +104,6 @@ def arg(*args, **kwargs):
 
 
 def arg_website(func):
-
     arg(
         func,
         "-w",
@@ -113,7 +115,6 @@ def arg_website(func):
 
 
 def arg_doctrees(func):
-
     arg(
         func,
         "-d",
@@ -229,25 +230,19 @@ def ablog_build(
     description="Path options can be set in conf.py. " "Default values of paths are relative to conf.py.",
 )
 def ablog_clean(website=None, doctrees=None, deep=False, **kwargs):
-
     confdir = find_confdir()
     conf = read_conf(confdir)
-
     website = website or os.path.join(confdir, getattr(conf, "ablog_website", BUILDDIR))
-
     doctrees = doctrees or os.path.join(confdir, getattr(conf, "ablog_doctrees", DOCTREES))
-
     nothing = True
     if glob.glob(os.path.join(website, "*")):
         shutil.rmtree(website)
         print(f"Removed {os.path.relpath(website)}.")
         nothing = False
-
     if deep and glob.glob(os.path.join(doctrees, "*")):
         shutil.rmtree(doctrees)
         print(f"Removed {os.path.relpath(doctrees)}.")
         nothing = False
-
     if nothing:
         print("Nothing to clean.")
 
@@ -269,26 +264,18 @@ def ablog_clean(website=None, doctrees=None, deep=False, **kwargs):
     description="Serve options can be set in conf.py. " "Default values of paths are relative to conf.py.",
 )
 def ablog_serve(website=None, port=8000, view=True, rebuild=False, patterns="*.rst;*.txt", **kwargs):
-
     confdir = find_confdir()
     conf = read_conf(confdir)
-
     # to allow restarting the server in short succession
     socketserver.TCPServer.allow_reuse_address = True
-
     Handler = server.SimpleHTTPRequestHandler
     httpd = socketserver.TCPServer(("", port), Handler)
-
     ip, port = httpd.socket.getsockname()
     print(f"Serving HTTP on {ip}:{port}.")
     print("Quit the server with Control-C.")
-
     website = website or os.path.join(confdir, getattr(conf, "ablog_website", "_website"))
-
     os.chdir(website)
-
     if rebuild:
-
         patterns = patterns.split(";")
         ignore_patterns = [os.path.join(website, "*")]
         handler = ShellCommandTrick(
@@ -299,7 +286,6 @@ def ablog_serve(website=None, port=8000, view=True, rebuild=False, patterns="*.r
             wait_for_process=True,
             drop_during_process=False,
         )
-
         observer = Observer(timeout=1)
         observer.schedule(handler, confdir, recursive=True)
         observer.start()
@@ -311,7 +297,6 @@ def ablog_serve(website=None, port=8000, view=True, rebuild=False, patterns="*.r
         except KeyboardInterrupt:
             observer.stop()
         observer.join()
-
     else:
         if view:
             webbrowser.open_new_tab(f"http://127.0.0.1:{port}") and httpd.serve_forever()
@@ -323,30 +308,14 @@ def ablog_serve(website=None, port=8000, view=True, rebuild=False, patterns="*.r
 @arg(dest="filename", type=str, help="filename, e.g. my-nth-post (.rst appended)")
 @cmd(name="post", help="create a blank post")
 def ablog_post(filename, title=None, **kwargs):
-
-    POST_TEMPLATE = """
-{title}
-{equal}
-
-.. post:: {date}
-   :tags:
-   :category:
-
-"""
-    from os import path
-    from datetime import date
-
     # Generate basic post params.
     today = date.today()
     if not filename.lower().endswith(".rst"):
         filename += ".rst"
-
     today = today.strftime("%b %d, %Y")
     if not title:
         title = filename[:-4].replace("-", " ").title()
-
     pars = {"date": today, "title": title, "equal": "=" * len(title)}
-
     if path.isfile(filename):
         pass
     else:
@@ -355,7 +324,6 @@ def ablog_post(filename, title=None, **kwargs):
         with open(filename, "w", encoding="utf-8") as out:
             post_text = POST_TEMPLATE.format(**pars)
             out.write(post_text)
-
         print(f"Blog post created: {filename}")
 
 
@@ -423,26 +391,18 @@ def ablog_deploy(
     repodir=None,
     **kwargs,
 ):
-
     confdir = find_confdir()
     conf = read_conf(confdir)
-
     github_pages = github_pages or getattr(conf, "github_pages", None)
-
     github_url = github_url or getattr(conf, "github_url", None)
     github_url += ":"
-
     github_branch = github_branch or getattr(conf, "github_branch", "master")
-
     website = website or os.path.join(confdir, getattr(conf, "ablog_builddir", "_website"))
-
     tomove = glob.glob(os.path.join(website, "*"))
     if not tomove:
         print("Nothing to deploy, build first.")
         return
-
     if github_pages:
-
         if repodir is None:
             repodir = os.path.join(confdir, f"{github_pages}.github.io")
         if os.path.isdir(repodir):
@@ -455,7 +415,6 @@ def ablog_deploy(
                 + "{0}/{0}.github.io.git {1}".format(github_pages, repodir),
                 echo=True,
             )
-
         git_add = []
         for tm in tomove:
             for root, dirnames, filenames in os.walk(website):
@@ -473,25 +432,20 @@ def ablog_deploy(
 
                     git_add.append(fnnew)
         print(f"Moved {len(git_add)} files to {github_pages}.github.io")
-
         os.chdir(repodir)
-
         run("git add -f " + " ".join(['"{}"'.format(os.path.relpath(p)) for p in git_add]), echo=True)
         if not os.path.isfile(".nojekyll"):
             open(".nojekyll", "w")
             run("git add -f .nojekyll")
-
         # Check to see if anything has actually been committed
         result = run("git diff --cached --name-status HEAD")
         if not result.stdout:
             print("Nothing changed from last deployment")
             return
-
         commit = f"git commit -m \"{message or 'Updates.'}\""
         if push_force:
             commit += " --amend"
         run(commit, echo=True)
-
         if github_token:
             with open(os.path.join(repodir, ".git/credentials"), "w") as out:
                 out.write(f"https://{os.environ[github_token]}:@github.com")
@@ -503,7 +457,6 @@ def ablog_deploy(
             push += " -f"
         push += f" origin {github_branch}"
         run(push, echo=True)
-
     else:
         print("No place to deploy.")
 

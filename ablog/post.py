@@ -1,6 +1,3 @@
-"""
-post and postlist directives.
-"""
 import os
 import logging
 from string import Formatter
@@ -39,6 +36,10 @@ __all__ = [
 ]
 
 
+def _split(a):
+    return {s.strip() for s in a.split(",")}
+
+
 class PostNode(nodes.Element):
     """
     Represent ``post`` directive content and options in document tree.
@@ -62,9 +63,6 @@ class PostDirective(Directive):
     Handle ``post`` directives.
     """
 
-    def _split(a):  # NOQA
-        return [s.strip() for s in (a or "").split(",") if s.strip()]
-
     has_content = True
     required_arguments = 0
     optional_arguments = 1
@@ -84,12 +82,10 @@ class PostDirective(Directive):
     }
 
     def run(self):
-
         node = PostNode()
         node.document = self.state.document
         set_source_info(self, node)
         self.state.nested_parse(self.content, self.content_offset, node, match_titles=1)
-
         node = _update_post_node(node, self.options, self.arguments)
         return [node]
 
@@ -108,9 +104,6 @@ class PostListDirective(Directive):
     """
     Handle ``postlist`` directives.
     """
-
-    def _split(a):  # NOQA
-        return {s.strip() for s in a.split(",")}
 
     has_content = False
     required_arguments = 0
@@ -131,12 +124,10 @@ class PostListDirective(Directive):
     }
 
     def run(self):
-
         node = PostList()
         node.document = self.state.document
         set_source_info(self, node)
         self.state.nested_parse(self.content, self.content_offset, node, match_titles=1)
-
         node["length"] = int(self.arguments[0]) if self.arguments else None
         node["tags"] = self.options.get("tags", [])
         node["author"] = self.options.get("author", [])
@@ -166,13 +157,13 @@ class CheckFrontMatter(SphinxTransform):
 
     def apply(self):
         # Check if page-level metadata has been given
-        docinfo = list(self.document.traverse(nodes.docinfo))
+        docinfo = list(self.document.findall(nodes.docinfo))
         if not docinfo:
             return None
         docinfo = docinfo[0]
 
         # Pull the metadata for the page to check if it is a blog post
-        metadata = {fn.children[0].astext(): fn.children[1].astext() for fn in docinfo.traverse(nodes.field)}
+        metadata = {fn.children[0].astext(): fn.children[1].astext() for fn in docinfo.findall(nodes.field)}
         tags = metadata.get("tags")
         if isinstance(tags, str):
             # myst_parser store front-matter field to TextNode in dict_to_fm_field_list.
@@ -182,14 +173,14 @@ class CheckFrontMatter(SphinxTransform):
             metadata["tags"] = ",".join(
                 [t.strip().lstrip('"').lstrip("'").rstrip('"').rstrip("'") for t in tags.split(",")]
             )
-        if list(docinfo.traverse(nodes.author)):
-            metadata["author"] = list(docinfo.traverse(nodes.author))[0].astext()
+        if list(docinfo.findall(nodes.author)):
+            metadata["author"] = list(docinfo.findall(nodes.author))[0].astext()
         # These two fields are special-cased in docutils
-        if list(docinfo.traverse(nodes.date)):
-            metadata["date"] = list(docinfo.traverse(nodes.date))[0].astext()
+        if list(docinfo.findall(nodes.date)):
+            metadata["date"] = list(docinfo.findall(nodes.date))[0].astext()
         if "blogpost" not in metadata and self.env.docname not in self.config.matched_blog_posts:
             return None
-        if self.document.traverse(PostNode):
+        if self.document.findall(PostNode):
             logging.warning(f"Found blog post front-matter as well as post directive, using post directive.")
 
         # Iterate through metadata and create a PostNode with relevant fields
@@ -211,7 +202,7 @@ class CheckFrontMatter(SphinxTransform):
             blog = Blog(self.app)
             node["excerpt"] = blog.post_auto_excerpt
 
-        sections = list(self.document.traverse(nodes.section))
+        sections = list(self.document.findall(nodes.section))
         if sections:
             sections[0].children.append(node)
             node.parent = sections[0]
@@ -255,7 +246,7 @@ def _get_section_title(section):
     Return section title as text.
     """
 
-    for title in section.traverse(nodes.title):
+    for title in section.findall(nodes.title):
         return title.astext()
     raise Exception("Missing title")
     # A problem with the following is that title may contain pending
@@ -267,7 +258,7 @@ def _get_update_dates(section, docname, post_date_format):
     Return list of dates of updates found section.
     """
 
-    update_nodes = list(section.traverse(UpdateNode))
+    update_nodes = list(section.findall(UpdateNode))
     update_dates = []
     for update_node in update_nodes:
         try:
@@ -303,7 +294,7 @@ def process_posts(app, doctree):
     if not hasattr(env, "ablog_posts"):
         env.ablog_posts = {}
 
-    post_nodes = list(doctree.traverse(PostNode))
+    post_nodes = list(doctree.findall(PostNode))
     if not post_nodes:
         return
     post_date_format = app.config["post_date_format"]
@@ -355,7 +346,7 @@ def process_posts(app, doctree):
                 excerpt.append(child.deepcopy())
         elif node["excerpt"]:
             count = 0
-            for nod in section.traverse(nodes.paragraph):
+            for nod in section.findall(nodes.paragraph):
                 excerpt.append(nod.deepcopy())
                 count += 1
                 if count >= (node["excerpt"] or 0):
@@ -365,7 +356,7 @@ def process_posts(app, doctree):
             node.replace_self([])
         nimg = node["image"] or blog.post_auto_image
         if nimg:
-            for img, nod in enumerate(section.traverse(nodes.image), start=1):
+            for img, nod in enumerate(section.findall(nodes.image), start=1):
                 if img == nimg:
                     excerpt.append(nod.deepcopy())
                     break
@@ -413,7 +404,7 @@ def process_posts(app, doctree):
             section_copy = section.deepcopy()
 
         # multiple posting may result having post nodes
-        for nn in section_copy.traverse(PostNode):
+        for nn in section_copy.findall(PostNode):
             if nn["exclude"]:
                 nn.replace_self([])
             else:
@@ -472,7 +463,7 @@ def process_postlist(app, doctree, docname):
     if not blog:
         register_posts(app)
 
-    for node in doctree.traverse(PostList):
+    for node in doctree.findall(PostList):
         colls = []
         for cat in ["tags", "author", "category", "location", "language"]:
             for coll in node[cat]:

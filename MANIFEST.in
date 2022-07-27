@@ -1,9 +1,0 @@
-include README.rst
-include LICENSE.rst
-include setup.py
-include setup.cfg
-include pyproject.toml
-include ablog/*.py
-include ablog/templates/*.html
-include ablog/locale/sphinx.pot
-include ablog/locale/*/LC_MESSAGES/sphinx.*o
