@@ -5,10 +5,10 @@ from os import path
 from textwrap import wrap
 
 from docutils.utils import column_width
-from sphinx.cmd.quickstart import do_prompt, ensuredir, is_path
+from sphinx.cmd.quickstart import do_prompt, is_path
 from sphinx.util import texescape
 from sphinx.util.console import bold, color_terminal, nocolor
-from sphinx.util.osutil import make_filename
+from sphinx.util.osutil import ensuredir, make_filename
 
 from .version import version as __version__
 
@@ -465,41 +465,26 @@ def generate(d, overwrite=True, silent=False):
 
     Generate project based on values in *d*.
     """
-
     texescape.init()
-
     if "mastertoctree" not in d:
         d["mastertoctree"] = ""
     if "mastertocmaxdepth" not in d:
         d["mastertocmaxdepth"] = 2
-
     d["project_fn"] = make_filename(d["project"])
     d["project_manpage"] = d["project_fn"].lower()
     d["now"] = time.asctime()
     d["project_underline"] = column_width(d["project"]) * "="
-
     d["copyright"] = time.strftime("%Y") + ", " + d["author"]
     d["author_texescaped"] = texescape.escape(str(d["author"]).translate(str(d["author"])))
     d["project_doc"] = d["project"] + " Documentation"
     d["project_doc_texescaped"] = texescape.escape(
         str(d["project"] + " Documentation").translate(str(d["project"] + " Documentation"))
     )
-
     if not path.isdir(d["path"]):
         ensuredir(d["path"])
-
     srcdir = d["sep"] and path.join(d["path"], "source") or d["path"]
-
     ensuredir(srcdir)
     d["exclude_patterns"] = ""
-    # TODO: Work if we want this.
-    # if d['sep']:
-    #    builddir = path.join(d['path'], 'build')
-    #
-    # else:
-    #    builddir = path.join(srcdir, d['dot'] + 'build')
-    #    d['exclude_patterns'] = repr(d['dot'] + 'build')
-    # ensuredir(builddir)
     ensuredir(path.join(srcdir, d["dot"] + "templates"))
     ensuredir(path.join(srcdir, d["dot"] + "static"))
 
@@ -516,20 +501,15 @@ def generate(d, overwrite=True, silent=False):
 
     conf_text = ABLOG_CONF.format(**d)
     write_file(path.join(srcdir, "conf.py"), conf_text)
-
     masterfile = path.join(srcdir, d["master"] + d["suffix"])
     write_file(masterfile, ABLOG_INDEX.format(**d))
-
     about = path.join(srcdir, "about" + d["suffix"])
     write_file(about, ABLOG_ABOUT.format(**d))
-
     d["post_date"] = datetime.datetime.today().strftime("%b %d, %Y")
     firstpost = path.join(srcdir, "first-post" + d["suffix"])
     write_file(firstpost, ABLOG_POST.format(**d))
-
     if silent:
         return
-
     print(bold("Finished: An initial directory structure has been created."))
 
 
@@ -547,9 +527,7 @@ def ask_user(d):
     * version:   version of project
     * release:   release of project
     """
-
     d.update(CONF_DEFAULTS)
-
     print(bold(f"Welcome to the ABlog {__version__} quick start utility."))
     print("")
     print(
@@ -558,7 +536,6 @@ def ask_user(d):
             "to accept a default value, if one is given in brackets)."
         )
     )
-
     print("")
     if "path" in d:
         print(bold(f"Selected root path: {d['path']}"))
@@ -576,7 +553,6 @@ def ask_user(d):
         d["path"] = do_prompt("Please enter a new root path (or just Enter to exit)", ".", is_path)
         if not d["path"]:
             sys.exit(1)
-
     if "project" not in d:
         print("")
         print(
@@ -588,7 +564,6 @@ def ask_user(d):
             )
         )
         d["project"] = do_prompt("Project name")
-
     if "author" not in d:
         print(
             w(
@@ -599,9 +574,7 @@ def ask_user(d):
             )
         )
         d["author"] = do_prompt("Author name(s)")
-
     d["release"] = d["version"] = ""
-
     while path.isfile(path.join(d["path"], d["master"] + d["suffix"])) or path.isfile(
         path.join(d["path"], "source", d["master"] + d["suffix"])
     ):
@@ -619,7 +592,6 @@ def ask_user(d):
         d["master"] = do_prompt(
             w("Please enter a new file name, or rename the " "existing file and press Enter"), d["master"]
         )
-
     if "blog_baseurl" not in d:
         print("")
         print(
@@ -630,21 +602,17 @@ def ask_user(d):
             )
         )
         d["blog_baseurl"] = do_prompt("Base URL for your project", None, lambda x: x)
-
     print("")
 
 
 def ablog_start(**kwargs):
     if not color_terminal():
         nocolor()
-
     d = CONF_DEFAULTS
-
     try:
         ask_user(d)
     except (KeyboardInterrupt, EOFError):
         print("")
         print("[Interrupted.]")
         return
-
     generate(d)

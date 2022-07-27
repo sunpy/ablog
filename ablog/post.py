@@ -161,7 +161,6 @@ class CheckFrontMatter(SphinxTransform):
         if not docinfo:
             return None
         docinfo = docinfo[0]
-
         # Pull the metadata for the page to check if it is a blog post
         metadata = {fn.children[0].astext(): fn.children[1].astext() for fn in docinfo.findall(nodes.field)}
         tags = metadata.get("tags")
@@ -182,7 +181,6 @@ class CheckFrontMatter(SphinxTransform):
             return None
         if self.document.findall(PostNode):
             logging.warning(f"Found blog post front-matter as well as post directive, using post directive.")
-
         # Iterate through metadata and create a PostNode with relevant fields
         option_spec = PostDirective.option_spec
         for key, val in metadata.items():
@@ -192,16 +190,13 @@ class CheckFrontMatter(SphinxTransform):
                 elif isinstance(option_spec[key], directives.flag):
                     new_val = True
                 metadata[key] = new_val
-
         node = PostNode()
         node.document = self.document
         node = _update_post_node(node, metadata, [])
         node["date"] = metadata.get("date")
-
         if not metadata.get("excerpt"):
             blog = Blog(self.app)
             node["excerpt"] = blog.post_auto_excerpt
-
         sections = list(self.document.findall(nodes.section))
         if sections:
             sections[0].children.append(node)
@@ -216,7 +211,6 @@ def purge_posts(app, env, docname):
 
     if hasattr(env, "ablog_posts"):
         env.ablog_posts.pop(docname, None)
-
     filename = os.path.split(docname)[1]
     env.domains["std"].data["labels"].pop(filename, None)
     env.domains["std"].data["anonlabels"].pop(filename, None)
@@ -245,7 +239,6 @@ def _get_section_title(section):
     """
     Return section title as text.
     """
-
     for title in section.findall(nodes.title):
         return title.astext()
     raise Exception("Missing title")
@@ -257,7 +250,6 @@ def _get_update_dates(section, docname, post_date_format):
     """
     Return list of dates of updates found section.
     """
-
     update_nodes = list(section.findall(UpdateNode))
     update_dates = []
     for update_node in update_nodes:
@@ -279,7 +271,6 @@ def _get_update_dates(section, docname, post_date_format):
         substitute = nodes.title("", _("Updated on ") + update.strftime(post_date_format))
         update_node.insert(0, substitute)
         update_node["classes"] = ["note", "update"]
-
         update_dates.append(update)
     return update_dates
 
@@ -289,33 +280,27 @@ def process_posts(app, doctree):
     Process posts and map posted document names to post details in the
     environment.
     """
-
     env = app.builder.env
     if not hasattr(env, "ablog_posts"):
         env.ablog_posts = {}
-
     post_nodes = list(doctree.findall(PostNode))
     if not post_nodes:
         return
     post_date_format = app.config["post_date_format"]
     should_auto_orphan = app.config["post_auto_orphan"]
     docname = env.docname
-
     if should_auto_orphan:
         # mark the post as 'orphan' so that
         #   "document isn't included in any toctree" warning is not issued
         # We do not simply assign to should_auto_orphan because if auto-orphan
         # is false, we still want to respect the per-post :rst:dir`orphan` setting
         app.env.metadata[docname]["orphan"] = True
-
     blog = Blog(app)
     auto_excerpt = blog.post_auto_excerpt
     multi_post = len(post_nodes) > 1 or blog.post_always_section
-
     for order, node in enumerate(post_nodes, start=1):
         if node["excerpt"] is None:
             node["excerpt"] = auto_excerpt
-
         if multi_post:
             # section title, and first few paragraphs of the section of post
             # are used when there are more than 1 posts
@@ -326,15 +311,12 @@ def process_posts(app, doctree):
                 section = node.parent
         else:
             section = doctree
-
         # get updates here, in the section that post belongs to
         # Might there be orphan updates?
         update_dates = _get_update_dates(section, docname, post_date_format)
-
         # Making sure that post has a title because all post titles
         # are needed when resolving post lists in documents
         title = node["title"] or _get_section_title(section)
-
         # creating a summary here, before references are resolved
         excerpt = []
         if node.children:
@@ -374,10 +356,8 @@ def process_posts(app, doctree):
                     raise ValueError(
                         f"invalid post date ({date}) in " + docname + f". Expected format: {post_date_format}"
                     )
-
         else:
             date = None
-
         # if docname ends with `index` use folder name to reference the document
         # a potential problem here is that there may be files/folders with the
         #   same name, so issuing a warning when that's the case may be a good idea
@@ -386,7 +366,6 @@ def process_posts(app, doctree):
             folder, label = os.path.split(folder)
         if not label:
             label = slugify(title)
-
         section_name = ""
         if multi_post and section.parent is not doctree:
             section_name = section.attributes["ids"][0]
@@ -397,19 +376,16 @@ def process_posts(app, doctree):
             # ! this does not work for sections
             app.env.domains["std"].data["labels"][label] = (docname, label, title)
             app.env.domains["std"].data["anonlabels"][label] = (docname, label)
-
         if section.parent is doctree:
             section_copy = section[0].deepcopy()
         else:
             section_copy = section.deepcopy()
-
         # multiple posting may result having post nodes
         for nn in section_copy.findall(PostNode):
             if nn["exclude"]:
                 nn.replace_self([])
             else:
                 nn.replace_self(node.children)
-
         postinfo = {
             "docname": docname,
             "section": section_name,
@@ -429,11 +405,9 @@ def process_posts(app, doctree):
             "exclude": node["exclude"],
             "doctree": section_copy,
         }
-
         if docname not in env.ablog_posts:
             env.ablog_posts[docname] = []
         env.ablog_posts[docname].append(postinfo)
-
         # instantiate catalogs and collections here
         #  so that references are created and no warnings are issued
         if app.builder.format == "html":
@@ -442,12 +416,10 @@ def process_posts(app, doctree):
             stdlabel = env.intersphinx_inventory.setdefault("std:label", {})  # NOQA
             baseurl = getattr(env.config, "blog_baseurl").rstrip("/") + "/"  # NOQA
             project, version = env.config.project, text_type(env.config.version)  # NOQA
-
         for key in ["tags", "author", "category", "location", "language"]:
             catalog = blog.catalogs[key]
             for label in postinfo[key]:
                 coll = catalog[label]  # NOQA
-
         if postinfo["date"]:
             coll = blog.archive[postinfo["date"].year]  # NOQA
 
@@ -458,18 +430,15 @@ def process_postlist(app, doctree, docname):
 
     Also, register all posts if they have not been registered yet.
     """
-
     blog = Blog(app)
     if not blog:
         register_posts(app)
-
     for node in doctree.findall(PostList):
         colls = []
         for cat in ["tags", "author", "category", "location", "language"]:
             for coll in node[cat]:
                 if coll in blog.catalogs[cat].collections:
                     colls.append(blog.catalogs[cat].collections[coll])
-
         if colls:
             posts = set(blog.posts)
             for coll in colls:
@@ -479,16 +448,13 @@ def process_postlist(app, doctree, docname):
             posts = posts[: node.attributes["length"]]
         else:
             posts = list(blog.recent(node.attributes["length"], docname, **node.attributes))
-
         if node.attributes["sort"]:
             posts.sort()  # in reverse chronological order, so no reverse=True
-
         fmts = list(Formatter().parse(node.attributes["format"]))
         not_in = {"date", "title", "author", "location", "language", "category", "tags", None}
         for text, key, __, __ in fmts:
             if key not in not_in:
                 raise KeyError(f"{key} is not recognized in postlist format")
-
         excerpts = node.attributes["excerpts"]
         expand = node.attributes["expand"]
         date_format = node.attributes["date"] or _(blog.post_date_format_short)
@@ -501,7 +467,6 @@ def process_postlist(app, doctree, docname):
             bl.append(bli)
             par = nodes.paragraph()
             bli.append(par)
-
             for text, key, __, __ in fmts:
                 if text:
                     par.append(nodes.Text(text))
@@ -559,11 +524,9 @@ def missing_reference(app, env, node, contnode):
 
 
 def _missing_reference(app, target, refdoc, contnode=None, refexplicit=False):
-
     blog = Blog(app)
     if target in blog.references:
         docname, dispname = blog.references[target]
-
         # Avoid adding html to the atom.xml
         if "html" in app.builder.name and "atom.xml" not in docname:
             internal = True
@@ -571,7 +534,6 @@ def _missing_reference(app, target, refdoc, contnode=None, refexplicit=False):
         else:
             internal = False
             uri = blog.blog_baseurl.rstrip("/") + "/" + docname
-
         newnode = nodes.reference("", "", internal=internal, refuri=uri, reftitle=dispname)
         if refexplicit:
             newnode.append(contnode)
@@ -579,7 +541,6 @@ def _missing_reference(app, target, refdoc, contnode=None, refexplicit=False):
             emp = nodes.emphasis()
             newnode.append(emp)
             emp.append(nodes.Text(text_type(dispname)))
-
         return newnode
 
 
@@ -588,15 +549,12 @@ def generate_archive_pages(app):
     Generate archive pages for all posts, categories, tags, authors, and
     drafts.
     """
-
     if not ablog.builder_support(app):
         return
-
     blog = Blog(app)
     for post in blog.posts:
         for redirect in post.redirect:
             yield (redirect, {"redirect": post.docname, "post": post}, "redirect.html")
-
     found_docs = app.env.found_docs
     atom_feed = bool(blog.blog_baseurl)
     feed_archives = blog.blog_feed_archives
@@ -609,16 +567,12 @@ def generate_archive_pages(app):
         (_("All posts"), _("Posted in"), blog.archive),
         (_("Tags"), _("Posts tagged"), blog.tags),
     ]:
-
         if not catalog:
             continue
-
         context = {"parents": [], "title": title, "header": header, "catalog": catalog, "summary": True}
         if catalog.docname not in found_docs:
             yield (catalog.docname, context, "catalog.html")
-
         for collection in catalog:
-
             if not collection:
                 continue
             context = {
@@ -633,9 +587,6 @@ def generate_archive_pages(app):
             context["feed_title"] = context["title"]
             if collection.docname not in found_docs:
                 yield (collection.docname, context, "collection.html")
-
-    # ppp = 5
-    # for page, i in enumerate(range(0, len(blog.posts), ppp)):
     if 1:
         context = {
             "parents": [],
@@ -647,10 +598,7 @@ def generate_archive_pages(app):
             "feed_path": blog.blog_path,
         }
         docname = blog.posts.docname
-        # if page:
-        #    docname += '/' + str(page)
         yield (docname, context, "collection.html")
-
     context = {"parents": [], "title": _("Drafts"), "collection": blog.drafts, "summary": True}
     yield (blog.drafts.docname, context, "collection.html")
 
@@ -660,16 +608,12 @@ def generate_atom_feeds(app):
     Generate archive pages for all posts, categories, tags, authors, and
     drafts.
     """
-
     if not ablog.builder_support(app):
         return
-
     blog = Blog(app)
-
     base_url = blog.blog_baseurl
     if not base_url:
         return
-
     feeds = [
         (
             blog.posts,
@@ -681,7 +625,6 @@ def generate_atom_feeds(app):
         )
         for feed_root, feed_templates in blog.blog_feed_templates.items()
     ]
-
     if blog.blog_feed_archives:
         for header, catalog in [
             (_("Posts by"), blog.author),
@@ -691,7 +634,6 @@ def generate_atom_feeds(app):
             (_("Posted in"), blog.archive),
             (_("Posts tagged"), blog.tags),
         ]:
-
             for coll in catalog:
                 # skip collections containing only drafts
                 if not len(coll):
@@ -699,7 +641,6 @@ def generate_atom_feeds(app):
                 folder = os.path.join(app.builder.outdir, coll.path)
                 if not os.path.isdir(folder):
                     os.makedirs(folder)
-
                 for feed_root, feed_templates in blog.blog_feed_templates.items():
                     feeds.append(
                         (
@@ -711,13 +652,10 @@ def generate_atom_feeds(app):
                             feed_templates,
                         )
                     )
-
     # Config options
     feed_length = blog.blog_feed_length
     feed_fulltext = blog.blog_feed_fulltext
-
     for feed_posts, pagename, feed_path, feed_title, feed_url, feed_templates in feeds:
-
         feed = FeedGenerator()
         feed.id(blog.blog_baseurl)
         feed.title(feed_title)
@@ -726,33 +664,29 @@ def generate_atom_feeds(app):
         feed.link(href=feed_url, rel="self")
         feed.language(app.config.language)
         feed.generator("ABlog", ablog.__version__, "https://ablog.readthedocs.org/")
-
         for i, post in enumerate(feed_posts):
             if feed_length and i == feed_length:
                 break
             post_url = os_path_join(base_url, app.builder.get_target_uri(post.docname))
             if post.section:
                 post_url += "#" + post.section
-
             if blog.blog_feed_titles:
                 content = None
             else:
                 content = post.to_html(pagename, fulltext=feed_fulltext)
-
             feed_entry = feed.add_entry()
             feed_entry.id(post_url)
             feed_entry.link(href=post_url)
             feed_entry.author({"name": author.name for author in post.author})
             feed_entry.pubDate(post.date.astimezone())
             feed_entry.updated(post.update.astimezone())
-            for tag in post.tags:
+            for tag in sorted(post.tags):
                 feed_entry.category(
                     dict(
                         term=tag.name.strip().replace(" ", ""),
                         label=tag.label,
                     )
                 )
-
             # Entry values that support templates
             title = post.title
             summary = "".join(paragraph.astext() for paragraph in post.excerpt)
@@ -767,15 +701,12 @@ def generate_atom_feeds(app):
             content = template_values.get("content", content)
             if content:
                 feed_entry.content(content=content, type="html")
-
         parent_dir = os.path.dirname(feed_path)
         if not os.path.isdir(parent_dir):
             os.makedirs(parent_dir)
-
         with open(feed_path, "w", encoding="utf-8") as out:
             feed_str = feed.atom_str(pretty=True)
             out.write(feed_str.decode())
-
     if 0:
         # this is to make the function a generator
         # and make work for Sphinx 'html-collect-pages'
@@ -786,7 +717,6 @@ def register_posts(app):
     """
     Register posts found in the Sphinx build environment.
     """
-
     blog = Blog(app)
     for docname, posts in getattr(app.env, "ablog_posts", {}).items():
         for postinfo in posts:

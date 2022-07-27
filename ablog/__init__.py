@@ -29,7 +29,6 @@ def anchor(post):
     """
     Return anchor string for posts that arepage sections.
     """
-
     if post.section:
         return "#" + post.section
     else:
@@ -44,16 +43,13 @@ def builder_support(builder):
     `PickleHTMLBuilder` and `JSONHTMLBuilder`, which run into issues
     when serializing blog objects.
     """
-
     if hasattr(builder, "builder"):
         builder = builder.builder
-
     not_supported = {"json", "pickle"}
     return builder.format == "html" and builder.name not in not_supported
 
 
 def html_page_context(app, pagename, templatename, context, doctree):
-
     if builder_support(app):
         context["ablog"] = blog = Blog(app)
         context["anchor"] = anchor
@@ -67,23 +63,18 @@ def setup(app):
     """
     Setup ABlog extension.
     """
-
     for args in CONFIG:
         app.add_config_value(*args[:3])
-
     app.add_directive("post", PostDirective)
     app.add_directive("postlist", PostListDirective)
-
     app.connect("config-inited", config_inited)
     app.connect("doctree-read", process_posts)
-
     app.connect("env-purge-doc", purge_posts)
     app.connect("doctree-resolved", process_postlist)
     app.connect("missing-reference", missing_reference)
     app.connect("html-collect-pages", generate_archive_pages)
     app.connect("html-collect-pages", generate_atom_feeds)
     app.connect("html-page-context", html_page_context)
-
     app.add_transform(CheckFrontMatter)
     app.add_directive("update", UpdateDirective)
     app.add_node(
@@ -91,17 +82,14 @@ def setup(app):
         html=(lambda s, n: s.visit_admonition(n), lambda s, n: s.depart_admonition(n)),
         latex=(lambda s, n: s.visit_admonition(n), lambda s, n: s.depart_admonition(n)),
     )
-
     pkgdir = os.path.abspath(os.path.dirname(__file__))
     locale_dir = os.path.join(pkgdir, "locales")
     app.config.locale_dirs.append(locale_dir)
-
     return {"version": __version__}  # identifies the version of our extension
 
 
 def config_inited(app, config):
     app.config.templates_path.append(get_html_templates_path())
-
     # Automatically identify any blog posts if a pattern is specified in the config
     if isinstance(config.blog_post_pattern, str):
         config.blog_post_pattern = [config.blog_post_pattern]
@@ -120,6 +108,5 @@ def get_html_templates_path():
     """
     Return path to ABlog templates folder.
     """
-
     pkgdir = os.path.abspath(os.path.dirname(__file__))
     return os.path.join(pkgdir, "templates")
