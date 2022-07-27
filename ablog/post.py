@@ -1,6 +1,3 @@
-"""
-post and postlist directives.
-"""
 import os
 import logging
 from string import Formatter
@@ -39,6 +36,10 @@ __all__ = [
 ]
 
 
+def _split(a):
+    return {s.strip() for s in a.split(",")}
+
+
 class PostNode(nodes.Element):
     """
     Represent ``post`` directive content and options in document tree.
@@ -62,9 +63,6 @@ class PostDirective(Directive):
     Handle ``post`` directives.
     """
 
-    def _split(a):  # NOQA
-        return [s.strip() for s in (a or "").split(",") if s.strip()]
-
     has_content = True
     required_arguments = 0
     optional_arguments = 1
@@ -84,12 +82,10 @@ class PostDirective(Directive):
     }
 
     def run(self):
-
         node = PostNode()
         node.document = self.state.document
         set_source_info(self, node)
         self.state.nested_parse(self.content, self.content_offset, node, match_titles=1)
-
         node = _update_post_node(node, self.options, self.arguments)
         return [node]
 
@@ -108,9 +104,6 @@ class PostListDirective(Directive):
     """
     Handle ``postlist`` directives.
     """
-
-    def _split(a):  # NOQA
-        return {s.strip() for s in a.split(",")}
 
     has_content = False
     required_arguments = 0
@@ -131,12 +124,10 @@ class PostListDirective(Directive):
     }
 
     def run(self):
-
         node = PostList()
         node.document = self.state.document
         set_source_info(self, node)
         self.state.nested_parse(self.content, self.content_offset, node, match_titles=1)
-
         node["length"] = int(self.arguments[0]) if self.arguments else None
         node["tags"] = self.options.get("tags", [])
         node["author"] = self.options.get("author", [])

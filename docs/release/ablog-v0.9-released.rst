@@ -2,7 +2,7 @@ ABlog v0.9 released
 ===================
 
 .. post:: Feb 17, 2018
-   :author: Nabil
+   :author: Nabil Freij
    :category: Release
    :location: World
 
@@ -32,7 +32,7 @@ ABlog v0.9.1 released
 ---------------------
 
 .. post:: March 2, 2018
-   :author: Nabil
+   :author: Nabil Freij
    :category: Release
    :location: World
 
@@ -42,7 +42,7 @@ ABlog v0.9.2 released
 ---------------------
 
 .. post:: March 4, 2018
-   :author: Nabil
+   :author: Nabil Freij
    :category: Release
    :location: World
 
@@ -52,7 +52,7 @@ ABlog v0.9.3 released
 ---------------------
 
 .. post:: October 30, 2018
-   :author: Nabil
+   :author: Nabil Freij
    :category: Release
    :location: World
 
@@ -66,7 +66,7 @@ ABlog v0.9.4 released
 ---------------------
 
 .. post:: Feb 10, 2019
-   :author: Nabil
+   :author: Nabil Freij
    :category: Release
    :location: World
 
@@ -76,7 +76,7 @@ ABlog v0.9.5 released
 ---------------------
 
 .. post:: Aug 19, 2019
-   :author: Nabil
+   :author: Nabil Freij
    :category: Release
    :location: World
 

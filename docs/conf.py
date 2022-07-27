@@ -88,9 +88,9 @@ blog_feed_templates = {
         "{% endfor %}",
     },
 }
-disqus_shortname = "ablogforsphinx"
+disqus_shortname = "https-ablog-readthedocs-io"
 disqus_pages = True
-fontawesome_css_file = "css/font-awesome.css"
+fontawesome_link_cdn = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
 
 # THEME
 html_style = "alabaster.css"
