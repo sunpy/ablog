@@ -328,7 +328,6 @@ class BlogPageMixin:
 
     @property
     def title(self):
-
         return getattr(self, "name", getattr(self, "_title"))
 
 
@@ -555,6 +554,15 @@ class Collection(BlogPageMixin):
 
     def __contains__(self, item):
         return item in self._posts
+
+    def __eq__(self, other):
+        return self.name == other.name
+
+    def __lt__(self, other):
+        return self.name < other.name
+
+    def __gt__(self, other):
+        return self.name > other.name
 
     @property
     def catalog(self):
