@@ -15,6 +15,7 @@ There are several breaking changes:
 
 - 1. The template files are now in the `templates/ablog` folder.
 - 2. In theory ablog will now append the tempaltes to the start of the template list, this could break themes without support for it.
+- 3. Minimum version of Python is 3.8, Sphinx is 5.0 and docutils is 0.19.
 
 Pull Requests merged in:
 
