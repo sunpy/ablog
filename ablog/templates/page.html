@@ -24,7 +24,7 @@
 {{ body }}
 <div class="section ablog__blog_comments">
   {% if pagename in ablog %}
-  {% include "postnavy.html" %}
+  {% include "ablog/postnavy.html" %}
   {% endif %}
   {% if ablog.disqus_shortname and ablog.blog_baseurl and (not ablog[pagename].nocomments) and ((pagename in ablog and (ablog[pagename].published or ablog.disqus_drafts)) or (not pagename in ablog and ablog.disqus_pages)) %}
   <div class="section ablog__comments">

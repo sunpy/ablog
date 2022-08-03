@@ -1,6 +1,5 @@
 import re
 
-import alabaster
 from pkg_resources import get_distribution
 from sphinx import addnodes
 
@@ -14,24 +13,17 @@ extensions = [
     "sphinx.ext.ifconfig",
     "sphinx.ext.extlinks",
     "sphinx_automodapi.automodapi",
+    "ablog",
     "alabaster",
     "nbsphinx",
     "myst_parser",
-    "ablog",
 ]
 
-# PROJECT
 versionmod = get_distribution("ablog")
-myst_update_mathjax = False
-# The version info for the project you're documenting, acts as replacement for
-# |version| and |release|, also used in various other places throughout the
-# built documents.
-# The short X.Y version.
 version = ".".join(versionmod.version.split(".")[:3])
-# The full version, including alpha/beta/rc tags.
 release = versionmod.version.split("+")[0]
-# Is this version a development release
 is_development = ".dev" in release
+
 project = "ABlog"
 copyright = "2014-2022, ABlog Team"
 master_doc = "index"
@@ -39,9 +31,8 @@ source_suffix = {
     ".rst": "restructuredtext",
     ".md": "markdown",
 }
-exclude_patterns = ["_build"]
+exclude_patterns = ["_build", "docs/manual/.ipynb_checkpoints"]
 
-# HTML OUTPUT
 html_title = "ABlog"
 html_static_path = ["_static"]
 html_use_index = True
@@ -49,12 +40,11 @@ html_domain_indices = False
 html_show_sourcelink = True
 html_favicon = "_static/ablog.ico"
 
-# ABLOG
 blog_title = "ABlog"
 blog_baseurl = "https://ablog.readthedocs.org/"
 blog_locations = {
     "Pittsburgh": ("Pittsburgh, PA", "https://en.wikipedia.org/wiki/Pittsburgh"),
-    "SF": ("San Francisco, CA", "https://en.wikipedia.org/wiki/San_Francisco"),
+    "San Fran": ("San Francisco, CA", "https://en.wikipedia.org/wiki/San_Francisco"),
     "Denizli": ("Denizli, Turkey", "https://en.wikipedia.org/wiki/Denizli"),
 }
 blog_languages = {
@@ -71,18 +61,13 @@ blog_authors = {
 }
 blog_feed_archives = True
 blog_feed_fulltext = True
-blog_feed_length = None
 blog_feed_templates = {
-    # Use defaults, no templates
     "atom": {
-        # Format tags as hashtags and append to the content
         "content": "{{ title }}{% for tag in post.tags %}"
         " #{{ tag.name|trim()|replace(' ', '') }}"
         "{% endfor %}",
     },
-    # Create content text suitable posting to micro-bogging
     "social": {
-        # Format tags as hashtags and append to the content
         "content": "{{ title }}{% for tag in post.tags %}"
         " #{{ tag.name|trim()|replace(' ', '') }}"
         "{% endfor %}",
@@ -92,21 +77,19 @@ disqus_shortname = "https-ablog-readthedocs-io"
 disqus_pages = True
 fontawesome_link_cdn = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
 
-# THEME
 html_style = "alabaster.css"
 html_theme = "alabaster"
 html_sidebars = {
     "**": [
         "about.html",
-        "postcard.html",
-        "recentposts.html",
-        "tagcloud.html",
-        "categories.html",
-        "archives.html",
+        "ablog/postcard.html",
+        "ablog/recentposts.html",
+        "ablog/tagcloud.html",
+        "ablog/categories.html",
+        "ablog/archives.html",
         "searchbox.html",
     ]
 }
-html_theme_path = [alabaster.get_path()]
 html_theme_options = {
     "travis_button": False,
     "github_user": "sunpy",
@@ -115,7 +98,6 @@ html_theme_options = {
     "logo": "ablog.png",
 }
 
-# SPHINX
 intersphinx_mapping = {
     "python": ("https://docs.python.org/", None),
     "sphinx": ("https://www.sphinx-doc.org/en/master/", None),
@@ -125,7 +107,6 @@ extlinks = {
     "issue": ("https://github.com/sunpy/ablog/issues/%s", "issue %s"),
     "pull": ("https://github.com/sunpy/ablog/pull/%s", "pull request %s"),
 }
-exclude_patterns = ["docs/manual/.ipynb_checkpoints/*"]
 rst_epilog = """
 .. _Sphinx: http://sphinx-doc.org/
 .. _Python: https://python.org

@@ -271,9 +271,9 @@ Sidebars that you see on the left are listed below in the same order:
 
    html_sidebars = {
       '**': [...,
-             'postcard.html', 'recentposts.html',
-             'tagcloud.html', 'categories.html',
-             'archives.html', ]
+             'ablog/postcard.html', 'ablog/recentposts.html',
+             'ablog/tagcloud.html', 'ablog/categories.html',
+             'ablog/archives.html', ]
    }
 
 

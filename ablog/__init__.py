@@ -6,6 +6,8 @@ import os
 from glob import glob
 from pathlib import PurePath
 
+from sphinx.jinja2glue import BuiltinTemplateLoader, SphinxFileSystemLoader
+
 from .blog import CONFIG, Blog
 from .post import (
     CheckFrontMatter,
@@ -26,6 +28,14 @@ PKGDIR = os.path.abspath(os.path.dirname(__file__))
 
 
 __all__ = ["setup"]
+
+
+def get_html_templates_path():
+    """
+    Return path to ABlog templates folder.
+    """
+    pkgdir = os.path.abspath(os.path.dirname(__file__))
+    return os.path.join(pkgdir, "templates")
 
 
 def anchor(post):
@@ -62,6 +72,52 @@ def html_page_context(app, pagename, templatename, context, doctree):
             context["feed_title"] = blog.blog_title
 
 
+def builder_inited(app):
+    if not app.config.inject_templates_after_theme:
+        if not isinstance(app.builder.templates, BuiltinTemplateLoader):
+            raise Exception(
+                "Ablog does not know how to inject templates into with custom "
+                "template bridges. You can use `ablog.get_html_templates_path()` to "
+                "get the path to add in your custom template bridge and set "
+                "`inject_templates_after_theme = False` in your "
+                "`conf.py` file."
+            )
+        if get_html_templates_path() in app.config.templates_path:
+            raise Exception(
+                "Found the path from `ablog.get_html_templates_path()` in the "
+                "`templates_path` variable from `conf.py`. Doing so interferes "
+                "with Ablog's ability to stay compatible with Sphinx themes that "
+                "support it out of the box. Please remove `get_html_templates_path` "
+                "from `templates_path` in your `conf.py` to resolve this."
+            )
+    theme = app.builder.theme
+    loaders = app.builder.templates.loaders
+    templatepathlen = app.builder.templates.templatepathlen
+    if theme.get_config("ablog", "inject_templates_after_theme", False):
+        # Inject *after* the user templates and the theme templates,
+        # allowing themes to override the templates provided by this
+        # extension while those templates still serve as a fallback.
+        loaders.append(SphinxFileSystemLoader(get_html_templates_path()))
+    else:
+        # Inject *after* the user templates and *before* the theme
+        # templates. This enables ablog to provide support for themes
+        # that don't support it out-of-the-box, like alabaster.
+        loaders.insert(templatepathlen, SphinxFileSystemLoader(get_html_templates_path()))
+
+    # Automatically identify any blog posts if a pattern is specified in the config
+    if isinstance(app.config.blog_post_pattern, str):
+        app.config.blog_post_pattern = [app.config.blog_post_pattern]
+    matched_patterns = []
+    for pattern in app.config.blog_post_pattern:
+        pattern = os.path.join(app.srcdir, pattern)
+        # make sure that blog post paths have forward slashes even on windows
+        matched_patterns.extend(
+            PurePath(ii).relative_to(app.srcdir).with_suffix("").as_posix()
+            for ii in glob(pattern, recursive=True)
+        )
+    app.config.matched_blog_posts = matched_patterns
+
+
 def setup(app):
     """
     Setup ABlog extension.
@@ -70,7 +126,7 @@ def setup(app):
         app.add_config_value(*args[:3])
     app.add_directive("post", PostDirective)
     app.add_directive("postlist", PostListDirective)
-    app.connect("config-inited", config_inited)
+    app.connect("builder-inited", builder_inited)
     app.connect("doctree-read", process_posts)
     app.connect("env-purge-doc", purge_posts)
     app.connect("doctree-resolved", process_postlist)
@@ -83,33 +139,8 @@ def setup(app):
     app.add_node(
         UpdateNode,
         html=(lambda s, n: s.visit_admonition(n), lambda s, n: s.depart_admonition(n)),
-        latex=(lambda s, n: s.visit_admonition(n), lambda s, n: s.depart_admonition(n)),
     )
     pkgdir = os.path.abspath(os.path.dirname(__file__))
     locale_dir = os.path.join(pkgdir, "locales")
     app.config.locale_dirs.append(locale_dir)
     return {"version": __version__}  # identifies the version of our extension
-
-
-def config_inited(app, config):
-    app.config.templates_path.append(get_html_templates_path())
-    # Automatically identify any blog posts if a pattern is specified in the config
-    if isinstance(config.blog_post_pattern, str):
-        config.blog_post_pattern = [config.blog_post_pattern]
-    matched_patterns = []
-    for pattern in config.blog_post_pattern:
-        pattern = os.path.join(app.srcdir, pattern)
-        # make sure that blog post paths have forward slashes even on windows
-        matched_patterns.extend(
-            PurePath(ii).relative_to(app.srcdir).with_suffix("").as_posix()
-            for ii in glob(pattern, recursive=True)
-        )
-    app.config.matched_blog_posts = matched_patterns
-
-
-def get_html_templates_path():
-    """
-    Return path to ABlog templates folder.
-    """
-    pkgdir = os.path.abspath(os.path.dirname(__file__))
-    return os.path.join(pkgdir, "templates")

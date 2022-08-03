@@ -224,7 +224,6 @@ tags
 docs/_build/
 docs/.doctrees/
 docs/_website/
-docs/_latex/
 test/
 *.orig
 .history/

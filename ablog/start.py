@@ -77,6 +77,12 @@ blog_authors = {{
 #    'Earth': ('The Blue Planet', 'https://en.wikipedia.org/wiki/Earth),
 # }}
 
+# See https://github.com/sunpy/ablog/pull/144 for the full context
+# This will prevent ablog from overriding any local templates that you might
+# need to use for your project.
+# Default is ``False``.
+# inject_templates_after_theme = False
+
 # -- Blog Post Related --------------------------------------------------------
 
 # Format date for a post.
@@ -123,10 +129,9 @@ blog_authors = {{
 # In addition, there are authors.html, languages.html, and locations.html
 # sidebars that link to author and location archive pages.
 html_sidebars = {{
-    '**': [ 'about.html',
-            'postcard.html', 'navigation.html',
-            'recentposts.html', 'tagcloud.html',
-            'categories.html',  'archives.html',
+    '**': [ 'ablog/postcard.html', 'navigation.html',
+            'ablog/recentposts.html', 'ablog/tagcloud.html',
+            'ablog/categories.html',  'ablog/archives.html',
             'searchbox.html',
             ],
     }}
@@ -214,9 +219,6 @@ extensions = [
     'alabaster',
     'ablog',
 ]
-
-# Add any paths that contain templates here, relative to this directory.
-templates_path = [ablog.get_html_templates_path(), "{dot}templates"]
 
 # The suffix(es) of source filenames.
 source_suffix = "{suffix}"
