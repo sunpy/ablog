@@ -129,7 +129,7 @@ FUTURE = datetime(9999, 12, 31)
 
 
 def revise_pending_xrefs(doctree, docname):
-    for node in doctree.findall(addnodes.pending_xref):
+    for node in doctree.traverse(addnodes.pending_xref):
         node["refdoc"] = docname
 
 

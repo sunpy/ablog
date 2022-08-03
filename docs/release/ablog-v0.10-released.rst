@@ -359,3 +359,14 @@ ABlog v0.10.27 released
 Pull Requests merged in:
 
 `Improve conditional check for author metadata <https://github.com/sunpy/ablog/pull/146>`__.
+
+ABlog v0.10.28 released
+-----------------------
+.. post:: Aug 2, 2022
+   :author: Nabil Freij
+   :category: Release
+   :location: World
+
+Pull Requests merged in:
+
+`findall -> traverse for older versions of docutils <https://github.com/sunpy/ablog/pull/152>`__.
