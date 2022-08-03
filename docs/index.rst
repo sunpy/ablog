@@ -8,7 +8,6 @@ ABlog is a Sphinx extension that converts any documentation or personal website 
   * :ref:`sidebars`
   * :ref:`disqus-integration`
   * :ref:`Font-Awesome integration <font-awesome>`
-  * :doc:`manual/auto-github-pages-deploys`
   * :doc:`manual/markdown`
 
 .. _installation:
@@ -18,13 +17,11 @@ Installation
 
 You can install ABlog using `pip <https://pip.pypa.io/en/stable/>`__::
 
-    pip install -U ablog
+   pip install -U ablog
 
-or `miniconda <https://docs.conda.io/en/latest/miniconda.html>`__::
+or `miniforge <https://github.com/conda-forge/miniforge>`__::
 
-    conda config --add channels conda-forge
-    conda config --set channel_priority strict
-    conda install ablog
+   conda install ablog
 
 This will also install `Sphinx <http://sphinx-doc.org/>`__, `feedgen <https://github.com/lkiesow/python-feedgen>`__, and `Invoke <https://www.pyinvoke.org/>`__ respectively required for building your website, making it look good, generating feeds, and running deploy commands.
 
