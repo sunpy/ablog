@@ -77,11 +77,10 @@ blog_authors = {{
 #    'Earth': ('The Blue Planet', 'https://en.wikipedia.org/wiki/Earth),
 # }}
 
-# See https://github.com/sunpy/ablog/pull/144 for the full context
-# This will prevent ablog from overriding any local templates that you might
-# need to use for your project.
-# Default is ``False``.
-# inject_templates_after_theme = False
+# This will prevent ablog from injecting its own templates into the Sphinx
+# build. This is only useful when you have a custom template bridge (rare).
+# See https://github.com/sunpy/ablog/pull/144 for the full context.
+# skip_injecting_base_ablog_templates = False
 
 # -- Blog Post Related --------------------------------------------------------
 

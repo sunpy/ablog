@@ -73,23 +73,25 @@ def html_page_context(app, pagename, templatename, context, doctree):
 
 
 def builder_inited(app):
-    if not app.config.inject_templates_after_theme:
-        if not isinstance(app.builder.templates, BuiltinTemplateLoader):
-            raise Exception(
-                "Ablog does not know how to inject templates into with custom "
-                "template bridges. You can use `ablog.get_html_templates_path()` to "
-                "get the path to add in your custom template bridge and set "
-                "`inject_templates_after_theme = False` in your "
-                "`conf.py` file."
-            )
-        if get_html_templates_path() in app.config.templates_path:
-            raise Exception(
-                "Found the path from `ablog.get_html_templates_path()` in the "
-                "`templates_path` variable from `conf.py`. Doing so interferes "
-                "with Ablog's ability to stay compatible with Sphinx themes that "
-                "support it out of the box. Please remove `get_html_templates_path` "
-                "from `templates_path` in your `conf.py` to resolve this."
-            )
+    if app.config.skip_injecting_base_ablog_templates:
+        return
+
+    if not isinstance(app.builder.templates, BuiltinTemplateLoader):
+        raise Exception(
+            "Ablog does not know how to inject templates into with custom "
+            "template bridges. You can use `ablog.get_html_templates_path()` to "
+            "get the path to add in your custom template bridge and set "
+            "`skip_injecting_base_ablog_templates = False` in your "
+            "`conf.py` file."
+        )
+    if get_html_templates_path() in app.config.templates_path:
+        raise Exception(
+            "Found the path from `ablog.get_html_templates_path()` in the "
+            "`templates_path` variable from `conf.py`. Doing so interferes "
+            "with Ablog's ability to stay compatible with Sphinx themes that "
+            "support it out of the box. Please remove `get_html_templates_path` "
+            "from `templates_path` in your `conf.py` to resolve this."
+        )
     theme = app.builder.theme
     loaders = app.builder.templates.loaders
     templatepathlen = app.builder.templates.templatepathlen

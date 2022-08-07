@@ -122,7 +122,7 @@ CONFIG = [
     ("post_date_format", "%d %B %Y", True, require_config_type(str)),
     ("post_redirect_refresh", 5, True),
     ("post_show_prev_next", True, True),
-    ("inject_templates_after_theme", False, True),
+    ("skip_injecting_base_ablog_templates", False, True),
 ]
 TOMORROW = datetime.today() + dtmod.timedelta(1)
 TOMORROW = TOMORROW.replace(hour=0, minute=0, second=0, microsecond=0)
