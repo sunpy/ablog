@@ -22,4 +22,7 @@ test3:
 test4:
 	set -e; mkdir -p testablog; cd testablog; printf "\nABlog\nABlog Team\nhttps://ablog.readthedocs.org" | ablog start; ablog build -W; cd ..; rm -rf testablog
 
-tests: test test1 test2 test3 test4
+test5:
+	set -e; cd docs; ablog build -W -b latex -T -d .doctrees -w _latex; git clean -xfd; cd ..
+
+tests: test test1 test2 test3 test4 test5

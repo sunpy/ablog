@@ -143,6 +143,7 @@ def setup(app):
     app.add_node(
         UpdateNode,
         html=(lambda s, n: s.visit_admonition(n), lambda s, n: s.depart_admonition(n)),
+        latex=(lambda s, n: s.visit_admonition(n), lambda s, n: s.depart_admonition(n)),
     )
     pkgdir = os.path.abspath(os.path.dirname(__file__))
     locale_dir = os.path.join(pkgdir, "locales")
