@@ -14,10 +14,10 @@ Added support for external links to be posts.
 There are several breaking changes:
 
 - 1. The template files are now in the `templates/ablog` folder.
-- 2. In theory ablog will now append the tempaltes to the start of the template list, this could break themes without support for it.
+     Older templates are still in the old location but will raise a warning.
+- 2. ``ablog`` has support for not injecting its own templates into the Sphinx build.
+     This is supported by add `skip_injecting_base_ablog_templates = True` to your configuration file.
 - 3. Minimum version of Python is >=3.8 and Sphinx is >=5.0.
-- 4. Latex building is now not possible anymore.
-     This could change in future but for the first release of 0.11, it is nonfunctional.
 
 Pull Requests merged in:
 

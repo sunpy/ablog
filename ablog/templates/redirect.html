@@ -1,0 +1,9 @@
+{{ warning("redirect.html is an old template path, that is no longer used by ablog. Please use ablog/redirect.html instead.") }}
+{%- extends "!layout.html" %}
+{%- block extrahead %}
+{{ super() }}
+<meta http-equiv="refresh" content="{{ ablog.post_redirect_refresh }}; url={{ pathto(redirect) }}"/>
+{% endblock %}
+{% block body %}
+You are being redirected to <a href="{{ pathto(redirect) }}">{{ post.title }}</a> in {{ ablog.post_redirect_refresh }} seconds;
+{% endblock %}

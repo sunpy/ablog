@@ -1,0 +1,29 @@
+{{ warning("catalog.html is an old template path, that is no longer used by ablog. Please use ablog/catalog.html instead.") }}
+{%- extends "page.html" %}
+{% block body %}
+{% for collection in catalog %}
+{% if collection %}
+<div class="section ablog__catalog_header">
+  <h2>
+    {{ header }}
+    <a href="{{ pathto(collection.docname) }}">{{ collection }}</a>
+  </h2>
+  {% for post in collection %}
+  <div class="section ablog__catalog_post">
+    <p>
+      {% if post.published %}
+      {{ post.date.strftime(ablog.post_date_format) }}
+      {% else %}
+      Draft
+      {% endif %}
+      -
+      <a href="{{ pathto(post.docname) }}{{ anchor(post) }}"
+        >{{ post.title }}</a
+      >
+    </p>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+{% endfor %}
+{% endblock %}

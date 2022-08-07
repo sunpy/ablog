@@ -6,6 +6,7 @@ import os
 from glob import glob
 from pathlib import PurePath
 
+from sphinx.builders.latex import LaTeXBuilder
 from sphinx.jinja2glue import BuiltinTemplateLoader, SphinxFileSystemLoader
 
 from .blog import CONFIG, Blog
@@ -72,12 +73,12 @@ def html_page_context(app, pagename, templatename, context, doctree):
             context["feed_title"] = blog.blog_title
 
 
-def config_inited(app):
+def config_inited(app, config):
     # Automatically identify any blog posts if a pattern is specified in the config
-    if isinstance(app.config.blog_post_pattern, str):
-        app.config.blog_post_pattern = [app.config.blog_post_pattern]
+    if isinstance(config.blog_post_pattern, str):
+        config.blog_post_pattern = [config.blog_post_pattern]
     matched_patterns = []
-    for pattern in app.config.blog_post_pattern:
+    for pattern in config.blog_post_pattern:
         pattern = os.path.join(app.srcdir, pattern)
         # make sure that blog post paths have forward slashes even on windows
         matched_patterns.extend(
@@ -88,7 +89,7 @@ def config_inited(app):
 
 
 def builder_inited(app):
-    if app.config.skip_injecting_base_ablog_templates:
+    if isinstance(app.builder, LaTeXBuilder) or app.config.skip_injecting_base_ablog_templates:
         return
     if not isinstance(app.builder.templates, BuiltinTemplateLoader):
         raise Exception(
