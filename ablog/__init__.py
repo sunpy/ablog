@@ -72,10 +72,24 @@ def html_page_context(app, pagename, templatename, context, doctree):
             context["feed_title"] = blog.blog_title
 
 
+def config_inited(app):
+    # Automatically identify any blog posts if a pattern is specified in the config
+    if isinstance(app.config.blog_post_pattern, str):
+        app.config.blog_post_pattern = [app.config.blog_post_pattern]
+    matched_patterns = []
+    for pattern in app.config.blog_post_pattern:
+        pattern = os.path.join(app.srcdir, pattern)
+        # make sure that blog post paths have forward slashes even on windows
+        matched_patterns.extend(
+            PurePath(ii).relative_to(app.srcdir).with_suffix("").as_posix()
+            for ii in glob(pattern, recursive=True)
+        )
+    app.config.matched_blog_posts = matched_patterns
+
+
 def builder_inited(app):
     if app.config.skip_injecting_base_ablog_templates:
         return
-
     if not isinstance(app.builder.templates, BuiltinTemplateLoader):
         raise Exception(
             "Ablog does not know how to inject templates into with custom "
@@ -106,19 +120,6 @@ def builder_inited(app):
         # that don't support it out-of-the-box, like alabaster.
         loaders.insert(templatepathlen, SphinxFileSystemLoader(get_html_templates_path()))
 
-    # Automatically identify any blog posts if a pattern is specified in the config
-    if isinstance(app.config.blog_post_pattern, str):
-        app.config.blog_post_pattern = [app.config.blog_post_pattern]
-    matched_patterns = []
-    for pattern in app.config.blog_post_pattern:
-        pattern = os.path.join(app.srcdir, pattern)
-        # make sure that blog post paths have forward slashes even on windows
-        matched_patterns.extend(
-            PurePath(ii).relative_to(app.srcdir).with_suffix("").as_posix()
-            for ii in glob(pattern, recursive=True)
-        )
-    app.config.matched_blog_posts = matched_patterns
-
 
 def setup(app):
     """
@@ -128,6 +129,7 @@ def setup(app):
         app.add_config_value(*args[:3])
     app.add_directive("post", PostDirective)
     app.add_directive("postlist", PostListDirective)
+    app.connect("config-inited", config_inited)
     app.connect("builder-inited", builder_inited)
     app.connect("doctree-read", process_posts)
     app.connect("env-purge-doc", purge_posts)
