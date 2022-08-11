@@ -370,3 +370,14 @@ ABlog v0.10.28 released
 Pull Requests merged in:
 
 `findall -> traverse for older versions of docutils <https://github.com/sunpy/ablog/pull/152>`__.
+
+ABlog v0.10.30 released
+-----------------------
+.. post:: Aug 11, 2022
+   :author: Nabil Freij
+   :category: Release
+   :location: World
+
+Pull Requests merged in:
+
+`Fix the error on some empty option value of post directive <https://github.com/sunpy/ablog/pull/155>`__.
