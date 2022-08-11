@@ -37,7 +37,7 @@ __all__ = [
 
 
 def _split(a):
-    return {s.strip() for s in a.split(",")}
+    return {s.strip() for s in (a or "").split(",")}
 
 
 class PostNode(nodes.Element):
