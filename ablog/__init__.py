@@ -6,7 +6,7 @@ import os
 from glob import glob
 from pathlib import PurePath
 
-from sphinx.builders.html import HTMLBuilder
+from sphinx.builders.html import StandaloneHTMLBuilder
 from sphinx.jinja2glue import BuiltinTemplateLoader, SphinxFileSystemLoader
 
 from .blog import CONFIG, Blog
@@ -89,7 +89,7 @@ def config_inited(app, config):
 
 
 def builder_inited(app):
-    if not isinstance(app.builder, HTMLBuilder) or app.config.skip_injecting_base_ablog_templates:
+    if not isinstance(app.builder, StandaloneHTMLBuilder) or app.config.skip_injecting_base_ablog_templates:
         return
     if not isinstance(app.builder.templates, BuiltinTemplateLoader):
         raise Exception(
