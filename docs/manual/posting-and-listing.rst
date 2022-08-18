@@ -69,7 +69,7 @@ Any page in a Sphinx_ project can be converted to a post using the following dir
 
    **External links**
 
-   If you'd like a post to point to an external website (e.g., if you hose your posts on a blogging platform like Medium but wish to maintain a list of posts on your ``Ablog`` site), use the ``external_link`` parameter and this will be used instead.
+   If you'd like a post to point to an external website (e.g., if you host your posts on a blogging platform like Medium but wish to maintain a list of posts on your ``Ablog`` site), use the ``external_link`` parameter and this will be used instead.
 
    **Update Notes**
 
