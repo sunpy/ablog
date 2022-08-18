@@ -15,6 +15,8 @@ There are several breaking changes:
 
 - 1. The template files are now in the `templates/ablog` folder.
      Older templates are still in the old location but will raise a warning.
+     These will be removed in a future version, please do not use them anymore.
+     You will need to update any paths to them to add "ablog/" to the path.
 - 2. ``ablog`` has support for not injecting its own templates into the Sphinx build.
      This is supported by add `skip_injecting_base_ablog_templates = True` to your configuration file.
 - 3. Minimum version of Python is >=3.8 and Sphinx is >=5.0.
