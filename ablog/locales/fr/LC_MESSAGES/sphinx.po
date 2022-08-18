@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
-#: ablog/post.py:525 ablog/templates/authors.html:2
+#: ablog/post.py:525 ablog/templates/ablog/authors.html:2
 msgid "Authors"
 msgstr "Auteurs"
 
@@ -26,7 +26,7 @@ msgstr "Auteurs"
 msgid "Posts by"
 msgstr "Billets par"
 
-#: ablog/post.py:526 ablog/templates/locations.html:2
+#: ablog/post.py:526 ablog/templates/ablog/locations.html:2
 msgid "Locations"
 msgstr "Lieux"
 
@@ -34,7 +34,7 @@ msgstr "Lieux"
 msgid "Posts from"
 msgstr "Billets depuis"
 
-#: ablog/post.py:527 ablog/templates/languages.html:2
+#: ablog/post.py:527 ablog/templates/ablog/languages.html:2
 msgid "Languages"
 msgstr "Langues"
 
@@ -42,7 +42,7 @@ msgstr "Langues"
 msgid "Posts in"
 msgstr "Billets dans"
 
-#: ablog/post.py:528 ablog/templates/categories.html:2
+#: ablog/post.py:528 ablog/templates/ablog/categories.html:2
 msgid "Categories"
 msgstr "Catégories"
 
@@ -54,8 +54,8 @@ msgstr "Tous les billets"
 msgid "Posted in"
 msgstr "Publié dans"
 
-#: ablog/post.py:530 ablog/templates/postcard2.html:43
-#: ablog/templates/tagcloud.html:2
+#: ablog/post.py:530 ablog/templates/ablog/postcard2.html:43
+#: ablog/templates/ablog/tagcloud.html:2
 msgid "Tags"
 msgstr "Tags"
 
@@ -75,46 +75,46 @@ msgstr "Tous les billets"
 msgid "Drafts"
 msgstr "Brouillons"
 
-#: ablog/templates/archives.html:2
+#: ablog/templates/ablog/archives.html:2
 msgid "Archives"
 msgstr "Archives"
 
-#: ablog/templates/collection.html:48
+#: ablog/templates/ablog/collection.html:48
 msgid "Read more ..."
 msgstr "Lire plus…"
 
-#: ablog/templates/postcard2.html:2
+#: ablog/templates/ablog/postcard2.html:2
 msgid "Update"
 msgstr "Mis à jour"
 
-#: ablog/templates/postcard2.html:7
+#: ablog/templates/ablog/postcard2.html:7
 msgid "Author"
 msgstr "Auteur"
 
-#: ablog/templates/postcard2.html:16
+#: ablog/templates/ablog/postcard2.html:16
 msgid "Location"
 msgstr "Lieu"
 
-#: ablog/templates/postcard2.html:25
+#: ablog/templates/ablog/postcard2.html:25
 msgid "Language"
 msgstr "Langue"
 
-#: ablog/templates/postcard2.html:34
+#: ablog/templates/ablog/postcard2.html:34
 msgid "Category"
 msgstr "Catégorie"
 
-#: ablog/templates/postcard2.html:44
+#: ablog/templates/ablog/postcard2.html:44
 msgid "Tag"
 msgstr "Tag"
 
-#: ablog/templates/postnavy.html:7
+#: ablog/templates/ablog/postnavy.html:7
 msgid "Previous"
 msgstr "Précédent"
 
-#: ablog/templates/postnavy.html:17
+#: ablog/templates/ablog/postnavy.html:17
 msgid "Next"
 msgstr "Suivant"
 
-#: ablog/templates/recentposts.html:2
+#: ablog/templates/ablog/recentposts.html:2
 msgid "Recent Posts"
 msgstr "Billets récents"

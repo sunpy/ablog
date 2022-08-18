@@ -1,13 +1,17 @@
-{%- extends "layout.html" %} {% set fa = ablog.fontawesome %} {%- block
-extrahead %} {{ super() }} {% if feed_path %}
+{%- extends "layout.html" %}
+{% set fa = ablog.fontawesome %}
+{%- block extrahead %}
+{{ super() }}
+{% if feed_path %}
 <link
   rel="alternate"
   type="application/atom+xml"
   href="{{ pathto(feed_path, 1) }}/atom.xml"
   title="{{ feed_title }}"
 />
-{% endif %} {% if ablog.fontawesome_link_cdn%}
-<link href="{{ ablog.fontawesome_link_cdn }}" rel="stylesheet" />
+{% endif %}
+{% if ablog.fontawesome_link_cdn%}
+<link href="{{ ablog.fontawesome_link_cdn }}" rel="stylesheet"/>
 {% elif ablog.fontawesome_css_file %}
 <link
   rel="stylesheet"
@@ -15,38 +19,15 @@ extrahead %} {{ super() }} {% if feed_path %}
   type="text/css"
 />
 {% endif %}
-<style type="text/css">
-  ul.ablog-archive {
-    list-style: none;
-    overflow: auto;
-    margin-left: 0px;
-  }
-  ul.ablog-archive li {
-    float: left;
-    margin-right: 5px;
-    font-size: 80%;
-  }
-  ul.postlist a {
-    font-style: italic;
-  }
-  ul.postlist-style-disc {
-    list-style-type: disc;
-  }
-  ul.postlist-style-none {
-    list-style-type: none;
-  }
-  ul.postlist-style-circle {
-    list-style-type: circle;
-  }
-</style>
-{% endblock %} {% block body %} {{ body }}
-<div class="section">
-  {% if pagename in ablog %} {% include "postnavy.html" %} {% endif %} {% if
-  ablog.disqus_shortname and ablog.blog_baseurl and (not
-  ablog[pagename].nocomments) and ((pagename in ablog and
-  (ablog[pagename].published or ablog.disqus_drafts)) or (not pagename in ablog
-  and ablog.disqus_pages)) %}
-  <div class="section">
+{% endblock %}
+{% block body %}
+{{ body }}
+<div class="section ablog__blog_comments">
+  {% if pagename in ablog %}
+  {% include "ablog/postnavy.html" %}
+  {% endif %}
+  {% if ablog.disqus_shortname and ablog.blog_baseurl and (not ablog[pagename].nocomments) and ((pagename in ablog and (ablog[pagename].published or ablog.disqus_drafts)) or (not pagename in ablog and ablog.disqus_pages)) %}
+  <div class="section ablog__comments">
     <h2>Comments</h2>
     <div id="disqus_thread"></div>
     <script type="text/javascript">
@@ -66,15 +47,13 @@ extrahead %} {{ super() }} {% if feed_path %}
         ).appendChild(dsq);
       })();
     </script>
-    <noscript
-      >Please enable JavaScript to view the
-      <a href="https://disqus.com/?ref_noscript"
-        >comments powered by Disqus.</a
-      ></noscript
-    >
-    <a href="https://disqus.com" class="dsq-brlink"
-      >comments powered by <span class="logo-disqus">Disqus</span></a
-    >
+    <noscript>
+      Please enable JavaScript to view the
+      <a href="https://disqus.com/?ref_noscript">
+        comments powered by Disqus.</a ></noscript >
+    <a href="https://disqus.com" class="dsq-brlink">
+      comments powered by <span class="logo-disqus">Disqus</span>
+    </a >
   </div>
   {% endif %}
 </div>

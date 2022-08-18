@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.7.0\n"
 
-#: ablog/post.py:525 ablog/templates/authors.html:2
+#: ablog/post.py:525 ablog/templates/ablog/authors.html:2
 msgid "Authors"
 msgstr "作者"
 
@@ -26,7 +26,7 @@ msgstr "作者"
 msgid "Posts by"
 msgstr "文章"
 
-#: ablog/post.py:526 ablog/templates/locations.html:2
+#: ablog/post.py:526 ablog/templates/ablog/locations.html:2
 msgid "Locations"
 msgstr "地点"
 
@@ -34,7 +34,7 @@ msgstr "地点"
 msgid "Posts from"
 msgstr "文章自"
 
-#: ablog/post.py:527 ablog/templates/languages.html:2
+#: ablog/post.py:527 ablog/templates/ablog/languages.html:2
 msgid "Languages"
 msgstr "语言"
 
@@ -42,7 +42,7 @@ msgstr "语言"
 msgid "Posts in"
 msgstr "文章："
 
-#: ablog/post.py:528 ablog/templates/categories.html:2
+#: ablog/post.py:528 ablog/templates/ablog/categories.html:2
 msgid "Categories"
 msgstr "类别"
 
@@ -54,8 +54,8 @@ msgstr "所有文章"
 msgid "Posted in"
 msgstr "文章："
 
-#: ablog/post.py:530 ablog/templates/postcard2.html:43
-#: ablog/templates/tagcloud.html:2
+#: ablog/post.py:530 ablog/templates/ablog/postcard2.html:43
+#: ablog/templates/ablog/tagcloud.html:2
 msgid "Tags"
 msgstr "标签"
 
@@ -75,46 +75,46 @@ msgstr "所有"
 msgid "Drafts"
 msgstr "草稿"
 
-#: ablog/templates/archives.html:2
+#: ablog/templates/ablog/archives.html:2
 msgid "Archives"
 msgstr "归档"
 
-#: ablog/templates/collection.html:48
+#: ablog/templates/ablog/collection.html:48
 msgid "Read more ..."
 msgstr "更多 ..."
 
-#: ablog/templates/postcard2.html:2
+#: ablog/templates/ablog/postcard2.html:2
 msgid "Update"
 msgstr "更新"
 
-#: ablog/templates/postcard2.html:7
+#: ablog/templates/ablog/postcard2.html:7
 msgid "Author"
 msgstr "作者"
 
-#: ablog/templates/postcard2.html:16
+#: ablog/templates/ablog/postcard2.html:16
 msgid "Location"
 msgstr "地点"
 
-#: ablog/templates/postcard2.html:25
+#: ablog/templates/ablog/postcard2.html:25
 msgid "Language"
 msgstr "语言"
 
-#: ablog/templates/postcard2.html:34
+#: ablog/templates/ablog/postcard2.html:34
 msgid "Category"
 msgstr "类别"
 
-#: ablog/templates/postcard2.html:44
+#: ablog/templates/ablog/postcard2.html:44
 msgid "Tag"
 msgstr "标签"
 
-#: ablog/templates/postnavy.html:7
+#: ablog/templates/ablog/postnavy.html:7
 msgid "Previous"
 msgstr "上一篇"
 
-#: ablog/templates/postnavy.html:17
+#: ablog/templates/ablog/postnavy.html:17
 msgid "Next"
 msgstr "下一篇"
 
-#: ablog/templates/recentposts.html:2
+#: ablog/templates/ablog/recentposts.html:2
 msgid "Recent Posts"
 msgstr "最近文章"

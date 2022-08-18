@@ -91,37 +91,38 @@ DEBUG = True
 CONFIG = [
     # name, default, rebuild, verify_fn
     # where verify_fn is (key, value, app.config) --> value, throwing a KeyError if the value isn't right
-    ("blog_path", "blog", True, require_config_type(str)),
-    ("blog_title", "Blog", True, require_config_type(str)),
-    ("blog_baseurl", "", True, require_config_type(str)),
     ("blog_archive_titles", None, False, require_config_type(bool)),
+    ("blog_authors", {}, True, require_config_full_name_link_dict()),
+    ("blog_baseurl", "", True, require_config_type(str)),
+    ("blog_default_author", None, True, require_config_str_or_list_lookup("blog_authors")),
+    ("blog_default_language", None, True, require_config_str_or_list_lookup("blog_languages")),
+    ("blog_default_location", None, True, require_config_str_or_list_lookup("blog_locations")),
     ("blog_feed_archives", False, True),
     ("blog_feed_fulltext", False, True),
-    ("blog_feed_subtitle", None, True),
-    ("blog_feed_titles", None, False),
-    ("blog_feed_templates", {"atom": {}}, True),
     ("blog_feed_length", None, None),
-    ("blog_authors", {}, True, require_config_full_name_link_dict()),
-    ("blog_default_author", None, True, require_config_str_or_list_lookup("blog_authors")),
-    ("blog_locations", {}, True, require_config_full_name_link_dict()),
-    ("blog_default_location", None, True, require_config_str_or_list_lookup("blog_locations")),
+    ("blog_feed_subtitle", None, True),
+    ("blog_feed_templates", {"atom": {}}, True),
+    ("blog_feed_titles", None, False),
     ("blog_languages", {}, True, require_config_full_name_link_dict()),
-    ("blog_default_language", None, True, require_config_str_or_list_lookup("blog_languages")),
-    ("fontawesome_link_cdn", None, True),
-    ("fontawesome_included", False, True, require_config_type(bool)),
-    ("fontawesome_css_file", "", True, require_config_type(str)),
-    ("post_date_format", "%d %B %Y", True, require_config_type(str)),
-    ("post_date_format_short", "%d %B", True, require_config_type(str)),
-    ("post_auto_orphan", True, True, require_config_type(bool)),
-    ("post_auto_image", 0, True),
-    ("post_auto_excerpt", 1, True),
-    ("post_redirect_refresh", 5, True),
-    ("post_always_section", False, True),
-    ("post_show_prev_next", True, True),
-    ("disqus_shortname", None, True),
+    ("blog_locations", {}, True, require_config_full_name_link_dict()),
+    ("blog_path", "blog", True, require_config_type(str)),
+    ("blog_post_pattern", [], True, require_config_type((str, list))),
+    ("blog_title", "Blog", True, require_config_type(str)),
     ("disqus_drafts", False, True),
     ("disqus_pages", False, True),
-    ("blog_post_pattern", [], True, require_config_type((str, list))),
+    ("disqus_shortname", None, True),
+    ("fontawesome_css_file", "", True, require_config_type(str)),
+    ("fontawesome_included", False, True, require_config_type(bool)),
+    ("fontawesome_link_cdn", None, True),
+    ("post_always_section", False, True),
+    ("post_auto_excerpt", 1, True),
+    ("post_auto_image", 0, True),
+    ("post_auto_orphan", True, True, require_config_type(bool)),
+    ("post_date_format_short", "%d %B", True, require_config_type(str)),
+    ("post_date_format", "%d %B %Y", True, require_config_type(str)),
+    ("post_redirect_refresh", 5, True),
+    ("post_show_prev_next", True, True),
+    ("skip_injecting_base_ablog_templates", False, True),
 ]
 TOMORROW = datetime.today() + dtmod.timedelta(1)
 TOMORROW = TOMORROW.replace(hour=0, minute=0, second=0, microsecond=0)
@@ -129,7 +130,7 @@ FUTURE = datetime(9999, 12, 31)
 
 
 def revise_pending_xrefs(doctree, docname):
-    for node in doctree.traverse(addnodes.pending_xref):
+    for node in doctree.findall(addnodes.pending_xref):
         node["refdoc"] = docname
 
 

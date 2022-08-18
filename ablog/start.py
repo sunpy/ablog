@@ -77,6 +77,11 @@ blog_authors = {{
 #    'Earth': ('The Blue Planet', 'https://en.wikipedia.org/wiki/Earth),
 # }}
 
+# This will prevent ablog from injecting its own templates into the Sphinx
+# build. This is only useful when you have a custom template bridge (rare).
+# See https://github.com/sunpy/ablog/pull/144 for the full context.
+# skip_injecting_base_ablog_templates = False
+
 # -- Blog Post Related --------------------------------------------------------
 
 # Format date for a post.
@@ -123,10 +128,9 @@ blog_authors = {{
 # In addition, there are authors.html, languages.html, and locations.html
 # sidebars that link to author and location archive pages.
 html_sidebars = {{
-    '**': [ 'about.html',
-            'postcard.html', 'navigation.html',
-            'recentposts.html', 'tagcloud.html',
-            'categories.html',  'archives.html',
+    '**': [ 'ablog/postcard.html', 'navigation.html',
+            'ablog/recentposts.html', 'ablog/tagcloud.html',
+            'ablog/categories.html',  'ablog/archives.html',
             'searchbox.html',
             ],
     }}
@@ -214,9 +218,6 @@ extensions = [
     'alabaster',
     'ablog',
 ]
-
-# Add any paths that contain templates here, relative to this directory.
-templates_path = ["{dot}templates", ablog.get_html_templates_path()]
 
 # The suffix(es) of source filenames.
 source_suffix = "{suffix}"

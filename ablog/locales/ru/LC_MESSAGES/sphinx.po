@@ -23,7 +23,7 @@ msgstr ""
 msgid "Updated on"
 msgstr "Обновлено"
 
-#: ablog/post.py:387 ablog/templates/authors.html:2
+#: ablog/post.py:387 ablog/templates/ablog/authors.html:2
 msgid "Authors"
 msgstr "Авторы"
 
@@ -31,7 +31,7 @@ msgstr "Авторы"
 msgid "Posts by"
 msgstr "Опубликовано"
 
-#: ablog/post.py:388 ablog/templates/locations.html:2
+#: ablog/post.py:388 ablog/templates/ablog/locations.html:2
 msgid "Locations"
 msgstr ""
 
@@ -39,7 +39,7 @@ msgstr ""
 msgid "Posts from"
 msgstr "Сообщения из"
 
-#: ablog/post.py:389 ablog/templates/languages.html:2
+#: ablog/post.py:389 ablog/templates/ablog/languages.html:2
 msgid "Languages"
 msgstr "Языки"
 
@@ -47,7 +47,7 @@ msgstr "Языки"
 msgid "Posts in"
 msgstr "Сообщений в"
 
-#: ablog/post.py:390 ablog/templates/categories.html:2
+#: ablog/post.py:390 ablog/templates/ablog/categories.html:2
 msgid "Categories"
 msgstr "Категории"
 
@@ -59,8 +59,8 @@ msgstr "Все записи"
 msgid "Posted in"
 msgstr "Опубликовано в"
 
-#: ablog/post.py:392 ablog/templates/postcard2.html:43
-#: ablog/templates/tagcloud.html:2
+#: ablog/post.py:392 ablog/templates/ablog/postcard2.html:43
+#: ablog/templates/ablog/tagcloud.html:2
 msgid "Tags"
 msgstr "Теги"
 
@@ -72,46 +72,46 @@ msgstr "Сообщения с тегом"
 msgid "Drafts"
 msgstr "Черновик"
 
-#: ablog/templates/archive.html:49
+#: ablog/templates/ablog/archive.html:49
 msgid "Read more ..."
 msgstr "Читать ..."
 
-#: ablog/templates/archives.html:2
+#: ablog/templates/ablog/archives.html:2
 msgid "Archives"
 msgstr "Архив"
 
-#: ablog/templates/postcard2.html:2
+#: ablog/templates/ablog/postcard2.html:2
 msgid "Update"
 msgstr "Обновить"
 
-#: ablog/templates/postcard2.html:7
+#: ablog/templates/ablog/postcard2.html:7
 msgid "Author"
 msgstr "Автор"
 
-#: ablog/templates/postcard2.html:16
+#: ablog/templates/ablog/postcard2.html:16
 msgid "Location"
 msgstr "Расположение"
 
-#: ablog/templates/postcard2.html:25
+#: ablog/templates/ablog/postcard2.html:25
 msgid "Language"
 msgstr "Язык"
 
-#: ablog/templates/postcard2.html:34
+#: ablog/templates/ablog/postcard2.html:34
 msgid "Category"
 msgstr "Категория"
 
-#: ablog/templates/postcard2.html:44
+#: ablog/templates/ablog/postcard2.html:44
 msgid "Tag"
 msgstr "Тег"
 
-#: ablog/templates/postnavy.html:7
+#: ablog/templates/ablog/postnavy.html:7
 msgid "Previous"
 msgstr "Предыдущий"
 
-#: ablog/templates/postnavy.html:17
+#: ablog/templates/ablog/postnavy.html:17
 msgid "Next"
 msgstr "Следующий"
 
-#: ablog/templates/recentposts.html:2
+#: ablog/templates/ablog/recentposts.html:2
 msgid "Recent Posts"
 msgstr "Недавние Записи"

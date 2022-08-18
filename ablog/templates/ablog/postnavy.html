@@ -1,4 +1,3 @@
-{{ warning("postnavy.html is an old template path, that is no longer used by ablog. Please use ablog/postnavy.html instead.") }}
 {# prev/next are not set for drafts #}
 {% set post = ablog[pagename] %}
 {% if post.published and ablog.post_show_prev_next %}

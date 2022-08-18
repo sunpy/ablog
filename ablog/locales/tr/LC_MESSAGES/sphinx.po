@@ -21,7 +21,7 @@ msgstr ""
 msgid "Updated on"
 msgstr "Güncelleme"
 
-#: ablog/post.py:387 ablog/templates/authors.html:2
+#: ablog/post.py:387 ablog/templates/ablog/authors.html:2
 msgid "Authors"
 msgstr "Yazarlar"
 
@@ -29,7 +29,7 @@ msgstr "Yazarlar"
 msgid "Posts by"
 msgstr "Yazar"
 
-#: ablog/post.py:388 ablog/templates/locations.html:2
+#: ablog/post.py:388 ablog/templates/ablog/locations.html:2
 msgid "Locations"
 msgstr "Mevkiler"
 
@@ -37,7 +37,7 @@ msgstr "Mevkiler"
 msgid "Posts from"
 msgstr "Mevki"
 
-#: ablog/post.py:389 ablog/templates/languages.html:2
+#: ablog/post.py:389 ablog/templates/ablog/languages.html:2
 msgid "Languages"
 msgstr "Diller"
 
@@ -45,7 +45,7 @@ msgstr "Diller"
 msgid "Posts in"
 msgstr "Kategori"
 
-#: ablog/post.py:390 ablog/templates/categories.html:2
+#: ablog/post.py:390 ablog/templates/ablog/categories.html:2
 msgid "Categories"
 msgstr "Kategoriler"
 
@@ -57,8 +57,8 @@ msgstr "Bütün yazılar"
 msgid "Posted in"
 msgstr "Sene"
 
-#: ablog/post.py:392 ablog/templates/postcard2.html:43
-#: ablog/templates/tagcloud.html:2
+#: ablog/post.py:392 ablog/templates/ablog/postcard2.html:43
+#: ablog/templates/ablog/tagcloud.html:2
 msgid "Tags"
 msgstr "Etiketler"
 
@@ -70,46 +70,46 @@ msgstr "Etiket"
 msgid "Drafts"
 msgstr "Taslaklar"
 
-#: ablog/templates/archive.html:49
+#: ablog/templates/ablog/archive.html:49
 msgid "Read more ..."
 msgstr "Okumaya devam et ..."
 
-#: ablog/templates/archives.html:2
+#: ablog/templates/ablog/archives.html:2
 msgid "Archives"
 msgstr "Arşiv"
 
-#: ablog/templates/postcard2.html:2
+#: ablog/templates/ablog/postcard2.html:2
 msgid "Update"
 msgstr "Güncelleme"
 
-#: ablog/templates/postcard2.html:7
+#: ablog/templates/ablog/postcard2.html:7
 msgid "Author"
 msgstr "Yazar"
 
-#: ablog/templates/postcard2.html:16
+#: ablog/templates/ablog/postcard2.html:16
 msgid "Location"
 msgstr "Mevki"
 
-#: ablog/templates/postcard2.html:25
+#: ablog/templates/ablog/postcard2.html:25
 msgid "Language"
 msgstr "Dil"
 
-#: ablog/templates/postcard2.html:34
+#: ablog/templates/ablog/postcard2.html:34
 msgid "Category"
 msgstr "Kategori"
 
-#: ablog/templates/postcard2.html:44
+#: ablog/templates/ablog/postcard2.html:44
 msgid "Tag"
 msgstr "Etiket"
 
-#: ablog/templates/postnavy.html:7
+#: ablog/templates/ablog/postnavy.html:7
 msgid "Previous"
 msgstr "Önceki"
 
-#: ablog/templates/postnavy.html:17
+#: ablog/templates/ablog/postnavy.html:17
 msgid "Next"
 msgstr "Sonraki"
 
-#: ablog/templates/recentposts.html:2
+#: ablog/templates/ablog/recentposts.html:2
 msgid "Recent Posts"
 msgstr "Yeni Yazılar"
