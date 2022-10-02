@@ -1,0 +1,130 @@
+# Portuguese translations for ablog.
+# Copyright (C) 2022 ORGANIZATION
+# This file is distributed under the same license as the ablog project.
+# Luís Henriques <henrix@camandro.org>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ablog 0.10.30.dev7+g9a43710e3a7d\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2022-10-02 20:41+0100\n"
+"PO-Revision-Date: 2022-10-02 20:41+0100\n"
+"Last-Translator: Luís Henriques <henrix@camandro.org>\n"
+"Language: pt\n"
+"Language-Team: pt <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.10.3\n"
+
+#: ablog/post.py:271
+msgid "Updated on "
+msgstr "Actualizado em "
+
+#: ablog/post.py:563 ablog/templates/ablog/authors.html:3
+#: ablog/templates/authors.html:4
+msgid "Authors"
+msgstr "Autores"
+
+#: ablog/post.py:563 ablog/post.py:630
+msgid "Posts by"
+msgstr "Entradas por"
+
+#: ablog/post.py:564 ablog/templates/ablog/locations.html:4
+#: ablog/templates/locations.html:5
+msgid "Locations"
+msgstr "Localizações"
+
+#: ablog/post.py:564 ablog/post.py:631
+msgid "Posts from"
+msgstr "Entradas de"
+
+#: ablog/post.py:565 ablog/templates/ablog/languages.html:4
+#: ablog/templates/languages.html:5
+msgid "Languages"
+msgstr "Linguagens"
+
+#: ablog/post.py:565 ablog/post.py:566 ablog/post.py:632 ablog/post.py:633
+msgid "Posts in"
+msgstr "Entradas em"
+
+#: ablog/post.py:566 ablog/templates/ablog/categories.html:4
+#: ablog/templates/categories.html:5
+msgid "Categories"
+msgstr "Categorias"
+
+#: ablog/post.py:567
+msgid "All posts"
+msgstr "Todas as entradas"
+
+#: ablog/post.py:567 ablog/post.py:634
+msgid "Posted in"
+msgstr "Publicado em"
+
+#: ablog/post.py:568 ablog/templates/ablog/postcard2.html:117
+#: ablog/templates/ablog/tagcloud.html:3 ablog/templates/postcard2.html:118
+#: ablog/templates/tagcloud.html:4
+msgid "Tags"
+msgstr "Etiquetas"
+
+#: ablog/post.py:568 ablog/post.py:635
+msgid "Posts tagged"
+msgstr "Entradas com etiqueta"
+
+#: ablog/post.py:593
+msgid "All Posts"
+msgstr "Todas as Entradas"
+
+#: ablog/post.py:594
+msgid "All"
+msgstr "Todas"
+
+#: ablog/post.py:602
+msgid "Drafts"
+msgstr "Rascunhos"
+
+#: ablog/templates/ablog/archives.html:4 ablog/templates/archives.html:5
+msgid "Archives"
+msgstr "Arquivos"
+
+#: ablog/templates/ablog/collection.html:56 ablog/templates/collection.html:57
+msgid "Read more ..."
+msgstr "Ler mais ..."
+
+#: ablog/templates/ablog/postcard2.html:8 ablog/templates/postcard2.html:9
+msgid "Update"
+msgstr "Actualizado"
+
+#: ablog/templates/ablog/postcard2.html:20 ablog/templates/postcard2.html:21
+msgid "Author"
+msgstr "Autor"
+
+#: ablog/templates/ablog/postcard2.html:44 ablog/templates/postcard2.html:45
+msgid "Location"
+msgstr "Localização"
+
+#: ablog/templates/ablog/postcard2.html:68 ablog/templates/postcard2.html:69
+msgid "Language"
+msgstr "Idioma"
+
+#: ablog/templates/ablog/postcard2.html:92 ablog/templates/postcard2.html:93
+msgid "Category"
+msgstr "Categoria"
+
+#: ablog/templates/ablog/postcard2.html:123 ablog/templates/postcard2.html:124
+msgid "Tag"
+msgstr "Etiqueta"
+
+#: ablog/templates/ablog/postnavy.html:8 ablog/templates/postnavy.html:9
+msgid "Previous"
+msgstr "Anterior"
+
+#: ablog/templates/ablog/postnavy.html:22 ablog/templates/postnavy.html:23
+msgid "Next"
+msgstr "Próximo"
+
+#: ablog/templates/ablog/recentposts.html:4 ablog/templates/recentposts.html:5
+msgid "Recent Posts"
+msgstr "Entradas Recentes"
+
