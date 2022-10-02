@@ -8,6 +8,7 @@ from pathlib import PurePath
 
 from sphinx.builders.html import StandaloneHTMLBuilder
 from sphinx.jinja2glue import BuiltinTemplateLoader, SphinxFileSystemLoader
+from sphinx.locale import get_translation
 
 from .blog import CONFIG, Blog
 from .post import (
@@ -27,6 +28,9 @@ from .version import version as __version__
 
 PKGDIR = os.path.abspath(os.path.dirname(__file__))
 
+# name used for the *.pot, *.po and *.mo files
+MESSAGE_CATALOG_NAME = 'sphinx'
+_ = get_translation(MESSAGE_CATALOG_NAME)
 
 __all__ = ["setup"]
 
@@ -148,5 +152,5 @@ def setup(app):
     )
     pkgdir = os.path.abspath(os.path.dirname(__file__))
     locale_dir = os.path.join(pkgdir, "locales")
-    app.config.locale_dirs.append(locale_dir)
+    app.add_message_catalog(MESSAGE_CATALOG_NAME, locale_dir)
     return {"version": __version__}  # identifies the version of our extension
