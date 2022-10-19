@@ -371,7 +371,7 @@ Pull Requests merged in:
 
 `findall -> traverse for older versions of docutils <https://github.com/sunpy/ablog/pull/152>`__.
 
-ABlog v0.10.30 released
+ABlog v0.10.29 released
 -----------------------
 .. post:: Aug 11, 2022
    :author: Nabil Freij
