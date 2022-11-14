@@ -127,4 +127,3 @@ msgstr "Próximo"
 #: ablog/templates/ablog/recentposts.html:4 ablog/templates/recentposts.html:5
 msgid "Recent Posts"
 msgstr "Entradas Recentes"
-
