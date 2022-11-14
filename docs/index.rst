@@ -10,6 +10,8 @@ ABlog is a Sphinx extension that converts any documentation or personal website 
   * :ref:`Font-Awesome integration <font-awesome>`
   * :doc:`manual/markdown`
 
+Ablog is part of the `SunPy Project <https://www.sunpy.org>`__.
+
 .. _installation:
 
 Installation
