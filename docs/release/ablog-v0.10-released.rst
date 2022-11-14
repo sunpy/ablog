@@ -381,3 +381,14 @@ ABlog v0.10.29 released
 Pull Requests merged in:
 
 `Fix the error on some empty option value of post directive <https://github.com/sunpy/ablog/pull/155>`__.
+
+ABlog v0.10.30 released
+-----------------------
+.. post:: Nov 14, 2022
+   :author: Nabil Freij
+   :category: Release
+   :location: World
+
+Pull Requests merged in:
+
+`Sort Feed posts by date <https://github.com/sunpy/ablog/pull/172>`__.
