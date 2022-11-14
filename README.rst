@@ -17,5 +17,6 @@ ABlog is a Sphinx extension that converts any documentation or personal website 
 
 .. warning::
 
-   **This version is maintained with the aim to keep it working for SunPy Project website and thus new features or bugfixes are highly unlikely unless they directly impact **.
+   **This version is maintained with the aim to keep it working for SunPy Project website and thus new features or bugfixes are highly unlikely unless they directly impact.**
+
    **We strongly encourage users and interested in parties in submitting patches to ``ablog``.**
