@@ -51,10 +51,6 @@ coverage.xml
 .pytest_cache/
 junit/
 
-# Translations
-*.pot
-babel-mapping.ini
-
 # Django stuff:
 *.log
 local_settings.py

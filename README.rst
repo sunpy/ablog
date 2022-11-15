@@ -10,10 +10,15 @@ ABlog is a Sphinx extension that converts any documentation or personal website 
 
 `Please check our documentation for information on how to get started. <https://ablog.readthedocs.io/>`__
 
+Note
+----
+
+This is the new home of `Ahmet Bakan's Ablog Sphinx extension <https://github.com/abakan/ablog/>`__.
+The original project is no longer maintained and the `SunPy Project <https://www.sunpy.org>`__ has taken over maintenance.
+
 Warning
-=======
+-------
 
-Please note that is an new home of `Ahmet Bakan's Ablog Sphinx extension <https://github.com/abakan/ablog/>`__.
+**This version is maintained with the aim to keep it working for SunPy Project website and thus new features or bugfixes are highly unlikely unless they directly impact.**
 
-**This version is maintained with the aim to keep it working for SunPy's website and thus new features or bugfixes are highly unlikely from the SunPy maintainers**.
-**We strongly encourage users and interested in parties in submitting patches to ablog.**
+**We strongly encourage users and interested in parties in submitting patches to ``ablog``.**

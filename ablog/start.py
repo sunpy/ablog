@@ -10,7 +10,7 @@ from sphinx.util import texescape
 from sphinx.util.console import bold, color_terminal, nocolor
 from sphinx.util.osutil import ensuredir, make_filename
 
-from .version import version as __version__
+from ablog import __version__
 
 
 def w(t, ls=80):

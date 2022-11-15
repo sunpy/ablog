@@ -1,7 +1,10 @@
 import re
+from pathlib import Path
 
 from pkg_resources import get_distribution
 from sphinx import addnodes
+
+import ablog
 
 ablog_builder = "dirhtml"
 ablog_website = "_website"
@@ -34,7 +37,6 @@ source_suffix = {
 exclude_patterns = ["_build", "docs/manual/.ipynb_checkpoints"]
 
 html_title = "ABlog"
-html_static_path = ["_static"]
 html_use_index = True
 html_domain_indices = False
 html_show_sourcelink = True
@@ -116,6 +118,7 @@ rst_epilog = """
 .. _Read The Docs: https://readthedocs.org/
 .. _Alabaster: https://github.com/bitprophet/alabaster
 """
+locale_dirs = [str(Path(ablog.__file__).parent / Path("locales"))]
 
 
 def parse_event(env, sig, signode):
