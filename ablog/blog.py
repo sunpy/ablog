@@ -347,6 +347,7 @@ class Post(BlogPageMixin):
         self.nocomments = info["nocomments"]
         self.published = date and date < TOMORROW
         self.draft = not self.published
+        self.external_link = info["external_link"]
         self._title = info["title"]
         self.excerpt = info["excerpt"]
         self.doctree = info["doctree"]
