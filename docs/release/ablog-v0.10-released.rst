@@ -393,3 +393,14 @@ Pull Requests merged in:
 
 `Sort Feed posts by date <https://github.com/sunpy/ablog/pull/172>`__.
 `Fix sidebars ablog translations <https://github.com/sunpy/ablog/pull/161>`__.
+
+ABlog v0.10.31 released
+-----------------------
+.. post:: Nov 14, 2022
+   :author: Nabil Freij
+   :category: Release
+   :location: World
+
+Pull Requests merged in:
+
+`Add external links for posts <https://github.com/sunpy/ablog/pull/112>`__.
