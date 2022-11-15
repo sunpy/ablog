@@ -2,7 +2,7 @@
 {% set post = ablog[pagename] %}
 {% if post.published and ablog.post_show_prev_next %}
 <div class="section ablog__prev-next">
-  <span style="float: left">
+  <span>
     {% if post.prev %}
     {% if not ablog.fontawesome %}
     {{ gettext('Previous') }}:
@@ -16,7 +16,7 @@
     {% endif %}
   </span>
   <span>&nbsp;</span>
-  <span style="float: right">
+  <span>
     {% if post.next %}
     {% if not ablog.fontawesome %}
     {{ gettext('Next') }}:

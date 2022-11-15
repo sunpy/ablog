@@ -6,7 +6,7 @@
     {% if fa %}
     <i class="fa fa-pencil-square-o"></i>
     {% else %}
-    {{gettext('Update') }}:
+    {{ gettext('Update') }}:
     {% endif %}
     </span>
   {{ post.update.strftime(ablog.post_date_format) }}
@@ -42,7 +42,7 @@
     {% if fa %}
     <i class="fa-fw fa fa-location-arrow"></i>
     {% else %}
-    {{gettext('Location') }}:
+    {{ gettext('Location') }}:
     {% endif %}
     </span>
   {% for coll in post.location %}
@@ -66,7 +66,7 @@
     {% if fa %}
     <i class="fa-fw fa fa-language"></i>
     {% else %}
-    {{gettext('Language') }}:
+    {{ gettext('Language') }}:
     {% endif %}
     </span>
   {% for coll in post.language %}
@@ -156,7 +156,7 @@
   {% if fa %}
   <i class="fa-fw fa fa-comments"></i>
   {% endif %}
-  <a href="{% if pagename != post.docname %} {{ pathto(post.docname) }} {% endif %} #disqus_thread" data-disqus-identifier="/{{post.docname}}/">
+  <a href="{%- if pagename != post.docname -%} {{ pathto(post.docname) }} {%- endif -%} #disqus_thread" data-disqus-identifier="/{{ post.docname }}/" >
     {% if not fa %}
     Comments
     {% endif %}
