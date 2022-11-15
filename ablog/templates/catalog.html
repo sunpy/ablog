@@ -1,11 +1,11 @@
 {%- extends "page.html" %}
-{% macro postlink(post) %}
-  {% if post.external_link %}
+{% macro postlink(post) -%}
+  {% if post.external_link -%}
     {{- post.external_link -}}
   {% else %}
     {{- pathto(post.docname) }}{{ anchor(post) -}}
-  {% endif %}
-{% endmacro %}
+  {%- endif %}
+{%- endmacro %}
 {% block body %}
 {% for collection in catalog %}
 {% if collection %}

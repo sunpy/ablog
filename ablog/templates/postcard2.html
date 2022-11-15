@@ -1,15 +1,13 @@
 {% if post.published and post.date != post.update %}
 <li id="published">
-  <span
-    >{% if fa %}<i class="fa fa-pencil-square-o"></i>{% else %}{{
+  <span>{% if fa %}<i class="fa fa-pencil-square-o"></i>{% else %}{{
     gettext('Update') }}:{% endif %}</span
   >
   {{ post.update.strftime(ablog.post_date_format) }}
 </li>
 {% endif %} {% if post.author %}
 <li id="author">
-  <span
-    >{% if fa %}<i class="fa-fw fa fa-user"></i>{% else %}{{ gettext('Author')
+  <span>{% if fa %}<i class="fa-fw fa fa-user"></i>{% else %}{{ gettext('Author')
     }}:{% endif %}</span
   >
   {% for coll in post.author %} {% if coll|length %}
@@ -19,8 +17,7 @@
 </li>
 {% endif %} {% if post.location %}
 <li id="location">
-  <span
-    >{% if fa %}<i class="fa-fw fa fa-location-arrow"></i>{% else %}{{
+  <span>{% if fa %}<i class="fa-fw fa fa-location-arrow"></i>{% else %}{{
     gettext('Location') }}:{% endif %}</span
   >
   {% for coll in post.location %} {% if coll|length %}
@@ -30,8 +27,7 @@
 </li>
 {% endif %} {% if post.language %}
 <li id="language">
-  <span
-    >{% if fa %}<i class="fa-fw fa fa-language"></i>{% else %}{{
+  <span>{% if fa %}<i class="fa-fw fa fa-language"></i>{% else %}{{
     gettext('Language') }}:{% endif %}</span
   >
   {% for coll in post.language %} {% if coll|length %}
@@ -41,8 +37,7 @@
 </li>
 {% endif %} {% if post.category %}
 <li id="category">
-  <span
-    >{% if fa %}<i class="fa-fw fa fa-folder-open"></i>{% else %}{{
+  <span>{% if fa %}<i class="fa-fw fa fa-folder-open"></i>{% else %}{{
     gettext('Category') }}:{% endif %}</span
   >
   {% for coll in post.category %} {% if coll|length %}
@@ -52,8 +47,7 @@
 </li>
 {% endif %} {% if post.tags %}
 <li id="tags">
-  <span
-    >{% if post.tags|length > 1 %}{% if fa %}<i class="fa-fw fa fa-tags"></i>{%
+  <span>{% if post.tags|length > 1 %}{% if fa %}<i class="fa-fw fa fa-tags"></i>{%
     else %}{{ gettext('Tags') }}:{% endif %} {% else %}{% if fa %}<i
       class="fa-fw fa fa-tag"
     ></i
