@@ -87,3 +87,4 @@ stages:
         envs:
           - linux: py310-sphinxdev
           - linux: py310-docs
+          - linux: py310-conda
