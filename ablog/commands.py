@@ -15,8 +15,7 @@ from watchdog.observers import Observer
 from watchdog.tricks import ShellCommandTrick
 
 import ablog
-
-from .start import ablog_start
+from ablog.start import ablog_start
 
 __all__ = ["ablog_build", "ablog_clean", "ablog_serve", "ablog_deploy", "ablog_main"]
 

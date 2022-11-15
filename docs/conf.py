@@ -52,8 +52,8 @@ blog_languages = {
     "nl": ("Nederlands", None),
     "zh_CN": ("Chinese", None),
 }
-blog_default_language = "en"
-language = "en"
+blog_default_language = "zh_CN"
+language = "zh_CN"
 blog_authors = {
     "Ahmet": ("Ahmet Bakan", "https://ahmetbakan.com"),
     "Luc": ("Luc Saffre", "https://saffre-rumma.net/luc/"),

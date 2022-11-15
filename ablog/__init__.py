@@ -26,13 +26,12 @@ from .post import (
 )
 from .version import version as __version__
 
+__all__ = ["setup", "__version__"]
+
 PKGDIR = os.path.abspath(os.path.dirname(__file__))
-
-# name used for the *.pot, *.po and *.mo files
+# Name used for the *.pot, *.po and *.mo files
 MESSAGE_CATALOG_NAME = "sphinx"
-_ = get_translation(MESSAGE_CATALOG_NAME)
-
-__all__ = ["setup"]
+_ = get_translation(MESSAGE_CATALOG_NAME)  # NOQA
 
 
 def get_html_templates_path():
