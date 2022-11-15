@@ -1,11 +1,11 @@
 {%- extends "page.html" %} {% block body %}
-{% macro postlink(post) %}
-  {% if post.external_link %}
+{% macro postlink(post) -%}
+  {% if post.external_link -%}
     {{- post.external_link -}}
   {% else %}
     {{- pathto(post.docname) }}{{ anchor(post) -}}
-  {% endif %}
-{% endmacro %}
+  {%- endif %}
+{%- endmacro %}
 <div class="section ablog__collection">
   <h1>
     {% if archive_feed and fa %}

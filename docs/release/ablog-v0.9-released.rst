@@ -13,17 +13,17 @@ This has merged in all current (at time of writing, 6) open PRs to the original 
 
 These are:
 
-`fix(commands): Update command arguments so patterns works correctly <https://github.com/abakan/ablog/pull/96>`__ from `rayalan <https://github.com/rayalan>`__.
+`fix(commands): Update command arguments so patterns works correctly <https://github.com/abakan-zz/ablog/pull/96>`__ from `rayalan <https://github.com/rayalan>`__.
 
-`Fix couple of bugs with latest stable Sphinx <https://github.com/abakan/ablog/pull/93>`__ from `tadeboro <https://github.com/tadeboro>`__.
+`Fix couple of bugs with latest stable Sphinx <https://github.com/abakan-zz/ablog/pull/93>`__ from `tadeboro <https://github.com/tadeboro>`__.
 
-`don't use fancy quotes in the conf.py template <https://github.com/abakan/ablog/pull/87>`__ from `tiwo <https://github.com/tiwo>`__.
+`don't use fancy quotes in the conf.py template <https://github.com/abakan-zz/ablog/pull/87>`__ from `tiwo <https://github.com/tiwo>`__.
 
-`Pass through additional Sphinx options and fix a typo <https://github.com/abakan/ablog/pull/84>`__ from `ahrbel <https://github.com/ahrbe1>`__.
+`Pass through additional Sphinx options and fix a typo <https://github.com/abakan-zz/ablog/pull/84>`__ from `ahrbel <https://github.com/ahrbe1>`__.
 
-`fix #78 (ImportError: cannot import name make_admonition in Sphinx 1.6) <https://github.com/abakan/ablog/pull/79>`_ from `lsaffre <https://github.com/lsaffre>`__.
+`fix #78 (ImportError: cannot import name make_admonition in Sphinx 1.6) <https://github.com/abakan-zz/ablog/pull/79>`_ from `lsaffre <https://github.com/lsaffre>`__.
 
-`Raise exception when title is missing <https://github.com/abakan/ablog/pull/76>`__ from `rgrinberg <https://github.com/rgrinberg>`__.
+`Raise exception when title is missing <https://github.com/abakan-zz/ablog/pull/76>`__ from `rgrinberg <https://github.com/rgrinberg>`__.
 
 .. _Abakan: https://github.com/abakan/ablog
 .. _SunPy: https://github.com/sunpy/ablog

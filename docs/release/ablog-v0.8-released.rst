@@ -30,7 +30,7 @@ ABlog v0.8.0 is released with additions and changes:
   * Fixed internal link resolution issue that affected atom feeds of
     collections, i.e. feeds of posts under a category, tag, or author.
 
-.. _Font Awesome: https://fortawesome.github.io/Font-Awesome/
+.. _Font Awesome: https://fontawesome.com/
 .. _Albert Mietus: https://github.com/AlbertMietus
 .. _uralbash: https://github.com/uralbash
 

@@ -670,7 +670,7 @@ def generate_atom_feeds(app):
         feed.subtitle(blog.blog_feed_subtitle)
         feed.link(href=feed_url, rel="self")
         feed.language(app.config.language)
-        feed.generator("ABlog", ablog.__version__, "https://ablog.readthedocs.org/")
+        feed.generator("ABlog", ablog.__version__, "https://ablog.readthedocs.io/")
         sorted_posts_by_date = sorted(feed_posts, key=lambda post: post.date, reverse=True)
         for i, post in enumerate(sorted_posts_by_date):
             if feed_length and i == feed_length:
