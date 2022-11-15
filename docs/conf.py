@@ -43,7 +43,7 @@ html_show_sourcelink = True
 html_favicon = "_static/ablog.ico"
 
 blog_title = "ABlog"
-blog_baseurl = "https://ablog.readthedocs.org/"
+blog_baseurl = "https://ablog.readthedocs.io/"
 blog_locations = {
     "Pittsburgh": ("Pittsburgh, PA", "https://en.wikipedia.org/wiki/Pittsburgh"),
     "San Fran": ("San Francisco, CA", "https://en.wikipedia.org/wiki/San_Francisco"),
@@ -119,6 +119,7 @@ rst_epilog = """
 .. _Alabaster: https://github.com/bitprophet/alabaster
 """
 locale_dirs = [str(Path(ablog.__file__).parent / Path("locales"))]
+nitpicky = True
 
 
 def parse_event(env, sig, signode):

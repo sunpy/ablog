@@ -48,7 +48,7 @@ How it works
 If you are new to Sphinx_ and reStructuredText markup language, you might find `reStructuredText Primer`_ useful.
 Once you have content (in ``.rst`` files), you can post *any page* using the :rst:dir:`post` directive as follows:
 
-.. _reStructuredText Primer: http://www.sphinx-doc.org/en/master/
+.. _reStructuredText Primer: https://www.sphinx-doc.org/en/master/
 
 .. code-block:: rst
 
@@ -95,7 +95,7 @@ For ABlog documentation, this converts to the following where you can find more 
 .. only:: html
 
    .. image:: https://readthedocs.org/projects/ablog/badge/?version=latest
-      :target: https://ablog.readthedocs.org/
+      :target: https://ablog.readthedocs.io
 
 .. toctree::
    :hidden:

@@ -205,7 +205,7 @@ Font awesome
 
 ABlog templates will use of `Font Awesome`_ icons if one of the following is set:
 
-.. _Font Awesome: https://fontawesome.io/
+.. _Font Awesome: https://fontawesome.com/
 
 .. confval:: fontawesome_link_cdn
 
@@ -254,7 +254,7 @@ The reason for requiring :confval:`blog_baseurl` to be specified as of v0.7.2 is
 Isso integration
 ----------------
 
-An alternative to Disqus, is `Isso <https://posativ.org/isso/>`__.
+An alternative to Disqus, is `Isso <https://isso-comments.de/>`__.
 Integration is provided by `sphinxnotes-isso`_ and the instructions there.
 
 .. _sphinxnotes-isso: https://sphinx-notes.github.io/isso/

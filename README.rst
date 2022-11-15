@@ -13,7 +13,7 @@ ABlog is a Sphinx extension that converts any documentation or personal website 
 Note
 ----
 
-This is the new home of `Ahmet Bakan's Ablog Sphinx extension <https://github.com/abakan/ablog/>`__.
+This is the new home of `Ahmet Bakan's Ablog Sphinx extension <https://github.com/abakan-zz/ablog/>`__.
 The original project is no longer maintained and the `SunPy Project <https://www.sunpy.org>`__ has taken over maintenance.
 
 Warning

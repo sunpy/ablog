@@ -25,7 +25,7 @@ ABlog v0.10.1 released
 
 Pull Requests merged in:
 
-`Change StopIteration to return <https://github.com/sunpy/ablog/pull/48>`__ from `remyabel <https://github.com/remyabel>`__.
+`Change StopIteration to return <https://github.com/sunpy/ablog/pull/48>`__ from `remyabel2 <https://github.com/remyabel2>`__.
 
 ABlog v0.10.2 released
 ----------------------

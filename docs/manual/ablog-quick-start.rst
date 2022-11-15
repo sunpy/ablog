@@ -43,9 +43,7 @@ Take a look at :file:`index.rst` for some tips on navigation links within the pr
 Write Content
 -------------
 
-If you are new to Sphinx_ and reStructuredText markup language, you might find `reStructuredText Primer`__ useful.
-
-__ http://sphinx-doc.org/rest.html
+If you are new to Sphinx_ and reStructuredText markup language, you might find `reStructuredText Primer <https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html>`__ useful.
 
 Pages
 ^^^^^
@@ -106,7 +104,7 @@ There are four major groups of configuration options that can help you customize
 
   * :ref:`config` - add blog authors, post locations and languages to your blog, adjust archive and feed content, etc.
 
-  * `General configuration <http://sphinx-doc.org/config.html#general-configuration>`__ and `project information <http://sphinx-doc.org/config.html#project-information>`__
+  * `General configuration <https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration>`__ and `project information <https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information>`__
 
   * :ref:`html-options` - configure appearance of your website.
 

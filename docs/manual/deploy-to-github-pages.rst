@@ -31,7 +31,7 @@ Assuming that you have a GitHub account, here are what you need to do to get pub
 
    iii. add and commit copied files,
 
-   iv. add `.nojekyll <https://help.github.com/articles/using-jekyll-with-pages/#turning-jekyll-off>`_
+   iv. add `.nojekyll <https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site#troubleshooting-publishing-from-a-branch>`_
        file, since this ain't no Jekyll_
 
    v. and finally push the changes to publish.

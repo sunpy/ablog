@@ -1,11 +1,12 @@
 {{ warning("collection.html is an old template path, that is no longer used by ablog. Please use ablog/collection.html instead.") }}
 {%- extends "page.html" %} {% block body %}
-{% macro postlink(post) %}
-  {% if post.external_link %}
+{% macro postlink(post) -%}
+  {% if post.external_link -%}
     {{- post.external_link -}}
   {% else %}
     {{- pathto(post.docname) }}{{ anchor(post) -}}
-  {% endif %}
+  {%- endif %}
+{%- endmacro %}
 {% endmacro %}
 <div class="section ablog__collection">
   <h1>
