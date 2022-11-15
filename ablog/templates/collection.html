@@ -1,4 +1,11 @@
 {%- extends "page.html" %} {% block body %}
+{% macro postlink(post) %}
+{% if post.external_link %}
+{{- post.external_link -}}
+{% else %}
+{{- pathto(post.docname) }}{{ anchor(post) -}}
+{% endif %}
+{% endmacro %}
 <div class="section">
   <h1>
     {% if archive_feed and fa %}
@@ -14,9 +21,7 @@
       {% if fa %}{% endif %} {% if post.published %} {{
       post.date.strftime(ablog.post_date_format) }} {% else %} Draft {% endif %}
       -
-      <a href="{{ pathto(post.docname) }}{{ anchor(post) }}"
-        >{{ post.title }}</a
-      >
+      <a href="{{ postlink(post) }}">{{ post.title }}</a>
     </p>
     {% if 0 %}
     <ul class="ablog-archive">
@@ -28,9 +33,7 @@
 
   <div class="section ablog-post">
     <h2 class="ablog-post-title">
-      <a href="{{ pathto(post.docname) }}{{ anchor(post) }}"
-        >{{ post.title }}</a
-      >
+      <a href="{{ postlink(post) }}">{{ post.title }}</a>
     </h2>
 
     <ul class="ablog-archive">
@@ -44,8 +47,8 @@
       {% include "postcard2.html" %}
     </ul>
     {{ post.to_html(collection.docname) }}
-    <p class="ablog-post-expand"><a href="{{ pathto(post.docname) }}"><em>{{ _("Read more ...") }}</em></a></p>
-    <hr />
+    <p class="ablog-post-expand"><a href="{{ postlink(post) }}"><em>{{ _("Read more ...") }}</em></a></p>
+    <hr/>
   </div>
   {% endfor %} {% endif %}
 </div>

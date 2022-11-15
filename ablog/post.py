@@ -79,6 +79,7 @@ class PostDirective(Directive):
         "excerpt": int,
         "exclude": directives.flag,
         "nocomments": directives.flag,
+        "external_link": str,
     }
 
     def run(self):
@@ -232,6 +233,7 @@ def _update_post_node(node, options, arguments):
     node["excerpt"] = options.get("excerpt", None)
     node["exclude"] = "exclude" in options
     node["nocomments"] = "nocomments" in options
+    node["external_link"] = options.get("external_link", [])
     return node
 
 
@@ -403,6 +405,7 @@ def process_posts(app, doctree):
             "nocomments": node["nocomments"],
             "image": node["image"],
             "exclude": node["exclude"],
+            "external_link": node["external_link"],
             "doctree": section_copy,
         }
         if docname not in env.ablog_posts:
@@ -483,14 +486,17 @@ def process_postlist(app, doctree, docname):
                     for i, item in enumerate(items, start=1):
                         if key == "title":
                             ref = nodes.reference()
-                            ref["refuri"] = app.builder.get_relative_uri(docname, item.docname)
+                            if item.options.get("external_link"):
+                                ref["refuri"] = post.options.get("external_link")
+                            else:
+                                ref["refuri"] = app.builder.get_relative_uri(docname, item.docname)
+                                ref["internal"] = True
                             ref["ids"] = []
                             ref["backrefs"] = []
                             ref["dupnames"] = []
                             ref["classes"] = []
                             ref["names"] = []
-                            ref["internal"] = True
-                            ref.append(nodes.Text(text_type(item)))
+                            ref.append(nodes.Text(str(item)))
                             par.attributes["classes"].append("ablog-post-title")
                         else:
                             ref = _missing_reference(app, item.xref, docname)
