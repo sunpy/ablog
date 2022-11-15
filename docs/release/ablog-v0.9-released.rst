@@ -31,30 +31,15 @@ These are:
 ABlog v0.9.1 released
 ---------------------
 
-.. post:: March 2, 2018
-   :author: Nabil Freij
-   :category: Release
-   :location: World
-
 Minor update to remove Ablog{}.format(python_number) exes
 
 ABlog v0.9.2 released
 ---------------------
 
-.. post:: March 4, 2018
-   :author: Nabil Freij
-   :category: Release
-   :location: World
-
 Fixed Windows String issue.
 
 ABlog v0.9.3 released
 ---------------------
-
-.. post:: October 30, 2018
-   :author: Nabil Freij
-   :category: Release
-   :location: World
 
 Added example on how to use writing blog posts in Jupyter notebooks.
 
@@ -65,20 +50,10 @@ Sorry I was late to release these!
 ABlog v0.9.4 released
 ---------------------
 
-.. post:: Feb 10, 2019
-   :author: Nabil Freij
-   :category: Release
-   :location: World
-
 Fixes for gettext break and some pathing issues.
 
 ABlog v0.9.5 released
 ---------------------
-
-.. post:: Aug 19, 2019
-   :author: Nabil Freij
-   :category: Release
-   :location: World
 
 v0.9.5 is the that supports Python 2 and Sphinx <2.
 v0.10.0 on main now, will not.

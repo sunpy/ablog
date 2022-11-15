@@ -1,11 +1,6 @@
 ABlog v0.3 released
 ===================
 
-.. post:: Sep 15, 2014
-   :author: Ahmet
-   :category: Release
-   :location: SF
-
 ABlog v0.3 is released. This version comes with the following core
 improvements:
 
@@ -21,11 +16,6 @@ improvements:
 
 ABlog v0.3.1 released
 ---------------------
-
-.. post:: Sep 24, 2014
-   :author: Ahmet
-   :category: Release
-   :location: SF
 
 ABlog v0.3.1 is a minor release to fix two issues in templates:
 
