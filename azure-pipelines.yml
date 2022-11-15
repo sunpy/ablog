@@ -91,3 +91,4 @@ stages:
           - linux: py39-sphinx4
           - linux: py39-sphinx5
           - linux: py310-sphinx4
+          - linux: py310-conda
