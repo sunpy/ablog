@@ -6,8 +6,6 @@ import os
 from glob import glob
 from pathlib import PurePath
 
-from sphinx.builders.html import StandaloneHTMLBuilder
-from sphinx.jinja2glue import BuiltinTemplateLoader, SphinxFileSystemLoader
 from sphinx.locale import get_translation
 
 from .blog import CONFIG, Blog

@@ -7,75 +7,75 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ablog 0.10.12\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-09-18 02:24+0200\n"
+"POT-Creation-Date: 2022-11-14 18:32-0800\n"
 "PO-Revision-Date: 2021-09-18 18:57+0200\n"
 "Last-Translator: Francesc Vilardell Sallés <vilardellsalles@gmail.com>\n"
 "Language: ca\n"
 "Language-Team: ca <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.0\n"
+"Generated-By: Babel 2.11.0\n"
 
-#: ablog/post.py:279
+#: ablog/post.py:273
 msgid "Updated on "
 msgstr "Actualitzat el "
 
-#: ablog/post.py:601 ablog/templates/authors.html:2
+#: ablog/post.py:569 ablog/templates/authors.html:2
 msgid "Authors"
 msgstr "Autors"
 
-#: ablog/post.py:601 ablog/post.py:683
+#: ablog/post.py:569 ablog/post.py:636
 msgid "Posts by"
 msgstr "Publicacions de"
 
-#: ablog/post.py:602 ablog/templates/locations.html:3
+#: ablog/post.py:570 ablog/templates/locations.html:3
 msgid "Locations"
 msgstr "Ubicacions"
 
-#: ablog/post.py:602 ablog/post.py:684
+#: ablog/post.py:570 ablog/post.py:637
 msgid "Posts from"
 msgstr "Publicacions des de"
 
-#: ablog/post.py:603 ablog/templates/languages.html:3
+#: ablog/post.py:571 ablog/templates/languages.html:3
 msgid "Languages"
 msgstr "Idiomes"
 
-#: ablog/post.py:603 ablog/post.py:604 ablog/post.py:685 ablog/post.py:686
+#: ablog/post.py:571 ablog/post.py:572 ablog/post.py:638 ablog/post.py:639
 msgid "Posts in"
 msgstr "Publicacions en"
 
-#: ablog/post.py:604 ablog/templates/categories.html:3
+#: ablog/post.py:572 ablog/templates/categories.html:3
 msgid "Categories"
 msgstr "Categories"
 
-#: ablog/post.py:605
+#: ablog/post.py:573
 msgid "All posts"
 msgstr "Totes les publicacions"
 
-#: ablog/post.py:605 ablog/post.py:687
+#: ablog/post.py:573 ablog/post.py:640
 msgid "Posted in"
 msgstr "Publicat al"
 
-#: ablog/post.py:606 ablog/templates/postcard2.html:57
+#: ablog/post.py:574 ablog/templates/postcard2.html:57
 #: ablog/templates/tagcloud.html:2
 msgid "Tags"
 msgstr "Etiquetes"
 
-#: ablog/post.py:606 ablog/post.py:688
+#: ablog/post.py:574 ablog/post.py:641
 msgid "Posts tagged"
 msgstr "Publicacions amb etiqueta"
 
-#: ablog/post.py:638
+#: ablog/post.py:599
 msgid "All Posts"
 msgstr "Totes les publicacions"
 
-#: ablog/post.py:639
+#: ablog/post.py:600
 msgid "All"
 msgstr "Totes les"
 
-#: ablog/post.py:650
+#: ablog/post.py:608
 msgid "Drafts"
 msgstr "Borradors"
 
@@ -83,7 +83,7 @@ msgstr "Borradors"
 msgid "Archives"
 msgstr "Arxius"
 
-#: ablog/templates/collection.html:47
+#: ablog/templates/collection.html:50
 msgid "Read more ..."
 msgstr "Llegir-ne més ..."
 
