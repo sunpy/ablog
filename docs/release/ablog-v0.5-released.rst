@@ -12,9 +12,4 @@ a :ref:`quick-start` guide.
 ABlog v0.5.1 released
 ---------------------
 
-.. post:: Mar 28, 2015
-   :author: Ahmet
-   :category: Release
-   :location: SF
-
 Added ``:excerpts:`` option to :rst:dir:`postlist` directive.
