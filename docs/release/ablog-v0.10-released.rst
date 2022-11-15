@@ -392,3 +392,4 @@ ABlog v0.10.30 released
 Pull Requests merged in:
 
 `Sort Feed posts by date <https://github.com/sunpy/ablog/pull/172>`__.
+`Fix sidebars ablog translations <https://github.com/sunpy/ablog/pull/161>`__.
