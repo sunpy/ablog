@@ -9,15 +9,12 @@ from docutils import nodes
 from docutils.parsers.rst import Directive, directives
 from docutils.parsers.rst.directives.admonitions import BaseAdmonition
 from feedgen.feed import FeedGenerator
-from sphinx.locale import _
+from sphinx.locale import get_translation
 from sphinx.transforms import SphinxTransform
 from sphinx.util.nodes import set_source_info
 
 import ablog
-
-from .blog import Blog, os_path_join, revise_pending_xrefs, slugify
-
-text_type = str
+from ablog.blog import Blog, os_path_join, revise_pending_xrefs, slugify
 
 __all__ = [
     "PostNode",
@@ -34,6 +31,10 @@ __all__ = [
     "generate_atom_feeds",
     "register_posts",
 ]
+
+# Name used for the *.pot, *.po and *.mo files
+MESSAGE_CATALOG_NAME = "sphinx"
+_ = get_translation(MESSAGE_CATALOG_NAME)  # NOQA
 
 
 def _split(a):
@@ -415,7 +416,7 @@ def process_posts(app, doctree):
         else:
             stdlabel = env.intersphinx_inventory.setdefault("std:label", {})  # NOQA
             baseurl = getattr(env.config, "blog_baseurl").rstrip("/") + "/"  # NOQA
-            project, version = env.config.project, text_type(env.config.version)  # NOQA
+            project, version = env.config.project, str(env.config.version)  # NOQA
         for key in ["tags", "author", "category", "location", "language"]:
             catalog = blog.catalogs[key]
             for label in postinfo[key]:
@@ -490,7 +491,7 @@ def process_postlist(app, doctree, docname):
                             ref["classes"] = []
                             ref["names"] = []
                             ref["internal"] = True
-                            ref.append(nodes.Text(text_type(item)))
+                            ref.append(nodes.Text(str(item)))
                             par.attributes["classes"].append("ablog-post-title")
                         else:
                             ref = _missing_reference(app, item.xref, docname)
@@ -540,7 +541,7 @@ def _missing_reference(app, target, refdoc, contnode=None, refexplicit=False):
         else:
             emp = nodes.emphasis()
             newnode.append(emp)
-            emp.append(nodes.Text(text_type(dispname)))
+            emp.append(nodes.Text(str(dispname)))
         return newnode
 
 
@@ -647,7 +648,7 @@ def generate_atom_feeds(app):
                             coll,
                             coll.path,
                             os.path.join(folder, feed_root + ".xml"),
-                            blog.blog_title + " - " + header + " " + text_type(coll),
+                            blog.blog_title + " - " + header + " " + str(coll),
                             os_path_join(base_url, coll.path, feed_root + ".xml"),
                             feed_templates,
                         )

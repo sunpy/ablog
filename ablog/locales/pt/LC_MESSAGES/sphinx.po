@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ablog 0.10.30.dev7+g9a43710e3a7d\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-10-02 20:41+0100\n"
+"POT-Creation-Date: 2022-11-14 16:46-0800\n"
 "PO-Revision-Date: 2022-10-02 20:41+0100\n"
 "Last-Translator: Luís Henriques <henrix@camandro.org>\n"
 "Language: pt\n"
@@ -16,71 +16,71 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.10.3\n"
+"Generated-By: Babel 2.11.0\n"
 
-#: ablog/post.py:271
+#: ablog/post.py:272
 msgid "Updated on "
 msgstr "Actualizado em "
 
-#: ablog/post.py:563 ablog/templates/ablog/authors.html:3
+#: ablog/post.py:564 ablog/templates/ablog/authors.html:3
 #: ablog/templates/authors.html:4
 msgid "Authors"
 msgstr "Autores"
 
-#: ablog/post.py:563 ablog/post.py:630
+#: ablog/post.py:564 ablog/post.py:631
 msgid "Posts by"
 msgstr "Entradas por"
 
-#: ablog/post.py:564 ablog/templates/ablog/locations.html:4
+#: ablog/post.py:565 ablog/templates/ablog/locations.html:4
 #: ablog/templates/locations.html:5
 msgid "Locations"
 msgstr "Localizações"
 
-#: ablog/post.py:564 ablog/post.py:631
+#: ablog/post.py:565 ablog/post.py:632
 msgid "Posts from"
 msgstr "Entradas de"
 
-#: ablog/post.py:565 ablog/templates/ablog/languages.html:4
+#: ablog/post.py:566 ablog/templates/ablog/languages.html:4
 #: ablog/templates/languages.html:5
 msgid "Languages"
 msgstr "Linguagens"
 
-#: ablog/post.py:565 ablog/post.py:566 ablog/post.py:632 ablog/post.py:633
+#: ablog/post.py:566 ablog/post.py:567 ablog/post.py:633 ablog/post.py:634
 msgid "Posts in"
 msgstr "Entradas em"
 
-#: ablog/post.py:566 ablog/templates/ablog/categories.html:4
+#: ablog/post.py:567 ablog/templates/ablog/categories.html:4
 #: ablog/templates/categories.html:5
 msgid "Categories"
 msgstr "Categorias"
 
-#: ablog/post.py:567
+#: ablog/post.py:568
 msgid "All posts"
 msgstr "Todas as entradas"
 
-#: ablog/post.py:567 ablog/post.py:634
+#: ablog/post.py:568 ablog/post.py:635
 msgid "Posted in"
 msgstr "Publicado em"
 
-#: ablog/post.py:568 ablog/templates/ablog/postcard2.html:117
+#: ablog/post.py:569 ablog/templates/ablog/postcard2.html:117
 #: ablog/templates/ablog/tagcloud.html:3 ablog/templates/postcard2.html:118
 #: ablog/templates/tagcloud.html:4
 msgid "Tags"
 msgstr "Etiquetas"
 
-#: ablog/post.py:568 ablog/post.py:635
+#: ablog/post.py:569 ablog/post.py:636
 msgid "Posts tagged"
 msgstr "Entradas com etiqueta"
 
-#: ablog/post.py:593
+#: ablog/post.py:594
 msgid "All Posts"
 msgstr "Todas as Entradas"
 
-#: ablog/post.py:594
+#: ablog/post.py:595
 msgid "All"
 msgstr "Todas"
 
-#: ablog/post.py:602
+#: ablog/post.py:603
 msgid "Drafts"
 msgstr "Rascunhos"
 
