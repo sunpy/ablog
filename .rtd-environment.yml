@@ -1,0 +1,10 @@
+name: rtd_ablog
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
+  - graphviz
+  - make
+  - nbsphinx
+  - pandoc
