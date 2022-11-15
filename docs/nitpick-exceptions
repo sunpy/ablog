@@ -1,0 +1,8 @@
+py:class docutils.nodes.Node
+py:class docutils.nodes.General
+py:class docutils.nodes.Body
+py:class docutils.nodes.admonition
+py:class docutils.parsers.rst.directives.admonitions.BaseAdmonition
+py:class docutils.transforms.Transform
+py:class docutils.nodes.Element
+py:class docutils.nodes.Admonition

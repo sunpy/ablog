@@ -17,7 +17,7 @@ from docutils.utils import new_document
 from sphinx import addnodes
 from sphinx.util.osutil import relative_uri
 
-__all__ = ["Blog", "Post", "Collection"]
+__all__ = ["Blog", "Post", "Collection", "BlogPageMixin", "Catalog"]
 
 
 def slugify(string):
