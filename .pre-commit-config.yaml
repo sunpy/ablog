@@ -7,7 +7,7 @@ repos:
     -   id: autoflake
         args: ['--in-place', '--remove-all-unused-imports', '--remove-unused-variable']
 -   repo: https://github.com/PyCQA/isort
-    rev: v5.11.3
+    rev: 5.11.4
     hooks:
     - id: isort
 -   repo: https://github.com/psf/black
@@ -35,7 +35,7 @@ repos:
     -   id: prettier
         types_or: [css, scss, javascript]
 - repo: https://github.com/Riverside-Healthcare/djLint
-  rev: v1.19.9
+  rev: v1.19.10
   hooks:
     - id: djlint-jinja
       types_or: ["html"]
