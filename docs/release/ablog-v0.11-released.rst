@@ -1,7 +1,7 @@
 ABlog v0.11 released
 ====================
 
-.. post:: july 25, 2022
+.. post:: December 28, 2022
    :author: Nabil Freij
    :category: Release
    :location: World
