@@ -89,6 +89,9 @@ html_sidebars = {
         "ablog/tagcloud.html",
         "ablog/categories.html",
         "ablog/archives.html",
+        "ablog/authors.html",
+        "ablog/languages.html",
+        "ablog/locations.html",
         "searchbox.html",
     ]
 }
