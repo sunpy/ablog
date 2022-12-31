@@ -1,6 +1,6 @@
 {{ warning("postcard.html is an old template path, that is no longer used by ablog. Please use ablog/postcard.html instead.") }}
 {% if pagename in ablog %}
-<div class="ablog__postcard">
+<div class="ablog-sidebar-item ablog__postcard">
 {% set fa = ablog.fontawesome %}
 {% set post = ablog[pagename] %}
 <h2>
