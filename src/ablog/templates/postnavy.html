@@ -12,7 +12,7 @@
       {% if ablog.fontawesome %}
       <i class="fa fa-arrow-circle-left"></i>
       {% endif %}
-      {{ post.prev.title }}
+      <span>{{ post.prev.title }}</span>
     </a>
     {% endif %}
   </span>
@@ -23,7 +23,7 @@
     {{ gettext('Next') }}:
     {% endif %}
     <a href="{{ pathto(post.next.docname) }}{{ anchor(post.next) }}">
-      {{ post.next.title }}
+      <span>{{ post.next.title }}</span>
       {% if ablog.fontawesome %}
       <i class="fa fa-arrow-circle-right" ></i>
       {% endif %}
