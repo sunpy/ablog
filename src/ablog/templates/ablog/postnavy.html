@@ -2,7 +2,7 @@
 {% set post = ablog[pagename] %}
 {% if post.published and ablog.post_show_prev_next %}
 <div class="section ablog__prev-next">
-  <span>
+  <span class="ablog__prev">
     {% if post.prev %}
     {% if not ablog.fontawesome %}
     {{ gettext('Previous') }}:
@@ -11,18 +11,18 @@
       {% if ablog.fontawesome %}
       <i class="fa fa-arrow-circle-left"></i>
       {% endif %}
-      {{ post.prev.title }}
+      <span>{{ post.prev.title }}</span>
     </a>
     {% endif %}
   </span>
   <span>&nbsp;</span>
-  <span>
+  <span class="ablog__next">
     {% if post.next %}
     {% if not ablog.fontawesome %}
     {{ gettext('Next') }}:
     {% endif %}
     <a href="{{ pathto(post.next.docname) }}{{ anchor(post.next) }}">
-      {{ post.next.title }}
+      <span>{{ post.next.title }}</span>
       {% if ablog.fontawesome %}
       <i class="fa fa-arrow-circle-right" ></i>
       {% endif %}
