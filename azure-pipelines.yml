@@ -71,6 +71,7 @@ stages:
           - windows: py37-sphinx4
           - linux: py37-sphinx5
           - linux: py38-sphinx4
+          - linux: py311-sphinx6
           - linux: py310-docs
 
   - stage: ThirdPhaseTests
