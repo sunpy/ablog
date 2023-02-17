@@ -15,21 +15,22 @@
     <a href="{{ pathto(collection.path, 1) }}/atom.xml">
       <i class="fa fa-rss fa-rotate-270"></i></a>
       {% endif %}
-      {{ header }}
+      <span>{{ header }}
       {% if collection.href %}
     <a href="{{ collection.href }}">{{ collection }}</a>
     {% else %}
     {{ collection }}
     {% endif %}
+  </span>
   </h1>
   {% if ablog.blog_archive_titles %}
   {% for post in collection %}
   <div class="section ablog__collection_meta">
     <p>
       {% if post.published %}
-      {{ post.date.strftime(ablog.post_date_format) }}
+      <span>{{ post.date.strftime(ablog.post_date_format) }}</span>
       {% else %}
-      Draft
+      <span>Draft</span>
       {% endif %}
       -
       <a href="{{ postlink(post) }}">{{ post.title }}</a>
@@ -48,15 +49,15 @@
         {% if fa %}
         <i class="fa fa-calendar"></i>
         {% endif %}
-        {{ post.date.strftime(ablog.post_date_format) }}
+        <span>{{ post.date.strftime(ablog.post_date_format) }}</span>
         {% else %}
         {% if fa %}
         <i class="fa fa-pencil"></i>
         {% endif %}
         {% if post.date %}
-        {{ post.date.strftime(ablog.post_date_format) }}
+        <span>{{ post.date.strftime(ablog.post_date_format) }}</span>
         {% else %}
-        Draft
+        <span>Draft</span>
         {% endif %}
         {% endif %}
       </li>
