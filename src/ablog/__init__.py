@@ -85,8 +85,7 @@ def config_inited(app, config):
         pattern = os.path.join(app.srcdir, pattern)
         # make sure that blog post paths have forward slashes even on windows
         matched_patterns.extend(
-            PurePath(ii).relative_to(app.srcdir).with_suffix("").as_posix()
-            for ii in glob(pattern, recursive=True)
+            PurePath(ii).relative_to(app.srcdir).with_suffix("").as_posix() for ii in glob(pattern, recursive=True)
         )
     app.config.matched_blog_posts = matched_patterns
 

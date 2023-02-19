@@ -46,7 +46,7 @@ stages:
             - pandoc
             - graphviz
         envs:
-          - linux: py311-sphinx5
+          - linux: py311-sphinx6
 
   - stage: SecondPhaseTests
     displayName: Stage 2 Tests
@@ -67,10 +67,9 @@ stages:
             - pandoc
             - graphviz
         envs:
-          - linux: py38-sphinx5
-          - linux: py39-sphinx5
-          - macos: py38-sphinx5
-          - windows: py38-sphinx5
+          - linux: py310-sphinx5
+          - macos: py39-sphinx5
+          - windows: py39-sphinx5
 
   - stage: ThirdPhaseTests
     displayName: Stage 3 Tests
