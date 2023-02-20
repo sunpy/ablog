@@ -64,9 +64,7 @@ parser = argparse.ArgumentParser(
     description="ABlog for blogging with Sphinx",
     epilog="See 'ablog <command> -h' for more information on a specific " "command.",
 )
-parser.add_argument(
-    "-v", "--version", help="print ABlog version and exit", action="version", version=ablog.__version__
-)
+parser.add_argument("-v", "--version", help="print ABlog version and exit", action="version", version=ablog.__version__)
 commands = ablog_commands = parser.add_subparsers(title="commands")
 
 

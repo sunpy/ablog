@@ -28,6 +28,5 @@ def test_external(app, status, warning):
 
     html = read_text(app.outdir / "postlist.html")
     assert (
-        '<a class="reference external" href="https://www.sphinx-doc.org/en/master/">External post</a></p></li>'
-        in html
+        '<a class="reference external" href="https://www.sphinx-doc.org/en/master/">External post</a></p></li>' in html
     )

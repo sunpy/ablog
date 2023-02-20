@@ -174,11 +174,7 @@ class Blog(Container):
             except ValueError:
                 key, _, _ = opt
                 verify_fn = None
-            value = (
-                verify_fn(key, getattr(app.config, key), app.config)
-                if verify_fn
-                else getattr(app.config, opt[0])
-            )
+            value = verify_fn(key, getattr(app.config, key), app.config) if verify_fn else getattr(app.config, opt[0])
             self.config[opt[0]] = value
         # blog catalog contains all posts
         self.blog = Catalog(self, "blog", "blog", None)

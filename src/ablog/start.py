@@ -544,9 +544,7 @@ def ask_user(d):
         print("Enter the root path for your blog project (path has to exist).")
         d["path"] = do_prompt("Root path for your project (path has to exist)", ".", is_path)
 
-    while path.isfile(path.join(d["path"], "conf.py")) or path.isfile(
-        path.join(d["path"], "source", "conf.py")
-    ):
+    while path.isfile(path.join(d["path"], "conf.py")) or path.isfile(path.join(d["path"], "source", "conf.py")):
         print("")
         print(bold(w("Error: an existing conf.py has been found in the " "selected root path.")))
         print("ablog start will not overwrite existing Sphinx projects.")

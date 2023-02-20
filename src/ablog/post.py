@@ -182,7 +182,7 @@ class CheckFrontMatter(SphinxTransform):
         if "blogpost" not in metadata and self.env.docname not in self.config.matched_blog_posts:
             return None
         if self.document.findall(PostNode):
-            logging.warning(f"Found blog post front-matter as well as post directive, using post directive.")
+            logging.warning("Found blog post front-matter as well as post directive, using post directive.")
         # Iterate through metadata and create a PostNode with relevant fields
         option_spec = PostDirective.option_spec
         for key, val in metadata.items():
