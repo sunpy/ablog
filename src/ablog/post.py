@@ -417,9 +417,10 @@ def process_posts(app, doctree):
         if app.builder.format == "html":
             stdlabel = env.domains["std"].data["labels"]  # NOQA
         else:
-            stdlabel = env.intersphinx_inventory.setdefault("std:label", {})  # NOQA
-            baseurl = getattr(env.config, "blog_baseurl").rstrip("/") + "/"  # NOQA
-            project, version = env.config.project, str(env.config.version)  # NOQA
+            if hasattr(env, "intersphinx_inventory"):
+                stdlabel = env.intersphinx_inventory.setdefault("std:label", {})  # NOQA
+                baseurl = getattr(env.config, "blog_baseurl").rstrip("/") + "/"  # NOQA
+                project, version = env.config.project, str(env.config.version)  # NOQA
         for key in ["tags", "author", "category", "location", "language"]:
             catalog = blog.catalogs[key]
             for label in postinfo[key]:

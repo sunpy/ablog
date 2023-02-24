@@ -224,3 +224,5 @@ docs/_latex/
 test/
 *.orig
 .history/
+pydata-sphinx-theme/
+_build
