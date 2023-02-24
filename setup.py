@@ -26,11 +26,4 @@ extras["all"] = list(chain.from_iterable(ex_extras.values()))
 setup(
     extras_require=extras,
     use_scm_version=True,
-    message_extractors={
-        "ablog": [
-            ("**.py", "python", None),
-            ("templates/**.html", "jinja2", None),
-            ("templates/ablog/**.html", "jinja2", None),
-        ],
-    },
 )
