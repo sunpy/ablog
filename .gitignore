@@ -226,3 +226,4 @@ test/
 .history/
 pydata-sphinx-theme/
 _build
+_version.py
