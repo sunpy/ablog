@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from setuptools import setup  # isort:skip
+import os
 from itertools import chain
 
 try:
@@ -25,5 +26,5 @@ extras["all"] = list(chain.from_iterable(ex_extras.values()))
 
 setup(
     extras_require=extras,
-    use_scm_version=True,
+    use_scm_version={"write_to": os.path.join("src", "ablog", "_version.py")},
 )
