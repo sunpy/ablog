@@ -684,7 +684,7 @@ def generate_atom_feeds(app):
                 content = None
             else:
                 content = post.to_html(pagename, fulltext=feed_fulltext)
-            feed_entry = feed.add_entry()
+            feed_entry = feed.add_entry(order="append")
             feed_entry.id(post_url)
             feed_entry.link(href=post_url)
             feed_entry.author({"name": author.name for author in post.author})

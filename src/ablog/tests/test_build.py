@@ -1,5 +1,9 @@
+from datetime import datetime
+
 import lxml
 import pytest
+
+POST_DATETIME_FMT = "%Y-%m-%dT%H:%M:%S%z"
 
 
 @pytest.mark.sphinx("html", testroot="build")  # using roots/test-build
@@ -41,6 +45,8 @@ def test_feed(app, status, warning):
     assert categories[1].attrib["term"] == "FooTag"
     content = entry.find("{http://www.w3.org/2005/Atom}content")
     assert "Foo post content." in content.text
+    update_time = entry.find("{http://www.w3.org/2005/Atom}updated")
+    first_entry_date = datetime.strptime(update_time.text, POST_DATETIME_FMT)
 
     empty_entry = entries[1]
     title = empty_entry.find("{http://www.w3.org/2005/Atom}title")
@@ -51,6 +57,11 @@ def test_feed(app, status, warning):
     assert len(categories) == 0
     content = empty_entry.find("{http://www.w3.org/2005/Atom}content")
     assert 'id="foo-empty-post"' in content.text
+    update_time = empty_entry.find("{http://www.w3.org/2005/Atom}updated")
+    second_entry_date = datetime.strptime(update_time.text, POST_DATETIME_FMT)
+
+    # check order of post based on their dates
+    assert first_entry_date > second_entry_date
 
     social_path = app.outdir / "blog/social.xml"
     assert (social_path).exists()
