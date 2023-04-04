@@ -89,7 +89,7 @@ html_sidebars = {
         "ablog/languages.html",
         "ablog/locations.html",
         "searchbox.html",
-    ]
+    ],
 }
 html_theme_options = {
     "travis_button": False,

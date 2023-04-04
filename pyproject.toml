@@ -1,57 +1,194 @@
 [build-system]
-requires = ["setuptools", "setuptools_scm", "wheel"]
+requires = [
+  "setuptools",
+  "setuptools_scm[toml]",
+  "wheel",
+  "oldest-supported-numpy",
+]
 build-backend = 'setuptools.build_meta'
+
+[project]
+name = "irispy-lmsal"
+dynamic = ["version"]
+description = "Provides tools to read and analyze data from the IRIS solar-observing satellite."
+readme = "README.rst"
+requires-python = ">=3.9"
+license = {file = "LICENSE.txt"}
+keywords = ["solar physics", "solar", "science", "NASA", "iris", "spectra", "lmsal"]
+authors = [
+  {email = "freij@baeri.org"},
+  {name = "Nabil Freij"}
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: BSD License",
+  "Natural Language :: English",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: Physics",
+]
+dependencies = [
+  'dkist>=1.0.0',
+  'ndcube>=2.1.2',
+  'pandas>=1.3.3',
+  'scipy>=1.7.0',
+  'sunpy>=5.0.0',
+  'sunraster>=0.4.0',
+]
+
+[project.urls]
+changelog = "https://irispy-lmsal.readthedocs.io/en/stable/changelog"
+documentation = "https://irispy-lmsal.readthedocs.io/en/stable/"
+homepage = "https://iris.lmsal.com/"
+issue_tracker = "https://github.com/LM-SAL/irispy-lmsal/issues"
+repository = "https://github.com/LM-SAL/irispy-lmsal"
+
+[project.optional-dependencies]
+all = ["irispy-lmsal"]
+tests = [
+  "irispy-lmsal[all]",
+  'pytest-astropy',
+]
+docs = [
+  "irispy-lmsal[all]",
+  'aiapy',
+  'pooch',
+  'sphinx',
+  'sphinx-automodapi',
+  'sphinx-changelog',
+  'sphinx-copybutton',
+  'sphinx-design',
+  'sphinx-gallery',
+  'sphinx-hoverxref',
+  'sunpy-sphinx-theme',
+]
+dev = ["irispy-lmsal[tests,docs]"]
+
+[tool.setuptools_scm]
+write_to = "irispy/_version.py"
+
+[tool.setuptools.exclude-package-data]
+muse = ["irispy._dev"]
+
+[tool.pytest.ini_options]
+testpaths = [
+  "irispy",
+  "docs"
+]
+norecursedirs = [
+  ".tox",
+  "build",
+  '''docs[\/]_build''',
+  '''docs[\/]generated''',
+  "*.egg-info",
+  "examples",
+  '''irispy[/\]_dev''',
+  ".jupyter",
+  ".history",
+]
+doctest_plus = "enabled"
+doctest_optionflags = "NORMALIZE_WHITESPACE FLOAT_CMP ELLIPSIS"
+addopts = "--doctest-rst --doctest-ignore-import-errors -p no:unraisableexception -p no:threadexception"
+markers = [
+  "remote_data: marks this test function as needing remote data.",
+]
+remote_data_strict = "True"
+filterwarnings = [
+  "error",
+  "always::pytest.PytestConfigWarning",
+  "ignore:.*deprecated and slated for removal in Python 3.13",
+  "ignore:numpy.ufunc size changed:RuntimeWarning",
+  "ignore:numpy.ndarray size changed:RuntimeWarning",
+  "ignore:.*unitfix.*",
+  "ignore::erfa.core.ErfaWarning",
+  "ignore:invalid value encountered in sqrt",
+]
 
 [tool.black]
 line-length = 120
-include = '\.pyi?$'
-exclude = '''
-(
-  /(
-      \.eggs
-    | \.git
-    | \.mypy_cache
-    | \.tox
-    | \.venv
-    | _build
-    | buck-out
-    | build
-    | dist
-    | astropy_helpers
-    | docs
-    | .history
-  )/
-  | ah_bootstrap.py
-)
-'''
 target-version = ['py39']
 
+[tool.isort]
+profile = "black"
+line_length = 120
+length_sort = "False"
+length_sort_sections = "stdlib"
+
 [tool.ruff]
-# Enable Pyflakes `E` and `F` codes by default.
-select = ["E", "F"]
-ignore = ["E501", "E741"]
-
-# Allow autofix for all enabled rules (when `--fix`) is provided.
-fixable = ["A", "B", "C", "D", "E", "F"]
-
-exclude = [
-    ".eggs",
-    ".git",
-    ".mypy_cache",
-    ".ruff_cache",
-    ".tox",
-    ".venv",
-    "__pypackages__",
-    "_build",
-    "build",
-    "dist",
-    "node_modules",
-    "venv",
-]
-
-# Same as Black.
-line-length = 120
-target-version = "py39"
-
 # Allow unused variables when underscore-prefixed.
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+target-version = "py39"
+line-length = 120
+exclude=[
+    ".git,",
+    "__pycache__",
+    "build",
+    "tools/**",
+]
+select = [
+      "E",
+      "F",
+      "W",
+      "UP",
+      "PT",
+      "RET",
+      "TID",
+      "PLE",
+      "NPY",
+      "RUF",
+      "PGH",
+      "PTH",
+      "BLE",
+      "FBT",
+      "B",
+      "A",
+      "COM",
+      "C4",
+      "T20",
+      "RSE",
+      "ERA",
+]
+fixable = [
+      "E",
+      "F",
+      "W",
+      "UP",
+      "PT",
+      "RET",
+      "TID",
+      "PLE",
+      "NPY",
+      "RUF",
+      "PGH",
+      "PTH",
+      "BLE",
+      "FBT",
+      "B",
+      "A",
+      "COM",
+      "C4",
+      "T20",
+      "RSE",
+      "ERA",
+]
+extend-ignore = [
+    "E501",  # Line too long
+]
+
+[tool.ruff.per-file-ignores]
+"examples/*.py" = [
+    "T201", # We need print in our examples
+]
+
+[tool.ruff.pydocstyle]
+convention = "numpy"
+
+[tool.codespell]
+skip = "*.asdf,*.fits,*.fts,*.header,*.json,*.xsh,*cache*,*egg*,*extern*,.git,.idea,.tox,_build,*truncated,*.svg,.asv_env,.history,*sphinx.po"
+ignore-words-list = "sav,"

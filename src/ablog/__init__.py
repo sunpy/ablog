@@ -31,7 +31,7 @@ __all__ = ["setup", "__version__"]
 PKGDIR = os.path.abspath(os.path.dirname(__file__))
 # Name used for the *.pot, *.po and *.mo files
 MESSAGE_CATALOG_NAME = "sphinx"
-_ = get_translation(MESSAGE_CATALOG_NAME)  # NOQA
+_ = get_translation(MESSAGE_CATALOG_NAME)
 
 
 def get_html_templates_path():
@@ -99,7 +99,7 @@ def builder_inited(app):
             "template bridges. You can use `ablog.get_html_templates_path()` to "
             "get the path to add in your custom template bridge and set "
             "`skip_injecting_base_ablog_templates = False` in your "
-            "`conf.py` file."
+            "`conf.py` file.",
         )
     if get_html_templates_path() in app.config.templates_path:
         raise Exception(
@@ -107,7 +107,7 @@ def builder_inited(app):
             "`templates_path` variable from `conf.py`. Doing so interferes "
             "with Ablog's ability to stay compatible with Sphinx themes that "
             "support it out of the box. Please remove `get_html_templates_path` "
-            "from `templates_path` in your `conf.py` to resolve this."
+            "from `templates_path` in your `conf.py` to resolve this.",
         )
     theme = app.builder.theme
     loaders = app.builder.templates.loaders

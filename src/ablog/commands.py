@@ -234,14 +234,12 @@ def ablog_clean(website=None, doctrees=None, deep=False, **kwargs):
     nothing = True
     if glob.glob(os.path.join(website, "*")):
         shutil.rmtree(website)
-        print(f"Removed {os.path.relpath(website)}.")
         nothing = False
     if deep and glob.glob(os.path.join(doctrees, "*")):
         shutil.rmtree(doctrees)
-        print(f"Removed {os.path.relpath(doctrees)}.")
         nothing = False
     if nothing:
-        print("Nothing to clean.")
+        pass
 
 
 @arg("--patterns", dest="patterns", default="*.rst;*.txt", help="patterns for triggering rebuilds")
@@ -268,8 +266,6 @@ def ablog_serve(website=None, port=8000, view=True, rebuild=False, patterns="*.r
     Handler = server.SimpleHTTPRequestHandler
     httpd = socketserver.TCPServer(("", port), Handler)
     ip, port = httpd.socket.getsockname()
-    print(f"Serving HTTP on {ip}:{port}.")
-    print("Quit the server with Control-C.")
     website = website or os.path.join(confdir, getattr(conf, "ablog_website", "_website"))
     os.chdir(website)
     if rebuild:
@@ -321,7 +317,6 @@ def ablog_post(filename, title=None, **kwargs):
         with open(filename, "w", encoding="utf-8") as out:
             post_text = POST_TEMPLATE.format(**pars)
             out.write(post_text)
-        print(f"Blog post created: {filename}")
 
 
 @arg(
@@ -397,7 +392,6 @@ def ablog_deploy(
     website = website or os.path.join(confdir, getattr(conf, "ablog_builddir", "_website"))
     tomove = glob.glob(os.path.join(website, "*"))
     if not tomove:
-        print("Nothing to deploy, build first.")
         return
     if github_pages:
         if repodir is None:
@@ -409,12 +403,12 @@ def ablog_deploy(
             run(
                 "git clone "
                 + ("https://github.com/" if github_is_http else github_url)
-                + "{0}/{0}.github.io.git {1}".format(github_pages, repodir),
+                + f"{github_pages}/{github_pages}.github.io.git {repodir}",
                 echo=True,
             )
         git_add = []
-        for tm in tomove:
-            for root, dirnames, filenames in os.walk(website):
+        for _tm in tomove:
+            for root, _dirnames, filenames in os.walk(website):
                 for filename in filenames:
                     fn = os.path.join(root, filename)
                     fnnew = fn.replace(website, repodir)
@@ -428,16 +422,14 @@ def ablog_deploy(
                         os.renames(fn, fnnew)
 
                     git_add.append(fnnew)
-        print(f"Moved {len(git_add)} files to {github_pages}.github.io")
         os.chdir(repodir)
-        run("git add -f " + " ".join(['"{}"'.format(os.path.relpath(p)) for p in git_add]), echo=True)
+        run("git add -f " + " ".join([f'"{os.path.relpath(p)}"' for p in git_add]), echo=True)
         if not os.path.isfile(".nojekyll"):
             open(".nojekyll", "w")
             run("git add -f .nojekyll")
         # Check to see if anything has actually been committed
         result = run("git diff --cached --name-status HEAD")
         if not result.stdout:
-            print("Nothing changed from last deployment")
             return
         commit = f"git commit -m \"{message or 'Updates.'}\""
         if push_force:
@@ -455,7 +447,7 @@ def ablog_deploy(
         push += f" origin {github_branch}"
         run(push, echo=True)
     else:
-        print("No place to deploy.")
+        pass
 
 
 def ablog_main():

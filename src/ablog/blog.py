@@ -200,7 +200,10 @@ class Blog(Container):
                 catalog[label] = Collection(catalog, label, name, link)
         self.posts = self.blog["post"] = Collection(self.blog, "post", "Posts", path=self.blog_path)
         self.drafts = self.blog["draft"] = Collection(
-            self.blog, "draft", "Drafts", path=os_path_join(self.blog_path, "drafts")
+            self.blog,
+            "draft",
+            "Drafts",
+            path=os_path_join(self.blog_path, "drafts"),
         )
         # add references to posts and drafts
         # e.g. :ref:`blog-posts`
@@ -218,7 +221,7 @@ class Blog(Container):
         try:
             attr = self.config[name]
         except KeyError:
-            raise AttributeError(f"ABlog has no configuration option {repr(name)}")
+            raise AttributeError(f"ABlog has no configuration option {name!r}")
         return attr
 
     def __getitem__(self, key):
@@ -277,6 +280,7 @@ class Blog(Container):
                 pagename = pagename[:-5]
             pagename = pagename.strip("/")
             return "/" + pagename + ("/" if pagename else "")
+        return None
 
     def page_url(self, pagename):
         """
@@ -291,6 +295,7 @@ class Blog(Container):
             if url.endswith("index"):
                 url = url[:-5]
             return url
+        return None
 
 
 def html_builder_write_doc(self, docname, doctree, img_url=False):
@@ -335,7 +340,7 @@ class BlogPageMixin:
 
     @property
     def title(self):
-        return getattr(self, "name", getattr(self, "_title"))
+        return getattr(self, "name", self._title)
 
 
 class Post(BlogPageMixin):
@@ -599,8 +604,7 @@ class Collection(BlogPageMixin):
         diff = maxsize - minsize
         if len(self.catalog) == 1 or min_ == max_:
             return int(round(diff / 2.0 + minsize))
-        size = int(1.0 * (len(self) - min_) / (max_ - min_) * diff + minsize)
-        return size
+        return int(1.0 * (len(self) - min_) / (max_ - min_) * diff + minsize)
 
     @property
     def docname(self):

@@ -21,7 +21,7 @@ def rootdir():
     return path(__file__).parent.abspath() / "roots"
 
 
-@pytest.fixture(scope="function", autouse=True)
+@pytest.fixture(autouse=True)
 def reset_blog_config():
     # Reset cached configurations to enable confoverrides
     from ablog.blog import Blog
