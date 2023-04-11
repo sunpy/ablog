@@ -293,15 +293,25 @@ class Blog(Container):
             return url
 
 
-def html_builder_write_doc(self, docname, doctree):
+def html_builder_write_doc(self, docname, doctree, img_url=False):
     """
     Part of :meth:`sphinx.builders.html.StandaloneHTMLBuilder.write_doc` method
     used to convert *doctree* to HTML.
+
+    Extra argument `img_url` enables conversion of `<img>` source paths to
+    fully qualified URLs based on `blog_baseurl`.
     """
+    # source of images
+    img_folder = "_images"
+    if img_url and self.config["blog_baseurl"]:
+        img_src_path = urljoin(self.config["blog_baseurl"], img_folder)
+    else:
+        img_src_path = relative_uri(self.get_target_uri(docname), img_folder)
+
     destination = StringOutput(encoding="utf-8")
     doctree.settings = self.docsettings
     self.secnumbers = {}
-    self.imgpath = relative_uri(self.get_target_uri(docname), "_images")
+    self.imgpath = img_src_path
     self.dlpath = relative_uri(self.get_target_uri(docname), "_downloads")
     self.current_docname = docname
     self.docwriter.write(doctree, destination)
@@ -377,7 +387,7 @@ class Post(BlogPageMixin):
     def __lt__(self, other):
         return (self._computed_date, self.title) < (other._computed_date, other.title)
 
-    def to_html(self, pagename, fulltext=False, drop_h1=True):
+    def to_html(self, pagename, fulltext=False, drop_h1=True, img_url=False):
         """
         Return excerpt or *fulltext* as HTML after resolving references with
         respect to *pagename*.
@@ -385,6 +395,9 @@ class Post(BlogPageMixin):
         By default, first `<h1>` tag is dropped from the output. More
         than one can be dropped by setting *drop_h1* to the desired
         number of tags to be dropped.
+
+        `img_url` enables conversion of `<img>` source paths to fully
+        qualified URLs based on `blog_baseurl`.
         """
 
         doctree = new_document("")
@@ -404,7 +417,7 @@ class Post(BlogPageMixin):
         revise_pending_xrefs(doctree, pagename)
         app.env.resolve_references(doctree, pagename, app.builder)
         add_permalinks, app.builder.add_permalinks = (app.builder.add_permalinks, False)
-        html = html_builder_write_doc(app.builder, pagename, doctree)
+        html = html_builder_write_doc(app.builder, pagename, doctree, img_url=img_url)
         app.builder.add_permalinks = add_permalinks
         if drop_h1:
             html = re.sub("<h1>(.*?)</h1>", "", html, count=abs(int(drop_h1)))

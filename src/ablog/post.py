@@ -683,7 +683,7 @@ def generate_atom_feeds(app):
             if blog.blog_feed_titles:
                 content = None
             else:
-                content = post.to_html(pagename, fulltext=feed_fulltext)
+                content = post.to_html(pagename, fulltext=feed_fulltext, img_url=True)
             feed_entry = feed.add_entry(order="append")
             feed_entry.id(post_url)
             feed_entry.link(href=post_url)
