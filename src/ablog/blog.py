@@ -301,7 +301,7 @@ def html_builder_write_doc(self, docname, doctree, img_url=False):
     Extra argument `img_url` enables conversion of `<img>` source paths to
     fully qualified URLs based on `blog_baseurl`.
     """
-    # source of images
+    # Source of images
     img_folder = "_images"
     if img_url and self.config["blog_baseurl"]:
         img_src_path = urljoin(self.config["blog_baseurl"], img_folder)
