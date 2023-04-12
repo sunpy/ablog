@@ -43,3 +43,10 @@ Pull Requests merged in:
 
 `append posts to atom feed to keep post order from new to old <https://github.com/sunpy/ablog/pull/216>`__ from `lexming <https://github.com/lexming>`__.
 `avoid spurious warning about posts with front-matter and post directive <https://github.com/sunpy/ablog/pull/214>`__ from `lexming <https://github.com/lexming>`__.
+
+ABlog v0.11.3 released
+----------------------
+
+Pull Requests merged in:
+
+`use fully qualified URLs for images in atom feed # <https://github.com/sunpy/ablog/pull/218>`__ from `lexming <https://github.com/lexming>`__.
