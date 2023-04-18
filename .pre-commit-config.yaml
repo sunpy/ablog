@@ -2,7 +2,7 @@ ci:
     autofix_prs: false
 repos:
 -   repo: https://github.com/PyCQA/autoflake
-    rev: v2.0.2
+    rev: v2.1.0
     hooks:
     -   id: autoflake
         args: ['--in-place', '--remove-all-unused-imports', '--remove-unused-variable']
@@ -40,7 +40,7 @@ repos:
     -   id: prettier
         types_or: [css, scss, javascript]
 - repo: https://github.com/Riverside-Healthcare/djLint
-  rev: v1.19.17
+  rev: v1.23.0
   hooks:
     - id: djlint-jinja
       types_or: ["html"]
