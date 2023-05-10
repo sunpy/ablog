@@ -408,7 +408,7 @@ class Post(BlogPageMixin):
             else:
                 doctree.append(deepcopy)
         else:
-            excerpt_container = nodes.container()
+            excerpt_container = nodes.paragraph()
             excerpt_container.attributes["classes"].append("ablog-post-excerpt")
             for node in self.excerpt:
                 excerpt_container.append(node.deepcopy())
