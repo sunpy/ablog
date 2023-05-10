@@ -40,7 +40,7 @@ repos:
     -   id: prettier
         types_or: [css, scss, javascript]
 - repo: https://github.com/Riverside-Healthcare/djLint
-  rev: v1.26.0
+  rev: v1.27.0
   hooks:
     - id: djlint-jinja
       types_or: ["html"]

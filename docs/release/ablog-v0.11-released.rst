@@ -27,26 +27,33 @@ Pull Requests merged in:
 
 `Template rework <https://github.com/sunpy/ablog/pull/144>`__.
 
-`Add external links for posts <https://github.com/sunpy/ablog/pull/112>`__ from `Chris Holdgraf <https://github.com/choldgraf>`__.
+`Add external links for posts #<https://github.com/sunpy/ablog/pull/112>`__ from `Chris Holdgraf <https://github.com/choldgraf>`__.
 
 ABlog v0.11.1 released
 ----------------------
 
 Pull Requests merged in:
 
-`Update version handling to remove use of pkg_resources <https://github.com/sunpy/ablog/pull/211>`__
+`Update version handling to remove use of pkg_resources #<https://github.com/sunpy/ablog/pull/211>`__
 
 ABlog v0.11.2 released
 ----------------------
 
 Pull Requests merged in:
 
-`append posts to atom feed to keep post order from new to old <https://github.com/sunpy/ablog/pull/216>`__ from `lexming <https://github.com/lexming>`__.
-`avoid spurious warning about posts with front-matter and post directive <https://github.com/sunpy/ablog/pull/214>`__ from `lexming <https://github.com/lexming>`__.
+`append posts to atom feed to keep post order from new to old #<https://github.com/sunpy/ablog/pull/216>`__ from `lexming <https://github.com/lexming>`__.
+`avoid spurious warning about posts with front-matter and post directive #<https://github.com/sunpy/ablog/pull/214>`__ from `lexming <https://github.com/lexming>`__.
 
 ABlog v0.11.3 released
 ----------------------
 
 Pull Requests merged in:
 
-`use fully qualified URLs for images in atom feed # <https://github.com/sunpy/ablog/pull/218>`__ from `lexming <https://github.com/lexming>`__.
+`use fully qualified URLs for images in atom feed #<https://github.com/sunpy/ablog/pull/218>`__ from `lexming <https://github.com/lexming>`__.
+
+ABlog v0.11.4 released
+----------------------
+
+Pull Requests merged in:
+
+`Use paragraph instead of container for blog post exerpts #<https://github.com/sunpy/ablog/pull/226>`__ from `lexming <https://github.com/dstansby>`__.
