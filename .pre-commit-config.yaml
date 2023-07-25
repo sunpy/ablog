@@ -25,7 +25,7 @@ repos:
     - id: check-yaml
     - id: debug-statements
 -   repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 'v0.0.278'
+    rev: 'v0.0.280'
     hooks:
       - id: ruff
         args: ['--fix']
@@ -40,7 +40,7 @@ repos:
     -   id: prettier
         types_or: [css, scss, javascript]
 - repo: https://github.com/Riverside-Healthcare/djLint
-  rev: v1.31.1
+  rev: v1.32.1
   hooks:
     - id: djlint-jinja
       types_or: ["html"]
