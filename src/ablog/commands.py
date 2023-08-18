@@ -70,10 +70,8 @@ commands = ablog_commands = parser.add_subparsers(title="commands")
 
 def cmd(func=None, **kwargs):
     if func is None:
-
         def cmd_inner(func):
             return cmd(func, **kwargs)
-
         return cmd_inner
     else:
         command = commands.add_parser(**kwargs)
@@ -458,18 +456,6 @@ def ablog_deploy(
         print("No place to deploy.")
 
 
-def ablog_main():
-    """
-    Ablog Main.
-    """
-    if len(sys.argv) == 1:
-        parser.print_help()
-    else:
-        namespace = parser.parse_args()
-        namespace.func(**namespace.__dict__)
-
-
-
 def get_parser() -> argparse.ArgumentParser:
     description = __(
         "\n"
@@ -555,70 +541,12 @@ def get_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def main(argv: Sequence[str] = (), /) -> int:
-    locale.setlocale(locale.LC_ALL, '')
-    sphinx.locale.init_console()
-
-    if not color_terminal():
-        nocolor()
-
-    # parse options
-    parser = get_parser()
-    try:
-        args = parser.parse_args(argv or sys.argv[1:])
-    except SystemExit as err:
-        return err.code  # type: ignore[return-value]
-
-    d = vars(args)
-    # delete None or False value
-    d = {k: v for k, v in d.items() if v is not None}
-
-    # handle use of CSV-style extension values
-    d.setdefault('extensions', [])
-    for ext in d['extensions'][:]:
-        if ',' in ext:
-            d['extensions'].remove(ext)
-            d['extensions'].extend(ext.split(','))
-
-    try:
-        if 'quiet' in d:
-            if not {'project', 'author'}.issubset(d):
-                print(__('"quiet" is specified, but any of "project" or '
-                         '"author" is not specified.'))
-                return 1
-
-        if {'quiet', 'project', 'author'}.issubset(d):
-            # quiet mode with all required params satisfied, use default
-            d.setdefault('version', '')
-            d.setdefault('release', d['version'])
-            d2 = DEFAULTS.copy()
-            d2.update(d)
-            d = d2
-
-            if not valid_dir(d):
-                print()
-                print(bold(__('Error: specified path is not a directory, or sphinx'
-                              ' files already exist.')))
-                print(__('sphinx-quickstart only generate into a empty directory.'
-                         ' Please specify a new root path.'))
-                return 1
-        else:
-            ask_user(d)
-    except (KeyboardInterrupt, EOFError):
-        print()
-        print('[Interrupted.]')
-        return 130  # 128 + SIGINT
-
-    for variable in d.get('variables', []):
-        try:
-            name, value = variable.split('=')
-            d[name] = value
-        except ValueError:
-            print(__('Invalid template variable: %s') % variable)
-
-    generate(d, overwrite=False, templatedir=args.templatedir)
-    return 0
-
-
 if __name__ == '__main__':
-    raise SystemExit(main(sys.argv[1:]))
+    from ablog.start import start_ablog
+
+    if len(sys.argv) == 1:
+        parser.print_help()
+    else:
+        namespace = parser.parse_args()
+        namespace.func(**namespace.__dict__)
+    raise SystemExit(start_ablog(sys.argv[1:]))
