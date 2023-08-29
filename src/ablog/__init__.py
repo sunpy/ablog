@@ -10,8 +10,8 @@ from sphinx.builders.html import StandaloneHTMLBuilder
 from sphinx.jinja2glue import BuiltinTemplateLoader, SphinxFileSystemLoader
 from sphinx.locale import get_translation
 
-from .blog import CONFIG, Blog
-from .post import (
+from ablog.blog import CONFIG, Blog
+from ablog.post import (
     CheckFrontMatter,
     PostDirective,
     PostListDirective,
@@ -24,11 +24,11 @@ from .post import (
     process_posts,
     purge_posts,
 )
-from .version import version as __version__
+from ablog.version import version as __version__
 
 __all__ = ["setup", "__version__"]
 
-PKGDIR = os.path.abspath(os.path.dirname(__file__))
+PKG_DIR = os.path.abspath(os.path.dirname(__file__))
 # Name used for the *.pot, *.po and *.mo files
 MESSAGE_CATALOG_NAME = "sphinx"
 _ = get_translation(MESSAGE_CATALOG_NAME)  # NOQA
@@ -38,8 +38,7 @@ def get_html_templates_path():
     """
     Return path to ABlog templates folder.
     """
-    pkgdir = os.path.abspath(os.path.dirname(__file__))
-    return os.path.join(pkgdir, "templates")
+    return os.path.join(PKG_DIR, "templates")
 
 
 def anchor(post):
@@ -48,8 +47,7 @@ def anchor(post):
     """
     if post.section:
         return "#" + post.section
-    else:
-        return ""
+    return ""
 
 
 def builder_support(builder):
@@ -70,7 +68,7 @@ def html_page_context(app, pagename, templatename, context, doctree):
     if builder_support(app):
         context["ablog"] = blog = Blog(app)
         context["anchor"] = anchor
-        # following is already available for archive pages
+        # The following is already available for archive pages
         if blog.blog_baseurl and "feed_path" not in context:
             context["feed_path"] = blog.blog_path
             context["feed_title"] = blog.blog_title
@@ -83,7 +81,7 @@ def config_inited(app, config):
     matched_patterns = []
     for pattern in config.blog_post_pattern:
         pattern = os.path.join(app.srcdir, pattern)
-        # make sure that blog post paths have forward slashes even on windows
+        # Make sure that blog post paths have forward slashes even on windows
         matched_patterns.extend(
             PurePath(ii).relative_to(app.srcdir).with_suffix("").as_posix() for ii in glob(pattern, recursive=True)
         )
@@ -99,15 +97,15 @@ def builder_inited(app):
             "template bridges. You can use `ablog.get_html_templates_path()` to "
             "get the path to add in your custom template bridge and set "
             "`skip_injecting_base_ablog_templates = False` in your "
-            "`conf.py` file."
+            "'conf.py' file."
         )
     if get_html_templates_path() in app.config.templates_path:
         raise Exception(
             "Found the path from `ablog.get_html_templates_path()` in the "
-            "`templates_path` variable from `conf.py`. Doing so interferes "
-            "with Ablog's ability to stay compatible with Sphinx themes that "
+            "`templates_path` variable from 'conf.py'. Doing so interferes "
+            "with ABlog's ability to stay compatible with Sphinx themes that "
             "support it out of the box. Please remove `get_html_templates_path` "
-            "from `templates_path` in your `conf.py` to resolve this."
+            "from `templates_path` in your 'conf.py' to resolve this."
         )
     theme = app.builder.theme
     loaders = app.builder.templates.loaders
@@ -148,7 +146,6 @@ def setup(app):
         html=(lambda s, n: s.visit_admonition(n), lambda s, n: s.depart_admonition(n)),
         latex=(lambda s, n: s.visit_admonition(n), lambda s, n: s.depart_admonition(n)),
     )
-    pkgdir = os.path.abspath(os.path.dirname(__file__))
-    locale_dir = os.path.join(pkgdir, "locales")
+    locale_dir = os.path.join(PKG_DIR, "locales")
     app.add_message_catalog(MESSAGE_CATALOG_NAME, locale_dir)
-    return {"version": __version__}  # identifies the version of our extension
+    return {"version": __version__}

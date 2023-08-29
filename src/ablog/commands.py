@@ -70,10 +70,8 @@ commands = ablog_commands = parser.add_subparsers(title="commands")
 
 def cmd(func=None, **kwargs):
     if func is None:
-
         def cmd_inner(func):
             return cmd(func, **kwargs)
-
         return cmd_inner
     else:
         command = commands.add_parser(**kwargs)
@@ -458,12 +456,97 @@ def ablog_deploy(
         print("No place to deploy.")
 
 
-def ablog_main():
-    """
-    Ablog Main.
-    """
+def get_parser() -> argparse.ArgumentParser:
+    description = __(
+        "\n"
+        "Generate required files for a Sphinx project.\n"
+        "\n"
+        "sphinx-quickstart is an interactive tool that asks some questions about your\n"
+        "project and then generates a complete documentation directory and sample\n"
+        "Makefile to be used with sphinx-build.\n",
+    )
+    parser = argparse.ArgumentParser(
+        usage='%(prog)s [OPTIONS] <PROJECT_DIR>',
+        epilog=__("For more information, visit <https://www.sphinx-doc.org/>."),
+        description=description)
+
+    parser.add_argument('-q', '--quiet', action='store_true', dest='quiet',
+                        default=None,
+                        help=__('quiet mode'))
+    parser.add_argument('--version', action='version', dest='show_version',
+                        version='%%(prog)s %s' % __display_version__)
+
+    parser.add_argument('path', metavar='PROJECT_DIR', default='.', nargs='?',
+                        help=__('project root'))
+
+    group = parser.add_argument_group(__('Structure options'))
+    group.add_argument('--sep', action='store_true', dest='sep', default=None,
+                       help=__('if specified, separate source and build dirs'))
+    group.add_argument('--no-sep', action='store_false', dest='sep',
+                       help=__('if specified, create build dir under source dir'))
+    group.add_argument('--dot', metavar='DOT', default='_',
+                       help=__('replacement for dot in _templates etc.'))
+
+    group = parser.add_argument_group(__('Project basic options'))
+    group.add_argument('-p', '--project', metavar='PROJECT', dest='project',
+                       help=__('project name'))
+    group.add_argument('-a', '--author', metavar='AUTHOR', dest='author',
+                       help=__('author names'))
+    group.add_argument('-v', metavar='VERSION', dest='version', default='',
+                       help=__('version of project'))
+    group.add_argument('-r', '--release', metavar='RELEASE', dest='release',
+                       help=__('release of project'))
+    group.add_argument('-l', '--language', metavar='LANGUAGE', dest='language',
+                       help=__('document language'))
+    group.add_argument('--suffix', metavar='SUFFIX', default='.rst',
+                       help=__('source file suffix'))
+    group.add_argument('--master', metavar='MASTER', default='index',
+                       help=__('master document name'))
+    group.add_argument('--epub', action='store_true', default=False,
+                       help=__('use epub'))
+
+    group = parser.add_argument_group(__('Extension options'))
+    for ext in EXTENSIONS:
+        group.add_argument('--ext-%s' % ext, action='append_const',
+                           const='sphinx.ext.%s' % ext, dest='extensions',
+                           help=__('enable %s extension') % ext)
+    group.add_argument('--extensions', metavar='EXTENSIONS', dest='extensions',
+                       action='append', help=__('enable arbitrary extensions'))
+
+    group = parser.add_argument_group(__('Makefile and Batchfile creation'))
+    group.add_argument('--makefile', action='store_true', dest='makefile', default=True,
+                       help=__('create makefile'))
+    group.add_argument('--no-makefile', action='store_false', dest='makefile',
+                       help=__('do not create makefile'))
+    group.add_argument('--batchfile', action='store_true', dest='batchfile', default=True,
+                       help=__('create batchfile'))
+    group.add_argument('--no-batchfile', action='store_false',
+                       dest='batchfile',
+                       help=__('do not create batchfile'))
+    group.add_argument('-m', '--use-make-mode', action='store_true',
+                       dest='make_mode', default=True,
+                       help=__('use make-mode for Makefile/make.bat'))
+    group.add_argument('-M', '--no-use-make-mode', action='store_false',
+                       dest='make_mode',
+                       help=__('do not use make-mode for Makefile/make.bat'))
+
+    group = parser.add_argument_group(__('Project templating'))
+    group.add_argument('-t', '--templatedir', metavar='TEMPLATEDIR',
+                       dest='templatedir',
+                       help=__('template directory for template files'))
+    group.add_argument('-d', metavar='NAME=VALUE', action='append',
+                       dest='variables',
+                       help=__('define a template variable'))
+
+    return parser
+
+
+if __name__ == '__main__':
+    from ablog.start import start_ablog
+
     if len(sys.argv) == 1:
         parser.print_help()
     else:
         namespace = parser.parse_args()
         namespace.func(**namespace.__dict__)
+    raise SystemExit(start_ablog(sys.argv[1:]))
