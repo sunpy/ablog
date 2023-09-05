@@ -2,7 +2,7 @@ ci:
     autofix_prs: false
 repos:
 -   repo: https://github.com/PyCQA/autoflake
-    rev: v2.2.0
+    rev: v2.2.1
     hooks:
     -   id: autoflake
         args: ['--in-place', '--remove-all-unused-imports', '--remove-unused-variable']
@@ -25,7 +25,7 @@ repos:
     - id: check-yaml
     - id: debug-statements
 -   repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 'v0.0.286'
+    rev: 'v0.0.287'
     hooks:
       - id: ruff
         args: ['--fix']
@@ -35,7 +35,7 @@ repos:
     -   id: stylelint
         additional_dependencies: ['stylelint@14.9.1', 'stylelint-config-standard@26.0.0']
 -   repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v3.0.2
+    rev: v3.0.3
     hooks:
     -   id: prettier
         types_or: [css, scss, javascript]
