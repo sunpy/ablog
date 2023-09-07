@@ -57,3 +57,10 @@ ABlog v0.11.4 released
 Pull Requests merged in:
 
 `Use paragraph instead of container for blog post excerpts <https://github.com/sunpy/ablog/pull/226>`__ from `dstansby <https://github.com/dstansby>`__.
+
+ABlog v0.11.5 released
+----------------------
+
+Pull Requests merged in:
+
+`Fix incorrect /div when using discuss <https://github.com/sunpy/ablog/pull/251>`__ from `Cadair <https://github.com/Cadair>`__.
