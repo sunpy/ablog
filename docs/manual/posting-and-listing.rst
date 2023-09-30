@@ -69,7 +69,7 @@ Any page in a Sphinx_ project can be converted to a post using the following dir
 
    **Canonical links**
 
-   If you re-publish content already existing on another URL (e.g., if you re-publish content from an employer's blong your personal one), use the ``canonical_link`` parameter to create a [canonical link relation](https://datatracker.ietf.org/doc/html/rfc6596) to the original version.
+   If you re-publish content already existing on another URL (e.g., if you re-publish content from an employer's blog your personal one), use the ``canonical_link`` parameter to create a [canonical link relation](https://datatracker.ietf.org/doc/html/rfc6596) to the original version.
 
    **External links**
 
