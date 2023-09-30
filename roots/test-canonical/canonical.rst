@@ -5,5 +5,5 @@
 Canonical post
 =============
 
-This post will get generated, but its [canonical link](https://datatracker.ietf.org/doc/html/rfc6596) 
+This post will get generated, but its [canonical link](https://datatracker.ietf.org/doc/html/rfc6596)
 in the header will point to ``canonical_link``.
