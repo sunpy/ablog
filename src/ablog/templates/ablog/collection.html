@@ -1,4 +1,5 @@
-{%- extends "page.html" %} {% block body %}
+{%- extends "page.html" %}
+{% block body %}
 {% macro postlink(post) -%}
   {% if post.external_link -%}
     {{- post.external_link -}}
@@ -66,4 +67,4 @@
   {% endfor %}
   {% endif %}
 </div>
-{% endblock %}
+{% endblock body %}
