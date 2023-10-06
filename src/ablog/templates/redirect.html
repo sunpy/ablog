@@ -3,7 +3,7 @@
 {%- block extrahead %}
 {{ super() }}
 <meta http-equiv="refresh" content="{{ ablog.post_redirect_refresh }}; url={{ pathto(redirect) }}"/>
-{% endblock %}
+{% endblock extrahead %}
 {% block body %}
 You are being redirected to <a href="{{ pathto(redirect) }}">{{ post.title }}</a> in {{ ablog.post_redirect_refresh }} seconds;
-{% endblock %}
+{% endblock body %}

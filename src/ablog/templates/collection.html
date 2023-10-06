@@ -1,5 +1,6 @@
 {{ warning("collection.html is an old template path, that is no longer used by ablog. Please use ablog/collection.html instead.") }}
-{%- extends "page.html" %} {% block body %}
+{%- extends "page.html" %}
+{% block body %}
 {% macro postlink(post) -%}
   {% if post.external_link -%}
     {{- post.external_link -}}
@@ -68,4 +69,4 @@
   {% endfor %}
   {% endif %}
 </div>
-{% endblock %}
+{% endblock body %}
