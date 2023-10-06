@@ -80,6 +80,7 @@ class PostDirective(Directive):
         "excerpt": int,
         "exclude": directives.flag,
         "nocomments": directives.flag,
+        "canonical_link": str,
         "external_link": str,
     }
 
@@ -235,6 +236,7 @@ def _update_post_node(node, options, arguments):
     node["excerpt"] = options.get("excerpt", None)
     node["exclude"] = "exclude" in options
     node["nocomments"] = "nocomments" in options
+    node["canonical_link"] = options.get("canonical_link", [])
     node["external_link"] = options.get("external_link", [])
     return node
 
@@ -407,6 +409,7 @@ def process_posts(app, doctree):
             "nocomments": node["nocomments"],
             "image": node["image"],
             "exclude": node["exclude"],
+            "canonical_link": node["canonical_link"],
             "external_link": node["external_link"],
             "doctree": section_copy,
         }

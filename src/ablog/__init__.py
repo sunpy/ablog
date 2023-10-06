@@ -70,6 +70,8 @@ def html_page_context(app, pagename, templatename, context, doctree):
     if builder_support(app):
         context["ablog"] = blog = Blog(app)
         context["anchor"] = anchor
+        if pagename in blog and blog[pagename].canonical_link:
+            context["pageurl"] = blog[pagename].canonical_link
         # following is already available for archive pages
         if blog.blog_baseurl and "feed_path" not in context:
             context["feed_path"] = blog.blog_path
