@@ -70,6 +70,6 @@ ABlog v0.11.6 released
 
 Pull Requests merged in:
 
-`Adds IT locale <https://github.com/sunpy/ablog/pull/253>`__ from `Cadair <https://github.com/stefanodavid>`__.
+`Adds IT locale <https://github.com/sunpy/ablog/pull/253>`__ from `Stefano David <https://github.com/stefanodavid>`__.
 
-`Enables configuring a canonical_link for individual posts <https://github.com/sunpy/ablog/pull/258>`__ from `Cadair <https://github.com/hendrikmakait>`__.
+`Enables configuring a canonical_link for individual posts <https://github.com/sunpy/ablog/pull/258>`__ from `Hendrik Makait <https://github.com/hendrikmakait>`__.
