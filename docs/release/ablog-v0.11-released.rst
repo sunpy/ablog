@@ -64,3 +64,12 @@ ABlog v0.11.5 released
 Pull Requests merged in:
 
 `Fix incorrect /div when using discuss <https://github.com/sunpy/ablog/pull/251>`__ from `Cadair <https://github.com/Cadair>`__.
+
+ABlog v0.11.6 released
+----------------------
+
+Pull Requests merged in:
+
+`Adds IT locale <https://github.com/sunpy/ablog/pull/253>`__ from `Cadair <https://github.com/stefanodavid>`__.
+
+`Enables configuring a canonical_link for individual posts <https://github.com/sunpy/ablog/pull/258>`__ from `Cadair <https://github.com/hendrikmakait>`__.
