@@ -1,5 +1,6 @@
 ci:
     autofix_prs: false
+    autoupdate_schedule: "quarterly"
 repos:
 -   repo: https://github.com/PyCQA/autoflake
     rev: v2.2.1
