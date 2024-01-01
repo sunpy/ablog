@@ -8,11 +8,11 @@ repos:
     -   id: autoflake
         args: ['--in-place', '--remove-all-unused-imports', '--remove-unused-variable']
 -   repo: https://github.com/PyCQA/isort
-    rev: 5.12.0
+    rev: 5.13.2
     hooks:
     - id: isort
 -   repo: https://github.com/psf/black
-    rev: 23.10.1
+    rev: 23.12.1
     hooks:
     - id: black
 -   repo: https://github.com/pre-commit/pre-commit-hooks
@@ -26,7 +26,7 @@ repos:
     - id: check-yaml
     - id: debug-statements
 -   repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 'v0.1.4'
+    rev: 'v0.1.9'
     hooks:
       - id: ruff
         args: ['--fix']
@@ -36,12 +36,12 @@ repos:
     -   id: stylelint
         additional_dependencies: ['stylelint@14.9.1', 'stylelint-config-standard@26.0.0']
 -   repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v3.0.3
+    rev: v4.0.0-alpha.8
     hooks:
     -   id: prettier
         types_or: [css, scss, javascript]
 - repo: https://github.com/Riverside-Healthcare/djLint
-  rev: v1.34.0
+  rev: v1.34.1
   hooks:
     - id: djlint-jinja
       types_or: ["html"]
