@@ -1,7 +1,7 @@
 .PHONY: demo rebuild tests
 
 demo:
-	rm -rf demo
+	rm -rf demo && mkdir demo
 	printf "demo\nABlog\nABlog Team\nhttps://ablog.readthedocs.io/" | ablog start
 
 rebuild:
