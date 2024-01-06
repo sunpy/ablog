@@ -12,16 +12,16 @@
 {% if collection %}
 <div class="section ablog__catalog_header">
   <h2>
-    {{ header }}
-    <a href="{{ pathto(collection.docname) }}">{{ collection }}</a>
+    <span>{{ header }}
+    <a href="{{ pathto(collection.docname) }}">{{ collection }}</a></span>
   </h2>
   {% for post in collection %}
   <div class="section ablog__catalog_post">
     <p>
       {% if post.published %}
-      {{ post.date.strftime(ablog.post_date_format) }}
+      <span>{{ post.date.strftime(ablog.post_date_format) }}</span>
       {% else %}
-      Draft
+      <span>Draft</span>
       {% endif %}
       -
       <a href="{{ postlink(post) }}"
