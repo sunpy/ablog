@@ -1,7 +1,8 @@
+from pathlib import Path
+
 import docutils
 import pytest
 import sphinx
-from sphinx.testing.path import path
 
 # Load app, status and warning fixtures.
 pytest_plugins = ["sphinx.testing.fixtures"]
@@ -18,7 +19,7 @@ def pytest_report_header(config):
 
 @pytest.fixture(scope="session")
 def rootdir():
-    return path(__file__).parent.abspath() / "roots"
+    return Path(__file__).parent.absolute() / "roots"
 
 
 @pytest.fixture(scope="function", autouse=True)
