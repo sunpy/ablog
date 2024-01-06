@@ -227,3 +227,4 @@ test/
 pydata-sphinx-theme/
 _build
 _version.py
+demo/

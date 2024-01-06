@@ -67,6 +67,10 @@ Any page in a Sphinx_ project can be converted to a post using the following dir
    You can change this behavior and also add an image to the excerpt.
    To find out how, see :ref:`post-excerpts-and-images`.
 
+   **Canonical links**
+
+   If you re-publish content already existing on another URL (e.g., if you re-publish content from an employer's blog your personal one), use the ``canonical_link`` parameter to create a [canonical link relation](https://datatracker.ietf.org/doc/html/rfc6596) to the original version.
+
    **External links**
 
    If you'd like a post to point to an external website (e.g., if you host your posts on a blogging platform like Medium but wish to maintain a list of posts on your ``Ablog`` site), use the ``external_link`` parameter and this will be used instead.

@@ -91,6 +91,10 @@ Post related
 
    Date display format (default is ``'%b %d, %Y'``) for published posts that goes as input to :meth:`datetime.date.strftime`.
 
+.. confval:: post_date_format_short
+
+   Date display format in recent posts (default is ``'%d %B'``) for published posts that goes as input to :meth:`datetime.date.strftime`.
+
 .. confval:: post_auto_excerpt
 
    Number of paragraphs (default is ``1``) that will be displayed as an excerpt from the post.

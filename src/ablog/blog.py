@@ -358,6 +358,7 @@ class Post(BlogPageMixin):
         self.nocomments = info["nocomments"]
         self.published = date and date < TOMORROW
         self.draft = not self.published
+        self.canonical_link = info["canonical_link"]
         self.external_link = info["external_link"]
         self._title = info["title"]
         self.excerpt = info["excerpt"]
@@ -413,7 +414,7 @@ class Post(BlogPageMixin):
             else:
                 doctree.append(deepcopy)
         else:
-            excerpt_container = nodes.container()
+            excerpt_container = nodes.paragraph()
             excerpt_container.attributes["classes"].append("ablog-post-excerpt")
             for node in self.excerpt:
                 excerpt_container.append(node.deepcopy())

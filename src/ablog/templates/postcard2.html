@@ -1,10 +1,10 @@
 {{ warning("postcard2.html is an old template path, that is no longer used by ablog. Please use ablog/postcard2.html instead.") }}
-{% if post.published and post.date != post.update %}
 <div class="ablog-sidebar-item ablog__postcard2">
+{% if post.published and post.date != post.update %}
 <li id="published">
   <span>
     {% if fa %}
-    <i class="fa fa-pencil-square-o"></i>
+    <i class="fa fa-fw fa-edit"></i>
     {% else %}
     {{ gettext('Update') }}:
     {% endif %}
@@ -18,7 +18,7 @@
     {% if fa %}
     <i class="fa-fw fa fa-user"></i>
     {% else %}
-    {{ gettext('Author')}}:
+    {{ gettext('Author') }}:
     {% endif %}
     </span>
   {% for coll in post.author %}
@@ -162,5 +162,5 @@
     {% endif %}
   </a >
 </li>
-</div>
 {% endif %}
+</div>
