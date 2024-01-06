@@ -1,6 +1,7 @@
 {{ warning("tagcloud.html is an old template path, that is no longer used by ablog. Please use ablog/tagcloud.html instead.") }}
 {% if ablog.tags %}
 <div class="ablog-sidebar-item ablog__tags">
+<link rel="stylesheet" href="{{ pathto('_static/ablog/tagcloud.css', 1) }}" type="text/css" />
 <h3><a href="{{ pathto(ablog.tags.path) }}">{{ gettext('Tags') }}</a></h3>
 <ul class="ablog-cloud">
   {% for coll in ablog.tags %}
