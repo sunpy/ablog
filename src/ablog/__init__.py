@@ -91,6 +91,10 @@ def config_inited(app, config):
         )
     app.config.matched_blog_posts = matched_patterns
 
+    # Add ablog stylesheets to static_path.
+    static_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "stylesheets"))
+    app.config.html_static_path.append(static_path)
+
 
 def builder_inited(app):
     if not isinstance(app.builder, StandaloneHTMLBuilder) or app.config.skip_injecting_base_ablog_templates:
