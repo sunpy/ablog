@@ -73,3 +73,15 @@ Pull Requests merged in:
 `Adds IT locale <https://github.com/sunpy/ablog/pull/253>`__ from `Stefano David <https://github.com/stefanodavid>`__.
 
 `Enables configuring a canonical_link for individual posts <https://github.com/sunpy/ablog/pull/258>`__ from `Hendrik Makait <https://github.com/hendrikmakait>`__.
+
+ABlog v0.11.7 released
+----------------------
+
+Pull Requests merged in:
+
+`Add stylesheet for tagcloud <https://github.com/sunpy/ablog/pull/268>`__ from `Shengyu Zhang <https://github.com/SilverRainZ>`__.
+
+`Create demo/ before running ablog start <https://github.com/sunpy/ablog/pull/269>`__ from `Shengyu Zhang <https://github.com/SilverRainZ>`__.
+
+
+`Add span to more items in templates <https://github.com/sunpy/ablog/pull/270>`__ from `Nabil Freij <https://github.com/nabobalis>`__.
