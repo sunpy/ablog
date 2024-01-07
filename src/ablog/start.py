@@ -7,10 +7,8 @@ from textwrap import wrap
 from docutils.utils import column_width
 from sphinx.cmd.quickstart import do_prompt, is_path
 from sphinx.util import texescape
-from sphinx.util.console import bold, color_terminal, nocolor
+from sphinx.util.console import color_terminal, nocolor
 from sphinx.util.osutil import ensuredir, make_filename
-
-from ablog import __version__
 
 
 def w(t, ls=80):
@@ -479,7 +477,7 @@ def generate(d, overwrite=True, silent=False):
     d["author_texescaped"] = texescape.escape(str(d["author"]).translate(str(d["author"])))
     d["project_doc"] = d["project"] + " Documentation"
     d["project_doc_texescaped"] = texescape.escape(
-        str(d["project"] + " Documentation").translate(str(d["project"] + " Documentation"))
+        str(d["project"] + " Documentation").translate(str(d["project"] + " Documentation")),
     )
     if not path.isdir(d["path"]):
         ensuredir(d["path"])
@@ -491,14 +489,13 @@ def generate(d, overwrite=True, silent=False):
 
     def write_file(fpath, content, newline=None):
         if overwrite or not path.isfile(fpath):
-            print(f"Creating file {fpath}.")
-            f = open(fpath, "wt", encoding="utf-8", newline=newline)
+            f = open(fpath, "w", encoding="utf-8", newline=newline)
             try:
                 f.write(content)
             finally:
                 f.close()
         else:
-            print(f"File {fpath} already exists, skipping.")
+            pass
 
     conf_text = ABLOG_CONF.format(**d)
     write_file(path.join(srcdir, "conf.py"), conf_text)
@@ -511,7 +508,6 @@ def generate(d, overwrite=True, silent=False):
     write_file(firstpost, ABLOG_POST.format(**d))
     if silent:
         return
-    print(bold("Finished: An initial directory structure has been created."))
 
 
 def ask_user(d):
@@ -529,79 +525,29 @@ def ask_user(d):
     * release:   release of project
     """
     d.update(CONF_DEFAULTS)
-    print(bold(f"Welcome to the ABlog {__version__} quick start utility."))
-    print("")
-    print(
-        w(
-            "Please enter values for the following settings (just press Enter "
-            "to accept a default value, if one is given in brackets)."
-        )
-    )
-    print("")
     if "path" in d:
-        print(bold(f"Selected root path: {d['path']}"))
+        pass
     else:
-        print("Enter the root path for your blog project (path has to exist).")
         d["path"] = do_prompt("Root path for your project (path has to exist)", ".", is_path)
 
     while path.isfile(path.join(d["path"], "conf.py")) or path.isfile(path.join(d["path"], "source", "conf.py")):
-        print("")
-        print(bold(w("Error: an existing conf.py has been found in the " "selected root path.")))
-        print("ablog start will not overwrite existing Sphinx projects.")
-        print("")
         d["path"] = do_prompt("Please enter a new root path (or just Enter to exit)", ".", is_path)
         if not d["path"]:
             sys.exit(1)
     if "project" not in d:
-        print("")
-        print(
-            w(
-                "Project name will occur in several places in the website, "
-                "including blog archive pages and atom feeds. Later, you can "
-                "set separate names for different parts of the website in "
-                "configuration file."
-            )
-        )
         d["project"] = do_prompt("Project name")
     if "author" not in d:
-        print(
-            w(
-                "This of author as the copyright holder of the content. "
-                "If your blog has multiple authors, you might want to enter "
-                "a team name here. Later, you can specify individual authors "
-                "using `blog_authors` configuration option."
-            )
-        )
         d["author"] = do_prompt("Author name(s)")
     d["release"] = d["version"] = ""
     while path.isfile(path.join(d["path"], d["master"] + d["suffix"])) or path.isfile(
-        path.join(d["path"], "source", d["master"] + d["suffix"])
+        path.join(d["path"], "source", d["master"] + d["suffix"]),
     ):
-        print("")
-        print(
-            bold(
-                w(
-                    f"Error: the master file {d['master'] + d['suffix']} has already been found in the "
-                    "selected root path."
-                )
-            )
-        )
-        print("ablog-start will not overwrite the existing file.")
-        print("")
         d["master"] = do_prompt(
-            w("Please enter a new file name, or rename the " "existing file and press Enter"), d["master"]
+            w("Please enter a new file name, or rename the " "existing file and press Enter"),
+            d["master"],
         )
     if "blog_baseurl" not in d:
-        print("")
-        print(
-            w(
-                "Please enter the base URL for your project. Blog feeds will "
-                "be generated relative to this URL. If you don't have one yet, "
-                "you can set it in configuration file later."
-            )
-        )
         d["blog_baseurl"] = do_prompt("Base URL for your project", None, lambda x: x)
-    print("")
 
 
 def ablog_start(**kwargs):
@@ -611,7 +557,5 @@ def ablog_start(**kwargs):
     try:
         ask_user(d)
     except (KeyboardInterrupt, EOFError):
-        print("")
-        print("[Interrupted.]")
         return
     generate(d)

@@ -24,7 +24,7 @@ extensions = [
 
 version = str(_parse(ablog.__version__))
 project = "ABlog"
-copyright = "2014-2022, ABlog Team"
+copyright = "2014-2022, ABlog Team"  # NOQA: A001
 master_doc = "index"
 source_suffix = {
     ".rst": "restructuredtext",
@@ -82,7 +82,7 @@ html_sidebars = {
         "ablog/languages.html",
         "ablog/locations.html",
         "searchbox.html",
-    ]
+    ],
 }
 html_theme_options = {
     "travis_button": False,

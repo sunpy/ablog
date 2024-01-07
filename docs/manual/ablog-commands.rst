@@ -126,7 +126,7 @@ Running ``ablog deploy`` will push your website to GitHub::
                           `conf.py`
     -g GITHUB_PAGES       GitHub username for deploying to GitHub pages
     -m MESSAGE            commit message
-    -f                    owerwrite last commit, i.e. `commit --amend; push -f`
+    -f                    overwrite last commit, i.e. `commit --amend; push -f`
     --push-quietly        be more quiet when pushing changes
     --github-branch GITHUB_BRANCH
                           Branch to use. Default is 'master'.
