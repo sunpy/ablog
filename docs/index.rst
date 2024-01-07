@@ -59,7 +59,7 @@ Once you have content (in ``.rst`` files), you can post *any page* using the :rs
      :location: SF
      :language: en
 
-An alterative method is:
+An alternative method is:
 
 .. code-block:: rst
 

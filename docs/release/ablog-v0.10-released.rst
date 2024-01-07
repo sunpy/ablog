@@ -178,7 +178,7 @@ ABlog v0.10.20 released
 Pull Requests merged in:
 
 `fix documentation typo in blog-drafts <https://github.com/sunpy/ablog/pull/105>`__.
-`Fix typo in "extennsion" <https://github.com/sunpy/ablog/pull/109>`__.
+`Fix typo in "extension" <https://github.com/sunpy/ablog/pull/109>`__.
 `Catalan translation <https://github.com/sunpy/ablog/pull/113>`__.
 `Fix ablog post <https://github.com/sunpy/ablog/pull/114>`__.
 

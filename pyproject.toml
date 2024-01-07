@@ -3,21 +3,21 @@ requires = [
   "setuptools",
   "setuptools_scm[toml]",
   "wheel",
-  "oldest-supported-numpy",
 ]
 build-backend = 'setuptools.build_meta'
 
 [project]
-name = "irispy-lmsal"
+name = "ablog"
 dynamic = ["version"]
-description = "Provides tools to read and analyze data from the IRIS solar-observing satellite."
+description = "A Sphinx extension that converts any documentation or personal website project into a full-fledged blog."
 readme = "README.rst"
 requires-python = ">=3.9"
-license = {file = "LICENSE.txt"}
-keywords = ["solar physics", "solar", "science", "NASA", "iris", "spectra", "lmsal"]
+license = {file = "LICENSE.rst"}
+keywords = ["sphinx", "blogging", "ablog"]
 authors = [
-  {email = "freij@baeri.org"},
-  {name = "Nabil Freij"}
+  {email = "sunpy@googlegroups.com"},
+  {name = "The SunPy Community"},
+
 ]
 classifiers = [
   "Development Status :: 3 - Alpha",
@@ -34,52 +34,43 @@ classifiers = [
   "Topic :: Scientific/Engineering :: Physics",
 ]
 dependencies = [
-  'dkist>=1.0.0',
-  'ndcube>=2.1.2',
-  'pandas>=1.3.3',
-  'scipy>=1.7.0',
-  'sunpy>=5.0.0',
-  'sunraster>=0.4.0',
+  "docutils>=0.18",
+  "feedgen>=0.9.0",
+  "invoke>=1.6.0",
+  "packaging>=19.0",
+  "python-dateutil>=2.8.2",
+  "sphinx>=5.0.0",
+  "watchdog>=2.1.0",
 ]
 
 [project.urls]
-changelog = "https://irispy-lmsal.readthedocs.io/en/stable/changelog"
-documentation = "https://irispy-lmsal.readthedocs.io/en/stable/"
-homepage = "https://iris.lmsal.com/"
-issue_tracker = "https://github.com/LM-SAL/irispy-lmsal/issues"
-repository = "https://github.com/LM-SAL/irispy-lmsal"
+changelog = "https://ablog.readthedocs.io/en/stable/blog/category/release.html"
+documentation = "https://ablog.readthedocs.io/en/stable/"
+homepage = "https://github.com/sunpy/ablog"
+issue_tracker = "https://github.com/sunpy/ablog/issues"
+repository = "https://github.com/sunpy/ablog"
 
 [project.optional-dependencies]
-all = ["irispy-lmsal"]
-tests = [
-  "irispy-lmsal[all]",
-  'pytest-astropy',
-]
-docs = [
-  "irispy-lmsal[all]",
-  'aiapy',
-  'pooch',
-  'sphinx',
-  'sphinx-automodapi',
-  'sphinx-changelog',
-  'sphinx-copybutton',
-  'sphinx-design',
-  'sphinx-gallery',
-  'sphinx-hoverxref',
-  'sunpy-sphinx-theme',
-]
-dev = ["irispy-lmsal[tests,docs]"]
+all = ["ablog[markdown, notebook]"]
+notebook =["ipython>=7.30.0",
+  "nbsphinx>=0.8.0"]
+markdown =[  "myst-parser>=0.17.0"]
+docs =[  "alabaster",
+  "sphinx-automodapi"]
+tests =[  "pytest"]
+
+[project.scripts]
+ablog = "ablog.commands:ablog_main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
 
 [tool.setuptools_scm]
-write_to = "irispy/_version.py"
-
-[tool.setuptools.exclude-package-data]
-muse = ["irispy._dev"]
+write_to = "src/ablog/version.py"
 
 [tool.pytest.ini_options]
 testpaths = [
-  "irispy",
-  "docs"
+  "tests",
 ]
 norecursedirs = [
   ".tox",
@@ -87,27 +78,17 @@ norecursedirs = [
   '''docs[\/]_build''',
   '''docs[\/]generated''',
   "*.egg-info",
-  "examples",
-  '''irispy[/\]_dev''',
-  ".jupyter",
   ".history",
 ]
-doctest_plus = "enabled"
-doctest_optionflags = "NORMALIZE_WHITESPACE FLOAT_CMP ELLIPSIS"
-addopts = "--doctest-rst --doctest-ignore-import-errors -p no:unraisableexception -p no:threadexception"
-markers = [
-  "remote_data: marks this test function as needing remote data.",
-]
-remote_data_strict = "True"
+addopts = "-p no:unraisableexception -p no:threadexception"
 filterwarnings = [
   "error",
+  # Do not fail on pytest config issues (i.e. missing plugins) but do show them
   "always::pytest.PytestConfigWarning",
+  # Sphinx and other packages raise these
   "ignore:.*deprecated and slated for removal in Python 3.13",
-  "ignore:numpy.ufunc size changed:RuntimeWarning",
-  "ignore:numpy.ndarray size changed:RuntimeWarning",
-  "ignore:.*unitfix.*",
-  "ignore::erfa.core.ErfaWarning",
-  "ignore:invalid value encountered in sqrt",
+  # python-datetuil
+  "ignore:datetime.datetime.utcfromtimestamp:DeprecationWarning",
 ]
 
 [tool.black]
@@ -190,5 +171,7 @@ extend-ignore = [
 convention = "numpy"
 
 [tool.codespell]
-skip = "*.asdf,*.fits,*.fts,*.header,*.json,*.xsh,*cache*,*egg*,*extern*,.git,.idea,.tox,_build,*truncated,*.svg,.asv_env,.history,*sphinx.po"
-ignore-words-list = "sav,"
+skip = "*cache*,*egg*,*extern*,.git,.idea,.tox,*.svg,.history,*sphinx.po"
+
+[tool.djlint]
+files=["*.html"]
