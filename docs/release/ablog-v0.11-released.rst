@@ -85,3 +85,8 @@ Pull Requests merged in:
 
 
 `Add span to more items in templates <https://github.com/sunpy/ablog/pull/270>`__ from `Nabil Freij <https://github.com/nabobalis>`__.
+
+ABlog v0.11.8 released
+----------------------
+
+Added support for ``sphinx`` >=7.3.0
