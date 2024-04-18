@@ -38,7 +38,7 @@ dependencies = [
   "invoke>=1.6.0",
   "packaging>=19.0",
   "python-dateutil>=2.8.2",
-  "sphinx>=5.0.0",
+  "sphinx>=6.0.0",
   "watchdog>=2.1.0",
 ]
 
@@ -50,13 +50,20 @@ issue_tracker = "https://github.com/sunpy/ablog/issues"
 repository = "https://github.com/sunpy/ablog"
 
 [project.optional-dependencies]
-all = ["ablog[markdown, notebook]"]
-notebook =["ipython>=7.30.0",
-  "nbsphinx>=0.8.0"]
-markdown =["myst-parser>=0.17.0"]
-docs =["alabaster",
-  "sphinx-automodapi"]
-tests =["pytest"]
+all = ["ablog[markdown,notebook]"]
+notebook = [
+  "ipython>=7.30.0",
+  "nbsphinx>=0.8.0"
+]
+markdown = ["myst-parser>=0.17.0"]
+docs = [
+  "alabaster",
+  "sphinx-automodapi"
+]
+tests = [
+  "pytest",
+  "defusedxml>=0.8.0rc2",
+]
 
 [project.scripts]
 ablog = "ablog.commands:ablog_main"

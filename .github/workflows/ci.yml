@@ -58,7 +58,7 @@ jobs:
             - graphviz
       envs: |
         - macos: py311-sphinx6
-        - windows: py310-sphinx56
+        - windows: py310-sphinx6
     secrets:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
