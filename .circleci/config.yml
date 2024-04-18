@@ -2,7 +2,7 @@ version: 2
 jobs:
   twine-check:
     docker:
-      - image: cimg/python:3
+      - image: cimg/python:3.12
     steps:
       - checkout
       - run: python -m pip install -U --user build
