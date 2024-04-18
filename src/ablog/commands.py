@@ -1,20 +1,20 @@
-import os
-import sys
-import glob
-import shutil
 import argparse
-import webbrowser
+import glob
+import os
+import shutil
 import socketserver
-from os import path
-from http import server
-from os.path import join, isfile, abspath
+import sys
+import webbrowser
 from datetime import date
+from http import server
+from os import path
+from os.path import abspath, isfile, join
 
 from invoke import run
 from watchdog.observers import Observer
 from watchdog.tricks import ShellCommandTrick
 
-import ablog
+from ablog import __version__, logger
 from ablog.start import ablog_start
 
 __all__ = ["ablog_build", "ablog_clean", "ablog_serve", "ablog_deploy", "ablog_main"]
@@ -47,7 +47,7 @@ def find_confdir(sourcedir=None):
     if isfile(conf) and "ablog" in open(conf).read():
         return confdir
     else:
-        sys.exit("Current directory and its parents doesn't " "contain configuration file (conf.py).")
+        sys.exit("Current directory and its parents doesn't contain configuration file (conf.py).")
 
 
 def read_conf(confdir):
@@ -62,9 +62,9 @@ def read_conf(confdir):
 
 parser = argparse.ArgumentParser(
     description="ABlog for blogging with Sphinx",
-    epilog="See 'ablog <command> -h' for more information on a specific " "command.",
+    epilog="See 'ablog <command> -h' for more information on a specific command.",
 )
-parser.add_argument("-v", "--version", help="print ABlog version and exit", action="version", version=ablog.__version__)
+parser.add_argument("-v", "--version", help="print ABlog version and exit", action="version", version=__version__)
 commands = ablog_commands = parser.add_subparsers(title="commands")
 
 
@@ -151,7 +151,7 @@ cmd(
     "-s",
     dest="sourcedir",
     type=str,
-    help="root path for source files, " "default is path to the folder that contains conf.py",
+    help="root path for source files, default is path to the folder that contains conf.py",
 )
 @arg("-b", dest="builder", type=str, help="builder to use, default `ablog_builder` or dirhtml")
 @arg(
@@ -164,7 +164,7 @@ cmd(
 @cmd(
     name="build",
     help="build your blog project",
-    description="Path options can be set in conf.py. " "Default values of paths are relative to conf.py.",
+    description="Path options can be set in conf.py. Default values of paths are relative to conf.py.",
 )
 def ablog_build(
     builder=None,
@@ -224,7 +224,7 @@ def ablog_build(
 @cmd(
     name="clean",
     help="clean your blog build files",
-    description="Path options can be set in conf.py. " "Default values of paths are relative to conf.py.",
+    description="Path options can be set in conf.py. Default values of paths are relative to conf.py.",
 )
 def ablog_clean(website=None, doctrees=None, deep=False, **kwargs):
     confdir = find_confdir()
@@ -234,14 +234,14 @@ def ablog_clean(website=None, doctrees=None, deep=False, **kwargs):
     nothing = True
     if glob.glob(os.path.join(website, "*")):
         shutil.rmtree(website)
-        print(f"Removed {os.path.relpath(website)}.")
+        logger.info(f"Removed {os.path.relpath(website)}.")
         nothing = False
     if deep and glob.glob(os.path.join(doctrees, "*")):
         shutil.rmtree(doctrees)
-        print(f"Removed {os.path.relpath(doctrees)}.")
+        logger.info(f"Removed {os.path.relpath(doctrees)}.")
         nothing = False
     if nothing:
-        print("Nothing to clean.")
+        logger.info("Nothing to clean.")
 
 
 @arg("--patterns", dest="patterns", default="*.rst;*.txt", help="patterns for triggering rebuilds")
@@ -258,7 +258,7 @@ def ablog_clean(website=None, doctrees=None, deep=False, **kwargs):
 @cmd(
     name="serve",
     help="serve and view your project",
-    description="Serve options can be set in conf.py. " "Default values of paths are relative to conf.py.",
+    description="Serve options can be set in conf.py.  Default values of paths are relative to conf.py.",
 )
 def ablog_serve(website=None, port=8000, view=True, rebuild=False, patterns="*.rst;*.txt", **kwargs):
     confdir = find_confdir()
@@ -268,8 +268,8 @@ def ablog_serve(website=None, port=8000, view=True, rebuild=False, patterns="*.r
     Handler = server.SimpleHTTPRequestHandler
     httpd = socketserver.TCPServer(("", port), Handler)
     ip, port = httpd.socket.getsockname()
-    print(f"Serving HTTP on {ip}:{port}.")
-    print("Quit the server with Control-C.")
+    logger.info(f"Serving HTTP on {ip}:{port}.")
+    logger.info("Quit the server with Control-C.")
     website = website or os.path.join(confdir, getattr(conf, "ablog_website", "_website"))
     os.chdir(website)
     if rebuild:
@@ -321,7 +321,7 @@ def ablog_post(filename, title=None, **kwargs):
         with open(filename, "w", encoding="utf-8") as out:
             post_text = POST_TEMPLATE.format(**pars)
             out.write(post_text)
-        print(f"Blog post created: {filename}")
+        logger.info(f"Blog post created: {filename}")
 
 
 @arg(
@@ -358,7 +358,7 @@ def ablog_post(filename, title=None, **kwargs):
     dest="push_force",
     action="store_true",
     default=False,
-    help="owerwrite last commit, i.e. `commit --amend; push -f`",
+    help="overwrite last commit, i.e. `commit --amend; push -f`",
 )
 @arg("-m", dest="message", type=str, help="commit message")
 @arg("-g", dest="github_pages", type=str, help="GitHub username for deploying to GitHub pages")
@@ -373,7 +373,7 @@ def ablog_post(filename, title=None, **kwargs):
 @cmd(
     name="deploy",
     help="deploy your website build files",
-    description="Path options can be set in conf.py. " "Default values of paths are relative to conf.py.",
+    description="Path options can be set in conf.py. Default values of paths are relative to conf.py.",
 )
 def ablog_deploy(
     website,
@@ -397,7 +397,7 @@ def ablog_deploy(
     website = website or os.path.join(confdir, getattr(conf, "ablog_builddir", "_website"))
     tomove = glob.glob(os.path.join(website, "*"))
     if not tomove:
-        print("Nothing to deploy, build first.")
+        logger.info("Nothing to deploy, build first.")
         return
     if github_pages:
         if repodir is None:
@@ -409,12 +409,12 @@ def ablog_deploy(
             run(
                 "git clone "
                 + ("https://github.com/" if github_is_http else github_url)
-                + "{0}/{0}.github.io.git {1}".format(github_pages, repodir),
+                + f"{github_pages}/{github_pages}.github.io.git {repodir}",
                 echo=True,
             )
         git_add = []
-        for tm in tomove:
-            for root, dirnames, filenames in os.walk(website):
+        for _tm in tomove:
+            for root, _dirnames, filenames in os.walk(website):
                 for filename in filenames:
                     fn = os.path.join(root, filename)
                     fnnew = fn.replace(website, repodir)
@@ -428,16 +428,16 @@ def ablog_deploy(
                         os.renames(fn, fnnew)
 
                     git_add.append(fnnew)
-        print(f"Moved {len(git_add)} files to {github_pages}.github.io")
+        logger.info(f"Moved {len(git_add)} files to {github_pages}.github.io")
         os.chdir(repodir)
-        run("git add -f " + " ".join(['"{}"'.format(os.path.relpath(p)) for p in git_add]), echo=True)
+        run("git add -f " + " ".join([f'"{os.path.relpath(p)}"' for p in git_add]), echo=True)
         if not os.path.isfile(".nojekyll"):
             open(".nojekyll", "w")
             run("git add -f .nojekyll")
         # Check to see if anything has actually been committed
         result = run("git diff --cached --name-status HEAD")
         if not result.stdout:
-            print("Nothing changed from last deployment")
+            logger.info("Nothing changed from last deployment")
             return
         commit = f"git commit -m \"{message or 'Updates.'}\""
         if push_force:
@@ -455,7 +455,7 @@ def ablog_deploy(
         push += f" origin {github_branch}"
         run(push, echo=True)
     else:
-        print("No place to deploy.")
+        logger.info("No place to deploy.")
 
 
 def ablog_main():

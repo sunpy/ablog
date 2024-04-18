@@ -1,19 +1,13 @@
-{%- extends "page.html" %}
-{% macro postlink(post) -%}
-  {% if post.external_link -%}
-    {{- post.external_link -}}
-  {% else %}
-    {{- pathto(post.docname) }}{{ anchor(post) -}}
-  {%- endif %}
-{%- endmacro %}
-{% block body %}
-{% for collection in catalog %}
-{% if collection %}
+{%- extends "page.html" %} {% macro postlink(post) -%} {% if post.external_link
+-%} {{- post.external_link -}} {% else %} {{- pathto(post.docname) }}{{
+anchor(post) -}} {%- endif %} {%- endmacro %} {% block body %} {% for collection
+in catalog %} {% if collection %}
 <div class="section ablog__catalog_header">
   <h2>
-    <span>{{ header }}
-    <a href="{{ pathto(collection.docname) }}">{{ collection }}</a>
-  </span>
+    <span
+      >{{ header }}
+      <a href="{{ pathto(collection.docname) }}">{{ collection }}</a>
+    </span>
   </h2>
   {% for post in collection %}
   <div class="section ablog__catalog_post">
@@ -22,15 +16,10 @@
       <span>{{ post.date.strftime(ablog.post_date_format) }}</span>
       {% else %}
       <span>Draft</span>
-      {% endif %}
-      -
-      <a href="{{ postlink(post) }}"
-        >{{ post.title }}</a
-      >
+      {% endif %} -
+      <a href="{{ postlink(post) }}">{{ post.title }}</a>
     </p>
   </div>
   {% endfor %}
 </div>
-{% endif %}
-{% endfor %}
-{% endblock body %}
+{% endif %} {% endfor %} {% endblock body %}

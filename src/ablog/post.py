@@ -1,7 +1,7 @@
-import os
 import logging
-from string import Formatter
+import os
 from datetime import datetime
+from string import Formatter
 
 import jinja2
 from dateutil.parser import parse as date_parser
@@ -34,7 +34,7 @@ __all__ = [
 
 # Name used for the *.pot, *.po and *.mo files
 MESSAGE_CATALOG_NAME = "sphinx"
-_ = get_translation(MESSAGE_CATALOG_NAME)  # NOQA
+_ = get_translation(MESSAGE_CATALOG_NAME)
 
 
 def _split(a):
@@ -162,26 +162,25 @@ class CheckFrontMatter(SphinxTransform):
         # Check if page-level metadata has been given
         docinfo = list(self.document.findall(nodes.docinfo))
         if not docinfo:
-            return None
+            return
         docinfo = docinfo[0]
         # Pull the metadata for the page to check if it is a blog post
         metadata = {fn.children[0].astext(): fn.children[1].astext() for fn in docinfo.findall(nodes.field)}
         tags = metadata.get("tags")
         if isinstance(tags, str):
             # myst_parser store front-matter field to TextNode in dict_to_fm_field_list.
-            # like ["a", "b", "c"]
             # remove [] and quotes
             tags = tags.strip().lstrip("[").rstrip("]")
             metadata["tags"] = ",".join(
-                [t.strip().lstrip('"').lstrip("'").rstrip('"').rstrip("'") for t in tags.split(",")]
+                [t.strip().lstrip('"').lstrip("'").rstrip('"').rstrip("'") for t in tags.split(",")],
             )
         if list(docinfo.findall(nodes.author)):
-            metadata["author"] = list(docinfo.findall(nodes.author))[0].astext()
+            metadata["author"] = next(iter(docinfo.findall(nodes.author))).astext()
         # These two fields are special-cased in docutils
         if list(docinfo.findall(nodes.date)):
-            metadata["date"] = list(docinfo.findall(nodes.date))[0].astext()
+            metadata["date"] = next(iter(docinfo.findall(nodes.date))).astext()
         if "blogpost" not in metadata and self.env.docname not in self.config.matched_blog_posts:
-            return None
+            return
         for node in self.document.findall(PostNode):
             if node:
                 logging.warning("Found blog post front-matter as well as post directive, using post directive.")
@@ -247,7 +246,8 @@ def _get_section_title(section):
     """
     for title in section.findall(nodes.title):
         return title.astext()
-    raise Exception("Missing title")
+    msg = "Missing title"
+    raise Exception(msg)
     # A problem with the following is that title may contain pending
     # references, e.g. :ref:`tag-tips`
 
@@ -271,7 +271,7 @@ def _get_update_dates(section, docname, post_date_format):
                 raise ValueError(
                     f"invalid post date ({update_node['date']}) in "
                     + docname
-                    + f". Expected format: {post_date_format}"
+                    + f". Expected format: {post_date_format}",
                 )
         # Insert a new title element which contains the `Updated on {date}` logic.
         substitute = nodes.title("", _("Updated on ") + update.strftime(post_date_format))
@@ -360,7 +360,7 @@ def process_posts(app, doctree):
                         raise ValueError("invalid post date in: " + docname)
                 else:
                     raise ValueError(
-                        f"invalid post date ({date}) in " + docname + f". Expected format: {post_date_format}"
+                        f"invalid post date ({date}) in " + docname + f". Expected format: {post_date_format}",
                     )
         else:
             date = None
@@ -382,10 +382,7 @@ def process_posts(app, doctree):
             # ! this does not work for sections
             app.env.domains["std"].data["labels"][label] = (docname, label, title)
             app.env.domains["std"].data["anonlabels"][label] = (docname, label)
-        if section.parent is doctree:
-            section_copy = section[0].deepcopy()
-        else:
-            section_copy = section.deepcopy()
+        section_copy = section[0].deepcopy() if section.parent is doctree else section.deepcopy()
         # multiple posting may result having post nodes
         for nn in section_copy.findall(PostNode):
             if nn["exclude"]:
@@ -397,7 +394,7 @@ def process_posts(app, doctree):
             "section": section_name,
             "order": order,
             "date": date,
-            "update": max(update_dates + [date]),
+            "update": max([*update_dates, date]),
             "title": title,
             "excerpt": excerpt,
             "tags": node["tags"],
@@ -419,7 +416,7 @@ def process_posts(app, doctree):
         # instantiate catalogs and collections here
         #  so that references are created and no warnings are issued
         if app.builder.format == "html":
-            stdlabel = env.domains["std"].data["labels"]  # NOQA
+            stdlabel = env.domains["std"].data["labels"]
         else:
             if hasattr(env, "intersphinx_inventory"):
                 stdlabel = env.intersphinx_inventory.setdefault("std:label", {})  # NOQA
@@ -428,7 +425,7 @@ def process_posts(app, doctree):
         for key in ["tags", "author", "category", "location", "language"]:
             catalog = blog.catalogs[key]
             for label in postinfo[key]:
-                coll = catalog[label]  # NOQA
+                coll = catalog[label]
         if postinfo["date"]:
             coll = blog.archive[postinfo["date"].year]  # NOQA
 
@@ -461,9 +458,10 @@ def process_postlist(app, doctree, docname):
             posts.sort()  # in reverse chronological order, so no reverse=True
         fmts = list(Formatter().parse(node.attributes["format"]))
         not_in = {"date", "title", "author", "location", "language", "category", "tags", None}
-        for text, key, __, __ in fmts:
+        for _text, key, __, __ in fmts:
             if key not in not_in:
-                raise KeyError(f"{key} is not recognized in postlist format")
+                msg = f"{key} is not recognized in postlist format"
+                raise KeyError(msg)
         excerpts = node.attributes["excerpts"]
         expand = node.attributes["expand"]
         date_format = node.attributes["date"] or _(blog.post_date_format_short)
@@ -484,10 +482,7 @@ def process_postlist(app, doctree, docname):
                 if key == "date":
                     par.append(nodes.Text(post.date.strftime(date_format)))
                 else:
-                    if key == "title":
-                        items = [post]
-                    else:
-                        items = getattr(post, key)
+                    items = [post] if key == "title" else getattr(post, key)
 
                     for i, item in enumerate(items, start=1):
                         if key == "title":
@@ -554,6 +549,7 @@ def _missing_reference(app, target, refdoc, contnode=None, refexplicit=False):
             newnode.append(emp)
             emp.append(nodes.Text(str(dispname)))
         return newnode
+    return None
 
 
 def generate_archive_pages(app):
@@ -662,7 +658,7 @@ def generate_atom_feeds(app):
                             blog.blog_title + " - " + header + " " + str(coll),
                             os_path_join(base_url, coll.path, feed_root + ".xml"),
                             feed_templates,
-                        )
+                        ),
                     )
     # Config options
     feed_length = blog.blog_feed_length
@@ -683,10 +679,7 @@ def generate_atom_feeds(app):
             post_url = os_path_join(base_url, app.builder.get_target_uri(post.docname))
             if post.section:
                 post_url += "#" + post.section
-            if blog.blog_feed_titles:
-                content = None
-            else:
-                content = post.to_html(pagename, fulltext=feed_fulltext, img_url=True)
+            content = None if blog.blog_feed_titles else post.to_html(pagename, fulltext=feed_fulltext, img_url=True)
             feed_entry = feed.add_entry(order="append")
             feed_entry.id(post_url)
             feed_entry.link(href=post_url)
@@ -695,10 +688,10 @@ def generate_atom_feeds(app):
             feed_entry.updated(post.update.astimezone())
             for tag in sorted(post.tags):
                 feed_entry.category(
-                    dict(
-                        term=tag.name.strip().replace(" ", ""),
-                        label=tag.label,
-                    )
+                    {
+                        "term": tag.name.strip().replace(" ", ""),
+                        "label": tag.label,
+                    },
                 )
             # Entry values that support templates
             title = post.title

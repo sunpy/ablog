@@ -1,57 +1,81 @@
 [build-system]
-requires = ["setuptools", "setuptools_scm", "wheel"]
+requires = [
+  "setuptools",
+  "setuptools_scm[toml]",
+  "wheel",
+]
 build-backend = 'setuptools.build_meta'
 
-[tool.black]
-line-length = 120
-include = '\.pyi?$'
-exclude = '''
-(
-  /(
-      \.eggs
-    | \.git
-    | \.mypy_cache
-    | \.tox
-    | \.venv
-    | _build
-    | buck-out
-    | build
-    | dist
-    | astropy_helpers
-    | docs
-    | .history
-  )/
-  | ah_bootstrap.py
-)
-'''
-target-version = ['py39']
+[project]
+name = "ablog"
+dynamic = ["version"]
+description = "A Sphinx extension that converts any documentation or personal website project into a full-fledged blog."
+readme = "README.rst"
+requires-python = ">=3.10"
+license = {file = "LICENSE.rst"}
+keywords = ["sphinx", "blogging", "ablog"]
+authors = [
+  {email = "sunpy@googlegroups.com"},
+  {name = "The SunPy Community"},
 
-[tool.ruff]
-# Enable Pyflakes `E` and `F` codes by default.
-select = ["E", "F"]
-ignore = ["E501", "E741"]
-
-# Allow autofix for all enabled rules (when `--fix`) is provided.
-fixable = ["A", "B", "C", "D", "E", "F"]
-
-exclude = [
-    ".eggs",
-    ".git",
-    ".mypy_cache",
-    ".ruff_cache",
-    ".tox",
-    ".venv",
-    "__pypackages__",
-    "_build",
-    "build",
-    "dist",
-    "node_modules",
-    "venv",
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: BSD License",
+  "Natural Language :: English",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: Physics",
+]
+dependencies = [
+  "docutils>=0.18",
+  "feedgen>=0.9.0",
+  "invoke>=1.6.0",
+  "packaging>=19.0",
+  "python-dateutil>=2.8.2",
+  "sphinx>=6.0.0",
+  "watchdog>=2.1.0",
 ]
 
-# Same as Black.
-line-length = 120
-target-version = "py39"
+[project.urls]
+changelog = "https://ablog.readthedocs.io/en/stable/blog/category/release.html"
+documentation = "https://ablog.readthedocs.io/en/stable/"
+homepage = "https://github.com/sunpy/ablog"
+issue_tracker = "https://github.com/sunpy/ablog/issues"
+repository = "https://github.com/sunpy/ablog"
 
-# Allow unused variables when underscore-prefixed.
-dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+[project.optional-dependencies]
+all = ["ablog[markdown,notebook]"]
+notebook = [
+  "ipython>=7.30.0",
+  "nbsphinx>=0.8.0"
+]
+markdown = ["myst-parser>=0.17.0"]
+docs = [
+  "alabaster",
+  "sphinx-automodapi"
+]
+tests = [
+  "pytest",
+  "defusedxml>=0.8.0rc2",
+]
+
+[project.scripts]
+ablog = "ablog.commands:ablog_main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools_scm]
+write_to = "src/ablog/version.py"
+
+[tool.codespell]
+skip = "*cache*,*egg*,*extern*,.git,.idea,.tox,*.svg,.history,*sphinx.po"
+
+[tool.djlint]
+files=["*.html"]
