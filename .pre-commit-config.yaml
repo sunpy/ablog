@@ -1,3 +1,6 @@
+ci:
+  autofix_prs: false
+  autoupdate_schedule: "quarterly"
 repos:
   - repo: https://github.com/myint/docformatter
     rev: v1.7.5
