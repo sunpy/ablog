@@ -3,23 +3,23 @@ name: CI
 on:
   push:
     branches:
-      - 'main'
-      - '*.*'
-      - '!*backport*'
+      - "main"
+      - "*.*"
+      - "!*backport*"
     tags:
-      - 'v*'
-      - '!*dev*'
-      - '!*pre*'
-      - '!*post*'
+      - "v*"
+      - "!*dev*"
+      - "!*pre*"
+      - "!*post*"
   pull_request:
   workflow_dispatch:
   schedule:
-      #        ┌───────── minute (0 - 59)
-      #        │ ┌───────── hour (0 - 23)
-      #        │ │ ┌───────── day of the month (1 - 31)
-      #        │ │ │ ┌───────── month (1 - 12 or JAN-DEC)
-      #        │ │ │ │ ┌───────── day of the week (0 - 6 or SUN-SAT)
-      - cron: '0 7 * * *'  # Every day at 07:00 UTC
+    #        ┌───────── minute (0 - 59)
+    #        │ ┌───────── hour (0 - 23)
+    #        │ │ ┌───────── day of the month (1 - 31)
+    #        │ │ │ ┌───────── month (1 - 12 or JAN-DEC)
+    #        │ │ │ │ ┌───────── day of the week (0 - 6 or SUN-SAT)
+    - cron: "0 7 * * *" # Every day at 07:00 UTC
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -57,9 +57,8 @@ jobs:
             - pandoc
             - graphviz
       envs: |
-        - linux: py311-sphinx6
-        - macos: py310-sphinx5
-        - windows: py39-sphinx5
+        - macos: py311-sphinx6
+        - windows: py310-sphinx56
     secrets:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
@@ -67,7 +66,6 @@ jobs:
     needs: [test]
     uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@main
     with:
-      default_python: '3.9'
       submodules: false
       pytest: false
       envs: |
@@ -77,7 +75,6 @@ jobs:
     needs: [test]
     uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@main
     with:
-      default_python: '3.9'
       submodules: false
       coverage: codecov
       libraries: |

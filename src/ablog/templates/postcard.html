@@ -1,27 +1,19 @@
-{{ warning("postcard.html is an old template path, that is no longer used by ablog. Please use ablog/postcard.html instead.") }}
-{% if pagename in ablog %}
+{{ warning("postcard.html is an old template path, that is no longer used by
+ablog. Please use ablog/postcard.html instead.") }} {% if pagename in ablog %}
 <div class="ablog-sidebar-item ablog__postcard">
-{% set fa = ablog.fontawesome %}
-{% set post = ablog[pagename] %}
-<h2>
-  {% if post.published %}
-  {% if fa %}
-  <i class="fa fa-calendar"></i>
-  {% endif %}
-  <span>{{ post.date.strftime(ablog.post_date_format) }}</span>
-  {% else %}
-  {% if fa %}
-  <i class="fa fa-pencil"></i>
-  {% endif %}
-  {% if post.date %}
-  <span>{{ post.date.strftime(ablog.post_date_format) }}</span>
-  {% else %}
-  <span>Draft</span>
-  {% endif %}
-  {% endif %}
-</h2>
-<ul>
-  {% include "ablog/postcard2.html" %}
-</ul>
+  {% set fa = ablog.fontawesome %} {% set post = ablog[pagename] %}
+  <h2>
+    {% if post.published %} {% if fa %}<i class="fa fa-calendar"></i>{% endif %}
+    <span>{{ post.date.strftime(ablog.post_date_format) }}</span>
+    {% else %} {% if fa %}<i class="fa fa-pencil"></i>{% endif %} {% if
+    post.date %}
+    <span>{{ post.date.strftime(ablog.post_date_format) }}</span>
+    {% else %}
+    <span>Draft</span>
+    {% endif %} {% endif %}
+  </h2>
+  <ul>
+    {% include "ablog/postcard2.html" %}
+  </ul>
 </div>
 {% endif %}

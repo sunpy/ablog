@@ -2,6 +2,7 @@
 ABlog for Sphinx.
 """
 
+import logging
 import os
 from glob import glob
 from pathlib import PurePath
@@ -27,12 +28,13 @@ from .post import (
 )
 from .version import version as __version__
 
-__all__ = ["setup", "__version__"]
+__all__ = ["setup", "logger", "__version__"]
 
+logger = logging.getLogger("ablog")
 PKGDIR = os.path.abspath(os.path.dirname(__file__))
 # Name used for the *.pot, *.po and *.mo files
 MESSAGE_CATALOG_NAME = "sphinx"
-_ = get_translation(MESSAGE_CATALOG_NAME)  # NOQA
+_ = get_translation(MESSAGE_CATALOG_NAME)
 
 
 def get_html_templates_path():
@@ -101,20 +103,26 @@ def builder_inited(app):
     if not isinstance(app.builder, StandaloneHTMLBuilder) or app.config.skip_injecting_base_ablog_templates:
         return
     if not isinstance(app.builder.templates, BuiltinTemplateLoader):
-        raise Exception(
+        msg = (
             "Ablog does not know how to inject templates into with custom "
             "template bridges. You can use `ablog.get_html_templates_path()` to "
             "get the path to add in your custom template bridge and set "
             "`skip_injecting_base_ablog_templates = False` in your "
             "`conf.py` file."
         )
-    if get_html_templates_path() in app.config.templates_path:
         raise Exception(
+            msg,
+        )
+    if get_html_templates_path() in app.config.templates_path:
+        msg = (
             "Found the path from `ablog.get_html_templates_path()` in the "
             "`templates_path` variable from `conf.py`. Doing so interferes "
             "with Ablog's ability to stay compatible with Sphinx themes that "
             "support it out of the box. Please remove `get_html_templates_path` "
             "from `templates_path` in your `conf.py` to resolve this."
+        )
+        raise Exception(
+            msg,
         )
     theme = app.builder.theme
     loaders = app.builder.templates.loaders

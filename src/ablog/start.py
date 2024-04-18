@@ -1,6 +1,6 @@
+import datetime
 import sys
 import time
-import datetime
 from os import path
 from textwrap import wrap
 
@@ -492,7 +492,7 @@ def generate(d, overwrite=True, silent=False):
     def write_file(fpath, content, newline=None):
         if overwrite or not path.isfile(fpath):
             print(f"Creating file {fpath}.")
-            f = open(fpath, "wt", encoding="utf-8", newline=newline)
+            f = open(fpath, "w", encoding="utf-8", newline=newline)
             try:
                 f.write(content)
             finally:

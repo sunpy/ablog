@@ -1,47 +1,46 @@
-ci:
-    autofix_prs: false
-    autoupdate_schedule: "quarterly"
 repos:
--   repo: https://github.com/PyCQA/autoflake
+  - repo: https://github.com/myint/docformatter
+    rev: v1.7.5
+    hooks:
+      - id: docformatter
+        args: ["--in-place", "--pre-summary-newline", "--make-summary-multi"]
+  - repo: https://github.com/myint/autoflake
     rev: v2.3.1
     hooks:
-    -   id: autoflake
-        args: ['--in-place', '--remove-all-unused-imports', '--remove-unused-variable']
--   repo: https://github.com/PyCQA/isort
-    rev: 5.13.2
-    hooks:
-    - id: isort
--   repo: https://github.com/psf/black
-    rev: 24.4.0
-    hooks:
-    - id: black
--   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
-    hooks:
-    - id: check-ast
-    - id: check-case-conflict
-    - id: trailing-whitespace
-    - id: mixed-line-ending
-    - id: end-of-file-fixer
-    - id: check-yaml
-    - id: debug-statements
--   repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 'v0.3.7'
+      - id: autoflake
+        args:
+          [
+            "--in-place",
+            "--remove-all-unused-imports",
+            "--remove-unused-variable",
+          ]
+        exclude: ".*(.fits|.fts|.fit|.txt|tca.*|extern.*|.rst|.md|docs/conf.py)$"
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: "v0.4.0"
     hooks:
       - id: ruff
-        args: ['--fix']
--   repo: https://github.com/awebdeveloper/pre-commit-stylelint
-    rev: '0.0.2'
+        args: ["--fix", "--unsafe-fixes"]
+      - id: ruff-format
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
     hooks:
-    -   id: stylelint
-        additional_dependencies: ['stylelint@14.9.1', 'stylelint-config-standard@26.0.0']
--   repo: https://github.com/pre-commit/mirrors-prettier
+      - id: check-ast
+      - id: check-case-conflict
+      - id: trailing-whitespace
+        exclude: ".*(.fits|.fts|.fit|.txt|.csv)$"
+      - id: mixed-line-ending
+        exclude: ".*(.fits|.fts|.fit|.txt|.csv)$"
+      - id: end-of-file-fixer
+        exclude: ".*(.fits|.fts|.fit|.txt|.csv)$"
+      - id: check-yaml
+      - id: debug-statements
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.2.6
+    hooks:
+      - id: codespell
+        additional_dependencies:
+          - tomli
+  - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v4.0.0-alpha.8
     hooks:
-    -   id: prettier
-        types_or: [css, scss, javascript]
-- repo: https://github.com/Riverside-Healthcare/djLint
-  rev: v1.34.1
-  hooks:
-    - id: djlint-jinja
-      types_or: ["html"]
+      - id: prettier

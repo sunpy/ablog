@@ -1,10 +1,9 @@
 import re
 from pathlib import Path
 
+import ablog
 from packaging.version import parse as _parse
 from sphinx import addnodes
-
-import ablog
 
 ablog_builder = "dirhtml"
 ablog_website = "_website"
@@ -24,7 +23,7 @@ extensions = [
 
 version = str(_parse(ablog.__version__))
 project = "ABlog"
-copyright = "2014-2022, ABlog Team"
+copyright = "2014-2022, ABlog Team"  # NOQA: A001
 master_doc = "index"
 source_suffix = {
     ".rst": "restructuredtext",
@@ -59,10 +58,10 @@ blog_feed_archives = True
 blog_feed_fulltext = True
 blog_feed_templates = {
     "atom": {
-        "content": "{{ title }}{% for tag in post.tags %}" " #{{ tag.name|trim()|replace(' ', '') }}" "{% endfor %}",
+        "content": "{{ title }}{% for tag in post.tags %} #{{ tag.name|trim()|replace(' ', '') }} {% endfor %}",
     },
     "social": {
-        "content": "{{ title }}{% for tag in post.tags %}" " #{{ tag.name|trim()|replace(' ', '') }}" "{% endfor %}",
+        "content": "{{ title }}{% for tag in post.tags %} #{{ tag.name|trim()|replace(' ', '') }} {% endfor %}",
     },
 }
 disqus_shortname = "https-ablog-readthedocs-io"
@@ -82,7 +81,7 @@ html_sidebars = {
         "ablog/languages.html",
         "ablog/locations.html",
         "searchbox.html",
-    ]
+    ],
 }
 html_theme_options = {
     "travis_button": False,
