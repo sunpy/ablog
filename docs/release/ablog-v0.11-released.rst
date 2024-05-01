@@ -90,3 +90,8 @@ ABlog v0.11.8 released
 ----------------------
 
 Added support for ``sphinx`` >=7.3.0
+
+ABlog v0.11.9 released
+----------------------
+
+`Make '_strip' function return as list not set. <https://github.com/sunpy/ablog/pull/280>`__ from `Joe Ziminski <https://github.com/JoeZiminski>`__.
