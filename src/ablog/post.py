@@ -38,7 +38,7 @@ _ = get_translation(MESSAGE_CATALOG_NAME)  # NOQA
 
 
 def _split(a):
-    return {s.strip() for s in (a or "").split(",")}
+    return [s.strip() for s in (a or "").split(",")]
 
 
 class PostNode(nodes.Element):
