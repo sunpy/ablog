@@ -11,13 +11,12 @@ name = "ablog"
 dynamic = ["version"]
 description = "A Sphinx extension that converts any documentation or personal website project into a full-fledged blog."
 readme = "README.rst"
-requires-python = ">=3.10"
+requires-python = ">=3.9"
 license = {file = "LICENSE.rst"}
 keywords = ["sphinx", "blogging", "ablog"]
 authors = [
   {email = "sunpy@googlegroups.com"},
   {name = "The SunPy Community"},
-
 ]
 classifiers = [
   "Development Status :: 3 - Alpha",
@@ -27,6 +26,7 @@ classifiers = [
   "Operating System :: OS Independent",
   "Programming Language :: Python",
   "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
@@ -41,13 +41,6 @@ dependencies = [
   "sphinx>=6.0.0",
   "watchdog>=2.1.0",
 ]
-
-[project.urls]
-changelog = "https://ablog.readthedocs.io/en/stable/blog/category/release.html"
-documentation = "https://ablog.readthedocs.io/en/stable/"
-homepage = "https://github.com/sunpy/ablog"
-issue_tracker = "https://github.com/sunpy/ablog/issues"
-repository = "https://github.com/sunpy/ablog"
 
 [project.optional-dependencies]
 all = ["ablog[markdown,notebook]"]
@@ -64,6 +57,13 @@ tests = [
   "pytest",
   "defusedxml>=0.8.0rc2",
 ]
+
+[project.urls]
+changelog = "https://ablog.readthedocs.io/en/stable/blog/category/release.html"
+documentation = "https://ablog.readthedocs.io/en/stable/"
+homepage = "https://github.com/sunpy/ablog"
+issue_tracker = "https://github.com/sunpy/ablog/issues"
+repository = "https://github.com/sunpy/ablog"
 
 [project.scripts]
 ablog = "ablog.commands:ablog_main"
