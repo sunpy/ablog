@@ -40,7 +40,7 @@ jobs:
     secrets:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
-  test:
+  tests:
     needs: [core]
     uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@main
     with:
@@ -57,32 +57,47 @@ jobs:
             - pandoc
             - graphviz
       envs: |
-        - macos: py311-sphinx6
-        - windows: py310-sphinx6
+        - macos: py311-sphinx7
+        - windows: py310-sphinx7
+        - linux: py312-devdeps
     secrets:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
-  docs:
-    needs: [test]
+  extras:
+    needs: [tests]
     uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@main
     with:
       submodules: false
       pytest: false
-      envs: |
-        - linux: py312-docs
-
-  extras:
-    needs: [core]
-    uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@main
-    with:
-      submodules: false
-      coverage: codecov
       libraries: |
         apt:
             - pandoc
             - graphviz
       envs: |
-        - linux: py312-sphinxdev
-        - linux: py312-conda
-    secrets:
-      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        - linux: py312-docs
+        - linux: pydata-sphinx-theme-dev
+        - linux: py312-linkcheck
+
+  conda:
+    needs: [tests]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          activate-environment: ablog-test
+          environment-file: ablog-conda-test-env.yml
+          python-version: "3.12"
+      - name: Install ablog
+        shell: bash -el {0}
+        run: |
+          pip install --no-deps --no-build-isolation .
+      - name: Run test
+        shell: bash -el {0}
+        run: |
+          conda list
+          pytest -vvv -r a --pyargs ablog
+          make tests

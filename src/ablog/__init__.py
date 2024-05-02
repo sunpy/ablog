@@ -8,7 +8,6 @@ from glob import glob
 from pathlib import PurePath
 
 from sphinx.builders.html import StandaloneHTMLBuilder
-from sphinx.errors import ThemeError
 from sphinx.jinja2glue import BuiltinTemplateLoader, SphinxFileSystemLoader
 from sphinx.locale import get_translation
 
@@ -127,13 +126,7 @@ def builder_inited(app):
     theme = app.builder.theme
     loaders = app.builder.templates.loaders
     templatepathlen = app.builder.templates.templatepathlen
-    try:
-        # Modern Sphinx now errors instead of returning the default if there is not a value
-        # in any of the config files.
-        after_theme = theme.get_config("ablog", "inject_templates_after_theme", False)
-    except ThemeError:
-        after_theme = False
-    if after_theme:
+    if theme.get_config("ablog", "inject_templates_after_theme", False):
         # Inject *after* the user templates and the theme templates,
         # allowing themes to override the templates provided by this
         # extension while those templates still serve as a fallback.

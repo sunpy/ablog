@@ -38,7 +38,7 @@ dependencies = [
   "invoke>=1.6.0",
   "packaging>=19.0",
   "python-dateutil>=2.8.2",
-  "sphinx>=6.0.0",
+  "sphinx>=6.0.0,!=7.3.0,!=7.3.1,!=7.3.2,!=7.3.3,!=7.3.4,!=7.3.5,!=7.3.6",
   "watchdog>=2.1.0",
 ]
 
@@ -50,12 +50,13 @@ notebook = [
 ]
 markdown = ["myst-parser>=0.17.0"]
 docs = [
-  "alabaster",
+  "sunpy-sphinx-theme",
   "sphinx-automodapi"
 ]
 tests = [
-  "pytest",
   "defusedxml>=0.8.0rc2",
+  "pytest-cov",
+  "pytest",
 ]
 
 [project.urls]

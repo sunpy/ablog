@@ -185,6 +185,7 @@ $RECYCLE.BIN/
 .github_cache
 src/ablog/version.py
 docs/_build/
+docs/api/
 docs/.doctrees/
 docs/_website/
 docs/_latex/
