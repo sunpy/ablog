@@ -1,0 +1,22 @@
+channels:
+  - conda-forge
+
+dependencies:
+  - alabaster
+  - docutils
+  - feedgen
+  - graphviz
+  - invoke
+  - make
+  - myst-parser
+  - nbsphinx
+  - packaging
+  - pandoc
+  - pip
+  - pytest
+  - python-dateutil
+  - setuptools
+  - setuptools-scm
+  - sphinx
+  - sphinx-automodapi
+  - watchdog
