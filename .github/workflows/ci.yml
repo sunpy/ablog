@@ -72,7 +72,7 @@ jobs:
         - linux: py312-docs
 
   extras:
-    needs: [test]
+    needs: [core]
     uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@main
     with:
       submodules: false
