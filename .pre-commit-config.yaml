@@ -19,7 +19,7 @@ repos:
           ]
         exclude: ".*(.fits|.fts|.fit|.txt|tca.*|extern.*|.rst|.md|docs/conf.py)$"
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: "v0.4.0"
+    rev: "v0.4.8"
     hooks:
       - id: ruff
         args: ["--fix", "--unsafe-fixes"]
@@ -38,7 +38,7 @@ repos:
       - id: check-yaml
       - id: debug-statements
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.2.6
+    rev: v2.3.0
     hooks:
       - id: codespell
         additional_dependencies:
