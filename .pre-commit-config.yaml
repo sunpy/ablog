@@ -2,12 +2,12 @@ ci:
   autofix_prs: false
   autoupdate_schedule: "quarterly"
 repos:
-  - repo: https://github.com/myint/docformatter
+  - repo: https://github.com/PyCQA/docformatter
     rev: v1.7.5
     hooks:
       - id: docformatter
         args: ["--in-place", "--pre-summary-newline", "--make-summary-multi"]
-  - repo: https://github.com/myint/autoflake
+  - repo: https://github.com/PyCQA/autoflake
     rev: v2.3.1
     hooks:
       - id: autoflake
@@ -18,8 +18,8 @@ repos:
             "--remove-unused-variable",
           ]
         exclude: ".*(.fits|.fts|.fit|.txt|tca.*|extern.*|.rst|.md|docs/conf.py)$"
-  - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: "v0.4.0"
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: "v0.5.0"
     hooks:
       - id: ruff
         args: ["--fix", "--unsafe-fixes"]
@@ -38,7 +38,7 @@ repos:
       - id: check-yaml
       - id: debug-statements
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.2.6
+    rev: v2.3.0
     hooks:
       - id: codespell
         additional_dependencies:
