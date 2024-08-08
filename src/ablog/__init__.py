@@ -141,6 +141,7 @@ def setup(app):
     """
     Setup ABlog extension.
     """
+    app.require_sphinx("6.2")
     for args in CONFIG:
         app.add_config_value(*args[:3])
     app.add_directive("post", PostDirective)
@@ -164,4 +165,8 @@ def setup(app):
     pkgdir = os.path.abspath(os.path.dirname(__file__))
     locale_dir = os.path.join(pkgdir, "locales")
     app.add_message_catalog(MESSAGE_CATALOG_NAME, locale_dir)
-    return {"version": __version__, "parallel_read_safe": True}
+    return {
+        "version": __version__,
+        "parallel_read_safe": True,
+        "parallel_write_safe": True,
+    }
