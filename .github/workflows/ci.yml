@@ -36,7 +36,7 @@ jobs:
         - pandoc
         - graphviz
       envs: |
-        - linux: py312-sphinx7
+        - linux: py312-sphinx78
     secrets:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
@@ -59,6 +59,7 @@ jobs:
       envs: |
         - macos: py311-sphinx7
         - windows: py310-sphinx7
+        - linux: py310-sphinx6
         - linux: py312-devdeps
     secrets:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
