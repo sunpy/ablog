@@ -95,3 +95,13 @@ ABlog v0.11.9 released
 ----------------------
 
 `Make '_strip' function return as list not set. <https://github.com/sunpy/ablog/pull/280>`__ from `Joe Ziminski <https://github.com/JoeZiminski>`__.
+
+ABlog v0.11.10 released
+-----------------------
+
+Fixed wrong branch in the release process.
+
+ABlog v0.11.11 released
+-----------------------
+
+Mark Ablog parallel safe.
