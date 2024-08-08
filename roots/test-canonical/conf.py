@@ -11,9 +11,7 @@ blog_feed_templates = {
     # Create content text suitable posting to micro-bogging
     "social": {
         # Format tags as hashtags and append to the content
-        "content": "{{ title }}{% for tag in post.tags %}"
-        " #{{ tag.name|trim()|replace(' ', '') }}"
-        "{% endfor %}",
+        "content": "{{ title }}{% for tag in post.tags %}" " #{{ tag.name|trim()|replace(' ', '') }}" "{% endfor %}",
     },
 }
 # Sphinx creates canonical links pointing to this base URL by default

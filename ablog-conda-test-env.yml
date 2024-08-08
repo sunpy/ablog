@@ -1,8 +1,7 @@
+name: ablog-conda-test-env
 channels:
   - conda-forge
-
 dependencies:
-  - alabaster
   - docutils
   - feedgen
   - graphviz
@@ -20,3 +19,5 @@ dependencies:
   - sphinx
   - sphinx-automodapi
   - watchdog
+  - pip:
+      - sunpy-sphinx-theme
