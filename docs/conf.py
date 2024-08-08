@@ -68,11 +68,11 @@ blog_feed_templates = {
 disqus_shortname = "https-ablog-readthedocs-io"
 disqus_pages = True
 fontawesome_link_cdn = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-html_style = "alabaster.css"
 html_theme = "alabaster"
 html_sidebars = {
     "**": [
-        "about.html",
+        "about.html",  # Comes from alabaster
+        "searchfield.html",  # Comes from alabaster
         "ablog/postcard.html",
         "ablog/recentposts.html",
         "ablog/tagcloud.html",
@@ -81,7 +81,6 @@ html_sidebars = {
         "ablog/authors.html",
         "ablog/languages.html",
         "ablog/locations.html",
-        "searchbox.html",
     ]
 }
 html_theme_options = {
