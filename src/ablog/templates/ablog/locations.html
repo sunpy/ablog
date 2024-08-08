@@ -1,16 +1,14 @@
 {% if ablog.location %}
 <div class="ablog-sidebar-item ablog__locations">
-<h3>
-  <a href="{{ pathto(ablog.location.path) }}">{{ gettext('Locations') }}</a>
-</h3>
-<ul>
-  {% for coll in ablog.location %}
-  {% if coll %}
-  <li>
-    <a href="{{ pathto(coll.docname) }}">{{ coll }} ({{ coll|length }})</a>
-  </li>
-  {% endif %}
-  {% endfor %}
-</ul>
+  <h3>
+    <a href="{{ pathto(ablog.location.path) }}">{{ gettext('Locations') }}</a>
+  </h3>
+  <ul>
+    {% for coll in ablog.location %} {% if coll %}
+    <li>
+      <a href="{{ pathto(coll.docname) }}">{{ coll }} ({{ coll|length }})</a>
+    </li>
+    {% endif %} {% endfor %}
+  </ul>
 </div>
 {% endif %}

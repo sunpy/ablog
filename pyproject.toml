@@ -24,7 +24,7 @@ exclude = '''
   | ah_bootstrap.py
 )
 '''
-target-version = ['py39']
+target-version = ['py310']
 
 [tool.ruff]
 # Enable Pyflakes `E` and `F` codes by default.
@@ -51,7 +51,14 @@ exclude = [
 
 # Same as Black.
 line-length = 120
-target-version = "py39"
+target-version = "py310"
 
 # Allow unused variables when underscore-prefixed.
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.codespell]
+skip = "*cache*,*egg*,*extern*,.git,.idea,.tox,*.svg,.history,*sphinx.po"
+ignore-words-list = "THIRDPARTY,"
+
+[tool.djlint]
+files=["*.html"]

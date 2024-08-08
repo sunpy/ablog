@@ -1,12 +1,10 @@
-{{ warning("postnavy.html is an old template path, that is no longer used by ablog. Please use ablog/postnavy.html instead.") }}
-{# prev/next are not set for drafts #}
-{% set post = ablog[pagename] %}
-{% if post.published and ablog.post_show_prev_next %}
+{{ warning("postnavy.html is an old template path, that is no longer used by
+ablog. Please use ablog/postnavy.html instead.") }} {# prev/next are not set for
+drafts #} {% set post = ablog[pagename] %} {% if post.published and
+ablog.post_show_prev_next %}
 <div class="section ablog__prev-next">
   <span>
-    {% if post.prev %}
-    {% if not ablog.fontawesome %}
-    {{ gettext('Previous') }}:
+    {% if post.prev %} {% if not ablog.fontawesome %} {{ gettext('Previous') }}:
     {% endif %}
     <a href="{{ pathto(post.prev.docname) }}{{ anchor(post.prev) }}">
       {% if ablog.fontawesome %}
@@ -18,14 +16,12 @@
   </span>
   <span>&nbsp;</span>
   <span>
-    {% if post.next %}
-    {% if not ablog.fontawesome %}
-    {{ gettext('Next') }}:
-    {% endif %}
+    {% if post.next %} {% if not ablog.fontawesome %} {{ gettext('Next') }}: {%
+    endif %}
     <a href="{{ pathto(post.next.docname) }}{{ anchor(post.next) }}">
       <span>{{ post.next.title }}</span>
       {% if ablog.fontawesome %}
-      <i class="fa fa-arrow-circle-right" ></i>
+      <i class="fa fa-arrow-circle-right"></i>
       {% endif %}
     </a>
     {% endif %}

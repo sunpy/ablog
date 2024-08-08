@@ -1,13 +1,15 @@
-{{ warning("authors.html is an old template path, that is no longer used by ablog. Please use ablog/authors.html instead.") }}
-{% if ablog.author %}
+{{ warning("authors.html is an old template path, that is no longer used by
+ablog. Please use ablog/authors.html instead.") }} {% if ablog.author %}
 <div class="ablog-sidebar-item ablog__authors">
-<h3><a href="{{ pathto(ablog.author.path) }}">{{ gettext('Authors') }}</a></h3>
-<ul>
-  {% for coll in ablog.author %} {% if coll %}
-  <li>
-    <a href="{{ pathto(coll.docname) }}">{{ coll }} ({{ coll|length }})</a>
-  </li>
-  {% endif %} {% endfor %}
-</ul>
+  <h3>
+    <a href="{{ pathto(ablog.author.path) }}">{{ gettext('Authors') }}</a>
+  </h3>
+  <ul>
+    {% for coll in ablog.author %} {% if coll %}
+    <li>
+      <a href="{{ pathto(coll.docname) }}">{{ coll }} ({{ coll|length }})</a>
+    </li>
+    {% endif %} {% endfor %}
+  </ul>
 </div>
 {% endif %}

@@ -63,9 +63,6 @@ instance/
 # Scrapy stuff:
 .scrapy
 
-# Sphinx documentation
-docs/_build/
-
 # PyBuilder
 target/
 
@@ -138,24 +135,10 @@ Icon
 
 ### MacOS: https://raw.githubusercontent.com/github/gitignore/master/Global/macOS.gitignore
 
-# General
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# Icon must end with two \r
-Icon
-
-
-# Thumbnails
-._*
-
 # Files that might appear in the root of a volume
 .DocumentRevisions-V100
 .fseventsd
-.Spotlight-V100
 .TemporaryItems
-.Trashes
 .VolumeIcon.icns
 .com.apple.timemachine.donotpresent
 
@@ -195,29 +178,14 @@ $RECYCLE.BIN/
 ### VScode: https://raw.githubusercontent.com/github/gitignore/master/Global/VisualStudioCode.gitignore
 .vscode/*
 
-### Extra Python Items and SunPy Specific
-.hypothesis
-.pytest_cache
-sunpydata.sqlite
-sunpydata.sqlite-journal
-sunpy/_compiler.c
-sunpy/cython_version.py
-docs/_build
-docs/generated
-docs/api/
-docs/whatsnew/latest_changelog.txt
-examples/**/*.asdf
-# This is incase you run the figure tests
-figure_test_images*
-tags
-
 ### Pycharm(?)
 .idea
 
-# Release script
+# Ablog
 .github_cache
-
+src/ablog/version.py
 docs/_build/
+docs/api/
 docs/.doctrees/
 docs/_website/
 docs/_latex/
@@ -226,5 +194,4 @@ test/
 .history/
 pydata-sphinx-theme/
 _build
-_version.py
 demo/

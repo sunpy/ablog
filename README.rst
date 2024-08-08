@@ -1,10 +1,8 @@
 ABlog for Sphinx
 ================
 
-|Build Status|
-
-.. |Build Status| image:: https://dev.azure.com/sunpy/ablog/_apis/build/status/sunpy.ablog?repoName=sunpy%2Fablog&branchName=main
-   :target: https://dev.azure.com/sunpy/ablog/_build/latest?definitionId=17&repoName=sunpy%2Fablog&branchName=main
+[![CI](https://github.com/sunpy/ablog/actions/workflows/ci.yml/badge.svg)](https://github.com/sunpy/ablog/actions/workflows/ci.yml)
+[![Upload Python Package](https://github.com/sunpy/ablog/actions/workflows/pythonpublish.yml/badge.svg)](https://github.com/sunpy/ablog/actions/workflows/pythonpublish.yml)
 
 ABlog is a Sphinx extension that converts any documentation or personal website project into a full-fledged blog
 
@@ -19,6 +17,6 @@ The original project is no longer maintained and the `SunPy Project <https://www
 Warning
 -------
 
-**This version is maintained with the aim to keep it working for SunPy Project website and thus new features or bugfixes are highly unlikely unless they directly impact.**
+**This version is maintained with the aim to keep it working for SunPy Project website and thus new features or bugfixes are highly unlikely unless they directly impact the SunPy Project**
 
-**We strongly encourage users and interested in parties in submitting patches to ``ablog``.**
+**We strongly encourage users and interested in parties in submitting patches to ``ablog``**

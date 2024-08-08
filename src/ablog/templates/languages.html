@@ -1,15 +1,15 @@
-{{ warning("languages.html is an old template path, that is no longer used by ablog. Please use ablog/languages.html instead.") }}
-{% if ablog.language %}
+{{ warning("languages.html is an old template path, that is no longer used by
+ablog. Please use ablog/languages.html instead.") }} {% if ablog.language %}
 <div class="ablog-sidebar-item ablog__languages">
-<h3>
-  <a href="{{ pathto(ablog.language.path) }}">{{ gettext('Languages') }}</a>
-</h3>
-<ul>
-  {% for coll in ablog.language %} {% if coll %}
-  <li>
-    <a href="{{ pathto(coll.docname) }}">{{ coll }} ({{ coll|length }})</a>
-  </li>
-  {% endif %} {% endfor %}
-</ul>
+  <h3>
+    <a href="{{ pathto(ablog.language.path) }}">{{ gettext('Languages') }}</a>
+  </h3>
+  <ul>
+    {% for coll in ablog.language %} {% if coll %}
+    <li>
+      <a href="{{ pathto(coll.docname) }}">{{ coll }} ({{ coll|length }})</a>
+    </li>
+    {% endif %} {% endfor %}
+  </ul>
 </div>
 {% endif %}

@@ -105,3 +105,4 @@ ABlog v0.11.11 released
 -----------------------
 
 Mark Ablog parallel safe.
+Dropped support for Python 3.9, Sphinx less than 6.2.
