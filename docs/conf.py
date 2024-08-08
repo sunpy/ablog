@@ -69,6 +69,7 @@ fontawesome_link_cdn = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.
 html_theme = "sunpy"
 html_sidebars = {
     "**": [
+        "ablog/about.html",
         "ablog/postcard.html",
         "ablog/recentposts.html",
         "ablog/tagcloud.html",
@@ -78,6 +79,10 @@ html_sidebars = {
         "ablog/languages.html",
         "ablog/locations.html",
     ],
+}
+html_theme_options = {
+    "show_prev_next": False,
+    "sst_is_root": True,
 }
 intersphinx_mapping = {
     "python": ("https://docs.python.org/", None),

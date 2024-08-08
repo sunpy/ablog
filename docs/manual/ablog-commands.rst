@@ -123,7 +123,7 @@ Running ``ablog deploy`` will push your website to GitHub::
                           `ablog_website` is not set in conf.py
     -p REPODIR            path to the location of repository to be deployed, e.g.
                           `../username.github.io`, default is folder containing
-                          `conf.py`
+                          ``conf.py``
     -g GITHUB_PAGES       GitHub username for deploying to GitHub pages
     -m MESSAGE            commit message
     -f                    overwrite last commit, i.e. `commit --amend; push -f`

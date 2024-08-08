@@ -15,7 +15,7 @@ This page is a markdown file underneath.
 You will need to do a few things to get setup.
 
 1. Install [myst-parser](https://pypi.org/project/myst-parser/)
-2. Add these options to your config, `conf.py`
+2. Add these options to your config, ``conf.py``
 
 ```python
 extensions = [
@@ -42,7 +42,7 @@ language: English
 Notice here we do not have a ":" at the start since the markdown metadata format is different from rst.
 
 Please be aware that adding "myst-parser" will mean it will read all markdown files and try to parse them.
-You will need to use the following in your `conf.py` to prevent this:
+You will need to use the following in your ``conf.py`` to prevent this:
 
 ```python
 exclude_patterns = [

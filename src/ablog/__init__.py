@@ -5,7 +5,7 @@ ABlog for Sphinx.
 import logging
 import os
 from glob import glob
-from pathlib import PurePath
+from pathlib import Path, PurePath
 
 from sphinx.builders.html import StandaloneHTMLBuilder
 from sphinx.errors import ThemeError
@@ -31,7 +31,6 @@ from .version import version as __version__
 __all__ = ["setup", "logger", "__version__"]
 
 logger = logging.getLogger("ablog")
-PKGDIR = os.path.abspath(os.path.dirname(__file__))
 # Name used for the *.pot, *.po and *.mo files
 MESSAGE_CATALOG_NAME = "sphinx"
 _ = get_translation(MESSAGE_CATALOG_NAME)
@@ -41,8 +40,7 @@ def get_html_templates_path():
     """
     Return path to ABlog templates folder.
     """
-    pkgdir = os.path.abspath(os.path.dirname(__file__))
-    return os.path.join(pkgdir, "templates")
+    return str(Path(__file__).parent.resolve() / "templates")
 
 
 def anchor(post):
@@ -169,7 +167,6 @@ def setup(app):
         html=(lambda s, n: s.visit_admonition(n), lambda s, n: s.depart_admonition(n)),
         latex=(lambda s, n: s.visit_admonition(n), lambda s, n: s.depart_admonition(n)),
     )
-    pkgdir = os.path.abspath(os.path.dirname(__file__))
-    locale_dir = os.path.join(pkgdir, "locales")
+    locale_dir = str(Path(__file__).parent.resolve() / "locales")
     app.add_message_catalog(MESSAGE_CATALOG_NAME, locale_dir)
     return {"version": __version__, "parallel_read_safe": True}

@@ -128,10 +128,9 @@ blog_authors = {{
 # In addition, there are authors.html, languages.html, and locations.html
 # sidebars that link to author and location archive pages.
 html_sidebars = {{
-    '**': [ 'ablog/postcard.html', 'navigation.html',
+    '**': [ 'ablog/postcard.html',
             'ablog/recentposts.html', 'ablog/tagcloud.html',
             'ablog/categories.html',  'ablog/archives.html',
-            'searchbox.html',
             ],
     }}
 
