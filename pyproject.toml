@@ -13,14 +13,19 @@ description = "A Sphinx extension that converts any documentation or personal we
 readme = "README.rst"
 requires-python = ">=3.9"
 license = {file = "LICENSE.rst"}
-keywords = ["sphinx", "blogging", "ablog"]
+keywords = [
+  "ablog",
+  "blog",
+  "blogging",
+  "sphinx",
+  ]
 authors = [
-  {email = "sunpy@googlegroups.com"},
-  {name = "The SunPy Community"},
+  {email = "sunpy@googlegroups.com", name = "The SunPy Community"},
+  {email = "nabil.freij@gmail.com", name = "Nabil Freij"},
+  {name = "Ahmet Bakan"},
 ]
 classifiers = [
-  "Development Status :: 3 - Alpha",
-  "Intended Audience :: Science/Research",
+  "Development Status :: 4 - Beta",
   "License :: OSI Approved :: BSD License",
   "Natural Language :: English",
   "Operating System :: OS Independent",
@@ -30,7 +35,7 @@ classifiers = [
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
-  "Topic :: Scientific/Engineering :: Physics",
+  "Topic :: Communications",
 ]
 dependencies = [
   "docutils>=0.18",
@@ -38,7 +43,7 @@ dependencies = [
   "invoke>=1.6.0",
   "packaging>=19.0",
   "python-dateutil>=2.8.2",
-  "sphinx>=6.0.0,!=7.3.0,!=7.3.1,!=7.3.2,!=7.3.3,!=7.3.4,!=7.3.5,!=7.3.6",
+  "sphinx>=6.0.0",
   "watchdog>=2.1.0",
 ]
 
@@ -46,12 +51,12 @@ dependencies = [
 all = ["ablog[markdown,notebook]"]
 notebook = [
   "ipython>=7.30.0",
-  "nbsphinx>=0.8.0"
+  "nbsphinx>=0.8.0",
 ]
 markdown = ["myst-parser>=0.17.0"]
 docs = [
   "sunpy-sphinx-theme",
-  "sphinx-automodapi"
+  "sphinx-automodapi",
 ]
 tests = [
   "defusedxml>=0.8.0rc2",

@@ -8,16 +8,16 @@ from sphinx import addnodes
 ablog_builder = "dirhtml"
 ablog_website = "_website"
 extensions = [
+    "ablog",
+    "myst_parser",
+    "nbsphinx",
+    "sphinx_automodapi.automodapi",
     "sphinx.ext.autodoc",
     "sphinx.ext.doctest",
+    "sphinx.ext.extlinks",
+    "sphinx.ext.ifconfig",
     "sphinx.ext.intersphinx",
     "sphinx.ext.todo",
-    "sphinx.ext.ifconfig",
-    "sphinx.ext.extlinks",
-    "sphinx_automodapi.automodapi",
-    "ablog",
-    "nbsphinx",
-    "myst_parser",
 ]
 
 version = str(_parse(ablog.__version__))
