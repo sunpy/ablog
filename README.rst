@@ -1,9 +1,12 @@
 ABlog for Sphinx
 ================
 
-[![CI](https://github.com/sunpy/ablog/actions/workflows/ci.yml/badge.svg)](https://github.com/sunpy/ablog/actions/workflows/ci.yml)
-[![Upload Python Package](https://github.com/sunpy/ablog/actions/workflows/pythonpublish.yml/badge.svg)](https://github.com/sunpy/ablog/actions/workflows/pythonpublish.yml)
+|CI| |Upload Python Package|
 
+.. |CI| image:: https://github.com/sunpy/ablog/actions/workflows/ci.yml/badge.svg
+   :target: https://github.com/sunpy/ablog/actions/workflows/ci.yml
+.. |Upload Python Package| image:: https://github.com/sunpy/ablog/actions/workflows/pythonpublish.yml/badge.svg
+   :target: https://github.com/sunpy/ablog/actions/workflows/pythonpublish.yml
 ABlog is a Sphinx extension that converts any documentation or personal website project into a full-fledged blog
 
 `Please check our documentation for information on how to get started. <https://ablog.readthedocs.io/>`__
