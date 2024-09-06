@@ -35,7 +35,7 @@ Build and View
 With no further delay, let's see what your project will look like.
 First run ``ablog build``, in your project folder, to have HTML pages built in :file:`_website` folder.
 Then, call ``ablog serve`` to view them in your default web browser.
-See :ref:`commands` for more information about these commands.
+See :ref:`ablog_manual_commands` for more information about these commands.
 
 Your landing page is built from :file:`index.rst` and contains links to your first post and about page.
 Take a look at :file:`index.rst` for some tips on navigation links within the project.

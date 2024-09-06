@@ -291,7 +291,7 @@ Command Options
 
 .. update:: Apr 7, 2015
 
-   Added :ref:`commands` options.
+   Added :ref:`ablog_manual_commands` options.
 
 .. confval:: ablog_website
 
