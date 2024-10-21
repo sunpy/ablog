@@ -282,21 +282,21 @@ For example, sidebars that you see on this website on the left are:
 .. code-block:: python
 
    html_sidebars = {
-    "**": [
-        # Comes from Alabaster theme
-        "about.html",  
-        "searchfield.html",
-        # Ablog sidebards
-        "ablog/postcard.html",
-        "ablog/recentposts.html",
-        "ablog/tagcloud.html",
-        "ablog/categories.html",
-        "ablog/archives.html",
-        "ablog/authors.html",
-        "ablog/languages.html",
-        "ablog/locations.html",
-    ]
-}
+      "**": [
+         # Comes from Alabaster theme
+         "about.html",  
+         "searchfield.html",
+         # Ablog sidebards
+         "ablog/postcard.html",
+         "ablog/recentposts.html",
+         "ablog/tagcloud.html",
+         "ablog/categories.html",
+         "ablog/archives.html",
+         "ablog/authors.html",
+         "ablog/languages.html",
+         "ablog/locations.html",
+      ]
+   }
 
 Command Options
 ---------------
