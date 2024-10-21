@@ -20,18 +20,6 @@ General options
    A path relative to the configuration directory for blog archive pages.
    Default is ``'blog'``.
 
-.. confval:: blog_title
-
-   The “title” for the blog, used in acthive pages.  Default is ``'Blog'``.
-
-.. confval:: blog_baseurl
-
-   Base URL for the website, required for generating feeds.
-
-.. confval:: blog_archive_titles
-
-   Choose to archive only post titles in collection pages, default is ``False``.
-
 Authors, languages, & locations
 -------------------------------
 
@@ -48,6 +36,11 @@ Authors, languages, & locations
                     'https://en.wikipedia.org/wiki/Tyler_Durden'),
      }
 
+.. confval:: blog_default_author
+
+   Name of the default author defined in :confval:`blog_authors`.
+   Default is ``None``.
+
 .. confval:: blog_languages
 
    A dictionary of language code names mapping to full display names and links of these languages.
@@ -59,21 +52,16 @@ Authors, languages, & locations
          'en': ('English', None),
      }
 
+.. confval:: blog_default_language
+
+   Code name of the default language defined in :confval:`blog_languages`.
+   Default is ``None``.
+
 .. confval:: blog_locations
 
    A dictionary of location names mapping to full display names and links of these locations.
    Similar to :confval:`blog_authors`, dictionary keys should be used in ``post`` directive to refer to the locations.
    Default is ``{}``.
-
-.. confval:: blog_default_author
-
-   Name of the default author defined in :confval:`blog_authors`.
-   Default is ``None``.
-
-.. confval:: blog_default_language
-
-   Code name of the default language defined in :confval:`blog_languages`.
-   Default is ``None``.
 
 .. confval:: blog_default_location
 
@@ -89,11 +77,11 @@ Post related
 
 .. confval:: post_date_format
 
-   Date display format (default is ``'%b %d, %Y'``) for published posts that goes as input to :meth:`datetime.date.strftime`.
+   Date display format (default is ``'%b %d, %Y'``, e.g., ``12 August 2024``) for published posts that goes as input to :meth:`datetime.date.strftime`.
 
 .. confval:: post_date_format_short
 
-   Date display format in recent posts (default is ``'%d %B'``) for published posts that goes as input to :meth:`datetime.date.strftime`.
+   Date display format in recent posts sidebar (default is ``'%d %B'``, e.g., ``12 October``) for published posts that goes as input to :meth:`datetime.date.strftime`.
 
 .. confval:: post_auto_excerpt
 
@@ -129,6 +117,20 @@ Blog feeds
 ----------
 
 Turn feeds on by setting :confval:`blog_baseurl` configuration variable.
+
+.. confval:: blog_baseurl
+
+   Base URL for the website, turns on generating feeds. E.g., ``https://ablog.readthedocs.io``.
+
+Then optionally set the following:
+
+.. confval:: blog_title
+
+   The “title” for the blog, used in feeds title (not archive web pages title).  Default is ``'Blog'``.
+
+.. confval:: blog_archive_titles
+
+   Choose to archive only post titles in collection pages, default is ``False``.
 
 .. confval:: blog_feed_archives
 
@@ -268,23 +270,33 @@ Integration is provided by `sphinxnotes-isso`_ and the instructions there.
 Blog sidebars
 -------------
 
-Finally, there are seven sidebars you can include in your HTML output using Sphinx_ :confval:`html_sidebars` configuration option.
-Sidebars that you see on the left are listed below in the same order:
+There are seven Ablog sidebars you can include in your HTML output using Sphinx_ :confval:`html_sidebars` configuration option (in addition to your theme sidebars).
+
+- ``alog/postcard.html`` provides information regarding the current post (when on a post page)
+- ``alog/recentposts.html`` lists most recent five posts.
+- ``alog/tagcloud.html`` provides a links to a archive pages generated for each tag
+- ``alog/category.html``, ``alog/authors.html``, ``alog/languages.html``, and ``alog/locations.html`` sidebars generates list of link to respective archive pages with number of matching posts (e.g., "Manual 14)", "2023 (8)", "English (22")).
+
+For example, sidebars that you see on this website on the left are:
 
 .. code-block:: python
 
    html_sidebars = {
-      '**': [...,
-             'ablog/postcard.html', 'ablog/recentposts.html',
-             'ablog/tagcloud.html', 'ablog/categories.html',
-             'ablog/archives.html', ]
-   }
-
-
-:file:`postcard.html` provides information regarding the current post.
-:file:`recentposts.html` lists most recent five posts.
-Others provide a link to a archive pages generated for each tag, category, and year.
-In addition, there are ``authors.html``, ``languages.html``, and ``locations.html`` sidebars that link to author and location archive pages.
+    "**": [
+        # Comes from Alabaster theme
+        "about.html",  
+        "searchfield.html",
+        # Ablog sidebards
+        "ablog/postcard.html",
+        "ablog/recentposts.html",
+        "ablog/tagcloud.html",
+        "ablog/categories.html",
+        "ablog/archives.html",
+        "ablog/authors.html",
+        "ablog/languages.html",
+        "ablog/locations.html",
+    ]
+}
 
 Command Options
 ---------------
