@@ -4,15 +4,6 @@ from sphinx.application import Sphinx
 from sphinx.errors import ThemeError
 
 
-def read_text(path):
-    """
-    Support function to give backward compatibility with older sphinx (v2).
-    """
-    if hasattr(path, "read_text"):
-        return path.read_text()
-    return path.text()
-
-
 @pytest.mark.sphinx("html", testroot="templates", confoverrides={"skip_injecting_base_ablog_templates": True})
 def test_skip_ablog_templates_but_missing_templates(app: Sphinx):
     """Completely override the templates used by ablog, but not provide them."""
