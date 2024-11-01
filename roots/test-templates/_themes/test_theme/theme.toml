@@ -1,0 +1,5 @@
+[theme]
+inherit = "basic"
+
+[options]
+ablog_inject_templates_after_theme = true

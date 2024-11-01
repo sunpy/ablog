@@ -122,7 +122,7 @@ def builder_inited(app):
     try:
         # Modern Sphinx now errors instead of returning the default if there is not a value
         # in any of the config files.
-        after_theme = theme.get_config("ablog", "inject_templates_after_theme", False)
+        after_theme = theme.get_config("options", "ablog_inject_templates_after_theme", False)
     except ThemeError:
         after_theme = False
     if after_theme:

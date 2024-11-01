@@ -265,39 +265,6 @@ Integration is provided by `sphinxnotes-isso`_ and the instructions there.
 
 .. _sphinxnotes-isso: https://sphinx-notes.github.io/isso/
 
-.. _sidebars:
-
-Blog sidebars
--------------
-
-There are seven Ablog sidebars you can include in your HTML output using Sphinx_ :confval:`html_sidebars` configuration option (in addition to your theme sidebars).
-
-- ``alog/postcard.html`` provides information regarding the current post (when on a post page)
-- ``alog/recentposts.html`` lists most recent five posts.
-- ``alog/tagcloud.html`` provides a links to a archive pages generated for each tag
-- ``alog/category.html``, ``alog/authors.html``, ``alog/languages.html``, and ``alog/locations.html`` sidebars generates list of link to respective archive pages with number of matching posts (e.g., "Manual 14)", "2023 (8)", "English (22")).
-
-For example, sidebars that you see on this website on the left are:
-
-.. code-block:: python
-
-   html_sidebars = {
-      "**": [
-         # Comes from Alabaster theme
-         "about.html",  
-         "searchfield.html",
-         # Ablog sidebards
-         "ablog/postcard.html",
-         "ablog/recentposts.html",
-         "ablog/tagcloud.html",
-         "ablog/categories.html",
-         "ablog/archives.html",
-         "ablog/authors.html",
-         "ablog/languages.html",
-         "ablog/locations.html",
-      ]
-   }
-
 Command Options
 ---------------
 

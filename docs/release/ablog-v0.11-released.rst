@@ -29,6 +29,13 @@ Pull Requests merged in:
 
 `Add external links for posts <https://github.com/sunpy/ablog/pull/112>`__ from `Chris Holdgraf <https://github.com/choldgraf>`__.
 
+Unreleased
+----------
+
+Pull Requests merged in:
+
+`Fix theme support for Ablog <https://github.com/sunpy/ablog/pull/295>`__ from `Libor Jelínek <https://github.com/liborjelinek/>`__.
+
 ABlog v0.11.1 released
 ----------------------
 

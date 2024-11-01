@@ -54,6 +54,7 @@ blog_authors = {
     "Ahmet": ("Ahmet Bakan", "https://ahmetbakan.com"),
     "Luc": ("Luc Saffre", "https://saffre-rumma.net/luc/"),
     "Mehmet": ("Mehmet Gerçeker", "https://github.com/mehmetg"),
+    "Libor": ("Libor Jelínek", "https://liborjelinek.github.io/")
 }
 blog_feed_archives = True
 blog_feed_fulltext = True
