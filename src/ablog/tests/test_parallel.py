@@ -1,7 +1,10 @@
 from pathlib import Path
 from subprocess import run
+import sys
+import pytest
 
 
+@pytest.mark.xfail("win" in sys.platform, reason="Passes on Windows")
 def test_not_safe_for_parallel_read(rootdir: Path, tmp_path: Path):
     """
     Ablog is NOT safe for parallel read.

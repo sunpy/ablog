@@ -96,7 +96,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: "3.13"
       - run: python -m pip install -U --user build
       - run: python -m build . --sdist
       - run: python -m pip install -U --user twine
@@ -112,10 +112,10 @@ jobs:
           lfs: true
       - uses: conda-incubator/setup-miniconda@v3
         with:
-          activate-environment: sunpy-test
-          environment-file: sunpy-dev-env.yml
-          python-version: "3.12"
-      - name: Install sunpy
+          activate-environment: ablog-test
+          environment-file: ablog-conda-test-env.yml
+          python-version: "3.13"
+      - name: Install ablog
         shell: bash -el {0}
         run: |
           pip install --no-deps --no-build-isolation .
