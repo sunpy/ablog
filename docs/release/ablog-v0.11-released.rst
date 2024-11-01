@@ -115,3 +115,14 @@ Mark Ablog parallel safe.
 
 Dropped support for Python 3.9, Sphinx less than 6.2.
 This mirrors the requirements for alabaster 1.0.0.
+
+ABlog v0.11.12 released
+-----------------------
+
+`Improve ablog-configuration-options.rst. <https://github.com/sunpy/ablog/pull/292>`__ from `Libor Jelínek <https://github.com/liborjelinek>`__.
+
+`Fix sidebars CSS naming. <https://github.com/sunpy/ablog/pull/298>`__ from `Libor Jelínek <https://github.com/liborjelinek>`__.
+
+`Ablog is NOT safe for parallel read. <https://github.com/sunpy/ablog/pull/299>`__ from `Libor Jelínek <https://github.com/liborjelinek>`__.
+
+`Fix theme support for ablog. <https://github.com/sunpy/ablog/pull/295>`__ from `Libor Jelínek <https://github.com/liborjelinek>`__.

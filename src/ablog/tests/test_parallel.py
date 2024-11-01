@@ -3,7 +3,11 @@ from subprocess import run
 
 
 def test_not_safe_for_parallel_read(rootdir: Path, tmp_path: Path):
-    """Ablog is NOT safe for parallel read. In such case, it doesn't collect any posts."""
+    """
+    Ablog is NOT safe for parallel read.
+
+    In such case, it doesn't collect any posts.
+    """
     # https://github.com/sunpy/ablog/issues/297
     # Very ugly hack to change the parallel_read_safe value to True
     good_read_safe = '"parallel_read_safe": False'

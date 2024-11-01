@@ -20,10 +20,10 @@ Blog sidebars
 
 Sidebars are a common way to provide additional information to the reader. There are seven Ablog sidebars you can include in your HTML output using the Sphinx_ :confval:`html_sidebars` configuration option (in addition to your theme sidebars).
 
-- ``alog/postcard.html`` provides information regarding the current post (when on a post page).
-- ``alog/recentposts.html`` lists the most recent five posts.
-- ``alog/tagcloud.html`` provides links to archive pages generated for each tag.
-- ``alog/category.html``, ``alog/authors.html``, ``alog/languages.html``, and ``alog/locations.html`` sidebars generate lists of links to respective archive pages with the number of matching posts (e.g., "Manual (14)", "2023 (8)", "English (22)").
+- ``ablog/postcard.html`` provides information regarding the current post (when on a post page).
+- ``ablog/recentposts.html`` lists the most recent five posts.
+- ``ablog/tagcloud.html`` provides links to archive pages generated for each tag.
+- ``ablog/category.html``, ``ablog/authors.html``, ``ablog/languages.html``, and ``ablog/locations.html`` sidebars generate lists of links to respective archive pages with the number of matching posts (e.g., "Manual (14)", "2023 (8)", "English (22)").
 
 For example, the sidebars that you see on this website on the left are:
 
@@ -32,7 +32,7 @@ For example, the sidebars that you see on this website on the left are:
    html_sidebars = {
       "**": [
          # Comes from Alabaster theme
-         "about.html",  
+         "about.html",
          "searchfield.html",
          # Ablog sidebars
          "ablog/postcard.html",
@@ -54,7 +54,7 @@ Ablog standard sidebars are wrapped in ``<div>`` with CSS classes like :samp:`ab
 For example, the ``recentposts.html`` template is wrapped in ``<div class="ablog-sidebar-item ablog__recentposts">``.
 
 .. seealso::
-   
+
    Built-in sidebars can be found in the ``ablog/`` folder in the `Ablog source code <https://github.com/sunpy/ablog/tree/main/src/ablog/templates/ablog>`_.
 
 If styling is not enough, you can override the Ablog templates in your Sphinx project or in the Sphinx theme.
@@ -65,7 +65,7 @@ Partial or complete override of Ablog templates
 To control whether Ablog injects its own templates into the Sphinx build, you can use the following ``conf.py`` configuration option:
 
 .. confval:: skip_injecting_base_ablog_templates
-   
+
    If set to ``True``, Ablog will not inject its own templates into the Sphinx build. This is useful if you want to completely override Ablog templates in your Sphinx project or in the Sphinx theme. The default is ``False``.
 
 Customizing templates in the project
@@ -95,7 +95,7 @@ If you are a Sphinx theme author, you can ship customized Ablog templates in you
 #. In your ``theme.toml`` file, add the following (under the ``[options]`` section):
 
    .. code-block:: toml
-      
+
       ablog_inject_templates_after_theme = true
-   
+
    This will ensure that Ablog templates are injected *after* the theme templates, so you can override them while still using the Ablog templates as a fallback.
