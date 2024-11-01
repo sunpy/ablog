@@ -23,4 +23,4 @@ Warning
 
 **This version is maintained with the aim to keep it working for SunPy Project website and thus new features or bugfixes are highly unlikely unless they directly impact the SunPy Project**
 
-**We strongly encourage users and interested in parties in submitting patches to ``ablog``**
+**We strongly encourage users and interested in parties in submitting patches to ablog**
