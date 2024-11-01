@@ -167,6 +167,6 @@ def setup(app):
     app.add_message_catalog(MESSAGE_CATALOG_NAME, locale_dir)
     return {
         "version": __version__,
-        "parallel_read_safe": True,
+        "parallel_read_safe": False,
         "parallel_write_safe": True,
     }
