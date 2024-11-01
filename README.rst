@@ -7,7 +7,8 @@ ABlog for Sphinx
    :target: https://github.com/sunpy/ablog/actions/workflows/ci.yml
 .. |Upload Python Package| image:: https://github.com/sunpy/ablog/actions/workflows/pythonpublish.yml/badge.svg
    :target: https://github.com/sunpy/ablog/actions/workflows/pythonpublish.yml
-ABlog is a Sphinx extension that converts any documentation or personal website project into a full-fledged blog
+
+ABlog is a Sphinx extension that converts any documentation or personal website project into a full-fledged blog.
 
 `Please check our documentation for information on how to get started. <https://ablog.readthedocs.io/>`__
 
