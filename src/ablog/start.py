@@ -546,7 +546,7 @@ def ask_user(d):
 
     while path.isfile(path.join(d["path"], "conf.py")) or path.isfile(path.join(d["path"], "source", "conf.py")):
         print("")
-        print(bold(w("Error: an existing conf.py has been found in the " "selected root path.")))
+        print(bold(w("Error: an existing conf.py has been found in the selected root path.")))
         print("ablog start will not overwrite existing Sphinx projects.")
         print("")
         d["path"] = do_prompt("Please enter a new root path (or just Enter to exit)", ".", is_path)
@@ -589,7 +589,7 @@ def ask_user(d):
         print("ablog-start will not overwrite the existing file.")
         print("")
         d["master"] = do_prompt(
-            w("Please enter a new file name, or rename the " "existing file and press Enter"), d["master"]
+            w("Please enter a new file name, or rename the existing file and press Enter"), d["master"]
         )
     if "blog_baseurl" not in d:
         print("")

@@ -47,7 +47,7 @@ def find_confdir(sourcedir=None):
     if isfile(conf) and "ablog" in open(conf).read():
         return confdir
     else:
-        sys.exit("Current directory and its parents doesn't " "contain configuration file (conf.py).")
+        sys.exit("Current directory and its parents doesn't contain configuration file (conf.py).")
 
 
 def read_conf(confdir):
@@ -62,7 +62,7 @@ def read_conf(confdir):
 
 parser = argparse.ArgumentParser(
     description="ABlog for blogging with Sphinx",
-    epilog="See 'ablog <command> -h' for more information on a specific " "command.",
+    epilog="See 'ablog <command> -h' for more information on a specific command.",
 )
 parser.add_argument("-v", "--version", help="print ABlog version and exit", action="version", version=ablog.__version__)
 commands = ablog_commands = parser.add_subparsers(title="commands")
@@ -151,7 +151,7 @@ cmd(
     "-s",
     dest="sourcedir",
     type=str,
-    help="root path for source files, " "default is path to the folder that contains conf.py",
+    help="root path for source files, default is path to the folder that contains conf.py",
 )
 @arg("-b", dest="builder", type=str, help="builder to use, default `ablog_builder` or dirhtml")
 @arg(
@@ -164,7 +164,7 @@ cmd(
 @cmd(
     name="build",
     help="build your blog project",
-    description="Path options can be set in conf.py. " "Default values of paths are relative to conf.py.",
+    description="Path options can be set in conf.py. Default values of paths are relative to conf.py.",
 )
 def ablog_build(
     builder=None,
@@ -224,7 +224,7 @@ def ablog_build(
 @cmd(
     name="clean",
     help="clean your blog build files",
-    description="Path options can be set in conf.py. " "Default values of paths are relative to conf.py.",
+    description="Path options can be set in conf.py. Default values of paths are relative to conf.py.",
 )
 def ablog_clean(website=None, doctrees=None, deep=False, **kwargs):
     confdir = find_confdir()
@@ -258,7 +258,7 @@ def ablog_clean(website=None, doctrees=None, deep=False, **kwargs):
 @cmd(
     name="serve",
     help="serve and view your project",
-    description="Serve options can be set in conf.py. " "Default values of paths are relative to conf.py.",
+    description="Serve options can be set in conf.py. Default values of paths are relative to conf.py.",
 )
 def ablog_serve(website=None, port=8000, view=True, rebuild=False, patterns="*.rst;*.txt", **kwargs):
     confdir = find_confdir()
@@ -373,7 +373,7 @@ def ablog_post(filename, title=None, **kwargs):
 @cmd(
     name="deploy",
     help="deploy your website build files",
-    description="Path options can be set in conf.py. " "Default values of paths are relative to conf.py.",
+    description="Path options can be set in conf.py. Default values of paths are relative to conf.py.",
 )
 def ablog_deploy(
     website,
@@ -439,7 +439,7 @@ def ablog_deploy(
         if not result.stdout:
             print("Nothing changed from last deployment")
             return
-        commit = f"git commit -m \"{message or 'Updates.'}\""
+        commit = f'git commit -m "{message or "Updates."}"'
         if push_force:
             commit += " --amend"
         run(commit, echo=True)

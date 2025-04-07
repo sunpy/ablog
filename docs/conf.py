@@ -60,10 +60,10 @@ blog_feed_archives = True
 blog_feed_fulltext = True
 blog_feed_templates = {
     "atom": {
-        "content": "{{ title }}{% for tag in post.tags %}" " #{{ tag.name|trim()|replace(' ', '') }}" "{% endfor %}",
+        "content": "{{ title }}{% for tag in post.tags %} #{{ tag.name|trim()|replace(' ', '') }}{% endfor %}",
     },
     "social": {
-        "content": "{{ title }}{% for tag in post.tags %}" " #{{ tag.name|trim()|replace(' ', '') }}" "{% endfor %}",
+        "content": "{{ title }}{% for tag in post.tags %} #{{ tag.name|trim()|replace(' ', '') }}{% endfor %}",
     },
 }
 disqus_shortname = "https-ablog-readthedocs-io"
