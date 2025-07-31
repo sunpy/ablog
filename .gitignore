@@ -196,3 +196,6 @@ pydata-sphinx-theme/
 _build
 demo/
 src/ablog/_version.py
+
+# gettext
+*.mo
