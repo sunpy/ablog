@@ -137,4 +137,3 @@ msgstr ""
 #: src/ablog/templates/ablog/collection.html:51
 msgid "Read more ..."
 msgstr ""
-

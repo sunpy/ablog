@@ -169,4 +169,3 @@ msgstr "Okumaya devam et ..."
 
 #~ msgid "Drafts"
 #~ msgstr "Taslaklar"
-

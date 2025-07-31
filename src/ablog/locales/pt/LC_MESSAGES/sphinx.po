@@ -169,4 +169,3 @@ msgstr "Ler mais ..."
 
 #~ msgid "Drafts"
 #~ msgstr "Rascunhos"
-
