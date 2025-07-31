@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ablog 0.2.3\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-11-14 16:46-0800\n"
+"POT-Creation-Date: 2025-07-31 21:29+0800\n"
 "PO-Revision-Date: 2016-04-21 14:26+0200\n"
 "Last-Translator: José Carlos García <jcg@quobit.net>\n"
 "Language: es\n"
@@ -16,116 +16,156 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.11.0\n"
+"Generated-By: Babel 2.17.0\n"
 
-#: ablog/post.py:272
+#: src/ablog/post.py:277
 #, fuzzy
 msgid "Updated on "
-msgstr "Actualizado el"
+msgstr "Actualizado"
 
-#: ablog/post.py:564 ablog/templates/ablog/authors.html:3
-#: ablog/templates/authors.html:4
+#: src/ablog/post.py:575 src/ablog/templates/ablog/authors.html:4
+#: src/ablog/templates/authors.html:5
 msgid "Authors"
 msgstr "Autores"
 
-#: ablog/post.py:564 ablog/post.py:631
+#: src/ablog/post.py:575 src/ablog/post.py:642
 msgid "Posts by"
-msgstr "Entradas por"
+msgstr ""
 
-#: ablog/post.py:565 ablog/templates/ablog/locations.html:4
-#: ablog/templates/locations.html:5
+#: src/ablog/post.py:576 src/ablog/templates/ablog/locations.html:4
+#: src/ablog/templates/locations.html:5
 msgid "Locations"
 msgstr "Lugares"
 
-#: ablog/post.py:565 ablog/post.py:632
+#: src/ablog/post.py:576 src/ablog/post.py:643
 msgid "Posts from"
-msgstr "Entradas desde"
+msgstr ""
 
-#: ablog/post.py:566 ablog/templates/ablog/languages.html:4
-#: ablog/templates/languages.html:5
+#: src/ablog/post.py:577 src/ablog/templates/ablog/languages.html:4
+#: src/ablog/templates/languages.html:5
 msgid "Languages"
 msgstr "Idiomas"
 
-#: ablog/post.py:566 ablog/post.py:567 ablog/post.py:633 ablog/post.py:634
+#: src/ablog/post.py:577 src/ablog/post.py:578 src/ablog/post.py:644
+#: src/ablog/post.py:645
 msgid "Posts in"
-msgstr "Entradas en"
+msgstr ""
 
-#: ablog/post.py:567 ablog/templates/ablog/categories.html:4
-#: ablog/templates/categories.html:5
+#: src/ablog/post.py:578 src/ablog/templates/ablog/categories.html:4
+#: src/ablog/templates/categories.html:5
 msgid "Categories"
 msgstr "Categorías"
 
-#: ablog/post.py:568
+#: src/ablog/post.py:579
 msgid "All posts"
-msgstr "Todas las entradas"
+msgstr ""
 
-#: ablog/post.py:568 ablog/post.py:635
+#: src/ablog/post.py:579 src/ablog/post.py:646
 msgid "Posted in"
-msgstr "Publicado en"
+msgstr ""
 
-#: ablog/post.py:569 ablog/templates/ablog/postcard2.html:117
-#: ablog/templates/ablog/tagcloud.html:3 ablog/templates/postcard2.html:118
-#: ablog/templates/tagcloud.html:4
+#: src/ablog/post.py:580 src/ablog/templates/ablog/postcard2.html:68
+#: src/ablog/templates/ablog/tagcloud.html:8
+#: src/ablog/templates/postcard2.html:70 src/ablog/templates/tagcloud.html:9
 msgid "Tags"
 msgstr "Etiquetas"
 
-#: ablog/post.py:569 ablog/post.py:636
+#: src/ablog/post.py:580 src/ablog/post.py:647
 msgid "Posts tagged"
-msgstr "Entradas etiquetadas"
+msgstr ""
 
-#: ablog/post.py:594
-#, fuzzy
+#: src/ablog/post.py:605
 msgid "All Posts"
-msgstr "Todas las entradas"
+msgstr ""
 
-#: ablog/post.py:595
+#: src/ablog/post.py:606
 msgid "All"
 msgstr ""
 
-#: ablog/post.py:603
+#: src/ablog/post.py:614
 msgid "Drafts"
-msgstr "Borradores"
+msgstr ""
 
-#: ablog/templates/ablog/archives.html:4 ablog/templates/archives.html:5
+#: src/ablog/templates/ablog/archives.html:4
+#: src/ablog/templates/archives.html:5
 msgid "Archives"
 msgstr "Archivos"
 
-#: ablog/templates/ablog/collection.html:56 ablog/templates/collection.html:57
-msgid "Read more ..."
-msgstr "Leer más ..."
-
-#: ablog/templates/ablog/postcard2.html:8 ablog/templates/postcard2.html:9
+#: src/ablog/templates/ablog/postcard2.html:7
+#: src/ablog/templates/postcard2.html:9
 msgid "Update"
 msgstr "Actualizado"
 
-#: ablog/templates/ablog/postcard2.html:20 ablog/templates/postcard2.html:21
+#: src/ablog/templates/ablog/postcard2.html:16
+#: src/ablog/templates/postcard2.html:18
 msgid "Author"
 msgstr "Autor"
 
-#: ablog/templates/ablog/postcard2.html:44 ablog/templates/postcard2.html:45
+#: src/ablog/templates/ablog/postcard2.html:29
+#: src/ablog/templates/postcard2.html:31
 msgid "Location"
 msgstr "Lugar"
 
-#: ablog/templates/ablog/postcard2.html:68 ablog/templates/postcard2.html:69
+#: src/ablog/templates/ablog/postcard2.html:42
+#: src/ablog/templates/postcard2.html:44
 msgid "Language"
 msgstr "Idioma"
 
-#: ablog/templates/ablog/postcard2.html:92 ablog/templates/postcard2.html:93
+#: src/ablog/templates/ablog/postcard2.html:55
+#: src/ablog/templates/postcard2.html:57
 msgid "Category"
 msgstr "Categoría"
 
-#: ablog/templates/ablog/postcard2.html:123 ablog/templates/postcard2.html:124
+#: src/ablog/templates/ablog/postcard2.html:70
+#: src/ablog/templates/postcard2.html:72
 msgid "Tag"
 msgstr "Etiqueta"
 
-#: ablog/templates/ablog/postnavy.html:8 ablog/templates/postnavy.html:9
+#: src/ablog/templates/ablog/postnavy.html:5
+#: src/ablog/templates/postnavy.html:7
 msgid "Previous"
 msgstr "Anterior"
 
-#: ablog/templates/ablog/postnavy.html:22 ablog/templates/postnavy.html:23
+#: src/ablog/templates/ablog/postnavy.html:17
+#: src/ablog/templates/postnavy.html:19
 msgid "Next"
 msgstr "Siguiente"
 
-#: ablog/templates/ablog/recentposts.html:4 ablog/templates/recentposts.html:5
+#: src/ablog/templates/ablog/recentposts.html:4
+#: src/ablog/templates/recentposts.html:5
 msgid "Recent Posts"
 msgstr "Entradas recientes"
+
+#: src/ablog/templates/ablog/collection.html:51
+msgid "Read more ..."
+msgstr "Leer más ..."
+
+#~ msgid "Updated on "
+#~ msgstr "Actualizado el"
+
+#~ msgid "Posts by"
+#~ msgstr "Entradas por"
+
+#~ msgid "Posts from"
+#~ msgstr "Entradas desde"
+
+#~ msgid "Posts in"
+#~ msgstr "Entradas en"
+
+#~ msgid "All posts"
+#~ msgstr "Todas las entradas"
+
+#~ msgid "Posted in"
+#~ msgstr "Publicado en"
+
+#~ msgid "Posts tagged"
+#~ msgstr "Entradas etiquetadas"
+
+#~ msgid "All Posts"
+#~ msgstr "Todas las entradas"
+
+#~ msgid "All"
+#~ msgstr ""
+
+#~ msgid "Drafts"
+#~ msgstr "Borradores"

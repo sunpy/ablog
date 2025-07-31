@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ablog 0.2.3\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-11-14 16:46-0800\n"
+"POT-Creation-Date: 2025-07-31 21:29+0800\n"
 "PO-Revision-Date: 2015-04-14 17:10+0500\n"
 "Last-Translator: uralbash <root@uralbash.ru>\n"
 "Language: ru\n"
@@ -17,116 +17,156 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.11.0\n"
+"Generated-By: Babel 2.17.0\n"
 
-#: ablog/post.py:272
+#: src/ablog/post.py:277
 #, fuzzy
 msgid "Updated on "
-msgstr "Обновлено"
+msgstr "Обновить"
 
-#: ablog/post.py:564 ablog/templates/ablog/authors.html:3
-#: ablog/templates/authors.html:4
+#: src/ablog/post.py:575 src/ablog/templates/ablog/authors.html:4
+#: src/ablog/templates/authors.html:5
 msgid "Authors"
 msgstr "Авторы"
 
-#: ablog/post.py:564 ablog/post.py:631
+#: src/ablog/post.py:575 src/ablog/post.py:642
 msgid "Posts by"
-msgstr "Опубликовано"
+msgstr ""
 
-#: ablog/post.py:565 ablog/templates/ablog/locations.html:4
-#: ablog/templates/locations.html:5
+#: src/ablog/post.py:576 src/ablog/templates/ablog/locations.html:4
+#: src/ablog/templates/locations.html:5
 msgid "Locations"
 msgstr ""
 
-#: ablog/post.py:565 ablog/post.py:632
+#: src/ablog/post.py:576 src/ablog/post.py:643
 msgid "Posts from"
-msgstr "Сообщения из"
+msgstr ""
 
-#: ablog/post.py:566 ablog/templates/ablog/languages.html:4
-#: ablog/templates/languages.html:5
+#: src/ablog/post.py:577 src/ablog/templates/ablog/languages.html:4
+#: src/ablog/templates/languages.html:5
 msgid "Languages"
 msgstr "Языки"
 
-#: ablog/post.py:566 ablog/post.py:567 ablog/post.py:633 ablog/post.py:634
+#: src/ablog/post.py:577 src/ablog/post.py:578 src/ablog/post.py:644
+#: src/ablog/post.py:645
 msgid "Posts in"
-msgstr "Сообщений в"
+msgstr ""
 
-#: ablog/post.py:567 ablog/templates/ablog/categories.html:4
-#: ablog/templates/categories.html:5
+#: src/ablog/post.py:578 src/ablog/templates/ablog/categories.html:4
+#: src/ablog/templates/categories.html:5
 msgid "Categories"
 msgstr "Категории"
 
-#: ablog/post.py:568
+#: src/ablog/post.py:579
 msgid "All posts"
-msgstr "Все записи"
+msgstr ""
 
-#: ablog/post.py:568 ablog/post.py:635
+#: src/ablog/post.py:579 src/ablog/post.py:646
 msgid "Posted in"
-msgstr "Опубликовано в"
+msgstr ""
 
-#: ablog/post.py:569 ablog/templates/ablog/postcard2.html:117
-#: ablog/templates/ablog/tagcloud.html:3 ablog/templates/postcard2.html:118
-#: ablog/templates/tagcloud.html:4
+#: src/ablog/post.py:580 src/ablog/templates/ablog/postcard2.html:68
+#: src/ablog/templates/ablog/tagcloud.html:8
+#: src/ablog/templates/postcard2.html:70 src/ablog/templates/tagcloud.html:9
 msgid "Tags"
 msgstr "Теги"
 
-#: ablog/post.py:569 ablog/post.py:636
+#: src/ablog/post.py:580 src/ablog/post.py:647
 msgid "Posts tagged"
-msgstr "Сообщения с тегом"
+msgstr ""
 
-#: ablog/post.py:594
-#, fuzzy
+#: src/ablog/post.py:605
 msgid "All Posts"
-msgstr "Все записи"
+msgstr ""
 
-#: ablog/post.py:595
+#: src/ablog/post.py:606
 msgid "All"
 msgstr ""
 
-#: ablog/post.py:603
+#: src/ablog/post.py:614
 msgid "Drafts"
-msgstr "Черновик"
+msgstr ""
 
-#: ablog/templates/ablog/archives.html:4 ablog/templates/archives.html:5
+#: src/ablog/templates/ablog/archives.html:4
+#: src/ablog/templates/archives.html:5
 msgid "Archives"
 msgstr "Архив"
 
-#: ablog/templates/ablog/collection.html:56 ablog/templates/collection.html:57
-msgid "Read more ..."
-msgstr "Читать ..."
-
-#: ablog/templates/ablog/postcard2.html:8 ablog/templates/postcard2.html:9
+#: src/ablog/templates/ablog/postcard2.html:7
+#: src/ablog/templates/postcard2.html:9
 msgid "Update"
 msgstr "Обновить"
 
-#: ablog/templates/ablog/postcard2.html:20 ablog/templates/postcard2.html:21
+#: src/ablog/templates/ablog/postcard2.html:16
+#: src/ablog/templates/postcard2.html:18
 msgid "Author"
 msgstr "Автор"
 
-#: ablog/templates/ablog/postcard2.html:44 ablog/templates/postcard2.html:45
+#: src/ablog/templates/ablog/postcard2.html:29
+#: src/ablog/templates/postcard2.html:31
 msgid "Location"
 msgstr "Расположение"
 
-#: ablog/templates/ablog/postcard2.html:68 ablog/templates/postcard2.html:69
+#: src/ablog/templates/ablog/postcard2.html:42
+#: src/ablog/templates/postcard2.html:44
 msgid "Language"
 msgstr "Язык"
 
-#: ablog/templates/ablog/postcard2.html:92 ablog/templates/postcard2.html:93
+#: src/ablog/templates/ablog/postcard2.html:55
+#: src/ablog/templates/postcard2.html:57
 msgid "Category"
 msgstr "Категория"
 
-#: ablog/templates/ablog/postcard2.html:123 ablog/templates/postcard2.html:124
+#: src/ablog/templates/ablog/postcard2.html:70
+#: src/ablog/templates/postcard2.html:72
 msgid "Tag"
 msgstr "Тег"
 
-#: ablog/templates/ablog/postnavy.html:8 ablog/templates/postnavy.html:9
+#: src/ablog/templates/ablog/postnavy.html:5
+#: src/ablog/templates/postnavy.html:7
 msgid "Previous"
 msgstr "Предыдущий"
 
-#: ablog/templates/ablog/postnavy.html:22 ablog/templates/postnavy.html:23
+#: src/ablog/templates/ablog/postnavy.html:17
+#: src/ablog/templates/postnavy.html:19
 msgid "Next"
 msgstr "Следующий"
 
-#: ablog/templates/ablog/recentposts.html:4 ablog/templates/recentposts.html:5
+#: src/ablog/templates/ablog/recentposts.html:4
+#: src/ablog/templates/recentposts.html:5
 msgid "Recent Posts"
 msgstr "Недавние Записи"
+
+#: src/ablog/templates/ablog/collection.html:51
+msgid "Read more ..."
+msgstr "Читать ..."
+
+#~ msgid "Updated on "
+#~ msgstr "Обновлено"
+
+#~ msgid "Posts by"
+#~ msgstr "Опубликовано"
+
+#~ msgid "Posts from"
+#~ msgstr "Сообщения из"
+
+#~ msgid "Posts in"
+#~ msgstr "Сообщений в"
+
+#~ msgid "All posts"
+#~ msgstr "Все записи"
+
+#~ msgid "Posted in"
+#~ msgstr "Опубликовано в"
+
+#~ msgid "Posts tagged"
+#~ msgstr "Сообщения с тегом"
+
+#~ msgid "All Posts"
+#~ msgstr "Все записи"
+
+#~ msgid "All"
+#~ msgstr ""
+
+#~ msgid "Drafts"
+#~ msgstr "Черновик"
