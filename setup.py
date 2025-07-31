@@ -13,7 +13,7 @@ except ImportError:
 ################################################################################
 # Programmatically generate some extras combos.
 ################################################################################
-extras = read_configuration("setup.cfg")["options"]["extras_require"]
+extras = read_configuration("setup.cfg")["options"]["extras_require"].copy()
 
 # Dev is everything
 extras["dev"] = list(chain(*extras.values()))
