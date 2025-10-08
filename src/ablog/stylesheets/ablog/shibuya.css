@@ -48,3 +48,22 @@
 .sy-lside-inner .ablog__archives {
     font-size: .95rem;
 }
+
+/* ABlog navigation */
+
+.ablog__prev-next {
+    display: flex;
+}
+
+.ablog__prev-next > span {
+    display: flex;
+    max-width: 45%;
+}
+
+.ablog__spacer {
+    display: none;
+}
+
+.ablog__next {
+    margin-left: auto;
+}
