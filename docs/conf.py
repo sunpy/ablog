@@ -4,6 +4,10 @@ from pathlib import Path
 from packaging.version import parse as _parse
 from sphinx import addnodes
 
+# Eat dog food.
+import os
+import sys
+sys.path.insert(0, os.path.abspath('../src'))
 import ablog
 
 ablog_builder = "dirhtml"
@@ -69,27 +73,27 @@ blog_feed_templates = {
 disqus_shortname = "https-ablog-readthedocs-io"
 disqus_pages = True
 fontawesome_link_cdn = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-html_theme = "alabaster"
+html_theme = "shibuya"
 html_sidebars = {
-    "**": [
-        "about.html",  # Comes from alabaster
-        "searchfield.html",  # Comes from alabaster
-        "ablog/postcard.html",
-        "ablog/recentposts.html",
-        "ablog/tagcloud.html",
-        "ablog/categories.html",
-        "ablog/archives.html",
-        "ablog/authors.html",
-        "ablog/languages.html",
-        "ablog/locations.html",
-    ]
+    # "**": [
+    #     "about.html",  # Comes from alabaster
+    #     "searchfield.html",  # Comes from alabaster
+    #     "ablog/postcard.html",
+    #     "ablog/recentposts.html",
+    #     "ablog/tagcloud.html",
+    #     "ablog/categories.html",
+    #     "ablog/archives.html",
+    #     "ablog/authors.html",
+    #     "ablog/languages.html",
+    #     "ablog/locations.html",
+    # ]
 }
 html_theme_options = {
-    "travis_button": False,
-    "github_user": "sunpy",
-    "github_repo": "ablog",
-    "description": "ABlog for blogging with Sphinx",
-    "logo": "ablog.png",
+    # "travis_button": False,
+    # "github_user": "sunpy",
+    # "github_repo": "ablog",
+    # "description": "ABlog for blogging with Sphinx",
+    # "logo": "ablog.png",
 }
 intersphinx_mapping = {
     "python": ("https://docs.python.org/", None),
