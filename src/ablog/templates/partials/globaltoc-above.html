@@ -1,0 +1,9 @@
+{% if pagename in ablog %}
+<div class="sy-rside-inner">
+{% include "ablog/postcard.html" %}
+{% include "ablog/recentposts.html" %}
+{% include "ablog/tagcloud.html" %}
+{% include "ablog/categories.html" %}
+{% include "ablog/archives.html" %}
+</div>
+{% endif %}
