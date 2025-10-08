@@ -5,13 +5,13 @@
 
 /* ABlog sidebar title style */
 .sy-lside-inner .ablog-sidebar-item h2,
-.sy-lside-inner .ablog-sidebar-item h3,
-.sy-lside-inner .ablog__postcard2 {
+.sy-lside-inner .ablog-sidebar-item h3 {
     font-weight: 500;
     font-family: var(--sy-f-heading);
     text-transform: uppercase;
     letter-spacing: .4px;
     border-top: 1px solid var(--sy-c-divider);
+    margin-top: 1.0rem;
     padding: .8rem 0 .4rem;
 }
 
@@ -24,7 +24,6 @@
     color: var(--sy-c-light);
 }
 
-
 /* ABlog sidebar list style */
 
 .sy-lside-inner .ablog-sidebar-item > ul a:hover {
@@ -34,7 +33,9 @@
 /* ABlog per-sidebar style */
 
 .sy-lside-inner .ablog__postcard2 {
-    font-size: .80rem;
+    padding: .8rem 0 .4rem;
+    letter-spacing: .4px;
+    font-size: .8rem;
 }
 
 .sy-lside-inner .ablog__recentposts > ul > li {
