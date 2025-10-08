@@ -1,6 +1,6 @@
-{%- extends "page.html" %} {% macro postlink(post) -%} {% if post.external_link
+{%- extends "shibuya/page.html" %} {% macro postlink(post) -%} {% if post.external_link
 -%} {{- post.external_link -}} {% else %} {{- pathto(post.docname) }}{{
-anchor(post) -}} {%- endif %} {%- endmacro %} {% block body %} {% for collection
+anchor(post) -}} {%- endif %} {%- endmacro %} {% block content %} {% for collection
 in catalog %} {% if collection %}
 <div class="section ablog__catalog_header">
   <h2>
@@ -22,4 +22,5 @@ in catalog %} {% if collection %}
   </div>
   {% endfor %}
 </div>
-{% endif %} {% endfor %} {% endblock body %}
+{{ super() }}
+{% endif %} {% endfor %} {% endblock content %}
