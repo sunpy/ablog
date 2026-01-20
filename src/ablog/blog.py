@@ -14,7 +14,8 @@ from collections.abc import Container
 from docutils import nodes
 from docutils.io import StringOutput
 from docutils.utils import new_document
-from sphinx import addnodes
+from sphinx import addnodes, version_info
+from sphinx.writers.html5 import HTML5Translator
 from sphinx.util.osutil import relative_uri
 
 __all__ = ["Blog", "Post", "Collection", "BlogPageMixin", "Catalog"]
@@ -314,9 +315,15 @@ def html_builder_write_doc(self, docname, doctree, img_url=False):
     self.imgpath = img_src_path
     self.dlpath = relative_uri(self.get_target_uri(docname), "_downloads")
     self.current_docname = docname
-    self.docwriter.write(doctree, destination)
-    self.docwriter.assemble_parts()
-    return self.docwriter.parts["fragment"]
+
+    if version_info[0] >= 9:
+        visitor: HTML5Translator = self.create_translator(doctree, self)  # type: ignore[assignment]
+        doctree.walkabout(visitor)
+        return "".join(visitor.fragment)
+    else:
+        self.docwriter.write(doctree, destination)
+        self.docwriter.assemble_parts()
+        return self.docwriter.parts["fragment"]
 
 
 class BlogPageMixin:
