@@ -319,11 +319,12 @@ def html_builder_write_doc(self, docname, doctree, img_url=False):
     if version_info[0] >= 9:
         visitor: HTML5Translator = self.create_translator(doctree, self)  # type: ignore[assignment]
         doctree.walkabout(visitor)
-        return ''.join(visitor.fragment)
+        return "".join(visitor.fragment)
     else:
         self.docwriter.write(doctree, destination)
         self.docwriter.assemble_parts()
         return self.docwriter.parts["fragment"]
+
 
 class BlogPageMixin:
     def __str__(self):
