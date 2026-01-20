@@ -564,6 +564,8 @@ def generate_archive_pages(app):
     if not ablog.builder_support(app):
         return
     blog = Blog(app)
+    if not blog:
+        register_posts(app)
     for post in blog.posts:
         for redirect in post.redirect:
             yield (redirect, {"redirect": post.docname, "post": post}, "ablog/redirect.html")
@@ -623,6 +625,8 @@ def generate_atom_feeds(app):
     if not ablog.builder_support(app):
         return
     blog = Blog(app)
+    if not blog:
+        register_posts(app)
     base_url = blog.blog_baseurl
     if not base_url:
         return

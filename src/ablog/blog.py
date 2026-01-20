@@ -312,6 +312,7 @@ def html_builder_write_doc(self, docname, doctree, img_url=False):
     destination = StringOutput(encoding="utf-8")
     doctree.settings = self.docsettings
     self.secnumbers = {}
+    self.fignumbers = {}
     self.imgpath = img_src_path
     self.dlpath = relative_uri(self.get_target_uri(docname), "_downloads")
     self.current_docname = docname
