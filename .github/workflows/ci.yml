@@ -37,7 +37,7 @@ jobs:
         - pandoc
         - graphviz
       envs: |
-        - linux: py313-sphinx8
+        - linux: py313-sphinx7
     secrets:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
@@ -57,24 +57,11 @@ jobs:
             - pandoc
             - graphviz
       envs: |
-        - macos: py312-sphinx8
-        - windows: py311-sphinx8
-        - linux: py310-sphinx8
-        - linux: py312-pydata-sphinx-theme
-        - linux: py313-devdeps
-
-  extra_tests:
-    needs: [test]
-    uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@main
-    with:
-      submodules: false
-      libraries: |
-        apt:
-            - pandoc
-            - graphviz
-      envs: |
-        - linux: py312-pydata-sphinx-theme
-        - linux: py313-devdeps
+        - macos: py311-sphinx8
+        - windows: py312-sphinx8
+        - linux: py313-sphinx9
+        - linux: py313-pydata-sphinx-theme
+        - linux: py314-devdeps
 
   docs:
     needs: [core]
@@ -93,7 +80,7 @@ jobs:
   sdist_verify:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
         with:
           python-version: "3.13"
@@ -106,7 +93,7 @@ jobs:
     needs: [test]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
           lfs: true
