@@ -138,6 +138,8 @@ jobs:
     needs: [build]
     permissions:
       id-token: write
+    environment:
+      name: pypi
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v5
