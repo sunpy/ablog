@@ -1,0 +1,38 @@
+<div class="section ablog__blog_comments">
+  {% if pagename in ablog %} {% include "ablog/postnavy.html" %} {% endif %} {%
+  if ablog.disqus_shortname and ablog.blog_baseurl and (not
+  ablog[pagename].nocomments) and ((pagename in ablog and
+  (ablog[pagename].published or ablog.disqus_drafts)) or (not pagename in ablog
+  and ablog.disqus_pages)) %}
+  <div class="section ablog__comments">
+    <h2>Comments</h2>
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+      var disqus_shortname = "{{ ablog.disqus_shortname }}";
+      var disqus_identifier = "{{ablog.page_id(pagename)}}";
+      var disqus_title = "{{title|e}}";
+      var disqus_url = "{{ablog.page_url(pagename)}}";
+
+      (function () {
+        var dsq = document.createElement("script");
+        dsq.type = "text/javascript";
+        dsq.async = true;
+        dsq.src = "//" + disqus_shortname + ".disqus.com/embed.js";
+        (
+          document.getElementsByTagName("head")[0] ||
+          document.getElementsByTagName("body")[0]
+        ).appendChild(dsq);
+      })();
+    </script>
+    <noscript>
+      Please enable JavaScript to view the
+      <a href="https://disqus.com/?ref_noscript">
+        comments powered by Disqus.</a
+      ></noscript
+    >
+    <a href="https://disqus.com" class="dsq-brlink">
+      comments powered by <span class="logo-disqus">Disqus</span>
+    </a>
+  </div>
+  {% endif %}
+</div>

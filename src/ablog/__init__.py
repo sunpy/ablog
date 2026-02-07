@@ -6,6 +6,7 @@ import os
 from glob import glob
 from pathlib import PurePath
 
+from jinja2 import TemplateNotFound
 from sphinx.builders.html import StandaloneHTMLBuilder
 from sphinx.errors import ThemeError
 from sphinx.jinja2glue import BuiltinTemplateLoader, SphinxFileSystemLoader
@@ -67,6 +68,26 @@ def builder_support(builder):
     return builder.format == "html" and builder.name not in not_supported
 
 
+def search_theme_page_template(app):
+    environment = app.builder.templates.environment
+
+    # List of theme names that are active via inheritance
+    # (used for template resolution, not all installed themes)
+    active_themes = [p.name for p in app.builder.theme.get_theme_dirs()]
+
+    for theme in active_themes:
+        try:
+            template = f"{theme}/page.html"
+            app.builder.templates.get_source(environment, template)
+            return template
+        except TemplateNotFound:
+            pass
+
+    # Normally not reached.
+    # Returned as a defensive fallback, just in case.
+    return "layout.html"
+
+
 def html_page_context(app, pagename, templatename, context, doctree):
     if builder_support(app):
         context["ablog"] = blog = Blog(app)
@@ -116,6 +137,10 @@ def builder_inited(app):
             "support it out of the box. Please remove `get_html_templates_path` "
             "from `templates_path` in your `conf.py` to resolve this."
         )
+
+    if not app.config.theme_page_template:
+        app.config.theme_page_template = search_theme_page_template(app)
+
     theme = app.builder.theme
     loaders = app.builder.templates.loaders
     templatepathlen = app.builder.templates.templatepathlen
