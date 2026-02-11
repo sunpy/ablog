@@ -1,7 +1,4 @@
-{%- extends "page.html" %} {% macro postlink(post) -%} {% if post.external_link
--%} {{- post.external_link -}} {% else %} {{- pathto(post.docname) }}{{
-anchor(post) -}} {%- endif %} {%- endmacro %} {% block body %} {% for collection
-in catalog %} {% if collection %}
+{% for collection in catalog %} {% if collection %}
 <div class="section ablog__catalog_header">
   <h2>
     <span
@@ -22,4 +19,4 @@ in catalog %} {% if collection %}
   </div>
   {% endfor %}
 </div>
-{% endif %} {% endfor %} {% endblock body %}
+{% endif %} {% endfor %}
