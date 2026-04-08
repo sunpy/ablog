@@ -568,7 +568,8 @@ def generate_archive_pages(app):
         register_posts(app)
     for post in blog.posts:
         for redirect in post.redirect:
-            yield (redirect, {"redirect": post.docname, "post": post}, "ablog/redirect.html")
+            yield (redirect, {"redirect": post.docname, "post": post}, "ablog/blog.html")
+
     found_docs = app.env.found_docs
     atom_feed = bool(blog.blog_baseurl)
     feed_archives = blog.blog_feed_archives
@@ -585,7 +586,7 @@ def generate_archive_pages(app):
             continue
         context = {"parents": [], "title": title, "header": header, "catalog": catalog, "summary": True}
         if catalog.docname not in found_docs:
-            yield (catalog.docname, context, "ablog/catalog.html")
+            yield (catalog.docname, context, "ablog/blog.html")
         for collection in catalog:
             if not collection:
                 continue
@@ -600,7 +601,7 @@ def generate_archive_pages(app):
             }
             context["feed_title"] = context["title"]
             if collection.docname not in found_docs:
-                yield (collection.docname, context, "ablog/collection.html")
+                yield (collection.docname, context, "ablog/blog.html")
     if 1:
         context = {
             "parents": [],
@@ -612,9 +613,9 @@ def generate_archive_pages(app):
             "feed_path": blog.blog_path,
         }
         docname = blog.posts.docname
-        yield (docname, context, "ablog/collection.html")
+        yield (docname, context, "ablog/blog.html")
     context = {"parents": [], "title": _("Drafts"), "collection": blog.drafts, "summary": True}
-    yield (blog.drafts.docname, context, "ablog/collection.html")
+    yield (blog.drafts.docname, context, "ablog/blog.html")
 
 
 def generate_atom_feeds(app):

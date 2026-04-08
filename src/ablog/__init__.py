@@ -67,6 +67,51 @@ def builder_support(builder):
     return builder.format == "html" and builder.name not in not_supported
 
 
+
+def update_blogpage_context(app, context):
+    """Inject ABlog page content into `context["body"]` when needed.
+
+    Why pre-render `body`?
+    -----------------------
+    Sphinx themes differ in where they place page content: some render `{{ body }}`
+    in the `{% block content %}`, others render it in the `{% block body %}`.
+    ABlog's catalog/collection/redirect pages need to work across themes without
+    relying on a specific block structure, so we render the final HTML fragment
+    ourselves and put it into `context["body"]`.
+    """
+    if "redirect" in context:
+        context["metatags"] = context.get("metatags", "")
+        context["metatags"] += app.builder.templates.render_string(
+            """
+    <meta
+      http-equiv="refresh"
+      content="{{ ablog.post_redirect_refresh }}; url={{ pathto(redirect) }}"
+    />""",
+            context,
+        )
+        context["body"] = app.builder.templates.render(
+            "ablog/content/redirect.html",
+            context,
+        )
+        return
+
+    if "collection" in context or "catalog" in context:
+        def postlink(post):
+            if post.external_link:
+                return post.external_link
+            else:
+                return context["pathto"](post.docname) + context["anchor"](post)
+
+        context["postlink"] = postlink
+
+        template = (
+            "ablog/content/collection.html"
+            if "collection" in context
+            else "ablog/content/catalog.html"
+        )
+        context["body"] = app.builder.templates.render(template, context)
+
+
 def html_page_context(app, pagename, templatename, context, doctree):
     if builder_support(app):
         context["ablog"] = blog = Blog(app)
@@ -77,6 +122,17 @@ def html_page_context(app, pagename, templatename, context, doctree):
         if blog.blog_baseurl and "feed_path" not in context:
             context["feed_path"] = blog.blog_path
             context["feed_title"] = blog.blog_title
+
+        if templatename == "ablog/blog.html":
+            update_blogpage_context(app, context)
+            return
+
+        # Replace the default page template (typically `page.html`) with ABlog's
+        # wrapper template for post pages and blog-related pages.
+        # See: https://www.sphinx-doc.org/en/master/extdev/event_callbacks.html#event-html-page-context
+        if pagename in blog or pagename.startswith(blog.config["blog_path"]):
+            if not templatename.startswith("ablog/"):
+                return "ablog/blog.html"
 
 
 def config_inited(app, config):
