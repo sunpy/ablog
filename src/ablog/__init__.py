@@ -24,6 +24,7 @@ from .post import (
     process_postlist,
     process_posts,
     purge_posts,
+    merge_posts,
 )
 from .version import version as __version__
 
@@ -150,6 +151,7 @@ def setup(app):
     app.connect("builder-inited", builder_inited)
     app.connect("doctree-read", process_posts)
     app.connect("env-purge-doc", purge_posts)
+    app.connect("env-merge-info", merge_posts)
     app.connect("doctree-resolved", process_postlist)
     app.connect("missing-reference", missing_reference)
     app.connect("html-collect-pages", generate_archive_pages)
@@ -167,6 +169,6 @@ def setup(app):
     app.add_message_catalog(MESSAGE_CATALOG_NAME, locale_dir)
     return {
         "version": __version__,
-        "parallel_read_safe": False,
+        "parallel_read_safe": True,
         "parallel_write_safe": True,
     }
