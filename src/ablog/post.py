@@ -25,6 +25,7 @@ __all__ = [
     "PostListDirective",
     "CheckFrontMatter",
     "purge_posts",
+    "merge_posts",
     "process_posts",
     "process_postlist",
     "generate_archive_pages",
@@ -218,6 +219,17 @@ def purge_posts(app, env, docname):
     filename = os.path.split(docname)[1]
     env.domains["std"].data["labels"].pop(filename, None)
     env.domains["std"].data["anonlabels"].pop(filename, None)
+
+
+def merge_posts(app, env, docnames, other):
+    """
+    Merge post data from a worker environment into the main environment
+    during parallel reading.
+    """
+    if hasattr(other, "ablog_posts"):
+        if not hasattr(env, "ablog_posts"):
+            env.ablog_posts = {}
+        env.ablog_posts.update(other.ablog_posts)
 
 
 def _update_post_node(node, options, arguments):
