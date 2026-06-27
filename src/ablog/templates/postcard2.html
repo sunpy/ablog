@@ -71,7 +71,7 @@ ablog. Please use ablog/postcard2.html instead.") }}
       <i class="fa-fw fa fa-tag"></i>
       {% else %} {{ gettext('Tag') }}: {% endif %}{% endif %}
     </span>
-    {% for coll in post.tags %} {% if coll|length %}
+    {% for coll in post.tags|sort %} {% if coll|length %}
     <a href="{{ pathto(coll.docname) }}">{{ coll }}</a>
     {% if loop.index < post.tags|length %} {% endif %} {% else %} {{ coll }} {%
     if loop.index < post.tags|length %} {% endif %} {% endif %} {% endfor %}
