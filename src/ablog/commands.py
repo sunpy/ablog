@@ -430,7 +430,9 @@ def ablog_deploy(
                     git_add.append(fnnew)
         print(f"Moved {len(git_add)} files to {github_pages}.github.io")
         os.chdir(repodir)
-        run("git add -f " + " ".join(['"{}"'.format(os.path.relpath(p)) for p in git_add]), echo=True)
+        for i in range(0, len(git_add), 1000):
+            chunk = git_add[i:i+1000]
+            run("git add -f " + " ".join(['"{}"'.format(os.path.relpath(p)) for p in chunk]), echo=True)
         if not os.path.isfile(".nojekyll"):
             open(".nojekyll", "w")
             run("git add -f .nojekyll")
