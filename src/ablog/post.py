@@ -212,7 +212,6 @@ def purge_posts(app, env, docname):
     Remove post and reference to it from the standard domain when its document
     is removed or changed.
     """
-
     if hasattr(env, "ablog_posts"):
         env.ablog_posts.pop(docname, None)
     filename = os.path.split(docname)[1]

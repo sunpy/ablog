@@ -299,8 +299,8 @@ def html_builder_write_doc(self, docname, doctree, img_url=False):
     Part of :meth:`sphinx.builders.html.StandaloneHTMLBuilder.write_doc` method
     used to convert *doctree* to HTML.
 
-    Extra argument `img_url` enables conversion of `<img>` source paths to
-    fully qualified URLs based on `blog_baseurl`.
+    Extra argument `img_url` enables conversion of `<img>` source paths
+    to fully qualified URLs based on `blog_baseurl`.
     """
     # Source of images
     img_folder = "_images"
@@ -408,7 +408,6 @@ class Post(BlogPageMixin):
         `img_url` enables conversion of `<img>` source paths to fully
         qualified URLs based on `blog_baseurl`.
         """
-
         doctree = new_document("")
         if fulltext:
             deepcopy = self.doctree.deepcopy()
