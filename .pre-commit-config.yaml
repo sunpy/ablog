@@ -3,7 +3,7 @@ ci:
   autoupdate_schedule: "quarterly"
 repos:
   - repo: https://github.com/PyCQA/docformatter
-    rev: v1.7.7
+    rev: v1.7.8
     hooks:
       - id: docformatter
         args: ["--in-place", "--pre-summary-newline", "--make-summary-multi"]
@@ -19,7 +19,7 @@ repos:
           ]
         exclude: ".*(.fits|.fts|.fit|.txt|tca.*|extern.*|.rst|.md|docs/conf.py)$"
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: "v0.15.9"
+    rev: "v0.15.20"
     hooks:
       - id: ruff
         args: ["--fix", "--unsafe-fixes"]
@@ -44,11 +44,11 @@ repos:
         additional_dependencies:
           - tomli
   - repo: https://github.com/rbubley/mirrors-prettier
-    rev: v3.8.1
+    rev: v3.9.4
     hooks:
       - id: prettier
   - repo: https://github.com/Riverside-Healthcare/djLint
-    rev: v1.36.4
+    rev: v1.40.3
     hooks:
       - id: djlint-jinja
         types_or: ["html"]
