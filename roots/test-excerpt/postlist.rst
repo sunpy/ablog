@@ -1,0 +1,5 @@
+postlist
+========
+
+.. postlist::
+   :excerpts:

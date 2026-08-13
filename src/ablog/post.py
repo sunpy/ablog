@@ -198,7 +198,7 @@ class CheckFrontMatter(SphinxTransform):
         node.document = self.document
         node = _update_post_node(node, metadata, [])
         node["date"] = metadata.get("date")
-        if not metadata.get("excerpt"):
+        if metadata.get("excerpt") is None:
             blog = Blog(self.app)
             node["excerpt"] = blog.post_auto_excerpt
         sections = list(self.document.findall(nodes.section))
