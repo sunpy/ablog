@@ -99,7 +99,7 @@ jobs:
         with:
           fetch-depth: 0
           lfs: true
-      - uses: conda-incubator/setup-miniconda@v3
+      - uses: conda-incubator/setup-miniconda@v4
         with:
           activate-environment: ablog-test
           environment-file: ablog-conda-test-env.yml
