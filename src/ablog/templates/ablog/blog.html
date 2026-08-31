@@ -1,0 +1,21 @@
+{%- extends "page.html" %}
+{%- block extrahead %}
+  {{ super() }}
+  {%- if feed_path %}
+    <link
+      rel="alternate"
+      type="application/atom+xml"
+      href="{{ pathto(feed_path, 1) }}/atom.xml"
+      title="{{ feed_title }}"
+    />
+  {%- endif %}
+  {%- if ablog.fontawesome_link_cdn %}
+    <link rel="stylesheet" href="{{ ablog.fontawesome_link_cdn }}"/>
+  {%- elif ablog.fontawesome_css_file %}
+    <link
+      rel="stylesheet"
+      href="{{ pathto('_static/' + ablog.fontawesome_css_file, 1) }}"
+      type="text/css"
+    />
+  {%- endif %}
+{%- endblock %}
