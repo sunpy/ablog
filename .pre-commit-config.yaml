@@ -8,7 +8,7 @@ repos:
       - id: docformatter
         args: ["--in-place", "--pre-summary-newline", "--make-summary-multi"]
   - repo: https://github.com/PyCQA/autoflake
-    rev: v2.3.3
+    rev: v2.4.0
     hooks:
       - id: autoflake
         args:
@@ -19,7 +19,7 @@ repos:
           ]
         exclude: ".*(.fits|.fts|.fit|.txt|tca.*|extern.*|.rst|.md|docs/conf.py)$"
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: "v0.15.20"
+    rev: "v0.16.10"
     hooks:
       - id: ruff
         args: ["--fix", "--unsafe-fixes"]
@@ -38,17 +38,17 @@ repos:
       - id: check-yaml
       - id: debug-statements
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.4.2
+    rev: v2.4.3
     hooks:
       - id: codespell
         additional_dependencies:
           - tomli
   - repo: https://github.com/rbubley/mirrors-prettier
-    rev: v3.9.4
+    rev: v3.9.9
     hooks:
       - id: prettier
   - repo: https://github.com/Riverside-Healthcare/djLint
-    rev: v1.40.3
+    rev: v1.46.4
     hooks:
       - id: djlint-jinja
         types_or: ["html"]
