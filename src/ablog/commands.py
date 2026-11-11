@@ -314,7 +314,7 @@ def ablog_post(filename, title=None, **kwargs):
         title = filename[:-4].replace("-", " ").title()
     pars = {"date": today, "title": title, "equal": "=" * len(title)}
     if path.isfile(filename):
-        pass
+        sys.exit(f"Blog post already exists: {filename}")
     else:
         # read the file, and add post directive
         # and save it
