@@ -113,7 +113,7 @@ jobs:
         run: |
           conda list
           cd /tmp
-          pytest -vvv -r a --pyargs ablog
+          pytest -c "$GITHUB_WORKSPACE/setup.cfg" -vvv -r a --pyargs ablog
           make tests
 
   build:
