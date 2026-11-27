@@ -112,7 +112,6 @@ jobs:
         shell: bash -el {0}
         run: |
           conda list
-          cd /tmp
           pytest -vvv -r a --pyargs ablog
           make tests
 
