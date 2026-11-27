@@ -112,8 +112,7 @@ jobs:
         shell: bash -el {0}
         run: |
           conda list
-          cd /tmp
-          pytest -c "$GITHUB_WORKSPACE/setup.cfg" --confcutdir="$CONDA_PREFIX" -vvv -r a --pyargs ablog
+          pytest -vvv -r a --pyargs ablog
           make tests
 
   build:
